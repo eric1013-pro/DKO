@@ -1,0 +1,84 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    // 운영진 2명 (LKH · THRE3RIC) — 앱이 만드는 로그인용 이메일
+    function isAdmin() {
+      return signedIn() && request.auth.token.email in ['unrvwq@dko-crew.app', 'uoruhezjtojuwg@dko-crew.app'];
+    }
+    function mine() { return signedIn() && request.resource.data.uid == request.auth.uid; }
+    function owner() { return signedIn() && resource.data.uid == request.auth.uid; }
+
+    match /artifacts/{appId}/public/data {
+
+      function meDoc() { return get(/databases/$(database)/documents/artifacts/$(appId)/public/data/members/$(request.auth.uid)).data; }
+      function verified() { return meDoc().get('verified', false) == true; }
+      // 명성 5레벨(180점) 이상은 블로그 소식 글쓰기 가능
+      function repOk() { return meDoc().get('rep', {}).get('pts', 0) >= 180; }
+
+      // 닉네임 → 계정 연결 (로그인 전 존재 여부 확인이 필요해서 단건 조회만 공개)
+      match /accounts/{key} {
+        allow get: if true;
+        allow list: if false;
+        allow create: if mine();
+        allow update, delete: if isAdmin();
+      }
+
+      // 회원 — 본인은 자기 문서만, 권한·인증·제재 필드는 운영진만
+      match /members/{uid} {
+        allow read: if signedIn();
+        allow create: if signedIn() && request.auth.uid == uid && (request.resource.data.auth == 'member' || isAdmin());
+        allow update: if isAdmin() || (signedIn() && request.auth.uid == uid &&
+          !request.resource.data.diff(resource.data).affectedKeys().hasAny(['auth', 'verified', 'banned', 'crewRank', 'sanctions', 'uid']));
+        allow delete: if isAdmin();
+      }
+
+      // 채팅 · 광장 · 파티 · 리플레이 · 방 — 반응/투표/참여 때문에 수정은 로그인한 크루원 모두
+      match /messages/{id} { allow read: if signedIn(); allow create: if mine(); allow update: if signedIn(); allow delete: if owner() || isAdmin(); }
+      match /posts/{id}    { allow read: if signedIn(); allow create: if mine(); allow update: if signedIn(); allow delete: if owner() || isAdmin(); }
+      match /parties/{id}  { allow read: if signedIn(); allow create: if mine(); allow update: if signedIn(); allow delete: if owner() || isAdmin(); }
+      match /replays/{id}  { allow read: if signedIn(); allow create: if mine(); allow update: if signedIn(); allow delete: if owner() || isAdmin(); }
+      match /rooms/{id}    { allow read, create, update: if signedIn(); allow delete: if signedIn(); }
+      match /events/{id}   { allow read, create, update: if signedIn(); allow delete: if isAdmin(); }
+      match /matches/{id}  { allow read, create, update: if signedIn(); allow delete: if isAdmin(); }
+      match /endorse/{id}  { allow read, update: if signedIn(); allow create: if signedIn() && request.resource.data.from == request.auth.uid; allow delete: if isAdmin(); }
+      // 1대1 진검승부 · OWCS 대회 (예측·확인 때문에 수정은 로그인한 크루원 모두)
+      match /duels/{id}  { allow read, update: if signedIn(); allow create: if signedIn() && (request.resource.data.a == request.auth.uid); allow delete: if isAdmin(); }
+      match /series/{id} { allow read, update: if signedIn(); allow create: if signedIn() && request.resource.data.by == request.auth.uid; allow delete: if isAdmin() || owner(); }
+      match /requests/{id} { allow read, update: if signedIn(); allow create: if mine(); allow delete: if isAdmin(); }
+
+      // 알림 — 나에게 온 것과 전체 공지만 읽기
+      match /notifs/{id} {
+        allow read: if signedIn() && (resource.data.to == request.auth.uid || resource.data.to == '*');
+        allow create: if signedIn();
+        allow update, delete: if isAdmin();
+      }
+
+      // 구매 요청 — 본인 것만 보고, 승인은 운영진
+      match /orders/{id} {
+        allow read: if isAdmin() || owner();
+        allow create: if mine() && request.resource.data.status == 'pending';
+        allow update: if isAdmin();
+        allow delete: if isAdmin() || (owner() && resource.data.status == 'pending');
+      }
+
+      // 블로그 — 운영진 또는 인증 배지
+      match /blog/{id} { allow read: if signedIn(); allow write: if isAdmin() || verified() || (repOk() && request.resource.data.get('cat', 'DKO') != 'UPDATE'); }
+
+      // 타운 맵 등 설정 (맵 변경권 사용자도 바꿀 수 있음)
+      match /config/{id} { allow read: if signedIn(); allow write: if isAdmin() || (signedIn() && id == 'town'); }
+
+      // 이벤트 코드 — 목록은 운영진, 코드 입력 시 단건 조회 · 사용 처리
+      match /codes/{id} {
+        allow get: if signedIn();
+        allow list, create, delete: if isAdmin();
+        allow update: if isAdmin() || signedIn();
+      }
+
+      // 신고 · 삭제된 채팅 — 접수는 누구나, 열람은 운영진
+      match /reports/{id} { allow create: if signedIn(); allow read, update, delete: if isAdmin(); }
+      match /trash/{id}   { allow create: if signedIn(); allow read, update, delete: if isAdmin(); }
+    }
+  }
+}

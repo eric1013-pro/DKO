@@ -1,0 +1,12 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": ["firebase.json", ".firebaserc", "firebase/**", "README.md", "**/.*"],
+    "headers": [
+      { "source": "/index.html", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] },
+      { "source": "/manifest.webmanifest", "headers": [{ "key": "Content-Type", "value": "application/manifest+json" }] }
+    ]
+  },
+  "firestore": { "rules": "firebase/firestore.rules" },
+  "database": { "rules": "firebase/database.rules.json" }
+}

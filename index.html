@@ -4025,7 +4025,7 @@ html.pc .tabs.at20{display:none}
 .ah20-bub b{font-size:11px;font-weight:900;line-height:1.1;white-space:nowrap;text-shadow:0 1.5px 0 #0A0418,1px 0 0 #0A0418,-1px 0 0 #0A0418}
 .ah20-bub small{font-size:9.5px;font-weight:800;line-height:1;opacity:.92;white-space:nowrap;color:#FFE08A;text-shadow:0 1px 0 #0A0418,1px 0 0 #0A0418,-1px 0 0 #0A0418}
 .ah20-center{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;align-self:stretch}
-.vs20{display:block;touch-action:pan-y;cursor:grab}
+.vs20{display:block;flex:none;touch-action:pan-y;cursor:grab}
 .ah20-dress{position:absolute;bottom:2px;display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:99px;font-size:11px;font-weight:800;color:#fff;background:rgba(10,4,24,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 .ah20-check{position:absolute;left:50%;top:6px;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:6px;padding:7px 12px 7px 8px;border-radius:99px;font-size:12.5px;color:#5A2A00;background:linear-gradient(180deg,#FFE27A,#F2A71B);box-shadow:inset 0 -3px 0 rgba(130,60,0,.3),0 0 0 2px #6A3200,0 8px 18px -6px rgba(0,0,0,.6);animation:ah20pulse 1.8s ease-in-out infinite;white-space:nowrap}
 @keyframes ah20pulse{50%{transform:translateX(-50%) scale(1.05)}}
@@ -4335,6 +4335,399 @@ html.light .ah20{box-shadow:0 22px 44px -24px rgba(40,10,80,.6)}
 .hp20-odds>div{display:flex;justify-content:space-between;padding:8px 10px;border-radius:10px;background:var(--panel-2);font-size:13px}
 .hp20-odds span{color:var(--muted);font-weight:700}.hp20-odds b{font-weight:900}
 @media (prefers-reduced-motion:reduce){.ah20-bg .rays,.pp20-rays,.ah20-shine,.at20-t.on .ta20{animation:none}}
+/* ═════════ v20.1 · 홈 화면 앱 안정화 + PC 레이아웃 ═════════ */
+/* 시작 화면: 홈 화면 앱(iOS)에서 처음 그릴 때 높이가 바뀌며 로고가 튀는 문제 */
+html{background:var(--bg)}
+.splash,#thre3ric-intro-splash{top:0!important;left:0!important;right:0!important;bottom:auto!important;width:100%!important;height:100vh!important;height:100lvh!important;contain:layout paint;transform:translateZ(0);-webkit-transform:translateZ(0)}
+#thre3ric-intro-splash{will-change:transform,opacity;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.splash .brv{transform:translateZ(0)}
+@supports (-webkit-touch-callout:none){ .splash,#thre3ric-intro-splash{height:-webkit-fill-available!important} }
+/* 홈 화면 앱: 길게 누르기 메뉴 · 글자 선택 · 탭 하이라이트 · 당겨서 새로고침 막기 */
+@media (display-mode:standalone){
+  html,body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent}
+  button,.tap,.at20-t,.ah20-bub{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+  .sheet-layer{overscroll-behavior:contain}
+  .sh14-body{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+}
+
+/* 구글 로그인 안내 */
+.gw21{display:flex;flex-direction:column;gap:4px;margin-top:10px;padding:12px 14px;border-radius:14px;text-align:left;background:color-mix(in srgb,#FFB13D 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#FFB13D 40%,transparent)}
+.gw21 b{font-size:13.5px;font-weight:900;color:#FFB13D}
+.gw21 small{font-size:12px;line-height:1.5;color:var(--muted,#aaa)}
+.gw21-b{display:flex;align-items:center;justify-content:center;height:40px;margin-top:6px;border-radius:12px;font-size:13.5px;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF8A3D,#FF5A1A);text-decoration:none}
+
+/* 푸시 진단 */
+.pd21{display:flex;flex-direction:column;gap:4px;padding:6px 14px 10px}
+.pd21-r{display:flex;justify-content:space-between;gap:10px;font-size:12.5px}
+.pd21-r span{color:var(--muted)}
+.pd21-r b{font-weight:800;text-align:right;word-break:break-all}
+.pd21-r.ok b{color:#3DBE6E}.pd21-r.warn b{color:#F2A71B}.pd21-r.bad b{color:var(--red,#E5383B)}
+.pd21-test{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 14px 10px;height:40px;border-radius:12px;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF8A3D,#FF5A1A)}
+.pd21-adm{display:flex;flex-direction:column;gap:4px;margin:0 14px 12px;padding:10px 12px;border-radius:12px;background:var(--panel-2)}
+.pd21-adm b{font-size:13px;font-weight:900}.pd21-adm small{font-size:11.5px;color:var(--muted);line-height:1.45}
+.pd21-adm .link{align-self:flex-start}
+.pd21-adm .inp{flex:1;min-width:0;font-size:12px}
+.pd21-save{flex:none;height:40px;padding:0 14px;border-radius:12px;font-weight:900;color:#fff;background:#FF5A1A}
+
+/* ═════════ PC ═════════ */
+html.pc .app{padding:0 max(28px,calc((100vw - 232px - 1180px) / 2))}
+html.pc .main{padding-top:18px}
+/* 플레이 홈: 왼쪽 아레나(고정) + 오른쪽 카드 */
+html.pc .main.home8{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);column-gap:22px;align-items:start}
+html.pc .main.home8>*{grid-column:2;min-width:0}
+html.pc .main.home8>svg{position:absolute}
+html.pc .main.home8>.ah20{grid-column:1;grid-row:1 / span 40;position:sticky;top:76px;margin:0}
+html.pc .ah20{padding:16px 18px 18px;border-radius:32px}
+html.pc .ah20-stage{min-height:400px;grid-template-columns:76px 1fr 76px}
+html.pc .ah20-bi{width:60px;height:60px}
+html.pc .ah20-bub b{font-size:12px}
+html.pc .ah20-battle{grid-template-columns:84px 1fr 84px}
+html.pc .ah20-play,html.pc .ah20-deck,html.pc .ah20-mode{height:88px}
+html.pc .ah20-play b{font-size:36px}
+html.pc .ah20-pass{max-width:260px}
+html.pc .ah20-bub:hover .ah20-bi,html.pc .ah20-mode:hover,html.pc .ah20-deck:hover{transform:translateY(-2px)}
+html.pc .ah20-play:hover{filter:brightness(1.05)}
+/* 게임 모드: 2열 */
+html.pc .gm20{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+html.pc .gm20-sec{grid-column:1/-1}
+html.pc .gm20-c:hover{transform:translateY(-2px)}
+/* 패스 화면 */
+html.pc .pp20{left:232px}
+html.pc .pp20-sc{width:100%;max-width:880px;margin:0 auto}
+html.pc .pp20-top{max-width:880px;width:100%;margin:0 auto;border-bottom:0}
+/* 상점 */
+html.pc .sc-grid,html.pc .ds13-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+/* 커뮤니티 */
+html.pc .cm20-hero{padding:34px 30px 24px}
+html.pc .cm20-ht h1{font-size:34px}
+html.pc .cm20-search{max-width:520px}
+html.pc .cm20-rail{margin:16px 0 6px;padding:2px 0 6px;flex-wrap:wrap;overflow:visible}
+html.pc .cm20-seg{max-width:360px}
+html.pc .cm20-posts{columns:2;column-gap:14px}
+html.pc .cm20-posts>.cp20{break-inside:avoid;display:inline-block;width:100%}
+html.pc .cm20-dir{grid-template-columns:repeat(4,1fr);gap:14px}
+html.pc .cm20-chc:hover,html.pc .cp20:hover{box-shadow:inset 0 0 0 1px var(--line-2),0 14px 30px -18px rgba(0,0,0,.5);transform:translateY(-2px)}
+html.pc .chp20-ban{height:170px;margin:-18px 0 0;border-radius:0 0 26px 26px}
+html.pc .chp20-head{padding:0 18px}
+html.pc .chp20-ic{width:84px;height:84px;border-radius:26px}
+html.pc .chp20-t b{font-size:26px}
+html.pc .blog-embed{max-width:860px}
+/* 대전 · e스포츠 */
+html.pc .es20-hero{padding:30px 28px}
+html.pc .es20-hero h2{font-size:36px}
+html.pc .es20-grid{grid-template-columns:repeat(5,1fr);gap:12px}
+html.pc .es20-soon{grid-template-columns:repeat(4,1fr)}
+html.pc .es20-rank{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* 퀘스트 러쉬 · 파티 */
+html.pc .rs20-hero{padding:26px}
+/* 월드 · 계단: PC에서는 가운데 정렬 조작 */
+html.pc .wb20-dock{gap:28px}
+html.pc .wbs{max-width:720px}
+html.pc .wbs-grid{grid-template-columns:repeat(5,1fr)}
+html.pc .wb20-rib{bottom:28px}
+html.pc .sg20-pad{max-width:560px;left:50%;transform:translateX(-50%);right:auto;width:100%}
+/* 넓은 PC: 시트도 조금 더 넓게 */
+@media (min-width:1500px){ html.pc .sheet.sh14{width:min(680px,calc(100vw - 48px))} }
+/* ═════════ v20.2 · 메인 플레이 화면 (슈퍼셀식 입체 UI) + 깔끔한 아이콘 + e스포츠 예측 ═════════ */
+:root{--spring:cubic-bezier(.34,1.56,.64,1);--ink:#0A0E1C;--gfont:"NEXON Lv2 Gothic","IBM Plex Sans KR",sans-serif}
+
+/* ── 탭 바 아이콘: 단색 실루엣 ── */
+.ta20 .ta-f{fill:#A3AEC8;stroke:var(--ink);stroke-width:2.6;stroke-linejoin:round}
+.ta20 .ta-s{fill:none;stroke:var(--ink);stroke-width:6.2;stroke-linecap:round}
+.ta20 .ta-a{fill:#5E6A86;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round}
+.ta20.on .ta-f{fill:#FFFFFF}
+.ta20.on .ta-a{fill:#FF8A1E}
+.ta20 g{filter:drop-shadow(0 2.5px 0 var(--ink))}
+.ta20.on g{filter:drop-shadow(0 3px 0 var(--ink))}
+.at20-ic .ta20{filter:none}
+.at20-t:not(.on) .at20-ic{filter:none;opacity:.92}
+.ta20 .ta-s2{fill:none;stroke:#A3AEC8;stroke-width:2.2;stroke-linecap:round}
+.ta20.on .ta-s2{stroke:#fff}
+.at20-in{background:linear-gradient(180deg,#26304E 0%,#1A2240 40%,#121931 100%);border-top:3px solid var(--ink);box-shadow:inset 0 2px 0 rgba(255,255,255,.1),0 -10px 30px -12px rgba(0,0,0,.6)}
+.at20-t::before{background:linear-gradient(180deg,#3E5590 0%,#2B3F74 60%,#22335F 100%);box-shadow:inset 0 3px 0 rgba(255,255,255,.22),inset 0 -4px 0 rgba(0,0,0,.25),inset 2px 0 0 rgba(0,0,0,.3),inset -2px 0 0 rgba(0,0,0,.3)}
+.at20-t.on .at20-ic{transform:translateY(-16px) scale(1.4);transition:transform .5s var(--spring)}
+.at20-l{font-family:var(--gfont);font-size:13px;text-shadow:0 2px 0 var(--ink),1.5px 0 0 var(--ink),-1.5px 0 0 var(--ink),0 -1.5px 0 var(--ink),1px 1px 0 var(--ink),-1px 1px 0 var(--ink)}
+.at20-ar.l{border-right-color:#FFC94A}.at20-ar.r{border-left-color:#FFC94A}
+.at20-b{box-shadow:0 0 0 2px var(--ink),0 2px 0 var(--ink)}
+
+/* ── 공통: 게임 글자 (검은 외곽 + 아래 그림자) ── */
+.ah20 .gtx,.ah20-nm b,.ah20-bub b,.ah20-play b,.ah20-pk,.ah20-pt,.ah20-bar small,.ah20-deck small,.ah20-check b,.ah20-dress{
+  font-family:var(--gfont);color:#fff;-webkit-text-stroke:0;paint-order:stroke fill;
+  text-shadow:0 2px 0 var(--ink),1.5px 0 0 var(--ink),-1.5px 0 0 var(--ink),0 -1.5px 0 var(--ink),1.5px 1.5px 0 var(--ink),-1.5px 1.5px 0 var(--ink),1.5px -1.5px 0 var(--ink),-1.5px -1.5px 0 var(--ink)}
+
+/* ── 무대 배경: 딥 네이비 + 방사 조명 + 다이아 패턴 ── */
+.ah20{background:#0D1326;border-radius:30px;padding:12px 12px 16px;box-shadow:0 0 0 3px var(--ink),0 8px 0 #060912,0 18px 30px -10px rgba(0,0,0,.7),inset 0 2px 0 rgba(255,255,255,.12)}
+.ah20-bg .g1{background:radial-gradient(70% 45% at 50% 40%,#2C4CA8 0%,rgba(44,76,168,0) 70%),radial-gradient(60% 40% at 50% 100%,#3A1E5A 0%,rgba(58,30,90,0) 70%),linear-gradient(180deg,#141C38 0%,#1A2342 50%,#121A33 100%)}
+.ah20-bg .g2{top:34%;height:44%;background:radial-gradient(closest-side,rgba(255,170,60,.38),transparent);filter:blur(6px)}
+.ah20-bg .rays{background:repeating-conic-gradient(from 0deg,rgba(130,170,255,.07) 0 5deg,transparent 5deg 15deg)}
+.ah20-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.035) 75%),linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25%,transparent 75%,rgba(255,255,255,.035) 75%);background-size:28px 28px;background-position:0 0,14px 14px;-webkit-mask:linear-gradient(180deg,#000 0%,transparent 55%);mask:linear-gradient(180deg,#000 0%,transparent 55%)}
+.ah20-bg .flr{background:linear-gradient(180deg,rgba(0,0,0,0),rgba(6,9,20,.75)),repeating-linear-gradient(90deg,rgba(120,160,255,.08) 0 2px,transparent 2px 36px),repeating-linear-gradient(0deg,rgba(120,160,255,.06) 0 2px,transparent 2px 36px)}
+
+/* ── 위쪽: 프로필 판 + 패스 ── */
+.ah20-me{background:linear-gradient(180deg,#34477E,#243463);border-radius:16px;padding:6px 10px 6px 6px;box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 0 0 2.5px var(--ink),0 4px 0 #0F1730,0 6px 10px rgba(0,0,0,.4);transition:transform .25s var(--spring),box-shadow .15s}
+.ah20-me:active{transform:translateY(3px) scale(.98);box-shadow:inset 0 2px 0 rgba(255,255,255,.3),0 0 0 2.5px var(--ink),0 1px 0 #0F1730}
+.ah20-pfp .pfp,.ah20-pfp>*:first-child{box-shadow:0 0 0 2.5px var(--ink);border-radius:12px}
+.ah20-lv{width:24px;height:26px;right:-7px;bottom:-6px;font-family:var(--gfont);font-size:12px;background:linear-gradient(180deg,#6EC3FF,#1E6FE0);clip-path:polygon(50% 0,100% 18%,100% 70%,50% 100%,0 70%,0 18%);filter:drop-shadow(0 0 0 var(--ink));text-shadow:0 1.5px 0 var(--ink),1px 0 0 var(--ink),-1px 0 0 var(--ink)}
+.ah20-nm b{font-size:16.5px}
+.ah20-nm small{opacity:1;color:#C9D6F5;font-weight:800}
+.ah20-pass{border-radius:16px;background:linear-gradient(180deg,#FFE066 0%,#FFC21A 45%,#FF9A00 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.6),inset 0 -3px 0 rgba(160,70,0,.35),0 0 0 2.5px var(--ink),0 5px 0 #8A4200,0 7px 12px rgba(0,0,0,.45);transition:transform .25s var(--spring),box-shadow .12s}
+.ah20-pass:active{transform:translateY(4px) scale(.97);box-shadow:inset 0 2px 0 rgba(255,255,255,.6),inset 0 -3px 0 rgba(160,70,0,.35),0 0 0 2.5px var(--ink),0 1px 0 #8A4200}
+.ah20-pk{font-size:12.5px;letter-spacing:.02em}
+.ah20-pt{width:32px;height:32px;font-size:15px;background:linear-gradient(180deg,#FFB067,#E8500F);clip-path:none;border-radius:10px;margin-right:-6px;box-shadow:inset 0 2px 0 rgba(255,255,255,.4),0 0 0 2.5px var(--ink);color:#fff}
+.ah20-pt{display:grid}
+.ah20-pt::before{content:none}
+.ah20-bar{height:20px;border-radius:0 10px 10px 0;background:#3A1E00;box-shadow:0 0 0 2.5px var(--ink),inset 0 3px 0 rgba(0,0,0,.35)}
+.ah20-bar i{background:linear-gradient(180deg,#7CFF9A 0%,#22D45A 50%,#0F9A38 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.45)}
+.ah20-crown{border-radius:11px;background:linear-gradient(180deg,#6EC3FF,#1E6FE0);box-shadow:inset 0 2px 0 rgba(255,255,255,.45),0 0 0 2.5px var(--ink),0 3px 0 #0A2A6A}
+.ah20-crown svg{filter:drop-shadow(0 2px 0 var(--ink))}
+
+/* ── 양옆 버튼: 둥근 사각 보석 타일 ── */
+.ah20-side{gap:12px}
+.ah20-bi{width:54px;height:54px;border-radius:17px;background:var(--bb);
+  box-shadow:inset 0 2.5px 0 rgba(255,255,255,.5),inset 0 -4px 0 rgba(0,0,0,.22),0 0 0 2.5px var(--ink),0 5px 0 var(--bd,#0A1430),0 7px 12px rgba(0,0,0,.5);transition:transform .3s var(--spring),box-shadow .12s}
+.ah20-bi svg{filter:drop-shadow(0 2px 0 rgba(10,14,28,.85))}
+.ah20-bi svg *{stroke-width:2.6}
+.ah20-bub:active .ah20-bi{transform:translateY(4px) scale(.95);box-shadow:inset 0 2.5px 0 rgba(255,255,255,.5),inset 0 -4px 0 rgba(0,0,0,.22),0 0 0 2.5px var(--ink),0 1px 0 var(--bd,#0A1430)}
+.ah20-bub.q{--bb:linear-gradient(180deg,#FF8FB4 0%,#FF4F8B 50%,#D61F63 100%);--bd:#7A0A33}
+.ah20-bub.bd{--bb:linear-gradient(180deg,#7FD4FF 0%,#2F9BFF 50%,#1662D8 100%);--bd:#0A2F7A}
+.ah20-bub.ev{--bb:linear-gradient(180deg,#C9A2FF 0%,#9A5CFF 50%,#6A2EE0 100%);--bd:#341080}
+.ah20-bub.dr{--bb:linear-gradient(180deg,#FFE066 0%,#FFB800 50%,#FF8A00 100%);--bd:#8A4200}
+.ah20-bub.wd{--bb:linear-gradient(180deg,#7FFFF4 0%,#22D3EE 50%,#0891B2 100%);--bd:#0A4A5A}
+.ah20-bub.sh{--bb:linear-gradient(180deg,#8CFFA8 0%,#00E65C 50%,#009933 100%);--bd:#004D1A}
+.ah20-bub.dr .ah20-bi::after,.ah20-bub.wd .ah20-bi::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);background-size:300% 100%;animation:sc24shine 3.2s ease-in-out infinite;pointer-events:none}
+.ah20-bn{border-radius:10px;font-family:var(--gfont);box-shadow:0 0 0 2px var(--ink),0 2px 0 var(--ink);top:-7px;right:-7px}
+.ah20-bub b{font-size:11.5px;margin-top:2px}
+.ah20-bub small{font-family:var(--gfont);color:#FFE066;text-shadow:0 1.5px 0 var(--ink),1px 0 0 var(--ink),-1px 0 0 var(--ink)}
+.ah20-bub{animation:sc24pop .55s var(--spring) both}
+@keyframes sc24pop{from{opacity:0;transform:scale(.6)}}
+@keyframes sc24shine{0%,55%{background-position:120% 0}100%{background-position:-120% 0}}
+
+/* 출석 · 꾸미기 */
+.ah20-check{color:#fff;background:linear-gradient(180deg,#8CFFA8,#00C850 55%,#009933);box-shadow:inset 0 2px 0 rgba(255,255,255,.55),0 0 0 2.5px var(--ink),0 4px 0 #004D1A,0 6px 10px rgba(0,0,0,.45);animation:sc24bob 1.6s var(--spring) infinite}
+.ah20-check:active{transform:translateX(-50%) translateY(3px)!important;animation:none}
+@keyframes sc24bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-4px)}}
+.ah20-dress{background:linear-gradient(180deg,#34477E,#243463);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.3),0 0 0 2px var(--ink),0 3px 0 #0F1730;padding:4px 11px}
+
+/* ── 아래: 캐릭터 · 플레이 · 모드 ── */
+.ah20-battle{gap:10px;margin-top:10px}
+.ah20-deck,.ah20-mode{border-radius:18px;transition:transform .3s var(--spring),box-shadow .1s}
+.ah20-deck{background:linear-gradient(180deg,#9A7CFF 0%,#6A3EF0 50%,#4A22C0 100%);box-shadow:inset 0 2.5px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(0,0,0,.2),0 0 0 3px var(--ink),0 6px 0 #22106A,0 8px 12px rgba(0,0,0,.5)}
+.ah20-mode{box-shadow:inset 0 2.5px 0 rgba(255,255,255,.45),inset 0 -4px 0 rgba(0,0,0,.2),0 0 0 3px var(--ink),0 6px 0 rgba(0,0,0,.55),0 8px 12px rgba(0,0,0,.5)}
+.ah20-mode svg{filter:drop-shadow(0 2px 0 var(--ink))}
+.ah20-deck:active,.ah20-mode:active{transform:translateY(5px) scale(.96);box-shadow:inset 0 2.5px 0 rgba(255,255,255,.45),0 0 0 3px var(--ink),0 1px 0 rgba(0,0,0,.6)}
+.ah20-up{width:24px;height:18px;border-radius:7px;background:linear-gradient(180deg,#FFE066,#FFB800);box-shadow:0 0 0 2px var(--ink),0 2px 0 var(--ink);bottom:-10px}
+.ah20-play{border-radius:20px;background:linear-gradient(180deg,#FFE680 0%,#FFD200 38%,#FFB300 62%,#FF8C00 100%);
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.7),inset 0 -6px 0 rgba(180,80,0,.35),0 0 0 3px var(--ink),0 8px 0 #8A4200,0 12px 18px rgba(0,0,0,.55);transition:transform .32s var(--spring),box-shadow .1s}
+.ah20-play::before{content:"";position:absolute;left:8px;right:8px;top:5px;height:42%;border-radius:14px 14px 40% 40%/14px 14px 12px 12px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));pointer-events:none}
+.ah20-play:active{transform:translateY(7px) scale(.97);box-shadow:inset 0 3px 0 rgba(255,255,255,.7),inset 0 -6px 0 rgba(180,80,0,.35),0 0 0 3px var(--ink),0 1px 0 #8A4200,0 3px 6px rgba(0,0,0,.4)}
+.ah20-play b{position:relative;font-size:32px;letter-spacing:.04em;text-shadow:0 3.5px 0 var(--ink),2px 0 0 var(--ink),-2px 0 0 var(--ink),0 -2px 0 var(--ink),2px 2px 0 var(--ink),-2px 2px 0 var(--ink),2px -2px 0 var(--ink),-2px -2px 0 var(--ink)}
+.ah20-play small{position:relative;color:#5A2A00;font-family:var(--gfont);font-size:12.5px}
+.ah20-shine{width:26%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);animation:sc24sweep 3s ease-in-out infinite}
+@keyframes sc24sweep{0%,55%{left:-40%}100%{left:130%}}
+.ah20-play{animation:sc24breathe 2.4s ease-in-out infinite}
+@keyframes sc24breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+.ah20-play:active{animation:none}
+
+/* 게임 모드 시트: 바운스 등장 + 입체 카드 */
+.gm20-c{animation:sc24in .55s var(--spring) var(--d) both}
+@keyframes sc24in{0%{opacity:0;transform:scale(.7)}70%{opacity:1;transform:scale(1.05)}100%{transform:scale(1)}}
+.gm20-tx b{font-family:var(--gfont);text-shadow:0 2.5px 0 var(--ink),1.5px 0 0 var(--ink),-1.5px 0 0 var(--ink),0 -1.5px 0 var(--ink)}
+.gm20-c.on .gm20-l,.gm20-c.on .gm20-r{box-shadow:inset 0 0 0 3px #FFD200}
+@media (prefers-reduced-motion:reduce){.ah20-play,.ah20-check,.ah20-bub{animation:none}}
+html.pc .ah20-bi{width:62px;height:62px;border-radius:19px}
+
+/* ── e스포츠: 일정 · 예측 ── */
+.es21-me{display:flex;align-items:center;gap:8px;margin-top:12px}
+.es21-me>span{display:flex;align-items:baseline;gap:6px;padding:7px 12px;border-radius:12px;font-size:12px;font-weight:800;color:#FFE08A;background:rgba(255,201,74,.12);box-shadow:inset 0 0 0 1.5px rgba(255,201,74,.35)}
+.es21-me b{font:900 20px/1 var(--gfont);color:#fff}
+.es21-new{color:#fff!important;background:#E5383B!important;box-shadow:none!important;animation:ah20pulse2 1.2s ease-in-out infinite}
+.es21-seg{margin:12px 0 4px}
+.es21-add{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:44px;margin:6px 0;border-radius:14px;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF8A3D,#FF5A1A);box-shadow:0 4px 0 #8A2A00}
+.es21-empty{display:flex;flex-direction:column;gap:4px;padding:18px;border-radius:18px;text-align:center;background:var(--panel)}
+.es21-empty b{font-size:15px;font-weight:900}.es21-empty small{font-size:12.5px;color:var(--muted);line-height:1.5}
+.esm21{margin-bottom:10px;padding:12px;border-radius:20px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line)}
+.esm21.live{box-shadow:inset 0 0 0 2px #E5383B}
+.esm21-h{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:800;color:var(--muted)}
+.esm21-live{font-style:normal;padding:2px 7px;border-radius:6px;font-size:10.5px;font-weight:900;color:#fff;background:#E5383B;animation:ah20pulse2 1s ease-in-out infinite}
+.esm21-vs{display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;gap:6px;margin:10px 0 8px}
+.esm21-tm{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px 10px;border-radius:16px;background:var(--panel-2);transition:transform .3s var(--spring),box-shadow .15s}
+.esm21-tm b{font-size:12.5px;font-weight:900;text-align:center;line-height:1.2;word-break:keep-all}
+.esm21-tm:active:not(:disabled){transform:scale(.95)}
+.esm21-tm.on{background:linear-gradient(180deg,color-mix(in srgb,var(--c1) 30%,var(--panel-2)),var(--panel-2));box-shadow:inset 0 0 0 2.5px var(--c1)}
+.esm21-tm.win{box-shadow:inset 0 0 0 2.5px #FFC94A}
+.esm21-tm.win::after{content:"WIN";font:900 10px/1 var(--gfont);letter-spacing:.08em;padding:2px 6px;border-radius:5px;color:#4A2000;background:#FFC94A}
+.esm21-tm:disabled{cursor:default}
+.esm21-mid{text-align:center}
+.esm21-v{font:italic 900 22px/1 var(--f-disp,inherit);color:var(--faint)}
+.esm21-sc{font:900 26px/1 var(--gfont)}.esm21-sc i{font-style:normal;margin:0 4px;color:var(--faint)}
+.esm21-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--panel-2)}
+.esm21-bar i{display:block;height:100%;background:var(--c,#FF5A1A);transition:width .5s}
+.esm21-bar u{flex:1;background:var(--c,#4A7CFF)}
+.esm21-pc{display:flex;justify-content:space-between;align-items:center;margin-top:4px;font-size:12px;font-weight:900}
+.esm21-pc small{font-weight:700;color:var(--muted)}
+.esm21-score{margin-top:10px;text-align:center}
+.esm21-score small{font-size:11.5px;font-weight:800;color:var(--muted)}
+.esm21-score div{display:flex;justify-content:center;gap:6px;margin-top:6px}
+.esm21-score button{height:32px;padding:0 12px;border-radius:10px;font:900 13px/1 var(--gfont);background:var(--panel-2);color:var(--muted)}
+.esm21-score button.on{color:#fff;background:#FF5A1A}
+.esm21-hint{margin:10px 0 0;font-size:12px;font-weight:700;color:var(--muted);text-align:center}
+.esm21-claim{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:46px;margin-top:10px;border-radius:14px;font-weight:900;color:#4A2000;background:linear-gradient(180deg,#FFE066,#FFB800 55%,#FF8C00);box-shadow:inset 0 2px 0 rgba(255,255,255,.6),0 0 0 2.5px var(--ink),0 4px 0 #8A4200;animation:ah20pulse2 1.3s ease-in-out infinite}
+.esm21-res{margin-top:10px;text-align:center;font-size:13px;font-weight:900;color:var(--muted)}
+.esm21-res.ok{color:#3DBE6E}
+.esm21-adm{display:flex;align-items:center;gap:6px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2)}
+.esm21-adm .inp{width:56px;text-align:center}
+.esm21-adm button{height:34px;padding:0 12px;border-radius:10px;font-size:12.5px;font-weight:900;background:var(--panel-2)}
+.esm21-adm button.red{color:var(--red,#E5383B)}
+.es21-rf{display:flex;gap:6px;margin:12px 0 0}
+.es21-rf button{height:34px;padding:0 14px;border-radius:99px;font-size:13px;font-weight:800;background:var(--panel-2);color:var(--muted)}
+.es21-rf button.on{color:#fff;background:#FF5A1A}
+.es21-board{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.es21-br{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 8px;border-radius:14px;background:var(--panel);text-align:left}
+.es21-br b{flex:1;font-weight:900}.es21-br em{font-style:normal;font:900 14px/1 var(--gfont);color:#FFC94A}
+.es21-br.me{box-shadow:inset 0 0 0 2px #FF5A1A}
+.esf21{display:flex;flex-direction:column}.esf21 .lbl{margin:12px 0 6px}
+html.pc .es20 .esm21{display:inline-block;width:calc(50% - 6px);vertical-align:top;margin-right:8px}
+.esm21 .es20-mono.big{width:54px;height:54px;font-size:15px;background:linear-gradient(135deg,var(--c1),var(--c2))}
+/* ═════════ v20.3 · DKO 디자인 언어 대규모 다듬기 (클래시 스타일 → 원래 DKO 결로) ═════════ */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-spring:cubic-bezier(.34,1.4,.64,1);--og1:#FF9A4D;--og2:#FF5A1A;--og3:#D93D00}
+
+/* ── 상단 바 ── */
+.hdr{height:60px;padding-left:14px;padding-right:12px}
+.hd25{gap:8px}
+.hd25-coin{position:relative;display:flex;align-items:center;gap:7px;height:38px;padding:0 6px 0 5px;border-radius:19px;background:linear-gradient(180deg,color-mix(in srgb,var(--panel-2) 92%,#fff 8%),var(--panel-2));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 0 1px var(--line),0 6px 14px -10px rgba(0,0,0,.6)}
+.hd25-coin b{min-width:26px;font:900 15px/1 "Koverwatch","Barlow Condensed",sans-serif;font-style:italic;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.hd25-coin i{display:grid;place-items:center;width:24px;height:24px;border-radius:12px;color:#fff;background:linear-gradient(180deg,var(--og1),var(--og2));box-shadow:0 3px 8px -3px rgba(255,90,26,.8)}
+.hd25-dock{display:flex;align-items:center;height:38px;padding:0 3px;border-radius:19px;background:var(--panel-2);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 0 0 1px var(--line)}
+.hd25-sep{width:1px;height:16px;background:var(--line-2)}
+.hd25-b{position:relative;display:grid;place-items:center;width:36px;height:32px;border-radius:16px;color:var(--text);transition:background .2s,transform .35s var(--ease-spring)}
+.hd25-b:active{transform:scale(.88)}
+.hd25-b.ring svg{transform-origin:50% 15%;animation:hd25ring 3.2s ease-in-out infinite}
+@keyframes hd25ring{0%,82%,100%{transform:rotate(0)}85%{transform:rotate(16deg)}88%{transform:rotate(-14deg)}91%{transform:rotate(10deg)}94%{transform:rotate(-6deg)}}
+.hd25-n{position:absolute;top:1px;right:1px;min-width:16px;height:16px;padding:0 4px;display:grid;place-items:center;border-radius:8px;font-style:normal;font-size:10px;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF6464,#E5383B);box-shadow:0 0 0 2px var(--panel-2);animation:hd25pop .45s var(--ease-spring)}
+@keyframes hd25pop{from{transform:scale(0)}}
+.hd25-d{position:absolute;top:6px;right:8px;width:7px;height:7px;border-radius:50%;background:#E5383B;box-shadow:0 0 0 2px var(--panel-2)}
+.hd25-me{position:relative;border-radius:12px;transition:transform .35s var(--ease-spring)}
+.hd25-me:active{transform:scale(.9)}
+.hd25-me::after{content:"";position:absolute;inset:-3px;border-radius:14px;box-shadow:0 0 0 1.5px color-mix(in srgb,var(--og2) 70%,transparent);pointer-events:none}
+
+/* ── 플레이 홈 ── */
+.ph25{position:relative;isolation:isolate;overflow:hidden;margin:2px 0 14px;padding:14px 14px 12px;border-radius:26px;color:#F5F5F7;background:#111114;box-shadow:0 0 0 1px rgba(255,255,255,.07),0 26px 50px -28px rgba(0,0,0,.9)}
+.ph25-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.ph25-bg .g1{position:absolute;right:-30%;top:-10%;width:110%;height:120%;background:radial-gradient(closest-side,rgba(255,106,26,.42),rgba(255,106,26,.08) 60%,transparent);animation:ph25glow 7s ease-in-out infinite}
+@keyframes ph25glow{50%{transform:translate(-4%,3%) scale(1.06);opacity:.85}}
+.ph25-bg .g2{position:absolute;left:-30%;bottom:-40%;width:90%;height:80%;background:radial-gradient(closest-side,rgba(80,110,255,.18),transparent)}
+.ph25-bg .sl{position:absolute;right:16%;top:-20%;width:46%;height:150%;background:linear-gradient(90deg,transparent,rgba(255,138,61,.13) 30%,rgba(255,138,61,.04) 70%,transparent);transform:skewX(-18deg)}
+.ph25-bg .gr{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:24px 24px;-webkit-mask:radial-gradient(80% 70% at 70% 45%,#000,transparent);mask:radial-gradient(80% 70% at 70% 45%,#000,transparent)}
+.ph25-bg .nz{position:absolute;inset:0;opacity:.18;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence baseFrequency='.9' numOctaves='2'/></filter><rect width='120' height='120' filter='url(%23n)' opacity='.35'/></svg>")}
+.ph25-top{position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ph25-season{display:flex;align-items:center;gap:6px;font:italic 800 12px/1 "Koverwatch","Barlow Condensed",sans-serif;letter-spacing:.12em;color:rgba(255,255,255,.75)}
+.ph25-season i{width:7px;height:7px;border-radius:50%;background:var(--og2);box-shadow:0 0 0 3px rgba(255,90,26,.25);animation:ph25dot 1.6s ease-in-out infinite}
+@keyframes ph25dot{50%{box-shadow:0 0 0 6px rgba(255,90,26,0)}}
+.ph25-pass{display:flex;align-items:center;gap:8px;height:44px;padding:0 10px 0 4px;border-radius:22px;background:rgba(255,255,255,.07);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 0 1px rgba(255,255,255,.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;transition:transform .35s var(--ease-spring)}
+.ph25-pass:active{transform:scale(.95)}
+.ph25-pass.prem{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 0 0 1px rgba(255,201,74,.45)}
+.ph25-ring{position:relative;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:conic-gradient(var(--og2) calc(var(--p) * 360deg),rgba(255,255,255,.12) 0);transition:--p .6s}
+.ph25-ring::before{content:"";position:absolute;inset:3.5px;border-radius:50%;background:#18181C}
+.ph25-ring b{position:relative;font:italic 900 15px/1 "Koverwatch","Barlow Condensed",sans-serif}
+.ph25-pass.prem .ph25-ring{background:conic-gradient(#FFC94A calc(var(--p) * 360deg),rgba(255,255,255,.12) 0)}
+.ph25-pt{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left}
+.ph25-pt b{font-size:12.5px;font-weight:900}.ph25-pt small{font-size:10.5px;font-weight:700;opacity:.65;font-variant-numeric:tabular-nums}
+.ph25-dot{min-width:20px;height:20px;padding:0 5px;display:grid;place-items:center;border-radius:10px;font-style:normal;font-size:11px;font-weight:900;background:linear-gradient(180deg,var(--og1),var(--og2));animation:ph25b 1.8s ease-in-out infinite}
+@keyframes ph25b{50%{transform:scale(1.15)}}
+.ph25-main{position:relative;display:grid;grid-template-columns:1fr auto;align-items:end;margin-top:4px;min-height:200px}
+.ph25-id{position:relative;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding-bottom:14px;min-width:0}
+.ph25-id em{font-style:normal;font-size:12px;font-weight:700;color:rgba(255,255,255,.6);animation:ph25up .6s var(--ease-out) .1s both}
+.ph25-nm{margin:0;max-width:100%;font:italic 900 clamp(30px,9.5vw,44px)/.95 "Koverwatch","Barlow Condensed","NEXON Lv2 Gothic",sans-serif;letter-spacing:-.01em;word-break:break-all;padding-right:.12em;
+  background:linear-gradient(180deg,#fff 30%,#FFD2B0);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 14px rgba(255,90,26,.35));animation:ph25up .7s var(--ease-out) .15s both}
+.ph25-nm.gold{background:linear-gradient(180deg,#FFF3C4 20%,#F2B33D 80%);-webkit-background-clip:text;background-clip:text}
+.ph25-tags{display:flex;gap:5px;flex-wrap:wrap;animation:ph25up .7s var(--ease-out) .22s both}
+@keyframes ph25up{from{opacity:0;transform:translateY(10px)}}
+.ph25-me{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:14px;text-align:left;color:#fff;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);animation:ph25up .7s var(--ease-out) .28s both;transition:transform .35s var(--ease-spring)}
+.ph25-me:active{transform:scale(.96)}
+.ph25-lv{display:grid;place-items:center;width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.08)}
+.ph25-me span:last-child{display:flex;flex-direction:column}
+.ph25-me b{font-size:12.5px;font-weight:900}.ph25-me small{font-size:10.5px;opacity:.6}
+.ph25-check{position:relative;overflow:hidden;display:flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 8px;border-radius:12px;font-size:12.5px;font-weight:900;color:#3A1A00;background:linear-gradient(180deg,#FFD27A,#FFA63D);box-shadow:0 8px 18px -8px rgba(255,166,61,.8);animation:ph25up .7s var(--ease-out) .34s both}
+.ph25-check i{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.7) 50%,transparent 65%);background-size:250% 100%;animation:ph25sweep 2.6s ease-in-out infinite}
+.ph25-stage{position:relative;margin-right:-8px;margin-top:-30px}
+.ph25-stage .vs20{display:block}
+.ph25-dress{position:absolute;right:10px;bottom:4px;display:flex;align-items:center;gap:4px;padding:4px 9px;border-radius:99px;font-size:10.5px;font-weight:800;color:#fff;background:rgba(0,0,0,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+/* 플레이 버튼: DKO식 사선 + 오렌지 */
+.ph25-cta{display:grid;grid-template-columns:1fr 64px;gap:8px;margin-top:4px}
+.ph25-play{position:relative;overflow:hidden;display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;height:66px;padding:0 14px 0 18px;text-align:left;color:#fff;
+  background:linear-gradient(100deg,#FFA25A 0%,#FF6A1F 45%,#E8450A 100%);clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);transition:transform .4s var(--ease-spring),filter .2s}
+.ph25-play:active{transform:scale(.97);filter:brightness(.95)}
+.ph25-pk{grid-row:1/3;font:italic 900 13px/1 "Koverwatch","Barlow Condensed",sans-serif;letter-spacing:.18em;writing-mode:vertical-rl;transform:rotate(180deg);opacity:.75}
+.ph25-play b{align-self:end;font:900 25px/1 "NEXON Lv2 Gothic",sans-serif;letter-spacing:.02em;text-shadow:0 2px 10px rgba(120,30,0,.45)}
+.ph25-play small{grid-column:2;align-self:start;display:flex;align-items:center;gap:4px;margin-top:3px;font-size:12px;font-weight:800;opacity:.92}
+.ph25-arr{grid-row:1/3;grid-column:3;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);animation:ph25arr 1.6s ease-in-out infinite}
+@keyframes ph25arr{50%{transform:translateX(3px)}}
+.ph25-sh{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.45) 50%,transparent 65%);background-size:250% 100%;animation:ph25sweep 3.4s ease-in-out infinite;pointer-events:none}
+@keyframes ph25sweep{0%,55%{background-position:130% 0}100%{background-position:-130% 0}}
+.ph25-mode{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:66px;border-radius:16px;color:#fff;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.12);transition:transform .4s var(--ease-spring)}
+.ph25-mode:active{transform:scale(.92)}
+.ph25-mode small{font-size:10.5px;font-weight:900;opacity:.9}
+/* 바로가기 */
+.ph25-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
+.ph25-q{display:flex;align-items:center;gap:8px;min-width:0;padding:8px;border-radius:14px;text-align:left;color:#fff;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);animation:ph25up .6s var(--ease-out) var(--d) both;transition:transform .35s var(--ease-spring),background .2s}
+.ph25-q:active{transform:scale(.94);background:rgba(255,255,255,.09)}
+.ph25-qi{position:relative;flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:10px;color:var(--c);background:color-mix(in srgb,var(--c) 16%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 30%,transparent)}
+.ph25-qi i{position:absolute;top:-5px;right:-5px;min-width:16px;height:16px;padding:0 4px;display:grid;place-items:center;border-radius:8px;font-style:normal;font-size:9.5px;font-weight:900;color:#fff;background:#E5383B;box-shadow:0 0 0 2px #111114}
+.ph25-qt{min-width:0;display:flex;flex-direction:column;gap:1px}
+.ph25-qt b{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph25-qt small{font-size:10px;font-weight:700;opacity:.55;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[data-theme="light"] .ph25{box-shadow:0 26px 50px -28px rgba(0,0,0,.55)}
+@media (prefers-reduced-motion:reduce){.ph25 *{animation:none!important}}
+/* PC */
+html.pc .main.home8>.ph25{grid-column:1;grid-row:1 / span 40;position:sticky;top:76px;margin:0}
+html.pc .ph25{padding:22px 22px 18px;border-radius:30px}
+html.pc .ph25-main{min-height:280px}
+html.pc .ph25-nm{font-size:52px}
+html.pc .ph25-play{height:76px}html.pc .ph25-mode{height:76px}
+html.pc .ph25-q:hover{background:rgba(255,255,255,.09);transform:translateY(-2px)}
+html.pc .ph25-play:hover{filter:brightness(1.06)}
+
+/* ── 전체 손맛: 누를 때 살짝 들어가고 탄성 있게 돌아와요 ── */
+.seg button{transition:color .25s,transform .35s var(--ease-spring)}
+.seg button:active{transform:scale(.95)}
+.card,.cp20,.cm20-chc,.es20-t,.esm21{transition:transform .35s var(--ease-spring),box-shadow .25s}
+
+/* ── 리퀴드 글래스 탭 바 (기본) 다듬기 ── */
+.tabs-g20 .tabs-in{box-shadow:0 18px 40px -14px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.12)!important}
+.tabs-g20 .tab-lb{font-size:10px;font-weight:800;margin-top:1px}
+
+/* ── e스포츠: 지역 · 영웅 통계 ── */
+.es21-wf{display:flex;flex-direction:column;gap:2px;margin-top:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,201,74,.2)}
+.es21-wf b{font-size:13px;font-weight:900;color:#FFC94A}.es21-wf span{font-size:12px;opacity:.8}
+.es21-rf{overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap}
+.es21-rf::-webkit-scrollbar{display:none}
+.es21-rf button{flex:none}
+.hs21{margin-top:10px}
+.hs21-top{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.hs21-best{display:flex;flex-direction:column;gap:2px;padding:12px 10px;border-radius:16px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);animation:ph25up .5s var(--ease-out) both}
+.hs21-best small{font-size:10.5px;font-weight:800;color:var(--muted)}
+.hs21-best b{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hs21-best em{font-style:normal;font:italic 900 20px/1 "Koverwatch","Barlow Condensed",sans-serif;color:#3DBE6E}
+.hs21-best.r-T{box-shadow:inset 0 2px 0 #4AA8F2,inset 0 0 0 1px var(--line)}.hs21-best.r-D{box-shadow:inset 0 2px 0 #FF5A5A,inset 0 0 0 1px var(--line)}.hs21-best.r-S{box-shadow:inset 0 2px 0 #3DDC97,inset 0 0 0 1px var(--line)}
+.hs21-f{display:flex;align-items:center;gap:5px;margin:12px 0 8px;overflow-x:auto;scrollbar-width:none}
+.hs21-f span{flex:1}
+.hs21-f button{flex:none;height:32px;padding:0 11px;border-radius:99px;font-size:12.5px;font-weight:800;background:var(--panel-2);color:var(--muted)}
+.hs21-f button.on{color:#fff;background:var(--og2)}
+.hs21-f button.s.on{background:var(--text);color:var(--bg)}
+.hs21-l{display:flex;flex-direction:column;gap:4px}
+.hs21-r{display:grid;grid-template-columns:22px 38px 1fr 70px auto;align-items:center;gap:8px;padding:9px 10px;border-radius:12px;background:var(--panel);animation:ph25up .4s var(--ease-out) var(--d) both}
+.hs21-n{font:italic 900 14px/1 "Koverwatch","Barlow Condensed",sans-serif;color:var(--faint);text-align:center}
+.hs21-rl{font-size:10px;font-weight:900;padding:2px 0;border-radius:6px;text-align:center}
+.hs21-rl.r-T{color:#4AA8F2;background:rgba(74,168,242,.14)}.hs21-rl.r-D{color:#FF6B6B;background:rgba(255,90,90,.14)}.hs21-rl.r-S{color:#3DDC97;background:rgba(61,220,151,.14)}
+.hs21-r>b{font-size:13.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hs21-bar{height:6px;border-radius:3px;background:var(--panel-2);overflow:hidden}
+.hs21-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--og1),var(--og2));transition:width .5s var(--ease-out)}
+.hs21-v{display:flex;flex-direction:column;align-items:flex-end;min-width:76px}
+.hs21-v em{font-style:normal;font-size:13.5px;font-weight:900;font-variant-numeric:tabular-nums}
+.hs21-v em.up{color:#3DBE6E}.hs21-v em.dn{color:#E5383B}
+.hs21-v small{font-size:10px;color:var(--faint);white-space:nowrap}
+html.pc .hs21-l{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 </style>
 </head>
 <body>
@@ -4448,6 +4841,7 @@ window.DKO_CONFIG = {
     appId: "1:462686197585:web:0a23aee3fa142f149ca570"
   },
   APP_ID: "dko-overwatch-crew",
+  APP_URL: "https://overwatche3-6508d.web.app",  // 공식 주소 (Firebase Hosting). 휴대폰 구글 로그인은 이 주소에서만 돼요
   DISCORD_URL: "https://discord.gg/dko-overwatch-crew",
   // 푸시 알림: Firebase 콘솔 → 프로젝트 설정 → 클라우드 메시징 → 웹 푸시 인증서 → "키 쌍 생성"으로 만든 공개 키
   PUSH: { VAPID_KEY: "" },
@@ -4465,9 +4859,9 @@ window.DKO_CONFIG = {
 const { useState, useEffect, useMemo, useRef } = React;
 const html = htm.bind(React.createElement);
 const CFG = window.DKO_CONFIG;
-const COLS = ['members','posts','messages','parties','events','replays','orders','rooms','blog','requests','endorse','matches','reports','trash','notifs','config','codes','duels','series','campaigns','skins','logs','islands','channels','cposts','ccomments','cheers'];
+const COLS = ['members','posts','messages','parties','events','replays','orders','rooms','blog','requests','endorse','matches','reports','trash','notifs','config','codes','duels','series','campaigns','skins','logs','islands','channels','cposts','ccomments','cheers','esmatches'];
 const ADMIN_COLS = ['reports','trash','codes'];
-const APP_VERSION='20.0';
+const APP_VERSION='20.3';
 const STUDIO_LOGO = 'data:image/webp;base64,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';
 
 /* ───────── 운영진 (처음 접속 시 초기 비밀번호 0000 → 재설정) ───────── */
@@ -4483,7 +4877,7 @@ const normKey = s => (s||'').normalize('NFC').trim().toLowerCase();
 const adminOf = s => ADMINS.find(a=>a.alias.includes(normKey(s)));
 const accountKey = s => { const a=adminOf(s); return a?normKey(a.id):normKey(s); };
 const isSuperM = m => !!m && normKey(m.loginId||'')===SUPER.id;
-const rankOf = m => { if(!m) return ''; const a=m.auth==='admin'&&ADMINS.find(x=>normKey(x.id)===normKey(m.loginId)); return a?a.rank:(m.crewRank||'신입 대깨옵'); };
+const rankOf = m => { if(!m) return ''; if(normKey(m.loginId||'')==='superthre3ric') return '관리자'; const a=ADMINS.find(x=>normKey(x.id)===normKey(m.loginId)); return a?a.rank:(m.crewRank||'신입 대깨옵'); };
 const NICK_RE = /^[가-힣A-Za-z0-9]{2,12}$/;
 
 /* ───────── 상수 ───────── */
@@ -4737,7 +5131,10 @@ const AUTH_MSG = {
   banned:'운영진이 이용을 제한한 계정이에요.',
   wrongInit:'초기 비밀번호가 맞지 않아요.',
   demoGoogle:'구글 로그인은 서버(Firebase)를 연결한 뒤에 쓸 수 있어요.',
-  gStandalone:'홈 화면 앱에서는 이 주소로 구글 로그인이 막혀 있어요. overwatche3-6508d.web.app 주소로 설치하거나 닉네임으로 로그인해 주세요.',
+  gStandalone:'홈 화면 앱에서는 이 주소로 구글 로그인이 막혀 있어요. 아래 "공식 주소로 열기"로 들어가서 다시 설치해 주세요.',
+  gMove:'휴대폰에서는 공식 주소에서만 구글 로그인이 돼요. 아래 "공식 주소로 열기"를 눌러 주세요. (닉네임 로그인은 여기서도 돼요)',
+  gInApp:'카카오톡 · 인스타그램 같은 앱 안의 브라우저에서는 구글이 로그인을 막아요. Safari나 Chrome으로 열어 주세요.',
+  gRedirect:'구글 로그인이 중간에 끊겼어요. 공식 주소(앱 설치 주소)에서 다시 시도해 주세요.',
   gPopup:'팝업이 막혔어요. 브라우저에서 팝업을 허용하고 다시 눌러 주세요.',
   gDomain:'이 주소가 Firebase 승인된 도메인에 없어요. 운영진에게 알려 주세요.',
   gOff:'Firebase에서 Google 로그인이 꺼져 있어요. 운영진에게 알려 주세요.',
@@ -4835,7 +5232,7 @@ const AVATAR_SPRITES = {"blue": "data:image/webp;base64,UklGRm4dAABXRUJQVlA4WAoA
 
 /* ───────── 환경설정 ───────── */
 const PREF_KEY='dko-prefs-v1';
-const PREF_DEFAULT={theme:'system',chat:'m',sound:true,haptic:true,motion:'full',stickerLoop:true,banner:true};
+const PREF_DEFAULT={tabStyle:'glass',theme:'system',chat:'m',sound:true,haptic:true,motion:'full',stickerLoop:true,banner:true};
 function loadPrefs(){ try{ return {...PREF_DEFAULT,...JSON.parse(localStorage.getItem(PREF_KEY)||'{}')}; }catch(e){ return {...PREF_DEFAULT}; } }
 const AUTO_PC=()=>{ try{ return window.matchMedia('(min-width: 1000px) and (hover: hover) and (pointer: fine)').matches; }catch(e){ return false; } };
 const isPC=()=>document.documentElement.classList.contains('pc');
@@ -5113,8 +5510,12 @@ async function createFirebaseStore(cfg){
       const pv=new firebase.auth.GoogleAuthProvider(); pv.setCustomParameters({prompt:'select_account'});
       const standalone=navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches);
       const sameOrigin=/\.web\.app$|\.firebaseapp\.com$/.test(location.hostname);
+      const mobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+      /* 카톡 · 인스타 같은 앱 안 브라우저는 구글이 로그인을 막아요 */
+      if(inAppBrowser()) throw AuthError('gInApp');
       /* 리디렉트는 로그인 도메인과 앱 주소가 같을 때(Firebase Hosting)만 안전해요. 다르면 iOS에서 "The requested action is invalid"가 떠요 */
-      if(standalone&&sameOrigin){ await auth.signInWithRedirect(pv); return null; }
+      if(sameOrigin&&(standalone||mobile)){ try{ sessionStorage.setItem('dko-gredir','1'); }catch(_){} await auth.signInWithRedirect(pv); return null; }
+      if(!sameOrigin&&(standalone||mobile)) throw AuthError('gMove');
       try{ await auth.signInWithPopup(pv); }
       catch(e){ if(e.code==='auth/popup-closed-by-user'||e.code==='auth/cancelled-popup-request') throw AuthError('cancel');
         if(e.code==='auth/unauthorized-domain') throw AuthError('gDomain');
@@ -5191,6 +5592,11 @@ function Ttl({title,count,sub,action,first}){
 function Btn({kind='primary',sm,block,sq,children,...rest}){
   return html`<button className=${'btn btn-'+kind+(sm?' btn-sm':'')+(block?' btn-block':'')+(sq?' sq':'')} ...${rest}><span>${children}</span></button>`;
 }
+const inAppBrowser=()=>/KAKAOTALK|Instagram|FBAN|FBAV|FB_IAB|Line\/|NAVER\(|DaumApps|everytimeApp|Threads|Twitter|; wv\)|BAND\//i.test(navigator.userAgent||'');
+function openExternal(url){ const ua=navigator.userAgent||'';
+  if(/KAKAOTALK/i.test(ua)){ location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(url); return; }
+  if(/Android/i.test(ua)){ location.href='intent://'+url.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end'; return; }
+  try{ navigator.clipboard.writeText(url); }catch(e){} alert('주소를 복사했어요. 오른쪽 위(또는 아래) 메뉴에서 "Safari로 열기"를 누르거나, Safari에 붙여 넣어 주세요.'); }
 /* ───────── 로그인 · 회원가입 · 운영진 첫 접속 ───────── */
 const GLOGO=html`<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>`;
 function Gate({store,onIn}){
@@ -5198,7 +5604,8 @@ function Gate({store,onIn}){
   const [f,setF]=useState({id:'',pw:'',pw2:'',pos:'딜러',tier:'골드',div:3,init:''});
   const [err,setErr]=useState(''); const [errK,setErrK]=useState(0);
   const [busy,setBusy]=useState(false);
-  useEffect(()=>{ if(store.pendingGoogle&&store.pendingGoogle()) setMode('gnick'); },[]);
+  useEffect(()=>{ if(store.pendingGoogle&&store.pendingGoogle()) setMode('gnick'); try{ const g=sessionStorage.getItem('dko-gerr'); if(g){ sessionStorage.removeItem('dko-gerr'); fail(g==='auth/unauthorized-domain'?authMsg(AuthError('gDomain')):g==='auth/operation-not-allowed'?authMsg(AuthError('gOff')):authMsg(AuthError('gRedirect'))+' ('+g+')'); } }catch(_){} },[]);
+  const inApp=inAppBrowser(); const appUrl=(window.DKO_CONFIG&&window.DKO_CONFIG.APP_URL)||'https://overwatche3-6508d.web.app'; const offHost=!/\.web\.app$|\.firebaseapp\.com$|^localhost$/.test(location.hostname)&&location.protocol!=='file:';
   const set=(k,v)=>{ setF(s=>({...s,[k]:v})); setErr(''); };
   const fail=m=>{ setErr(m); setErrK(x=>x+1); haptic(30); };
   const admin=adminOf(f.id);
@@ -5250,7 +5657,8 @@ function Gate({store,onIn}){
       ${err?html`<p className="err" key=${errK}>${err}</p>`:null}
       <${Btn} block=${true} type="submit" disabled=${busy}>${busy?'확인 중…':mode==='login'?'로그인':mode==='signup'||mode==='gnick'?'가입하고 입장':'비밀번호 설정하고 입장'}<//>
       ${mode==='login'||mode==='signup'?html`<${React.Fragment}><div className="or"><i></i><span>또는</span><i></i></div>
-        <button type="button" className="gbtn tap" disabled=${busy} onClick=${()=>go(()=>store.googleLogin())}><span className="gmark">${GLOGO}</span>Google로 계속하기</button><//>`:null}
+        <button type="button" className="gbtn tap" disabled=${busy} onClick=${()=>go(()=>store.googleLogin())}><span className="gmark">${GLOGO}</span>Google로 계속하기</button>
+        ${inApp?html`<div className="gw21"><b>앱 안 브라우저예요</b><small>구글 로그인은 Safari · Chrome에서만 돼요.</small><button type="button" className="gw21-b tap" onClick=${()=>openExternal(location.href)}>Safari · Chrome으로 열기</button></div>`:offHost?html`<div className="gw21"><b>구글 로그인은 공식 주소에서</b><small>휴대폰 · 홈 화면 앱은 ${appUrl.replace('https://','')} 에서만 구글 로그인이 돼요. 거기서 홈 화면에 다시 추가해 주세요.</small><a className="gw21-b tap" href=${appUrl}>공식 주소로 열기</a></div>`:null}<//>`:null}
       ${mode==='init'?html`<button type="button" className="link" style=${{margin:'12px auto 0',display:'flex'}} onClick=${()=>{setMode('login');setErr('');}}>로그인으로 돌아가기</button>`:null}
     </form>
     <p className="hint" style=${{color:'#5D687E'}}>${store.mode==='demo'?'데모 모드 · 계정과 데이터가 이 기기에만 저장돼요':'실시간 서버 연결됨'}</p>
@@ -5368,7 +5776,7 @@ function Sheet({open,onClose,title,children,tall}){
     if(open){ setShown(true); setClosing(false); return; }
     if(shown){ setClosing(true); const t=setTimeout(()=>{ setShown(false); setClosing(false); },290); return ()=>clearTimeout(t); }
   },[open]);
-  useEffect(()=>{ if(!open) return; const k=e=>{ if(e.key==='Escape') onClose(); }; document.addEventListener('keydown',k); document.body.style.overflow='hidden';
+  useEffect(()=>{ if(!open) return; const a=document.activeElement; if(a&&/INPUT|TEXTAREA/.test(a.tagName)&&!(ref.current&&ref.current.contains(a))) a.blur(); const k=e=>{ if(e.key==='Escape') onClose(); }; document.addEventListener('keydown',k); if(!document.documentElement.classList.contains('lock')) document.body.style.overflow='hidden';
     return ()=>{ document.removeEventListener('keydown',k); document.body.style.overflow=''; }; },[open]);
   if(!shown) return null;
   const down=e=>{ if(e.target.closest('button')||isPC()) return; const el=ref.current; if(!el||el.scrollTop>4) return;
@@ -5533,6 +5941,18 @@ const BLOG = [
     ['p','DKO PREMIUM PASS와 D-Coin은 금빛 이름이나 움직이는 이모티콘 같은 꾸미기만 담아요. 팀 배정이나 운영 권한에는 어떤 차이도 두지 않습니다. 가격도 부담 없는 선에서 유지할게요.'],
     ['h','계속 판올림합니다'],
     ['p','큰 변화가 있을 때마다 버전의 앞자리를 올리고, 바뀐 내용은 이 블로그에 남깁니다. 의견은 광장 게시판에 편하게 적어 주세요.']
+  ]},
+  {id:'v203',cat:'UPDATE',ver:'20.3',date:'2026.11.15',title:'DKO다운 디자인으로 다시 · 살아 있는 캐릭터 · 영웅 통계',sum:'클래시 스타일 대신 원래 DKO 디자인을 더 다듬었어요. 홈 캐릭터가 숨 쉬고 두리번거려요.',body:[
+    ['ul',['위쪽 바: D-Coin · 알림 · 설정을 한 묶음으로 정리했어요. 새 알림이 있으면 종이 흔들려요.','플레이 홈: 내 이름을 크게, 캐릭터는 주황 빛 링 위에. 플레이 버튼은 DKO식 사선 디자인이고, 바로가기 6개가 아래에 모였어요.','홈 캐릭터가 숨을 쉬고, 고개를 두리번거리고, 눈을 깜빡이고, 가끔 손을 흔들어요.','탭 바는 다시 리퀴드 글래스가 기본이에요. (설정에서 아레나로 바꿀 수 있어요)','e스포츠: OWCS ASIA가 메인이 되고 NA · EMEA · CHINA · 월드 파이널 지역을 고를 수 있어요. 영웅 통계(승률 · 픽률 · 밴률) 탭이 생겼어요.','운영진 권한은 관리자 계정에만 있어요. 야건 · 트릭이 계정에 남아 있던 관리자 권한은 들어올 때 자동으로 정리되고, 관리자 계정이 들어오면 예전 영구 정지는 모두 풀려요.']]
+  ]},
+  {id:'v202',cat:'UPDATE',ver:'20.2',date:'2026.11.15',title:'e스포츠 승부 예측 · 새 플레이 화면',sum:'OWCS 경기 일정을 보고 승부를 예측해 포인트를 모아요. 메인 플레이 화면은 손맛 있는 입체 UI로 다시 만들었어요.',body:[
+    ['h','e스포츠 승부 예측'],
+    ['ul',['대전 → e스포츠에서 다가오는 경기를 보고, 이길 팀을 눌러 예측해요. 스코어까지 고를 수 있어요.','경기가 시작되면 예측이 마감되고, 운영진이 결과를 입력하면 맞힌 사람이 보상을 받아요. 승리 팀 적중 +100점 · BP +30, 스코어까지 맞히면 +50점.','예측 포인트는 예측 랭킹에 쌓여요. 응원 팀은 OWCS Korea와 월드 파이널 참가 팀 중에서 고를 수 있어요.']],
+    ['h','메인 플레이 화면'],
+    ['ul',['버튼마다 두께가 생겨서 누르면 쑥 들어가요. 글자는 검은 외곽선으로 또렷해졌어요.','탭 바와 홈 아이콘을 단색 실루엣으로 깔끔하게 다시 그렸어요.']]
+  ]},
+  {id:'v201',cat:'UPDATE',ver:'20.1',date:'2026.11.15',title:'홈 화면 앱 안정화 · PC 화면 · 구글 로그인 · 푸시 점검',sum:'홈 화면 앱에서 화면이 흔들리던 문제를 고치고, PC에서는 넓은 화면에 맞게 다시 배치했어요.',body:[
+    ['ul',['키보드가 닫힐 때 화면을 억지로 흔들어 맞추던 보정을, 실제로 어긋났을 때만 하도록 바꿨어요. 채팅에서 + 도구를 열 때 화면이 들썩이던 문제가 줄어요.','시작 화면(로고)이 홈 화면 앱에서 높이가 바뀌며 튀던 문제를 고쳤어요.','PC: 플레이 홈은 왼쪽 아레나 + 오른쪽 카드 2단, 커뮤니티 글은 2열, 채널 · e스포츠 · 상점은 넓게 펼쳐져요.','구글 로그인: 카톡 · 인스타 안 브라우저면 Safari · Chrome으로 여는 버튼이 나오고, 휴대폰은 공식 주소에서 안정적인 방식으로 로그인해요.','설정 → 푸시 알림에서 무엇이 막혀 있는지 바로 보여 주고, 나에게 테스트 알림을 보낼 수 있어요. 운영진은 푸시 키를 앱 안에서 넣을 수 있어요.']]
   ]},
   {id:'v200',cat:'UPDATE',ver:'20.0',date:'2026.11.15',title:'DKO 대개편 · 아레나 홈 · 커뮤니티 · 섬 키우기',sum:'탭 바부터 홈, 커뮤니티, DKO 월드까지 전부 새로 만들었어요. 들어오면 바로 플레이!',body:[
     ['h','새 탭 바'],
@@ -6673,7 +7093,7 @@ function ChatPane({c,room,compact}){
         return html`<div className="mt18" role="listbox" aria-label="멘션할 크루원">${L.map(x=>html`<button key=${x.uid} type="button" className="mt18-i tap" onPointerDown=${e=>e.preventDefault()} onClick=${()=>{ const nm=dispName(x); onType(txt.slice(0,mq.index+(mq[0].startsWith('@')?0:1))+'@'+nm+' '); inp.current&&inp.current.focus(); haptic(8); }}>
           <${PfpView} m=${x} s=${28}/><span className="mt18-t"><b>${dispName(x)}</b><small>${x.loginId&&x.loginId!==dispName(x)?x.loginId+' · ':''}${x.pos||''}</small></span>${isOnline(x)?html`<i className="mt18-on"></i>`:null}</button>`)}</div>`; })()}
       <form className="composer" onSubmit=${e=>{ e.preventDefault(); send(); }}>
-        ${!compact?html`<button type="button" className="plus" onClick=${()=>c.setSheet('chatmenu')} aria-label="투표, 룰렛, 확성기"><${Icon} n="plus" s=${20} w=${2.2}/></button>`:null}
+        ${!compact?html`<button type="button" className="plus" onPointerDown=${e=>{ if(document.activeElement===inp.current) e.preventDefault(); }} onClick=${()=>{ const kb=document.documentElement.classList.contains('kb'); if(inp.current) inp.current.blur(); setTimeout(()=>c.setSheet('chatmenu'),kb?260:0); }} aria-label="투표, 룰렛, 확성기"><${Icon} n="plus" s=${20} w=${2.2}/></button>`:null}
         <button type="button" className=${'plus'+(tray?' on':'')} onClick=${()=>setTray(x=>!x)} aria-label="이모티콘" aria-expanded=${tray}><${Icon} n="smile" s=${20} w=${2}/></button>
         <div className="inpw">
           <input ref=${inp} className="inp" onFocus=${()=>{ const b=atBottom.current; [120,350,650].forEach(t=>setTimeout(()=>{ if(b){ atBottom.current=true; stick(); } },t)); }} value=${txt} onChange=${e=>onType(e.target.value)} onBlur=${()=>c.typing(room,false)} placeholder=${reply?'답글 보내기':room==='all'?'메시지 보내기':'이 방에 메시지 보내기'} maxLength=${300} enterKeyHint="send" aria-label="메시지"/>
@@ -8351,7 +8771,7 @@ function Crew({c}){
     <${Ttl} first=${true} title="크루원" count=${c.members.length} sub=${c.onlineCount+'명 접속 중'}/>
     <div className="search"><${Icon} n="search" s=${18}/><input className="inp" type="search" value=${q} onChange=${e=>setQ(e.target.value)} placeholder="닉네임이나 영웅으로 찾기" aria-label="크루원 검색"/></div>
     <div className="chips" style=${{marginBottom:'14px'}}>${['전체',...POSES].map(r=>html`<button key=${r} className=${'chip'+(f===r?' on':'')} onClick=${()=>setF(r)}><span>${r}<span className="n">${r==='전체'?c.members.length:(cnt[r]||0)}</span></span></button>`)}</div>
-    ${(()=>{ const pend=ADMINS.filter(a=>!c.members.some(m=>m.auth==='admin'&&normKey(m.loginId)===normKey(a.id))); return pend.length&&(f==='전체')&&!q.trim()?html`<div className="mlist" style=${{marginBottom:'10px'}}>${pend.map(a=>html`<div key=${a.id} className="mrow" style=${{opacity:.7}}>
+    ${(()=>{ const pend=ADMINS.filter(a=>!c.members.some(m=>normKey(m.loginId)===normKey(a.id))); return pend.length&&(f==='전체')&&!q.trim()?html`<div className="mlist" style=${{marginBottom:'10px'}}>${pend.map(a=>html`<div key=${a.id} className="mrow" style=${{opacity:.7}}>
       <${Avatar} nick=${a.nick} pos="올라운더" s=${44}/><div className="b"><div className="n1">${a.nick}<${RankBadge} mini=${true} label=${a.rank}/></div><div className="n2"><span className="rank">${a.id} · 첫 접속 전</span></div></div></div>`)}</div>`:null; })()}
     ${list.length?html`<div className="mlist">${list.map(m=>html`<button key=${m.id} className="mrow" onClick=${()=>c.openMember(m)}>
       <${Avatar} nick=${m.nick} pos=${m.pos} s=${44} online=${isOnline(m)}/>
@@ -8428,7 +8848,7 @@ function Settings({c}){
   const P=c.prefs, set=c.setPref;
   const [pwOpen,setPwOpen]=useState(false);
   const [pw,setPw]=useState({cur:'',next:'',next2:''}); const [pwErr,setPwErr]=useState('');
-  const staff=ADMINS.map(a=>({a,m:c.members.find(m=>m.auth==='admin'&&normKey(m.loginId)===normKey(a.id))}));
+  const staff=ADMINS.map(a=>({a,m:c.members.find(m=>normKey(m.loginId)===normKey(a.id))}));
   const changePw=async e=>{ e.preventDefault(); setPwErr('');
     if(pw.next.length<4) return setPwErr(AUTH_MSG.weak); if(pw.next!==pw.next2) return setPwErr('새 비밀번호 확인이 일치하지 않아요.');
     try{ await c.store.changePassword(pw.cur,pw.next); setPw({cur:'',next:'',next2:''}); setPwOpen(false); c.notify('비밀번호를 바꿨어요.'); }
@@ -8513,11 +8933,14 @@ function Header({c}){
     <button className="brand tap" onClick=${()=>c.go('plaza')} aria-label="광장으로">
       <${BrandMark}/>
     </button>
-    <div className="hdr-r">
-      <button className="coinpill" onClick=${()=>c.goShop('shop')} aria-label=${'D-Coin '+coinsOf(c.me)+'개, 상점 열기'}><${Coin} s=${18}/><b><${CountUp} to=${coinsOf(c.me)} dur=${700}/></b><i>+</i></button>
-      <button className="ico-btn" onClick=${()=>c.setSheet('notifs')} aria-label=${'알림'+(c.notifUnread?' '+c.notifUnread+'개':'')}><${Icon} n="bell" s=${21}/>${(()=>{ const k=c.notifUnread+(c.isAdmin?c.orders.filter(o=>o.status==='pending').length:0); return k?html`<i className="nbadge" key=${k}>${k>9?'9+':k}</i>`:null; })()}</button>
-      <button className="ico-btn" onClick=${()=>c.setSheet('settings')} aria-label="설정"><${Icon} n="gear" s=${21}/>${c.isAdmin&&c.openReports?html`<i className="hdot"></i>`:null}</button>
-      <button className="me-btn" onClick=${()=>c.openProfile(c.uid)} aria-label="내 프로필"><${Avatar} nick=${c.me.nick} pos=${c.me.pos} s=${34}/></button>
+    <div className="hdr-r hd25">
+      <button className="hd25-coin tap" onClick=${()=>c.goShop('shop')} aria-label=${'D-Coin '+coinsOf(c.me)+'개, 상점 열기'}><${Coin} s=${20}/><b><${CountUp} to=${coinsOf(c.me)} dur=${700}/></b><i><${Icon} n="plus" s=${12} w=${3}/></i></button>
+      <div className="hd25-dock">
+        ${(()=>{ const k=c.notifUnread+(c.isAdmin?c.orders.filter(o=>o.status==='pending').length:0); return html`<button className=${'hd25-b tap'+(k?' ring':'')} onClick=${()=>c.setSheet('notifs')} aria-label=${'알림'+(k?' '+k+'개':'')}><${Icon} n="bell" s=${20} w=${2}/>${k?html`<i className="hd25-n" key=${k}>${k>9?'9+':k}</i>`:null}</button>`; })()}
+        <i className="hd25-sep"></i>
+        <button className="hd25-b tap" onClick=${()=>c.setSheet('settings')} aria-label="설정"><${Icon} n="gear" s=${20} w=${2}/>${c.isAdmin&&c.openReports?html`<i className="hd25-d"></i>`:null}</button>
+      </div>
+      <button className="hd25-me tap" onClick=${()=>c.openProfile(c.uid)} aria-label="내 프로필"><${PfpView} m=${c.me} s=${36}/></button>
     </div>
   </header>`;
 }
@@ -9056,16 +9479,24 @@ const PUSH_KINDS=[['match','1대1 · 대회 · 내전'],['event','일정'],['rep
 const isStandalone=()=>!!(navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches));
 const isIOS=()=>/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 function pushSupport(){ if(!('serviceWorker' in navigator)||!('Notification' in window)) return isIOS()&&!isStandalone()?'ios-browser':'none'; if(isIOS()&&!isStandalone()) return 'ios-browser'; return 'ok'; }
-async function swReg(){ try{ return await navigator.serviceWorker.register('./firebase-messaging-sw.js',{scope:'./'}); }catch(e){ return null; } }
+async function swReg(){ try{ const r=await navigator.serviceWorker.register('./firebase-messaging-sw.js',{scope:'./'}); try{ await navigator.serviceWorker.ready; }catch(_){} return r; }catch(e){ window.__pushErr='서비스 워커 등록 실패: '+(e&&e.message||e); return null; } }
+const vapidOf=c=>((window.DKO_CONFIG&&window.DKO_CONFIG.PUSH&&window.DKO_CONFIG.PUSH.VAPID_KEY)||((c.config||[]).find(x=>x.id==='push')||{}).vapid||'').trim();
 function PushSettings({c}){
   const me=c.me, P=me.push||{}; const sup=pushSupport(); const perm=typeof Notification!=='undefined'?Notification.permission:'default';
   const on=!!P.on&&perm==='granted'; const off=P.off||[];
+  const [vk,setVk]=useState(null); const vapid=vapidOf(c); const tok=(P.tokens||[]).length; const fb=c.store.mode!=='demo';
+  const diag=[['앱 실행 방식',isStandalone()?'홈 화면 앱':'브라우저',isIOS()&&!isStandalone()?'bad':'ok'],['알림 권한',perm==='granted'?'허용됨':perm==='denied'?'차단됨':'아직 안 물어봄',perm==='granted'?'ok':perm==='denied'?'bad':'warn'],
+    ['서버 푸시 키(VAPID)',vapid?'등록됨':'없음',vapid?'ok':'bad'],['이 기기 등록',tok?tok+'대 등록됨':'없음',tok?'ok':'warn'],['서버',fb?'Firebase':'데모 모드',fb?'ok':'warn']];
   return html`<div className="set-group">
     <div className="set-item push9">
       <span className="push9-ic"><${Icon} n="bell" s=${18} w=${2.2}/></span>
       <div className="push9-t"><b>푸시 알림</b><small>${sup==='ios-browser'?'아이폰은 홈 화면에 추가한 DKO 앱에서 켤 수 있어요':sup==='none'?'이 브라우저는 푸시 알림을 지원하지 않아요':perm==='denied'?'알림이 차단돼 있어요. 기기 설정에서 허용해 주세요':on?'앱을 닫아 둬도 폰으로 알려 드려요':'도전장, 내전, 답글 소식을 폰으로 받아요'}</small></div>
       ${sup==='ok'&&perm!=='denied'?html`<button className=${'push9-b tap'+(on?' on':'')} onClick=${()=>on?c.disablePush():c.enablePush()}>${on?'끄기':'켜기'}</button>`:null}
     </div>
+    <div className="pd21">${diag.map(([k,v,s])=>html`<div key=${k} className=${'pd21-r '+s}><span>${k}</span><b>${v}</b></div>`)}${window.__pushErr?html`<div className="pd21-r bad"><span>최근 오류</span><b>${window.__pushErr}</b></div>`:null}</div>
+    ${on&&tok?html`<button className="pd21-test tap" onClick=${()=>c.testPush()}><${Icon} n="bell" s=${15}/>나에게 테스트 알림 보내기</button>`:null}
+    ${c.isAdmin?html`<div className="pd21-adm"><b>운영진: 서버 푸시 키</b><small>Firebase 콘솔 → 프로젝트 설정 → 클라우드 메시징 → 웹 푸시 인증서의 "키 쌍"(공개 키)을 붙여 넣어요</small>
+      ${vk==null?html`<button className="link sm" onClick=${()=>setVk(vapid)}>${vapid?'키 바꾸기 · '+vapid.slice(0,10)+'…':'키 넣기'}</button>`:html`<div className="row g6"><input className="inp mono" value=${vk} onChange=${e=>setVk(e.target.value.trim())} placeholder="B로 시작하는 긴 키"/><button className="pd21-save tap" onClick=${()=>c.saveVapid(vk).then(ok=>ok&&setVk(null))}>저장</button></div>`}</div>`:null}
     ${on?html`<div className="push9-kinds">${PUSH_KINDS.map(([k,l])=>html`<button key=${k} className=${'chip sm'+(off.includes(k)?'':' on')} onClick=${()=>c.savePushKinds(off.includes(k)?off.filter(x=>x!==k):[...off,k])}><span>${l}</span></button>`)}</div>`:null}
     ${sup==='ios-browser'?html`<div className="push9-how"><b>아이폰에서 켜는 법</b><ol><li>Safari 아래 공유 버튼 → <b>홈 화면에 추가</b></li><li>홈 화면의 DKO 아이콘으로 열기</li><li>설정 → 푸시 알림 <b>켜기</b> → 허용</li></ol><small>iOS 16.4 이상에서 동작해요.</small></div>`:null}
   </div>`;
@@ -9704,6 +10135,10 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
     notify(e&&e.ui?e.ui:e&&e.code==='permission-denied'?(isAdmin?'권한이 없어요. Firebase 콘솔에 새 보안 규칙(firestore.rules)을 게시했는지 확인해 주세요.':'권한이 없어요.'):'저장하지 못했어요. 연결을 확인해 주세요.','err'); return false; } };
   const mut=fn=>{ const cur=meRef.current; const patch=fn(cur); if(!patch) return Promise.resolve(false);
     meRef.current={...cur,...patch}; return store.update('members',uid,patch).then(()=>true).catch(e=>{ console.error(e); notify('저장하지 못했어요. 연결을 확인해 주세요.','err'); return false; }); };
+  /* 푸시: 이미 켜 둔 사람은 키가 생기면 조용히 이 기기 토큰을 다시 받아요 */
+  useEffect(()=>{ if(!ready||!store.pushToken) return; const P=meRef.current.push||{}; const vapid=vapidOf(data);
+    if(!P.on||!vapid||typeof Notification==='undefined'||Notification.permission!=='granted'||pushSupport()!=='ok') return;
+    (async()=>{ try{ const reg=await swReg(); if(!reg) return; const t=await store.pushToken(true,vapid,reg); if(t&&!(P.tokens||[]).includes(t)) mut(cur=>{ const Q=cur.push||{}; return {push:{...Q,tokens:[...new Set([...(Q.tokens||[]),t])].slice(-5)}}; }); }catch(e){ window.__pushErr=(e&&(e.code||e.message))||String(e); } })(); },[ready,vapidOf(data)]);
   const [celQ,setCelQ]=useState([]); const [cardUid,setCardUid]=useState(null); const cRef2=useRef(null); const [evId,setEvId]=useState(null); const [adminTab,setAdminTab]=useState('dash');
   /* 이벤트 진행도: 짧은 시간에 몰린 기록을 모아서 한 번에 저장 */
   const campBuf=useRef({}), campT=useRef(0);
@@ -9780,8 +10215,16 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
       .then(ok=>{ if(!ok) return; addRep(10,'내전 MVP'); FX.gold(); notify('내전 MVP로 뽑혔어요! D-Coin +'+MVP_COIN,'gold',ev.title+' · '+W.n+'표 · 명성 +10');
         store.add('messages',{sys:'mvp',room:'all',uid:'sys',nick:'DKO',text:ev.title+' MVP는 '+me.nick+' 님!',body:W.n+'표를 받았어요 · 축하해 주세요',createdAt:Date.now()}); }); }); },[data.events]);
   /* 관리자 계정으로 권한 일원화: 관리자 계정이 들어오면 예전 운영진 계정의 관리자 권한을 거둬요 (등급 표시는 그대로) */
-  useEffect(()=>{ if(!isSuperM(me)||me.auth!=='admin') return; const old=data.members.filter(x=>x.auth==='admin'&&!isSuperM(x)&&!x.grantedBy); if(!old.length) return;
-    Promise.all(old.map(x=>store.update('members',x.uid,{auth:'member'}))).then(()=>{ notify('관리자 권한을 이 계정으로 모았어요.','gold',old.map(x=>x.nick).join(', ')+' 계정은 일반 크루원 권한이 됐어요'); logAct(old.map(x=>x.nick).join(', ')+' 계정의 관리자 권한을 관리자 계정으로 옮겼어요'); }).catch(()=>{}); },[me.uid,me.auth,data.members.length]);
+  /* 예전 운영진 계정(야건 · 트릭이)은 스스로 들어올 때도 관리자 권한을 내려놓아요 (관리자 계정이 따로 준 경우는 빼고) */
+  useEffect(()=>{ const a=adminOf(me.loginId||''); if(a&&me.auth==='admin'&&!isSuperM(me)) store.update('members',uid,{auth:'member',crewRank:a.rank}).then(()=>{ meRef.current={...meRef.current,auth:'member'}; }).catch(()=>{}); },[me.auth]);
+  /* 관리자 계정: 영구 정지는 한 번 모두 풀어요 (v20.3) */
+  useEffect(()=>{ if(!isSuperM(me)||me.auth!=='admin'||!ready) return; const M=(data.config||[]).find(x=>x.id==='mig'); if(M&&M.unban203) return;
+    const perm=data.members.filter(x=>x.banned&&!x.banUntil);
+    Promise.all(perm.map(x=>store.update('members',x.uid,{banned:false,banUntil:null,banWhy:'',unbanBy:uid,unbanAt:Date.now()})))
+      .then(()=>store.set('config','mig',{...(M||{}),id:'mig',unban203:Date.now()}))
+      .then(()=>{ if(perm.length){ notify('영구 정지를 모두 풀었어요.','gold',perm.map(x=>x.nick).join(', ')); logAct('영구 정지 '+perm.length+'명 해제: '+perm.map(x=>x.nick).join(', ')); } }).catch(e=>console.error(e)); },[ready,me.auth]);
+  useEffect(()=>{ if(!isSuperM(me)||me.auth!=='admin') return; const old=data.members.filter(x=>x.auth==='admin'&&!isSuperM(x)&&(!x.grantedBy||adminOf(x.loginId||''))); if(!old.length) return;
+    Promise.all(old.map(x=>store.update('members',x.uid,{auth:'member',...(adminOf(x.loginId||'')?{crewRank:adminOf(x.loginId).rank}:{})}))).then(()=>{ notify('관리자 권한을 이 계정으로 모았어요.','gold',old.map(x=>x.nick).join(', ')+' 계정은 일반 크루원 권한이 됐어요'); logAct(old.map(x=>x.nick).join(', ')+' 계정의 관리자 권한을 관리자 계정으로 옮겼어요'); }).catch(()=>{}); },[me.uid,me.auth,data.members.length]);
   /* 배지 자동 지급 */
   const bVals=useMemo(()=>badgeVals(me,data),[me,data.duels,data.matches]); const bBusy=useRef(false);
   useEffect(()=>{ if(bBusy.current) return; const have=me.badges||{}; const ups=BADGES.map(b=>[b.id,badgeTierOf(b,bVals[b.id])]).filter(([id,t])=>t>(have[id]||0)); if(!ups.length) return;
@@ -9868,11 +10311,14 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
       return run(()=>pushNotif('*','update',t.trim(),b.trim(),{tab:'blog',seg:'updates'}),'모두에게 업데이트 알림을 보냈어요.').then(ok=>{ if(ok&&chat) store.add('messages',{...stamp(),room:'all',sys:'update',text:t.trim(),body:b.trim(),createdAt:Date.now()}).catch(()=>{}); }); },
     async enablePush(){ const sup=pushSupport(); if(sup!=='ok') return notify(sup==='ios-browser'?'홈 화면에 추가한 DKO 앱에서 켤 수 있어요.':'이 브라우저는 푸시 알림을 지원하지 않아요.','err');
       let perm=Notification.permission; if(perm!=='granted') perm=await Notification.requestPermission(); if(perm!=='granted') return notify('알림 권한이 허용되지 않았어요.','err');
-      const reg=await swReg(); let token=null; const vapid=(window.DKO_CONFIG&&window.DKO_CONFIG.PUSH&&window.DKO_CONFIG.PUSH.VAPID_KEY)||'';
-      if(store.pushToken&&vapid&&reg){ try{ token=await store.pushToken(true,vapid,reg); }catch(e){ console.warn('push',e); } }
+      const reg=await swReg(); let token=null; const vapid=vapidOf(data); window.__pushErr='';
+      if(store.pushToken&&vapid&&reg){ try{ token=await store.pushToken(true,vapid,reg); }catch(e){ console.warn('push',e); window.__pushErr=(e&&(e.code||e.message))||String(e); } }
+      if(store.pushToken&&!token){ notify('푸시 토큰을 받지 못했어요','err',!vapid?'운영진이 설정 → 푸시 알림에 VAPID 키를 넣어야 해요':!reg?'서비스 워커(firebase-messaging-sw.js)를 못 찾았어요':'오류: '+window.__pushErr); }
       await mut(cur=>{ const P=cur.push||{}; const tk=[...new Set([...(P.tokens||[]),...(token?[token]:[])])].slice(-5); return {push:{...P,on:true,tokens:tk,at:Date.now()}}; });
       if(reg) reg.showNotification('DKO 알림이 켜졌어요',{body:token?'앱을 닫아 둬도 소식을 알려 드려요.':'앱이 켜져 있을 때 알려 드려요. (서버 설정 후 앱을 닫아도 받아요)',icon:'icon-192.png',tag:'dko-hello'}).catch(()=>{});
       notify('푸시 알림을 켰어요.','gold',token?null:(store.pushToken?'서버 푸시 키(VAPID)가 아직 없어요':'데모 모드에서는 앱이 켜져 있을 때만 와요')); },
+    testPush(){ pushNotif(uid,'system','🔔 DKO 테스트 알림','이 알림이 보이면 푸시가 잘 되고 있어요!',{tab:'plaza'}).then(()=>notify('테스트 알림을 보냈어요. 앱을 닫고 5~10초 기다려 보세요.')); },
+    saveVapid(k){ if(!/^B[A-Za-z0-9_-]{60,}$/.test(k||'')){ notify('키 모양이 이상해요. B로 시작하는 공개 키(87자쯤)를 붙여 넣어 주세요.','err'); return Promise.resolve(false); } return run(()=>store.set('config','push',{id:'push',vapid:k,by:uid,at:Date.now()}),'푸시 키를 저장했어요. 크루원들이 알림을 다시 켜면 적용돼요.'); },
     async disablePush(){ try{ if(store.pushToken) await store.pushToken(false); }catch(e){} await mut(cur=>({push:{...(cur.push||{}),on:false,tokens:[]}})); notify('푸시 알림을 껐어요.'); },
     savePushKinds(off){ mut(cur=>({push:{...(cur.push||{}),off}})); },
     openCard(id){ setCardUid(id||uid); setSheet('rcard'); },
@@ -10002,7 +10448,7 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
         if(t&&(act==='warn'||act==='ban')) await pushNotif(t.uid,'admin',act==='warn'?'운영진 경고를 받았어요':'이용이 제한됐어요','신고가 확인되어 명성이 '+(act==='warn'?30:80)+' 내려갔어요 · 사유: '+r.reason,{sheet:'rep'});
         await store.update('reports',r.id,{status:act,doneAt:Date.now(),by2:me.nick});
       },({dismiss:'신고를 기각했어요.',delete:'메시지를 삭제했어요.',warn:'경고하고 명성을 30 내렸어요.',ban:'이용을 제한했어요.'})[act]); },
-    setAdmin(m,on){ if(!isSuperM(me)||isSuperM(m)) return; if(!window.confirm(on?m.nick+' 님에게 관리자 권한을 줄까요? 이벤트 · 정지 · 공지를 모두 할 수 있게 돼요.':m.nick+' 님의 관리자 권한을 뺄까요?')) return;
+    setAdmin(m,on){ if(!isSuperM(me)||isSuperM(m)) return; if(on&&adminOf(m.loginId||'')){ notify('야건 · 트릭이 계정에는 관리자 권한을 줄 수 없어요. 관리 작업은 관리자 계정으로 해 주세요.','err'); return; } if(!window.confirm(on?m.nick+' 님에게 관리자 권한을 줄까요? 이벤트 · 정지 · 공지를 모두 할 수 있게 돼요.':m.nick+' 님의 관리자 권한을 뺄까요?')) return;
       run(()=>store.update('members',m.uid,{auth:on?'admin':'member',grantedBy:on?uid:null}),on?m.nick+' 님에게 관리자 권한을 줬어요.':m.nick+' 님의 관리자 권한을 뺐어요.'); },
     setVerified(m,v){ run(()=>store.update('members',m.uid,{verified:v}),v?m.nick+' 님에게 인증 배지를 줬어요.':m.nick+' 님의 인증 배지를 뺐어요.'); },
     shareToChat(text){ c.sendMessage(text,'all').then(ok=>{ if(ok){ setRoomS('all'); setChatView('room'); go('chat'); notify('메인 채팅에 공유했어요.'); } }); },
@@ -10406,12 +10852,17 @@ applyPrefs(loadPrefs());
 /* iOS 키보드가 닫힌 뒤 탭 바·입력창이 떠 있는 버그 보정 */
 (function(){
   const vv=window.visualViewport, R=document.documentElement; let open=false, base=window.innerHeight;
-  const settle=()=>{ const lock=R.classList.contains('lock'); const y=lock?0:window.scrollY; window.scrollTo(0,y+1); requestAnimationFrame(()=>{ window.scrollTo(0,y); if(lock){ document.body.scrollTop=0; R.scrollTop=0; } R.style.setProperty('--vvo','0px'); put(); }); };
+  /* 키보드가 닫힌 뒤 화면이 실제로 어긋났을 때만 바로잡아요 (예전처럼 매번 흔들지 않아요) */
+  const settle=()=>{ const lock=R.classList.contains('lock'); const off=vv?Math.round(vv.offsetTop):0; const bad=off>1||(lock&&(window.scrollY!==0||document.body.scrollTop!==0));
+    if(bad){ const y=lock?0:window.scrollY; window.scrollTo(0,lock?0:y); if(lock){ document.body.scrollTop=0; R.scrollTop=0; } }
+    R.style.setProperty('--vvo','0px'); put(); };
   /* 홈 화면 앱(iOS)에서 화면 아래가 비는 버그: 실제 화면 끝과 고정 요소 기준선의 차이를 재서 메워요 */
   const probe=document.createElement('i'); probe.style.cssText='position:fixed;left:0;bottom:0;width:1px;height:1px;pointer-events:none;visibility:hidden'; document.body.appendChild(probe);
   const standalone=()=>{ try{ return navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches||window.matchMedia('(display-mode: fullscreen)').matches; }catch(e){ return false; } };
-  const gapFix=()=>{ let g=0; if(standalone()&&!R.classList.contains('kb')){ const portrait=window.innerHeight>=window.innerWidth; const sh=portrait?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width); const bot=probe.getBoundingClientRect().bottom; const d=Math.round(sh-bot); if(d>2&&d<160) g=d; }
-    R.style.setProperty('--gap',g+'px'); };
+  let lastG=null, curG=0;
+  const gapFix=()=>{ if(R.classList.contains('kb')) return; let g=0; if(standalone()){ const portrait=window.innerHeight>=window.innerWidth; const sh=portrait?Math.max(screen.height,screen.width):Math.min(screen.height,screen.width); const bot=probe.getBoundingClientRect().bottom; const d=Math.round(sh-bot); if(d>2&&d<60) g=d; }
+    /* 같은 값이 두 번 연속 나올 때만 반영해서, 시작할 때 화면이 위아래로 튀지 않게 해요 */
+    if(g!==curG){ if(lastG===g){ curG=g; R.style.setProperty('--gap',g+'px'); } lastG=g; } else lastG=g; };
   window.__gapFix=gapFix;
   const put=()=>{ if(!vv) return; R.style.setProperty('--vvh',Math.round(vv.height)+'px'); R.style.setProperty('--vvt',Math.max(0,Math.round(vv.offsetTop))+'px'); gapFix(); };
   [60,400,1200,3000].forEach(t=>setTimeout(put,t)); window.addEventListener('resize',()=>setTimeout(put,50));
@@ -10636,25 +11087,26 @@ function vxCharBoxes(av,P){
   const M=hero?PAL[V[0]]:(PAL[(av&&av.color)||'blue']||PAL.blue), A=hero?PAL[V[1]]:PAL.orange;
   const sw=P.walk?Math.sin(P.ph)*1.2:0, bob=P.walk?Math.abs(Math.sin(P.ph))*.5:Math.sin(P.t*2)*.12;
   const skin=hero?'#F2C9A0':'#E8EDF4', dark='#1A1F2C', glow=(M&&M.g)||'#8CF6FF';
-  const B=[]; const b=(x0,y0,z0,x1,y1,z1,col,tag)=>B.push([x0,y0,z0,x1,y1,z1,col,tag]);
+  const B=[]; let grp='b'; const b=(x0,y0,z0,x1,y1,z1,col,tag)=>B.push([x0,y0,z0,x1,y1,z1,col,tag,grp]);
+  const br=P.breath||0, sy=P.walk?0:(P.sway||0); const ez0=P.blink?2.2:1.7, ez1=P.blink?2.42:2.9;
   b(-1.7,-.7+sw*.5,0,-.2,.7+sw*.5,2.4,wShade(M.d,-.2)); b(.2,-.7-sw*.5,0,1.7,.7-sw*.5,2.4,wShade(M.d,-.2));
   b(-1.75,-.75+sw*.5,0,-.15,1+sw*.5,.7,'#2A2F3A'); b(.15,-.75-sw*.5,0,1.75,1-sw*.5,.7,'#2A2F3A');
-  const z0=2.3+bob;
+  const z0=2.3+bob+br*.5;
   b(-2.2,-1.5,z0,2.2,1.5,z0+3.6,M.m); b(-2.3,-1.6,z0+.6,2.3,1.6,z0+1.2,A.m); b(-.6,1.5,z0+1.6,.6,1.62,z0+2.8,A.l||A.m);
   b(-1.6,-2.2,z0+.9,1.6,-1.5,z0+3.2,A.d||A.m);
   const ar=P.hammer?Math.sin(P.t*12)*1.6:P.wave?Math.sin(P.t*10)*1.2:-sw*.6;
-  b(-3.3,-.7-sw*.4,z0+.6,-2.2,.7-sw*.4,z0+3.4,M.m); b(-3.35,-.75-sw*.4,z0+.2,-2.15,.75-sw*.4,z0+.9,skin);
+  b(-3.3,-.7-sw*.4+sy*.3,z0+.6,-2.2,.7-sw*.4+sy*.3,z0+3.4,M.m); b(-3.35,-.75-sw*.4+sy*.3,z0+.2,-2.15,.75-sw*.4+sy*.3,z0+.9,skin);
   if(P.wave) b(2.2,-.7,z0+3,3.3,.7,z0+6+ar*.4,M.m), b(2.15,-.75,z0+6+ar*.4,3.35,.75,z0+6.8+ar*.4,skin);
   else if(P.hammer){ const hz=z0+2.6+ar*.5; b(2.2,-.7+ar*.3,z0+.8,3.3,.7+ar*.3,z0+3.4,M.m); b(2.4,-.2+ar*.6,hz,3.1,.5+ar*.6,hz+2.6,'#8A5A34'); b(2,-.4+ar*.6,hz+2.4,3.6,1.6+ar*.6,hz+3.4,'#9AA3AE'); }
-  else b(2.2,-.7+sw*.4,z0+.6,3.3,.7+sw*.4,z0+3.4,M.m), b(2.15,-.75+sw*.4,z0+.2,3.35,.75+sw*.4,z0+.9,skin);
-  const h0=z0+3.5;
+  else b(2.2,-.7+sw*.4-sy*.3,z0+.6,3.3,.7+sw*.4-sy*.3,z0+3.4,M.m), b(2.15,-.75+sw*.4-sy*.3,z0+.2,3.35,.75+sw*.4-sy*.3,z0+.9,skin);
+  const h0=z0+3.5+br*.3; grp='h';
   b(-2.7,-2.5,h0,2.7,2.5,h0+4.6,skin,'head');
   if(hero){
     b(-2.9,-2.7,h0+3.4,2.9,2.7,h0+5.4,A.m); b(-2.95,1.9,h0+3,2.95,2.75,h0+4,A.m); b(-2.95,-2.75,h0+.8,-2.6,2,h0+4,A.m); b(2.6,-2.75,h0+.8,2.95,2,h0+4,A.m); b(-2.9,-2.8,h0+.4,2.9,-2.4,h0+4.6,A.d||A.m);
-    b(-1.6,2.5,h0+1.7,-.7,2.65,h0+2.9,dark); b(.7,2.5,h0+1.7,1.6,2.65,h0+2.9,dark); b(-1.4,2.5,h0+2.5,-1,2.7,h0+2.8,'#FFFFFF'); b(.9,2.5,h0+2.5,1.3,2.7,h0+2.8,'#FFFFFF');
+    b(-1.6,2.5,h0+ez0,-.7,2.65,h0+ez1,dark); b(.7,2.5,h0+ez0,1.6,2.65,h0+ez1,dark); if(!P.blink){ b(-1.4,2.5,h0+2.5,-1,2.7,h0+2.8,'#FFFFFF'); b(.9,2.5,h0+2.5,1.3,2.7,h0+2.8,'#FFFFFF'); }
     b(-2.1,2.5,h0+1.1,-1.5,2.58,h0+1.5,'#FF9A9A'); b(1.5,2.5,h0+1.1,2.1,2.58,h0+1.5,'#FF9A9A');
   } else {
-    b(-2.3,2.5,h0+1.2,2.3,2.62,h0+3.4,dark); b(-1.5,2.62,h0+1.8,-.6,2.72,h0+2.9,glow); b(.6,2.62,h0+1.8,1.5,2.72,h0+2.9,glow);
+    b(-2.3,2.5,h0+1.2,2.3,2.62,h0+3.4,dark); b(-1.5,2.62,h0+(P.blink?2.25:1.8),-.6,2.72,h0+(P.blink?2.45:2.9),glow); b(.6,2.62,h0+(P.blink?2.25:1.8),1.5,2.72,h0+(P.blink?2.45:2.9),glow);
     b(-2.75,-2.55,h0+4.6,2.75,2.55,h0+5.2,M.m); b(-.3,-.3,h0+5.2,.3,.3,h0+6.8,M.d); b(-.7,-.7,h0+6.8,.7,.7,h0+8,A.m);
     b(-2.95,-.8,h0+1.4,-2.7,.8,h0+3,M.d); b(2.7,-.8,h0+1.4,2.95,.8,h0+3,M.d);
   }
@@ -11031,24 +11483,15 @@ function WorldThumb({me}){ const r=useRef(null);
 
 /* ───────── 1. 탭 바 ───────── */
 function TabArt({id,on}){
-  const O='#10131A';
-  const g=(k,a,b)=>html`<linearGradient id=${'ta-'+k} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor=${a}/><stop offset="1" stopColor=${b}/></linearGradient>`;
+  /* 단색 실루엣 + 굵은 외곽선 + 포인트 한 가지 색 (켜지면 흰색 + 주황 포인트) */
   const body={
-    shop:html`<g><path d="M6 17h28v15a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z" fill="url(#ta-chb)" stroke=${O} strokeWidth="2"/><path d="M6 17c0-6 4-10 14-10s14 4 14 10z" fill="url(#ta-cht)" stroke=${O} strokeWidth="2"/>
-      <path d="M6 17h28v4H6z" fill="#F2B33D" stroke=${O} strokeWidth="2"/><rect x="16.5" y="17.5" width="7" height="8" rx="1.5" fill="#FFE08A" stroke=${O} strokeWidth="2"/><circle cx="20" cy="21.5" r="1.3" fill=${O}/><path d="M10 10.5c2-1.6 5-2.5 8-2.7" stroke="#fff" strokeOpacity=".55" strokeWidth="2" strokeLinecap="round" fill="none"/></g>`,
-    chat:html`<g><path d="M8 6h24a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-7 6v-6H8a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4z" fill="url(#ta-bub)" stroke=${O} strokeWidth="2" strokeLinejoin="round"/>
-      <circle cx="13" cy="17" r="2.4" fill="#fff" stroke=${O} strokeWidth="1.4"/><circle cx="20" cy="17" r="2.4" fill="#fff" stroke=${O} strokeWidth="1.4"/><circle cx="27" cy="17" r="2.4" fill="#fff" stroke=${O} strokeWidth="1.4"/><path d="M9 9.5h9" stroke="#fff" strokeOpacity=".5" strokeWidth="2" strokeLinecap="round"/></g>`,
-    plaza:html`<g><path d="M7 5l4 0 17 19-4 4L7 9z" fill="url(#ta-bl)" stroke=${O} strokeWidth="2" strokeLinejoin="round"/><path d="M33 5l-4 0L12 24l4 4L33 9z" fill="url(#ta-bl)" stroke=${O} strokeWidth="2" strokeLinejoin="round"/>
-      <path d="M9 25l6 6M31 25l-6 6" stroke=${O} strokeWidth="6" strokeLinecap="round"/><path d="M9 25l6 6M31 25l-6 6" stroke="url(#ta-hl)" strokeWidth="3.4" strokeLinecap="round"/>
-      <circle cx="9.5" cy="32.5" r="3" fill="#FF5A1A" stroke=${O} strokeWidth="1.8"/><circle cx="30.5" cy="32.5" r="3" fill="#FF5A1A" stroke=${O} strokeWidth="1.8"/></g>`,
-    blog:html`<g><path d="M20 4l13 4v10c0 8-6 13-13 16C13 31 7 26 7 18V8z" fill="url(#ta-sh)" stroke=${O} strokeWidth="2" strokeLinejoin="round"/>
-      <circle cx="15" cy="16" r="3.2" fill="#fff" stroke=${O} strokeWidth="1.6"/><circle cx="25" cy="16" r="3.2" fill="#fff" stroke=${O} strokeWidth="1.6"/><path d="M10 25c1-3.5 3-5 5-5s4 1.5 5 5M20 25c1-3.5 3-5 5-5s4 1.5 5 5" fill="#fff" stroke=${O} strokeWidth="1.6" strokeLinejoin="round"/><path d="M11 9l9-2.6" stroke="#fff" strokeOpacity=".5" strokeWidth="2" strokeLinecap="round"/></g>`,
-    play:html`<g><path d="M11 6h18v6c0 7-4 11-9 11s-9-4-9-11z" fill="url(#ta-tr)" stroke=${O} strokeWidth="2" strokeLinejoin="round"/><path d="M11 9H6c0 5 2 8 6 8M29 9h5c0 5-2 8-6 8" fill="none" stroke=${O} strokeWidth="2.2"/>
-      <path d="M17 23h6v4h-6z" fill="#C98A1A" stroke=${O} strokeWidth="2"/><rect x="12" y="27" width="16" height="6" rx="1.5" fill="url(#ta-tb)" stroke=${O} strokeWidth="2"/><path d="M15 9.5v4" stroke="#fff" strokeOpacity=".6" strokeWidth="2.2" strokeLinecap="round"/><path d="M20 11l1.2 2.4 2.6.4-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.4z" fill="#fff"/></g>`
+    shop:html`<g><path className="ta-f" d="M7 18h26v13a2.5 2.5 0 0 1-2.5 2.5h-21A2.5 2.5 0 0 1 7 31z"/><path className="ta-f" d="M7 18c0-6.5 5-10 13-10s13 3.5 13 10z"/><rect className="ta-a" x="16.5" y="15" width="7" height="8.5" rx="2"/></g>`,
+    chat:html`<g><path className="ta-f" d="M9 8h22a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3H19l-7 6v-6H9a3 3 0 0 1-3-3V11a3 3 0 0 1 3-3z"/><circle className="ta-a" cx="14" cy="17.5" r="2.2"/><circle className="ta-a" cx="20" cy="17.5" r="2.2"/><circle className="ta-a" cx="26" cy="17.5" r="2.2"/></g>`,
+    plaza:html`<g><path className="ta-f" d="M8 6h5l14 16-4.5 4.5L8 11z"/><path className="ta-f" d="M32 6h-5L13 22l4.5 4.5L32 11z"/><path className="ta-a" d="M7.5 25.5l3-3 7 7-3 3zM32.5 25.5l-3-3-7 7 3 3z"/></g>`,
+    blog:html`<g><circle className="ta-f" cx="15" cy="14" r="5.5"/><path className="ta-f" d="M5 31c0-5.5 4.5-9.5 10-9.5s10 4 10 9.5z"/><circle className="ta-a" cx="27" cy="15.5" r="4.5"/><path className="ta-a" d="M22.5 31c.4-4.4 3-7.6 7-7.6 3.6 0 6 3 6.5 7.6z"/></g>`,
+    play:html`<g><path className="ta-f" d="M11 6h18v7.5c0 6-4 10-9 10s-9-4-9-10z"/><path className="ta-s" d="M11 9.5H6.5c0 4.5 2 7 5.5 7.2M29 9.5h4.5c0 4.5-2 7-5.5 7.2"/><path className="ta-s2" d="M11 9.5H6.5c0 4.5 2 7 5.5 7.2M29 9.5h4.5c0 4.5-2 7-5.5 7.2"/><path className="ta-f" d="M17 23h6v5h-6z"/><path className="ta-a" d="M12 28h16v6H12z"/></g>`
   }[id];
-  return html`<svg viewBox="0 0 40 40" width="40" height="40" className=${'ta20'+(on?' on':'')} aria-hidden="true"><defs>
-    ${g('chb','#C8763A','#8A4A1E')}${g('cht','#E89A50','#B5642A')}${g('bub','#6EC3FF','#2F7FE0')}${g('bl','#F4F7FB','#AEB8C6')}${g('hl','#FFB067','#E8500F')}${g('sh','#7B8CFF','#3A49C8')}${g('tr','#FFE08A','#F2A71B')}${g('tb','#8A5A34','#5E3A1E')}
-  </defs>${body}</svg>`;
+  return html`<svg viewBox="0 0 40 40" width="40" height="40" className=${'ta20'+(on?' on':'')} aria-hidden="true">${body}</svg>`;
 }
 const TAB_ORDER=['shop','chat','plaza','blog','play'];
 const TAB_LBL={shop:'상점',chat:'채팅',plaza:'플레이',blog:'커뮤니티',play:'대전'};
@@ -11071,35 +11514,41 @@ function ArenaTabs({c,badge,onPick}){
 }
 
 /* ───────── 2. 플레이 홈 ───────── */
-function VoxelStage({av,size=230,onTap}){
-  const r=useRef(null); const st=useRef({yaw:-.35,v:0,drag:null,wave:0,jump:0});
+function VoxelStage({av,w=220,h=250,onTap}){
+  const r=useRef(null); const st=useRef({yaw:-.35,v:0,drag:null,wave:0,jump:0,hy:0,hyT:0,nextLook:0,blinkAt:0,nextWave:0,lean:0});
   useEffect(()=>{ const el=r.current; let raf=0, dead=false; const d=Math.min(2,window.devicePixelRatio||1);
-    const draw=now=>{ if(dead) return; const tm=now/1000; const S=st.current; const W=el.clientWidth||size, H=el.clientHeight||size;
-      if(el.width!==Math.round(W*d)){ el.width=Math.round(W*d); el.height=Math.round(H*d); }
+    const draw=now=>{ if(dead) return; const tm=now/1000; const S=st.current; const W=el.clientWidth||w, H=el.clientHeight||h;
+      if(el.width!==Math.round(W*d)||el.height!==Math.round(H*d)){ el.width=Math.round(W*d); el.height=Math.round(H*d); }
       const g=el.getContext('2d'); g.setTransform(d,0,0,d,0,0); g.clearRect(0,0,W,H);
-      if(!S.drag){ S.yaw+=S.v; S.v*=.93; if(Math.abs(S.v)<.002){ const tgt=Math.sin(tm*.45)*.55-.15; S.yaw+=(tgt-S.yaw)*.02; } }
-      const cx=W/2, base=H*.80, R=W*.36;
-      /* 받침대 */
-      const ell=(y,rx,ry,col)=>{ g.fillStyle=col; g.beginPath(); g.ellipse(cx,y,rx,ry,0,0,Math.PI*2); g.fill(); };
-      const glow=g.createRadialGradient(cx,base,R*.2,cx,base,R*1.5); glow.addColorStop(0,'rgba(255,140,60,.45)'); glow.addColorStop(1,'rgba(255,140,60,0)'); g.fillStyle=glow; g.fillRect(0,0,W,H);
-      const hex=(y,rx,ry,col,rot)=>{ g.fillStyle=col; g.beginPath(); for(let i=0;i<6;i++){ const a=i/6*Math.PI*2+rot; const x=cx+Math.cos(a)*rx, yy=y+Math.sin(a)*ry; i?g.lineTo(x,yy):g.moveTo(x,yy); } g.closePath(); g.fill(); };
-      for(let k=14;k>=0;k-=2) hex(base+k,R,R*.32,k?'#5A2A12':'#7A3A18',Math.PI/6);
-      hex(base,R,R*.32,'#C8763A',Math.PI/6); hex(base-1,R*.86,R*.27,'#E89A50',Math.PI/6);
-      g.strokeStyle='rgba(255,220,160,.6)'; g.lineWidth=1.5; g.beginPath(); g.ellipse(cx,base-1,R*.62,R*.2,0,0,Math.PI*2); g.stroke();
-      const ring=(tm*.5)%1; g.strokeStyle='rgba(255,200,120,'+(1-ring)*.6+')'; g.lineWidth=2; g.beginPath(); g.ellipse(cx,base-1,R*(.4+ring*.6),R*(.13+ring*.2),0,0,Math.PI*2); g.stroke();
-      /* 캐릭터 */
-      const u=W/21; const jt=Math.max(0,S.jump-now)/700; const jy=jt>0?Math.sin(jt*Math.PI)*u*5:0;
-      g.fillStyle='rgba(30,10,0,.35)'; g.beginPath(); g.ellipse(cx,base-2,u*5-jy*.2,u*1.7,0,0,Math.PI*2); g.fill();
-      vxDraw(g,cx,base-4-jy,u,vxCharBoxes(av,{t:tm,ph:tm*8,walk:false,wave:S.wave>now}),S.yaw,{h:1,d:.36,v:.95});
-      /* 반짝이 */
-      for(let i=0;i<7;i++){ const ph=(tm*.3+i/7)%1; const x=cx+(wHash(i,3,3)-.5)*W*.8, y=base-ph*H*.7; g.fillStyle='rgba(255,230,180,'+Math.sin(ph*Math.PI)*.8+')'; g.fillRect(x,y,2.4,2.4); }
+      /* 살아 있는 대기 동작: 몸은 천천히 좌우로, 고개는 따로 두리번, 가끔 눈 깜빡 · 손 흔들기 */
+      if(!S.drag){ S.yaw+=S.v; S.v*=.93; if(Math.abs(S.v)<.002){ const tgt=Math.sin(tm*.35)*.38-.2; S.yaw+=(tgt-S.yaw)*.015; } }
+      if(now>S.nextLook){ S.hyT=(Math.random()-.5)*1.1; S.nextLook=now+1800+Math.random()*2600; }
+      S.hy+=(S.hyT-S.hy)*.05;
+      if(now>S.blinkAt+3600+Math.random()*900) S.blinkAt=now;
+      if(!S.nextWave) S.nextWave=now+5000; if(now>S.nextWave){ S.wave=now+1400; S.nextWave=now+9000+Math.random()*5000; S.hyT=0; }
+      const blink=now-S.blinkAt<130;
+      const M0=Math.min(W,H), cx=W/2, base=H*.86, R=M0*.38;
+      /* 발밑: 주황 링 + 빛기둥 */
+      const beam=g.createLinearGradient(0,base-H*.75,0,base); beam.addColorStop(0,'rgba(255,122,40,0)'); beam.addColorStop(1,'rgba(255,122,40,.22)');
+      g.fillStyle=beam; g.beginPath(); g.moveTo(cx-R*.75,base); g.lineTo(cx-R*.45,base-H*.75); g.lineTo(cx+R*.45,base-H*.75); g.lineTo(cx+R*.75,base); g.closePath(); g.fill();
+      const disc=g.createRadialGradient(cx,base,2,cx,base,R); disc.addColorStop(0,'rgba(255,150,70,.55)'); disc.addColorStop(.6,'rgba(255,90,26,.18)'); disc.addColorStop(1,'rgba(255,90,26,0)');
+      g.fillStyle=disc; g.beginPath(); g.ellipse(cx,base,R,R*.3,0,0,Math.PI*2); g.fill();
+      g.strokeStyle='rgba(255,160,90,.85)'; g.lineWidth=2; g.beginPath(); g.ellipse(cx,base,R*.72,R*.21,0,0,Math.PI*2); g.stroke();
+      g.strokeStyle='rgba(255,160,90,.3)'; g.lineWidth=1; g.setLineDash([3,5]); g.lineDashOffset=-tm*12; g.beginPath(); g.ellipse(cx,base,R*.95,R*.28,0,0,Math.PI*2); g.stroke(); g.setLineDash([]);
+      const ring=(tm*.45)%1; g.strokeStyle='rgba(255,170,100,'+(1-ring)*.55+')'; g.lineWidth=1.5; g.beginPath(); g.ellipse(cx,base,R*(.3+ring*.7),R*(.09+ring*.21),0,0,Math.PI*2); g.stroke();
+      const u=M0/20; const jt=Math.max(0,S.jump-now)/700; const jy=jt>0?Math.sin(jt*Math.PI)*u*4:0;
+      g.fillStyle='rgba(0,0,0,.45)'; g.beginPath(); g.ellipse(cx,base,u*4.6-jy*.2,u*1.4,0,0,Math.PI*2); g.fill();
+      const B=vxCharBoxes(av,{t:tm,ph:tm*8,walk:false,wave:S.wave>now,blink,breath:Math.sin(tm*2.1)*.16,sway:Math.sin(tm*1.4)*.35});
+      const body=B.filter(b=>b[8]!=='h'), head=B.filter(b=>b[8]==='h'); const K={h:1,d:.34,v:.95};
+      vxDraw(g,cx,base-2-jy,u,body,S.yaw,K); vxDraw(g,cx,base-2-jy,u,head,S.yaw+S.hy,K);
+      for(let i=0;i<9;i++){ const ph=(tm*.25+i/9)%1; const x=cx+(wHash(i,3,3)-.5)*W*.9, y=base-ph*H*.85; g.fillStyle='rgba(255,200,150,'+Math.sin(ph*Math.PI)*.75+')'; g.fillRect(x,y,2,2); }
       raf=requestAnimationFrame(draw); };
     raf=requestAnimationFrame(draw);
     return ()=>{ dead=true; cancelAnimationFrame(raf); }; },[av&&JSON.stringify(av)]);
   const pd=e=>{ const S=st.current; S.drag={x:e.clientX,y0:S.yaw,lx:e.clientX,moved:false}; try{ e.currentTarget.setPointerCapture(e.pointerId); }catch(_){} };
   const pm=e=>{ const S=st.current; if(!S.drag) return; const dx=e.clientX-S.drag.x; if(Math.abs(dx)>4) S.drag.moved=true; S.yaw=S.drag.y0+dx*.02; S.v=(e.clientX-S.drag.lx)*.02; S.drag.lx=e.clientX; };
-  const pu=()=>{ const S=st.current; const D=S.drag; S.drag=null; if(D&&!D.moved){ S.wave=performance.now()+1300; S.jump=performance.now()+700; haptic(10); onTap&&onTap(); } };
-  return html`<canvas ref=${r} className="vs20" style=${{width:size+'px',height:size+'px'}} onPointerDown=${pd} onPointerMove=${pm} onPointerUp=${pu} onPointerCancel=${pu} aria-label="내 3D 캐릭터 · 끌어서 돌려 보세요"></canvas>`;
+  const pu=()=>{ const S=st.current; const D=S.drag; S.drag=null; if(D&&!D.moved){ S.wave=performance.now()+1300; S.jump=performance.now()+700; S.hyT=0; haptic(10); onTap&&onTap(); } };
+  return html`<canvas ref=${r} className="vs20" style=${{width:w+'px',height:h+'px'}} onPointerDown=${pd} onPointerMove=${pm} onPointerUp=${pu} onPointerCancel=${pu} aria-label="내 3D 캐릭터 · 끌어서 돌리고 눌러 보세요"></canvas>`;
 }
 const GAME_MODES=[
   {k:'world',t:'DKO 월드',e:'ISLAND BUILDER',d:'내 섬을 짓고 키워요',tag:'BETA',sec:'놀이터',c:['#3FA8EE','#13508F'],ic:'globe'},
@@ -11135,42 +11584,46 @@ function PlayHero({c}){
   const [,tk]=useState(0); useEffect(()=>{ const t=setInterval(()=>tk(x=>x+1),30000); return ()=>clearInterval(t); },[]);
   useEffect(()=>{ const f=e=>{ setMode(e.detail); }; window.addEventListener('dko-mode',f); return ()=>window.removeEventListener('dko-mode',f); },[]);
   const D=dailyOf(me), checked=!!D.got.checkin||!!(me.checkin&&me.checkin.d===dayKey());
-  const drops=me.drops||0; const lv=repLvOf(me);
+  const drops=me.drops||0; const lv=repLvOf(me); const days=Math.max(0,Math.ceil((SEASON.end-Date.now())/86400000));
   const liveEv=(c.campaigns||[]).filter(e=>typeof evLive==='function'&&evLive(e)).length;
-  const bub=(k,ic,lbl,sub,on,cls,n)=>html`<button key=${k} className=${'ah20-bub tap '+(cls||'')} onClick=${on}><span className="ah20-bi"><${Icon} n=${ic} s=${24} w=${2.3}/>${n?html`<i className="ah20-bn">${n}</i>`:null}</span><b>${lbl}</b>${sub?html`<small>${sub}</small>`:null}</button>`;
-  return html`<section className="ah20 rv" style=${{'--i':0}}>
-    <div className="ah20-bg" aria-hidden="true"><i className="g1"></i><i className="g2"></i><i className="rays"></i><i className="flr"></i></div>
-    <div className="ah20-top">
-      <button className="ah20-me tap" onClick=${()=>c.openProfile(c.uid)}>
-        <span className="ah20-pfp"><${PfpView} m=${me} s=${44}/><i className="ah20-lv">${lv}</i></span>
-        <span className="ah20-nm"><b className=${hasGold(me)?'gold':''}>${dispName(me)}</b><small>${me.tier?html`<${TierBadge} t=${me.tier} d=${me.div} mini=${true}/>`:null}<span>${rankOf(me)}</span></small></span>
+  const hour=new Date().getHours(); const greet=hour<6?'늦은 밤에도 한 판':hour<12?'좋은 아침이에요':hour<18?'오늘도 한 판 하죠':'저녁 내전 준비됐나요';
+  const pp=T>=PASS_TIERS?1:bp/BP_PER_TIER; const vw=typeof window!=='undefined'?window.innerWidth:390;
+  const sw=isPC()?250:Math.max(170,Math.min(230,vw*0.52));
+  const Q=[
+    {k:'q',ic:'target',l:'퀘스트',s:'일일 · 주간',on:()=>c.setPassOpen('quests'),c:'#FF6B8A'},
+    {k:'dr',ic:'gift',l:'드롭',s:drops?drops+'개 열기':'확률 보기',on:()=>drops?c.openDrop():c.setSheet('dropinfo'),c:'#FFB13D',n:drops},
+    {k:'wd',ic:'globe',l:'월드',s:'BETA',on:()=>c.setWorld(true),c:'#4FC3F7'},
+    {k:'sh',ic:'bag',l:'상점',s:shortLeft(untilMidnight()),on:()=>c.goShop('shop'),c:'#7CD957'},
+    {k:'bd',ic:'medal',l:'배지',s:'컬렉션',on:()=>c.openBadges(c.uid),c:'#7B9BFF'},
+    {k:'ev',ic:'sparkle',l:'이벤트',s:liveEv?liveEv+'개 진행 중':'곧 열려요',on:()=>window.scrollTo({top:(document.querySelector('.ph25')||{offsetHeight:600}).offsetHeight,behavior:'smooth'}),c:'#B98CFF',n:liveEv}
+  ];
+  return html`<section className="ph25 rv" style=${{'--i':0}}>
+    <div className="ph25-bg" aria-hidden="true"><i className="g1"></i><i className="g2"></i><i className="sl"></i><i className="gr"></i><i className="nz"></i></div>
+    <div className="ph25-top">
+      <span className="ph25-season"><i></i>${SEASON.name} · D-${days}</span>
+      <button className=${'ph25-pass tap'+(P.premium?' prem':'')} onClick=${()=>c.setPassOpen(true)} aria-label="DKO 패스">
+        <span className="ph25-ring" style=${{'--p':pp}}><b>${T}</b></span>
+        <span className="ph25-pt"><b>DKO 패스</b><small>${T>=PASS_TIERS?'완주!':bp+' / '+BP_PER_TIER+' BP'}</small></span>
+        ${claim?html`<i className="ph25-dot">${claim}</i>`:html`<${Icon} n="chev" s=${14} w=${2.4}/>`}
       </button>
-      <button className=${'ah20-pass tap'+(P.premium?' prem':'')} onClick=${()=>c.setPassOpen(true)}>
-        <span className="ah20-pk">DKO 패스${claim?html`<i className="ah20-pd">${claim}</i>`:null}</span>
-        <span className="ah20-pr"><b className="ah20-pt">${T}</b><span className="ah20-bar"><i style=${{width:(T>=PASS_TIERS?100:bp/BP_PER_TIER*100)+'%'}}></i><small>${T>=PASS_TIERS?'완주!':bp+'/'+BP_PER_TIER}</small></span></span>
-        <span className="ah20-crown"><${Icon} n="crown" s=${20} w=${2.2}/></span>
-      </button>
     </div>
-    <div className="ah20-stage">
-      <div className="ah20-side l">
-        ${bub('q','target','퀘스트',D.got&&Object.keys(D.got).length?'오늘 '+Object.keys(D.got).length+'개 완료':'일일 · 주간',()=>c.setPassOpen('quests'),'q')}
-        ${bub('bd','medal','배지',null,()=>c.openBadges(c.uid),'bd')}
-        ${bub('ev','sparkle','이벤트',liveEv?liveEv+'개 진행 중':'곧 열려요',()=>c.go('plaza')||window.scrollTo({top:520,behavior:'smooth'}),'ev',liveEv)}
+    <div className="ph25-main">
+      <div className="ph25-id">
+        <em>${greet}</em>
+        <h1 className=${'ph25-nm'+(hasGold(me)?' gold':'')}>${dispName(me)}</h1>
+        <div className="ph25-tags">${me.tier?html`<${TierBadge} t=${me.tier} d=${me.div} mini=${true}/>`:null}<${PosBadge} p=${me.pos} mini=${true}/></div>
+        <button className="ph25-me tap" onClick=${()=>c.openProfile(c.uid)}><span className="ph25-lv"><${RepBadge} lv=${lv} s=${22}/></span><span><b>${rankOf(me)}</b><small>명성 Lv.${lv}</small></span></button>
+        ${!checked?html`<button className="ph25-check tap" onClick=${()=>c.checkin()}><${Coin} s=${16}/><span>오늘 출석</span><i></i></button>`:null}
       </div>
-      <div className="ah20-center"><${VoxelStage} av=${avatarOf(me)} size=${Math.min(250,Math.max(190,(typeof window!=='undefined'?window.innerWidth:390)-180))} onTap=${()=>{}}/>
-        <button className="ah20-dress tap" onClick=${()=>c.setSheet('avatar')}><${Icon} n="edit" s=${12} w=${2.4}/>꾸미기</button></div>
-      <div className="ah20-side r">
-        ${bub('dr','gift','드롭',drops?drops+'개':'정보',()=>drops?c.openDrop():c.setSheet('dropinfo'),'dr',drops)}
-        ${bub('wd','globe','월드','BETA',()=>c.setWorld(true),'wd')}
-        ${bub('sh','bag','오늘의 상점',shortLeft(untilMidnight()),()=>c.goShop('shop'),'sh')}
-      </div>
-      ${!checked?html`<button className="ah20-check tap" onClick=${()=>c.checkin()}><${Coin} s=${18}/><b>오늘 출석하기</b><${Icon} n="chev" s=${14} w=${2.6}/></button>`:null}
+      <div className="ph25-stage"><${VoxelStage} av=${avatarOf(me)} w=${sw} h=${Math.round(sw*1.12)}/>
+        <button className="ph25-dress tap" onClick=${()=>c.setSheet('avatar')}><${Icon} n="edit" s=${12} w=${2.4}/>꾸미기</button></div>
     </div>
-    <div className="ah20-battle">
-      <button className="ah20-deck tap" onClick=${()=>c.setSheet('avatar')} aria-label="캐릭터 꾸미기"><${PixelChar} av=${avatarOf(me)} scale=${2}/><small>캐릭터</small></button>
-      <button className="ah20-play tap" onClick=${()=>launchMode(c,mode)}><b>플레이</b><small><${Icon} n=${M.ic} s=${13} w=${2.4}/>${M.t}</small><i className="ah20-shine"></i></button>
-      <button className="ah20-mode tap" onClick=${()=>c.setSheet('modes')} aria-label="게임 모드 고르기" style=${{'--c1':M.c[0],'--c2':M.c[1]}}><${Icon} n=${M.ic} s=${26} w=${2.2}/><i className="ah20-up"><${Icon} n="up" s=${12} w=${3}/></i></button>
+    <div className="ph25-cta">
+      <button className="ph25-play tap" onClick=${()=>launchMode(c,mode)}><i className="ph25-sh"></i><span className="ph25-pk">PLAY</span><b>플레이</b><small><${Icon} n=${M.ic} s=${13} w=${2.4}/>${M.t}</small><span className="ph25-arr"><${Icon} n="chev" s=${20} w=${2.8}/></span></button>
+      <button className="ph25-mode tap" onClick=${()=>c.setSheet('modes')} aria-label="게임 모드 고르기" style=${{'--c1':M.c[0],'--c2':M.c[1]}}><${Icon} n=${M.ic} s=${22} w=${2.2}/><small>모드</small></button>
     </div>
+    <div className="ph25-quick">${Q.map((x,i)=>html`<button key=${x.k} className="ph25-q tap" style=${{'--c':x.c,'--d':(i*45)+'ms'}} onClick=${x.on}>
+      <span className="ph25-qi"><${Icon} n=${x.ic} s=${19} w=${2.2}/>${x.n?html`<i>${x.n}</i>`:null}</span><span className="ph25-qt"><b>${x.l}</b><small>${x.s}</small></span></button>`)}</div>
   </section>`;
 }
 /* 패스 화면 (메인에서 열려요) */
@@ -11248,7 +11701,7 @@ function Community({c}){
         <button className="cm20-write tap" onClick=${()=>setWrite({ch:'free'})}><${Icon} n="edit" s=${15} w=${2.3}/>글쓰기</button></div>
       ${(()=>{ const ups=typeof mergedBlog==='function'?mergedBlog(c.blog).filter(p=>p.cat==='UPDATE').sort((a,b)=>verNum(b.ver)-verNum(a.ver)):[]; const u=ups[0];
         return u?html`<button className="cm20-pin tap" onClick=${()=>go('updates')}><span className="cm20-pinic"><${Icon} n="rocket" s=${18} w=${2.3}/></span><span><em>업데이트 로그 · 고정</em><b>v${u.ver} ${u.title}</b></span><${Icon} n="chev" s=${16}/></button>`:null; })()}
-      ${sorted(filt(posts)).map((p,i)=>html`<${CPostCard} key=${p.id} c=${c} p=${p} ch=${chMap[p.ch]} i=${i} onOpen=${()=>setOpenPost(p.id)} onCh=${()=>go(p.ch)}/>`)}
+      <div className="cm20-posts">${sorted(filt(posts)).map((p,i)=>html`<${CPostCard} key=${p.id} c=${c} p=${p} ch=${chMap[p.ch]} i=${i} onOpen=${()=>setOpenPost(p.id)} onCh=${()=>go(p.ch)}/>`)}</div>
       ${!posts.length?html`<${Empty} stk="what" text="아직 글이 없어요. 첫 글을 남겨 보세요!"/>`:null}
     </div>`:html`<div className="cm20-dir">${chs.map((x,i)=>{ const n=posts.filter(p=>p.ch===x.id).length; const mem=Object.values(c.members).filter(m=>(m.subs||{})[x.id]).length;
       return html`<button key=${x.id} className="cm20-chc tap" style=${{'--c1':x.c[0],'--c2':x.c[1],'--d':(i*30)+'ms'}} onClick=${()=>go(x.id)}>
@@ -11301,7 +11754,7 @@ function ChannelPage({c,ch,posts,sort,setSort,onBack,onOpen,onWrite}){
     ${!ch.kind?html`<div>
       <div className="cm20-sort">${[['hot','🔥 인기'],['new','최신'],['top','추천순']].map(([k,l])=>html`<button key=${k} className=${'tap'+(sort===k?' on':'')} onClick=${()=>setSort(k)}>${l}</button>`)}
         <button className="cm20-write tap" onClick=${onWrite}><${Icon} n="edit" s=${15} w=${2.3}/>글쓰기</button></div>
-      ${[...posts].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)).map((p,i)=>html`<${CPostCard} key=${p.id} c=${c} p=${p} ch=${ch} i=${i} hideCh=${true} onOpen=${()=>onOpen(p.id)}/>`)}
+      <div className="cm20-posts">${[...posts].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)).map((p,i)=>html`<${CPostCard} key=${p.id} c=${c} p=${p} ch=${ch} i=${i} hideCh=${true} onOpen=${()=>onOpen(p.id)}/>`)}</div>
       ${!posts.length?html`<${Empty} stk="what" text="첫 글의 주인공이 되어 보세요!"/>`:null}
     </div>`:null}
     <${Sheet} open=${mod} onClose=${()=>setMod(false)} title="채널 관리" tall=${true}>${mod?html`<${ChannelForm} c=${c} edit=${ch} onDone=${()=>setMod(false)}/>`:null}<//>
@@ -11382,33 +11835,118 @@ function ChannelForm({c,edit,onDone}){
 }
 
 /* ───────── 4. e스포츠 BETA ───────── */
-/* 참가 팀: 2026 OWCS Asia – Korea Stage 2 기준 (로고 대신 팀 색 모노그램) */
+/* 팀: 2026 OWCS Korea Stage 2 참가 팀 + 2026 OWCS World Finals 참가 팀 (로고 대신 팀 색 모노그램) */
 const OWCS_TEAMS=[
-  {id:'zeta',n:'ZETA DIVISION',s:'ZETA',c:['#3A3F4A','#0B0D12']},{id:'cr',n:'Crazy Raccoon',s:'CR',c:['#FF4D6D','#8A0A22']},{id:'t1',n:'T1',s:'T1',c:['#E4002B','#5A0010']},
-  {id:'rzg',n:'RØDE ZANSIDE GAMING',s:'RZG',c:['#2FB46E','#0A4A2A']},{id:'o2',n:'O2 Blast',s:'O2',c:['#4AA8F2','#0D3A7A']},{id:'falcons',n:'Team Falcons',s:'FLC',c:['#1ED17E','#0A5A36']},
-  {id:'cheese',n:'Cheeseburger',s:'CHZ',c:['#FFC233','#A86A00']},{id:'superbad',n:'SuperBad',s:'SB',c:['#A98BFF','#3A1E9A']},{id:'poker',n:'POKER FACE',s:'PF',c:['#E6ECF4','#6A7486']}
+  {id:'zeta',n:'ZETA DIVISION',s:'ZETA',c:['#3A3F4A','#0B0D12'],r:'asia'},{id:'cr',n:'Crazy Raccoon',s:'CR',c:['#FF4D6D','#8A0A22'],r:'asia'},{id:'t1',n:'T1',s:'T1',c:['#E4002B','#5A0010'],r:'asia',wf:1},
+  {id:'rzg',n:'RØDE ZANSIDE GAMING',s:'RZG',c:['#2FB46E','#0A4A2A'],r:'asia'},{id:'o2',n:'O2 Blast',s:'O2',c:['#4AA8F2','#0D3A7A'],r:'asia'},{id:'falcons',n:'Team Falcons',s:'FLC',c:['#1ED17E','#0A5A36'],r:'asia'},
+  {id:'cheese',n:'Cheeseburger',s:'CHZ',c:['#FFC233','#A86A00'],r:'asia'},{id:'superbad',n:'SuperBad',s:'SB',c:['#A98BFF','#3A1E9A'],r:'asia'},{id:'poker',n:'POKER FACE',s:'PF',c:['#E6ECF4','#6A7486'],r:'asia'},
+  {id:'g1234',n:'1234',s:'1234',c:['#FF8A3D','#8A2A00'],r:'emea',wf:1},{id:'ag',n:'All Gamers',s:'AG',c:['#FF5A5A','#7A0A0A'],r:'cn',wf:1},{id:'dal',n:'Dallas Fuel',s:'DAL',c:['#2F7FE0','#0A2A6A'],r:'na',wf:1},
+  {id:'ssg',n:'Spacestation Gaming',s:'SSG',c:['#C8CDD6','#3A3F4A'],r:'na',wf:1},{id:'tl',n:'Team Liquid',s:'TL',c:['#5A8AE0','#0A1E4A'],r:'na',wf:1},{id:'peps',n:'Team Peps',s:'PEPS',c:['#FFB13D','#7A4A00'],r:'emea',wf:1},
+  {id:'tm',n:'Twisted Minds',s:'TM',c:['#B98CFF','#3A1A7A'],r:'emea',wf:1},{id:'wbg',n:'Weibo Gaming',s:'WBG',c:['#FF7A2E','#6A1A00'],r:'cn',wf:1}
 ];
+const TEAM=Object.fromEntries(OWCS_TEAMS.map(t=>[t.id,t]));
+const ES_ASIA={n:'OWCS ASIA',sub:'Korea Stage 3 플레이오프',note:'정규 시즌 1위 ZETA DIVISION (무패) · 우승 팀은 월드 파이널 직행'};
+const ES_EVENT={n:'OWCS 2026 World Finals',d:'12월 2일~6일 · 중국 광저우',start:new Date(2026,11,2).getTime(),end:new Date(2026,11,6,23,59).getTime()};
+const ES_REG=[['asia','OWCS ASIA'],['na','NA'],['emea','EMEA'],['cn','CHINA'],['wf','월드 파이널']];
+const teamsOf=r=>OWCS_TEAMS.filter(t=>r==='wf'?t.wf:t.r===r);
+/* 영웅 통계 스냅샷: owtics.gg · Americas · 경쟁전 · 전체 티어 · Season 5 미드시즌 (2026-11-15 확인) */
+const HERO_SRC={src:'owtics.gg',url:'https://owtics.gg/en-US/hero',d:'2026.11.15 기준 · 아메리카 · 경쟁전 · 전체 티어 · 시즌 5 미드시즌'};
+const HERO_STATS=`Doomfist,T,52.1,7.5,32.8|Moira,S,50.1,31.2,5.6|Zarya,T,46.3,4.3,39.2|Vendetta,D,53.5,6.5,25.4|Jetpack Cat,S,47.7,4.4,30.7|Sierra,D,50.4,15.0,24.0|Anran,D,50.6,7.4,30.8|Ana,S,46.6,23.4,12.3|Winston,T,51.2,7.9,12.8|Reinhardt,T,53.8,13.5,3.2|Genji,D,53.3,14.3,9.7|Mercy,S,50.3,15.6,5.9|Roadhog,T,48.7,8.2,15.4|Kiriko,S,46.3,24.8,2.9|Sombra,S,49.8,9.2,10.6|Juno,S,51.1,16.8,0.3|Zenyatta,S,53.8,11.2,2.0|Doctrine,S,49.6,15.1,2.9|Mizuki,S,50.7,11.2,4.4|Junkrat,D,51.1,12.2,8.5|Orisa,T,44.5,11.1,13.3|Mauga,T,48.6,4.2,12.5|Mei,D,50.6,10.7,9.8|Tracer,D,51.1,9.0,10.5|Junker Queen,T,55.2,6.4,2.9|Domina,T,52.6,5.3,5.8|Ramattra,T,47.5,8.3,7.8|Cassidy,D,46.2,14.9,7.8|Pharah,D,52.6,5.3,7.6|Wrecking Ball,T,49.5,2.8,8.3|Lifeweaver,S,48.9,11.5,0.5|D.Mon,T,47.8,3.3,9.2|Widowmaker,D,50.4,5.6,8.3|Reaper,D,51.3,10.4,2.4|Sigma,T,48.1,8.4,2.7|Soldier: 76,D,47.4,14.4,0.4|Brigitte,S,53.1,6.2,0.4|Torbjörn,D,52.6,7.2,1.5|Hanzo,D,50.5,8.4,1.4|Freja,D,47.6,4.9,7.1|Hazard,T,51.5,3.2,2.5|Lúcio,S,51.3,5.5,0.4|Ashe,D,49.1,8.2,1.2|Bastion,D,43.9,10.7,3.7|D.Va,T,45.1,5.5,3.2|Sojourn,D,44.7,11.6,0.9|Shion,D,49.2,7.6,0.6|Wuyang,S,51.0,5.0,0.1|Symmetra,D,50.1,3.5,3.1|Illari,S,51.4,4.1,0.1|Echo,D,49.6,4.7,0.6|Venture,D,52.4,3.0,0.7|Baptiste,S,45.4,4.7,0.1|Emre,D,46.7,4.5,0.1`.split('|').map(x=>{ const [n,r,w,p,b]=x.split(','); return {n,r,w:+w,p:+p,b:+b}; });
+const ROLE_N={T:'탱커',D:'딜러',S:'힐러'};
+function HeroStats(){
+  const [role,setRole]=useState('A'); const [sort,setSort]=useState('w');
+  const list=HERO_STATS.filter(h=>role==='A'||h.r===role).sort((a,b)=>b[sort]-a[sort]);
+  const max=Math.max(...list.map(h=>h[sort]),1);
+  const best=r=>[...HERO_STATS].filter(h=>h.r===r&&h.p>=5).sort((a,b)=>b.w-a.w)[0];
+  return html`<div className="hs21">
+    <div className="hs21-top">${['T','D','S'].map(r=>{ const h=best(r); return h?html`<div key=${r} className=${'hs21-best r-'+r}><small>${ROLE_N[r]} 승률 1위</small><b>${h.n}</b><em>${h.w}%</em></div>`:null; })}</div>
+    <div className="hs21-f">${[['A','전체'],['T','탱커'],['D','딜러'],['S','힐러']].map(([k,l])=>html`<button key=${k} className=${'tap'+(role===k?' on':'')} onClick=${()=>setRole(k)}>${l}</button>`)}
+      <span></span>${[['w','승률'],['p','픽률'],['b','밴률']].map(([k,l])=>html`<button key=${k} className=${'tap s'+(sort===k?' on':'')} onClick=${()=>setSort(k)}>${l}</button>`)}</div>
+    <div className="hs21-l">${list.map((h,i)=>html`<div key=${h.n} className="hs21-r" style=${{'--d':Math.min(i,14)*20+'ms'}}><span className="hs21-n">${i+1}</span><span className=${'hs21-rl r-'+h.r}>${ROLE_N[h.r]}</span><b>${h.n}</b>
+      <span className="hs21-bar"><i style=${{width:(h[sort]/max*100)+'%'}}></i></span><span className="hs21-v"><em className=${h.w>=52?'up':h.w<47?'dn':''}>${h.w}%</em><small>픽 ${h.p}% · 밴 ${h.b}%</small></span></div>`)}</div>
+    <p className="hint" style=${{textAlign:'left'}}>${HERO_SRC.d} · 출처 <a href=${HERO_SRC.url} target="_blank" rel="noopener">${HERO_SRC.src}</a>. 블리자드 공식 통계는 앱에서 바로 불러올 수 없어서, 업데이트 때 최신 값으로 바꿔 넣어요.</p>
+  </div>`;
+}
+const PRED_PT={win:100,exact:50,bp:30};
+const predOf=(m,id)=>((m&&m.pred)||{})[id];
+const mLocked=x=>x.status!=='open'||Date.now()>=(x.at||0);
+const scoreOpts=bo=>{ const w=Math.ceil((bo||5)/2); const o=[]; for(let l=0;l<w;l++) o.push(w+':'+l); return o; };
+function TeamMono({t,size}){ const T=TEAM[t]||{s:'?',c:['#555','#222']}; return html`<span className=${'es20-mono'+(size?' '+size:'')} style=${{'--c1':T.c[0],'--c2':T.c[1]}}>${T.s}</span>`; }
+function EsMatch({c,x}){
+  const me=c.me, P=predOf(me,x.id), lock=mLocked(x), done=x.status==='done';
+  const votes=c.members.map(m=>predOf(m,x.id)).filter(Boolean); const va=votes.filter(v=>v.w==='a').length, vb=votes.length-va; const pa=votes.length?Math.round(va/votes.length*100):50;
+  const [sc,setSc]=useState(P&&P.s||''); const [ed,setEd]=useState(null);
+  const A=TEAM[x.a]||{}, B=TEAM[x.b]||{}; const got=(me.predGot||{})[x.id];
+  const hit=done&&P&&P.w===x.winner; const exact=hit&&P.s&&P.s===(x.winner==='a'?x.sa+':'+x.sb:x.sb+':'+x.sa);
+  const when=new Date(x.at||0); const live=!done&&Date.now()>=x.at;
+  return html`<article className=${'esm21'+(done?' done':'')+(live?' live':'')}>
+    <div className="esm21-h"><span className="esm21-st">${x.stage||'경기'} · Bo${x.bo||5}</span><span className="esm21-t">${live?html`<i className="esm21-live">LIVE</i>`:done?'종료':(when.getMonth()+1)+'/'+when.getDate()+' '+pad2(when.getHours())+':'+pad2(when.getMinutes())}</span></div>
+    <div className="esm21-vs">
+      <button className=${'esm21-tm tap'+(P&&P.w==='a'?' on':'')+(done&&x.winner==='a'?' win':'')} disabled=${lock} onClick=${()=>c.predict(x,'a',sc)} style=${{'--c1':A.c&&A.c[0],'--c2':A.c&&A.c[1]}}><${TeamMono} t=${x.a} size="big"/><b>${A.n||x.a}</b></button>
+      <div className="esm21-mid">${done?html`<b className="esm21-sc">${x.sa}<i>:</i>${x.sb}</b>`:html`<b className="esm21-v">VS</b>`}</div>
+      <button className=${'esm21-tm tap'+(P&&P.w==='b'?' on':'')+(done&&x.winner==='b'?' win':'')} disabled=${lock} onClick=${()=>c.predict(x,'b',sc)} style=${{'--c1':B.c&&B.c[0],'--c2':B.c&&B.c[1]}}><${TeamMono} t=${x.b} size="big"/><b>${B.n||x.b}</b></button>
+    </div>
+    <div className="esm21-bar"><i style=${{width:pa+'%','--c':A.c&&A.c[0]}}></i><u style=${{'--c':B.c&&B.c[0]}}></u></div>
+    <div className="esm21-pc"><span>${pa}%</span><small>크루 예측 ${votes.length}명</small><span>${votes.length?100-pa:50}%</span></div>
+    ${!lock&&P?html`<div className="esm21-score"><small>스코어도 맞히면 +${PRED_PT.exact}점</small><div>${scoreOpts(x.bo).map(s=>html`<button key=${s} className=${'tap'+(sc===s?' on':'')} onClick=${()=>{ const v=sc===s?'':s; setSc(v); c.predict(x,P.w,v); }}>${s}</button>`)}</div></div>`:null}
+    ${!lock&&!P?html`<p className="esm21-hint">이길 것 같은 팀을 눌러 예측해요 · 맞히면 +${PRED_PT.win}점 · BP +${PRED_PT.bp}</p>`:null}
+    ${lock&&!done&&P?html`<p className="esm21-hint">예측 완료 · ${TEAM[P.w==='a'?x.a:x.b].n} 승${P.s?' '+P.s:''} · 경기 결과를 기다려요</p>`:null}
+    ${done&&P?(hit?(got?html`<div className="esm21-res ok">적중! 보상 받음</div>`:html`<button className="esm21-claim tap" onClick=${()=>c.claimPred(x)}><${Icon} n="gift" s=${16}/>적중 보상 받기 · +${PRED_PT.win+(exact?PRED_PT.exact:0)}점${exact?' (스코어 적중!)':''}</button>`):html`<div className="esm21-res">아쉽게 빗나갔어요</div>`):null}
+    ${c.isAdmin?html`<div className="esm21-adm">${ed?html`<input className="inp" type="number" min="0" max="9" value=${ed.sa} onChange=${e=>setEd({...ed,sa:e.target.value})}/><b>:</b><input className="inp" type="number" min="0" max="9" value=${ed.sb} onChange=${e=>setEd({...ed,sb:e.target.value})}/><button className="tap" onClick=${()=>c.setMatchResult(x,+ed.sa,+ed.sb).then(ok=>ok&&setEd(null))}>결과 확정</button>`
+      :html`<button className="tap" onClick=${()=>setEd({sa:x.sa||0,sb:x.sb||0})}>결과 입력</button><button className="tap red" onClick=${()=>c.delMatch(x)}>삭제</button>`}</div>`:null}
+  </article>`;
+}
+function MatchForm({c,onDone}){
+  const [f,setF]=useState({a:'zeta',b:'cr',stage:'Korea Stage 3',bo:5,at:'',rg:'asia'}); const set=(k,v)=>setF(o=>({...o,[k]:v}));
+  const sel=k=>html`<select className="inp" value=${f[k]} onChange=${e=>set(k,e.target.value)}>${ES_REG.filter(r=>r[0]!=='wf').map(([r,l])=>html`<optgroup key=${r} label=${l}>${OWCS_TEAMS.filter(t=>t.r===r).map(t=>html`<option key=${t.id} value=${t.id}>${t.n}</option>`)}</optgroup>`)}</select>`;
+  return html`<div className="esf21"><label className="lbl">팀 A</label>${sel('a')}<label className="lbl">팀 B</label>${sel('b')}
+    <label className="lbl">무대</label><input className="inp" value=${f.stage} onChange=${e=>set('stage',e.target.value.slice(0,20))} placeholder="예) 승자조 8강"/>
+    <label className="lbl">시작 시간 (한국 시간)</label><input className="inp" type="datetime-local" value=${f.at} onChange=${e=>set('at',e.target.value)}/>
+    <label className="lbl">대회</label><div className="es21-rf" style=${{marginTop:0}}>${ES_REG.map(([k,l])=>html`<button key=${k} type="button" className=${'tap'+(f.rg===k?' on':'')} onClick=${()=>set('rg',k)}>${l}</button>`)}</div>
+    <label className="lbl">세트</label><${Seg} items=${[[3,'Bo3'],[5,'Bo5'],[7,'Bo7']]} value=${f.bo} onChange=${v=>set('bo',v)}/>
+    <${Btn} block=${true} style=${{marginTop:'14px'}} onClick=${()=>{ if(f.a===f.b) return c.notify('다른 두 팀을 골라 주세요.','err'); const at=new Date(f.at).getTime(); if(!at) return c.notify('시작 시간을 넣어 주세요.','err'); c.addMatch({a:f.a,b:f.b,stage:f.stage,bo:f.bo,at,rg:f.rg}).then(ok=>ok&&onDone()); }}>경기 등록<//></div>`;
+}
 function Esports({c}){
-  const my=c.me.team; const T=OWCS_TEAMS.find(x=>x.id===my); const tot=id=>((c.cheers||[]).find(x=>x.id===id)||{}).n||0;
-  const rank=[...OWCS_TEAMS].sort((a,b)=>tot(b.id)-tot(a.id)); const max=Math.max(1,...OWCS_TEAMS.map(x=>tot(x.id)));
+  const [seg,setSeg]=useState('pred'); const [mk,setMk]=useState(false); const [rf,setRf]=useState('asia');
+  const my=c.me.team; const T=TEAM[my]; const tot=id=>((c.cheers||[]).find(x=>x.id===id)||{}).n||0;
   const fans=id=>c.members.filter(m=>m.team===id).length;
+  const ms=[...(c.esmatches||[])].filter(x=>(x.rg||'asia')===rf).sort((a,b)=>(a.status==='done')-(b.status==='done')||(a.status==='done'?(b.at-a.at):(a.at-b.at)));
+  const up=ms.filter(x=>x.status!=='done'), past=ms.filter(x=>x.status==='done');
+  const board=[...c.members].filter(m=>(m.ep||0)>0).sort((a,b)=>(b.ep||0)-(a.ep||0)).slice(0,20);
+  const claimN=past.filter(x=>{ const P=predOf(c.me,x.id); return P&&P.w===x.winner&&!(c.me.predGot||{})[x.id]; }).length;
   const [fx,setFx]=useState([]);
-  const cheer=e=>{ if(!T) return; const r=e.currentTarget.getBoundingClientRect(); const id=Date.now()+Math.random(); setFx(f=>[...f.slice(-12),{id,x:(Math.random()-.5)*80}]); setTimeout(()=>setFx(f=>f.filter(z=>z.id!==id)),1200); c.cheer(T.id); };
+  const cheer=()=>{ if(!T) return; const id=Date.now()+Math.random(); setFx(f=>[...f.slice(-12),{id,x:(Math.random()-.5)*80}]); setTimeout(()=>setFx(f=>f.filter(z=>z.id!==id)),1200); c.cheer(T.id); };
+  const dd=Math.ceil((ES_EVENT.start-Date.now())/86400000);
   return html`<div className="es20">
     <section className="es20-hero"><i className="es20-l a"></i><i className="es20-l b"></i>
-      <em>DKO ESPORTS<i>BETA</i></em><h2>OWCS 2026 Korea</h2><p>응원하는 팀을 고르고 크루와 함께 응원해요</p></section>
-    ${T?html`<section className="es20-my" style=${{'--c1':T.c[0],'--c2':T.c[1]}}>
-      <span className="es20-mono big">${T.s}</span>
-      <div className="es20-mt"><small>내 응원 팀</small><b>${T.n}</b><span>크루 팬 ${fans(T.id)}명 · 응원 ${tot(T.id).toLocaleString()}회</span></div>
-      <button className="es20-cheer tap" onClick=${cheer}><${Icon} n="megaphone" s=${22} w=${2.3}/><b>응원!</b>${fx.map(z=>html`<i key=${z.id} className="es20-fx" style=${{'--x':z.x+'px'}}>${T.s}</i>`)}</button>
-    </section>`:html`<div className="es20-pickh"><b>어느 팀을 응원하나요?</b><small>하루에 한 번 바꿀 수 있어요</small></div>`}
-    <div className="es20-grid">${OWCS_TEAMS.map((x,i)=>html`<button key=${x.id} className=${'es20-t tap'+(my===x.id?' on':'')} style=${{'--c1':x.c[0],'--c2':x.c[1],'--d':(i*35)+'ms'}} onClick=${()=>c.pickTeam(x.id)}>
-      <span className="es20-mono">${x.s}</span><b>${x.n}</b><small>팬 ${fans(x.id)}</small>${my===x.id?html`<i className="es20-ck"><${Icon} n="check" s=${12} w=${3}/></i>`:null}</button>`)}</div>
-    <${Ttl} title="크루 응원 랭킹" sub="DKO 크루원들이 누른 응원 수"/>
-    <div className="es20-rank">${rank.map((x,i)=>html`<div key=${x.id} className="es20-ri" style=${{'--c1':x.c[0],'--c2':x.c[1]}}><span className="es20-rn">${i+1}</span><span className="es20-mono sm">${x.s}</span><span className="es20-rb"><b>${x.n}</b><i><u style=${{width:(tot(x.id)/max*100)+'%'}}></u></i></span><em>${tot(x.id).toLocaleString()}</em></div>`)}</div>
-    <${Ttl} title="곧 나와요" sub="e스포츠 탭에 차례로 추가될 기능이에요"/>
-    <div className="es20-soon">${[['target','승부 예측','경기 전에 승리 팀을 맞히고 BP 받기'],['tv','같이 보기 방','경기 시간에 열리는 응원 채팅방'],['users','판타지 로스터','선수 5명을 골라 크루 리그 대결'],['bell','경기 알림','응원 팀 경기 시작 전에 알려 줘요']].map(([ic,t,d],i)=>html`<div key=${t} className="es20-sc" style=${{'--d':(i*60)+'ms'}}><span><${Icon} n=${ic} s=${20}/></span><b>${t}</b><small>${d}</small><em>SOON</em></div>`)}</div>
-    <p className="hint" style=${{textAlign:'left'}}>참가 팀은 2026 OWCS Asia – Korea Stage 2 기준이에요. 팀 이름과 로고는 각 팀의 것이며, DKO는 팬 응원 기능만 제공해요.</p>
+      <em>DKO ESPORTS<i>BETA</i></em><h2>${ES_ASIA.n}</h2><p>${ES_ASIA.sub} · ${ES_ASIA.note}</p>
+      <div className="es21-wf"><b>${ES_EVENT.n}</b><span>${ES_EVENT.d}${dd>0?' · D-'+dd:Date.now()<=ES_EVENT.end?' · 진행 중':''}</span></div>
+      <div className="es21-me"><span><b>${(c.me.ep||0).toLocaleString()}</b>예측 포인트</span>${claimN?html`<span className="es21-new">받을 보상 ${claimN}</span>`:null}</div></section>
+    <div className="es21-seg"><${Seg} items=${[['pred','일정 · 예측'],['cheer','응원'],['stats','영웅 통계'],['rank','랭킹']]} value=${seg} onChange=${setSeg}/></div>
+    ${seg==='pred'||seg==='cheer'?html`<div className="es21-rf">${ES_REG.map(([k,l])=>html`<button key=${k} className=${'tap'+(rf===k?' on':'')} onClick=${()=>setRf(k)}>${l}</button>`)}</div>`:null}
+    ${seg==='stats'?html`<${HeroStats}/>`:null}
+    ${seg==='pred'?html`<div>
+      ${c.isAdmin?html`<button className="es21-add tap" onClick=${()=>setMk(true)}><${Icon} n="plus" s=${16} w=${2.4}/>경기 등록 (운영진)</button>`:null}
+      <${Ttl} title="다가오는 경기" count=${up.length} sub="경기 시작 전까지 예측할 수 있어요"/>
+      ${up.length?up.map(x=>html`<${EsMatch} key=${x.id} c=${c} x=${x}/>`):html`<div className="es21-empty"><b>아직 등록된 경기가 없어요</b><small>${rf==='asia'?'OWCS ASIA 경기는 운영진이 일정에 맞춰 올려요.':rf==='wf'?'월드 파이널은 '+ES_EVENT.d+'예요. 대진이 나오면 올려요.':'이 지역 경기는 운영진이 골라서 올려요.'}</small></div>`}
+      ${past.length?html`<${Ttl} title="지난 경기" count=${past.length}/>${past.slice(0,10).map(x=>html`<${EsMatch} key=${x.id} c=${c} x=${x}/>`)}`:null}
+      <p className="hint" style=${{textAlign:'left'}}>승리 팀 적중 +${PRED_PT.win}점 · BP +${PRED_PT.bp} · 스코어까지 맞히면 +${PRED_PT.exact}점 더. 예측 포인트는 랭킹에 쌓여요.</p>
+    </div>`:null}
+    ${seg==='cheer'?html`<div>
+      ${T?html`<section className="es20-my" style=${{'--c1':T.c[0],'--c2':T.c[1]}}>
+        <span className="es20-mono big">${T.s}</span>
+        <div className="es20-mt"><small>내 응원 팀</small><b>${T.n}</b><span>크루 팬 ${fans(T.id)}명 · 응원 ${tot(T.id).toLocaleString()}회</span></div>
+        <button className="es20-cheer tap" onClick=${cheer}><${Icon} n="megaphone" s=${22} w=${2.3}/><b>응원!</b>${fx.map(z=>html`<i key=${z.id} className="es20-fx" style=${{'--x':z.x+'px'}}>${T.s}</i>`)}</button>
+      </section>`:html`<div className="es20-pickh"><b>어느 팀을 응원하나요?</b><small>하루에 한 번 바꿀 수 있어요</small></div>`}
+      <div className="es20-grid">${teamsOf(rf).map((x,i)=>html`<button key=${x.id} className=${'es20-t tap'+(my===x.id?' on':'')} style=${{'--c1':x.c[0],'--c2':x.c[1],'--d':(i*35)+'ms'}} onClick=${()=>c.pickTeam(x.id)}>
+        <span className="es20-mono">${x.s}</span><b>${x.n}</b><small>팬 ${fans(x.id)}</small>${my===x.id?html`<i className="es20-ck"><${Icon} n="check" s=${12} w=${3}/></i>`:null}</button>`)}</div>
+      <${Ttl} title="크루 응원 랭킹" sub="DKO 크루원들이 누른 응원 수"/>
+      ${(()=>{ const rank=[...OWCS_TEAMS].filter(x=>tot(x.id)>0||fans(x.id)>0).sort((a,b)=>tot(b.id)-tot(a.id)); const max=Math.max(1,...rank.map(x=>tot(x.id)));
+        return rank.length?html`<div className="es20-rank">${rank.map((x,i)=>html`<div key=${x.id} className="es20-ri" style=${{'--c1':x.c[0],'--c2':x.c[1]}}><span className="es20-rn">${i+1}</span><span className="es20-mono sm">${x.s}</span><span className="es20-rb"><b>${x.n}</b><i><u style=${{width:(tot(x.id)/max*100)+'%'}}></u></i></span><em>${tot(x.id).toLocaleString()}</em></div>`)}</div>`:html`<p className="hint">아직 응원이 없어요. 첫 응원을 보내 보세요!</p>`; })()}
+    </div>`:null}
+    ${seg==='rank'?html`<div className="es21-board">${board.length?board.map((m,i)=>html`<button key=${m.uid} className=${'es21-br tap'+(m.uid===c.uid?' me':'')} onClick=${()=>c.openProfile(m.uid)}><span className="es20-rn">${i+1}</span><${PfpView} m=${m} s=${32}/><b>${dispName(m)}</b>${m.team&&TEAM[m.team]?html`<${TeamMono} t=${m.team} size="sm"/>`:null}<em>${(m.ep||0).toLocaleString()}점</em></button>`):html`<${Empty} stk="what" text="아직 적중한 사람이 없어요. 첫 적중의 주인공이 되어 보세요!"/>`}</div>`:null}
+    <${Sheet} open=${mk} onClose=${()=>setMk(false)} title="경기 등록">${mk?html`<${MatchForm} c=${c} onDone=${()=>setMk(false)}/>`:null}<//>
+    <p className="hint" style=${{textAlign:'left'}}>팀 이름과 로고는 각 팀의 것이며, DKO는 팬 응원 · 예측 기능만 제공해요. 실제 돈이 걸리지 않는 재미용 예측이에요.</p>
   </div>`;
 }
 
@@ -11533,6 +12071,15 @@ function v20Api({store,uid,me,data,run,mut,notify,isAdmin,pushNotif,meRef}){
     deleteComment(x){ return run(()=>store.update('ccomments',x.id,{deleted:true}),'댓글을 삭제했어요.'); },
     pickTeam(id){ const cur=meRef.current; if(cur.team===id) return; if(cur.teamAt&&dayKey(cur.teamAt)===dayKey()&&cur.team){ notify('응원 팀은 하루에 한 번만 바꿀 수 있어요.','err'); return; }
       mut(()=>({team:id,teamAt:Date.now()})).then(ok=>{ if(ok){ notify((OWCS_TEAMS.find(x=>x.id===id)||{}).n+' 응원을 시작했어요!'); haptic(14); } }); },
+    addMatch(d){ return run(()=>store.add('esmatches',{...d,status:'open',by:uid,createdAt:Date.now()}),'경기를 등록했어요.'); },
+    setMatchResult(x,sa,sb){ if(!(sa>=0&&sb>=0)||sa===sb){ notify('스코어를 확인해 주세요. 비길 수 없어요.','err'); return Promise.resolve(false); }
+      return run(()=>store.update('esmatches',x.id,{status:'done',sa,sb,winner:sa>sb?'a':'b',doneAt:Date.now()}),'결과를 확정했어요. 맞힌 크루원은 보상을 받을 수 있어요.').then(ok=>{ if(ok) pushNotif('*','event','🏆 경기 결과 · '+(TEAM[x.a]||{}).s+' '+sa+':'+sb+' '+(TEAM[x.b]||{}).s,'예측을 맞혔다면 보상을 받아 가세요',{tab:'play',seg:'esports'}); return ok; }); },
+    delMatch(x){ if(!window.confirm('이 경기를 삭제할까요?')) return; run(()=>store.remove('esmatches',x.id),'경기를 삭제했어요.'); },
+    predict(x,w,s){ if(mLocked(x)){ notify('경기가 시작돼서 예측이 마감됐어요.','err'); return; } haptic(10);
+      mut(cur=>({pred:{...(cur.pred||{}),[x.id]:{w,s:s||'',at:Date.now()}}})); },
+    claimPred(x){ const cur=meRef.current; const P=predOf(cur,x.id); if(!P||x.status!=='done'||P.w!==x.winner||(cur.predGot||{})[x.id]) return;
+      const exact=P.s&&P.s===(x.winner==='a'?x.sa+':'+x.sb:x.sb+':'+x.sa); const pt=PRED_PT.win+(exact?PRED_PT.exact:0);
+      mut(c2=>({predGot:{...(c2.predGot||{}),[x.id]:1},ep:(c2.ep||0)+pt,bp:bpOf(c2)+PRED_PT.bp})).then(ok=>{ if(ok){ notify('예측 적중! +'+pt+'점 · BP +'+PRED_PT.bp,'gold'); haptic(30); } }); },
     cheer(id){ haptic(6); try{ store.inc('cheers',id,{n:1}); }catch(e){ console.error(e); } },
     startRush(p){ const R=rushOf(meRef.current); if(R.n>=RUSH_DAY){ notify('오늘 퀘스트 러쉬는 '+RUSH_DAY+'번 다 했어요.','err'); return; } if(p.rush){ notify('이 파티는 이미 러쉬를 했어요.','err'); return; }
       const q=rushQuests(p.id+dayKey()+Date.now());

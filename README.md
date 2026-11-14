@@ -81,38 +81,52 @@ Google Cloud 콘솔 → API 및 서비스 → 사용자 인증 정보 → 브라
 
 ## 4. 구글 로그인 — "The requested action is invalid" 해결
 
-이 화면은 **로그인 창이 열린 주소(github.io)와 Firebase 로그인 주소(firebaseapp.com)가 달라서** 생겨요. 특히 아이폰 홈 화면 앱에서 자주 나와요.
+원인: 앱을 연 주소(`github.io`)와 로그인 처리 주소(`firebaseapp.com`)가 달라서, 아이폰(특히 홈 화면 앱)이 로그인 결과를 앱으로 못 돌려줘요. **공식 주소를 Firebase Hosting으로 바꾸면 해결돼요.** v20.1부터 앱이 휴대폰에서는 자동으로 같은 주소 방식(리디렉트)으로 로그인해요.
 
-1. **Firebase Hosting에 올려서 `https://overwatche3-6508d.web.app` 주소를 쓰는 게 제일 확실해요.** 앱이 이 주소에서는 같은 도메인으로 로그인해서 오류가 안 나요. 아래 "Firebase Hosting으로 올리기"를 따라 하세요. 홈 화면 아이콘도 이 주소로 다시 추가해요.
-2. 콘솔 → Authentication → 로그인 방법 → **Google이 "사용 설정"** 이고 **프로젝트 지원 이메일**이 골라져 있는지 확인해요.
-3. Authentication → 설정 → **승인된 도메인**에 지금 쓰는 주소(`아이디.github.io`, `overwatche3-6508d.web.app`)가 있는지 확인해요.
-4. GitHub Pages를 계속 쓴다면 Safari·Chrome 브라우저에서는 팝업 방식으로 잘 돼요. 홈 화면 앱에서만 막히면 1번이 답이에요.
-5. 닉네임 + 비밀번호 로그인은 어디서나 문제없어요.
+1. **Firebase Hosting에 올리기** (아래 "Firebase Hosting으로 올리기"). 주소: `https://overwatche3-6508d.web.app`
+2. **Google Cloud 콘솔 → API 및 서비스 → 사용자 인증 정보 → OAuth 2.0 클라이언트 ID "Web client (auto created by Google Service)"** 를 열고
+   - 승인된 JavaScript 원본: `https://overwatche3-6508d.web.app`
+   - 승인된 리디렉션 URI: `https://overwatche3-6508d.web.app/__/auth/handler`
+   를 추가하고 저장해요. (5분쯤 걸려요. 안 하면 `redirect_uri_mismatch` 오류가 나요)
+3. Firebase 콘솔 → Authentication → 로그인 방법 → **Google 사용 설정** + 프로젝트 지원 이메일 선택.
+4. Authentication → 설정 → **승인된 도메인**에 `overwatche3-6508d.web.app` 이 있는지 확인 (기본으로 있어요).
+5. 아이폰 홈 화면의 예전 DKO 아이콘은 지우고, **Safari로 `overwatche3-6508d.web.app` 을 열어 홈 화면에 다시 추가**해요. 크루원들에게도 이 주소를 알려 주세요.
+6. 카카오톡 · 인스타그램 링크로 열면 구글이 로그인을 막아요. 로그인 화면에 나오는 **"Safari · Chrome으로 열기"** 를 눌러요.
+
+`github.io` 주소에서도 PC 브라우저 구글 로그인과 닉네임 로그인은 계속 돼요. 휴대폰에서 구글 로그인을 누르면 공식 주소로 안내해요.
 
 ### Firebase Hosting으로 올리기
-PC에 Node.js(LTS)를 설치하고, 이 폴더에서 아래를 실행해요.
+PC에 Node.js(LTS)를 설치하고, 이 폴더(index.html이 있는 곳)에서 터미널을 열어 실행해요.
 
 ```
 npm install -g firebase-tools
 firebase login
 firebase deploy --only hosting,firestore:rules,database
 ```
+`.firebaserc` 에 프로젝트(overwatche3-6508d)가 이미 적혀 있어요. 업데이트할 때마다 새 index.html을 넣고 `firebase deploy --only hosting` 만 다시 하면 돼요.
 
-## 5. 푸시 알림 (앱을 닫아도 오는 알림)
+## 5. 푸시 알림 (앱을 닫아도 폰으로 오는 알림)
 
-1. 콘솔 → 프로젝트 설정 → **클라우드 메시징** → 웹 푸시 인증서 → **키 쌍 생성**. 나온 긴 키를 복사해요.
-2. `index.html`에서 `PUSH: { VAPID_KEY: "" }` 따옴표 안에 붙여 넣어요.
-3. 서버에서 알림을 보내는 함수는 **Blaze(종량제) 요금제**가 필요해요. 크루 규모면 보통 무료 사용량 안이에요.
-   ```
-   cd functions && npm install && cd ..
-   firebase deploy --only functions
-   ```
-4. 아이폰은 **iOS 16.4 이상 + 홈 화면에 추가한 앱**에서만 웹 푸시가 돼요. 앱 → 설정 → 알림에서 켜요.
-5. `firebase-messaging-sw.js`는 꼭 `index.html`과 같은 폴더 맨 위에 있어야 해요.
+필요한 것 3가지: ① 서버 푸시 키(VAPID) ② 알림을 보내는 함수(dkoPush) ③ 폰에서 알림 켜기
 
-함수 없이도 앱이 열려 있을 때는 알림이 떠요.
+**① 서버 푸시 키** — Firebase 콘솔 → ⚙ 프로젝트 설정 → **클라우드 메시징** 탭 → 맨 아래 "웹 구성 · 웹 푸시 인증서" → **키 쌍 생성** → 나온 키(B로 시작, 87자쯤)를 복사.
+관리자 계정으로 앱에 로그인 → **설정 → 푸시 알림 → 운영진: 서버 푸시 키 → 키 넣기**에 붙여 넣고 저장. (index.html을 고칠 필요 없어요)
 
----
+**② 알림 함수 올리기** — Firebase 콘솔 왼쪽 아래에서 요금제를 **Blaze(종량제)** 로 바꿔요. (크루 규모면 무료 사용량 안이에요. 걱정되면 Google Cloud 결제에서 예산 알림을 1,000원으로 걸어 두세요)
+그다음 Firestore Database 화면 위쪽에 보이는 **위치**를 확인해요. `asia-northeast3`(서울)가 아니면 `functions/index.js` 의 `REGION` 을 그 값으로 바꿔요.
+```
+cd functions
+npm install
+cd ..
+firebase deploy --only functions
+```
+
+**③ 폰에서 켜기**
+- 아이폰: **iOS 16.4 이상**, Safari로 공식 주소를 열어 **공유 → 홈 화면에 추가** → 홈 화면 아이콘으로 실행 → 설정 → 푸시 알림 **켜기** → 허용.
+- 안드로이드: Chrome에서 바로 켜도 돼요 (홈 화면 추가 권장).
+- 켠 뒤 **"나에게 테스트 알림 보내기"** 를 누르고 앱을 닫아요. 5~10초 안에 오면 성공!
+- 안 오면 설정 → 푸시 알림 아래 점검표에서 빨간 항목을 확인해요. (키 없음 / 권한 차단 / 이 기기 등록 없음)
+- 함수 로그: Firebase 콘솔 → Functions → dkoPush → 로그에서 오류를 볼 수 있어요.
 
 ## 6. 보안 메모
 
@@ -130,13 +144,13 @@ firebase deploy --only hosting,firestore:rules,database
 - **탭 바 (v20):** 상점 · 채팅 · 플레이(홈) · 커뮤니티 · 대전 — 클래시 로얄식 아레나 탭 (설정에서 리퀴드 글래스로 변경 가능)
 - **플레이 홈:** 3D 복셀 캐릭터 무대 · DKO 패스 바 · 게임 모드(월드 · 타운 · 퀘스트 러쉬 · 내전 · 1대1 · 파티 · 무한의 계단)
 - **커뮤니티:** 레딧식 채널 (`channels`, `cposts`, `ccomments`) · 채널 만든 사람 + 공동 관리자
-- **e스포츠 BETA:** OWCS 응원 팀 · 응원 수 (`cheers`)
+- **e스포츠 BETA:** OWCS 응원 팀 · 응원 수 (`cheers`) · 경기 일정과 승부 예측 (`esmatches`, 운영진이 경기 등록 · 결과 입력)
 - **홈(아래쪽):** 출석 · 이벤트 동그라미 · 신입 퀘스트 · 다음 내전 · DKO 타운 · 크루 미션 · 리포트 카드
 - **플레이:** 내전 · 1대1 · 파티 · 도구를 골라 들어가는 허브 (내전: 팀 배정 · OWCS 밴픽(팀 전체 실시간) · 일정 · 기록)
 - **상점:** 오늘의 상점(매일 0시 교체, 25% 특가) · 패스(일일 · 주간 퀘스트) · 움직이는 꾸미기 · D-Coin
 - **이벤트:** 운영진이 업데이트 축제 · BP 부스트 · 채팅 위크 · 스킨 공모전 · 할인 데이 등을 켜고 끔
 - **DKO 타운:** 실시간 접속, E3 이모티콘, NPC, 에임 챌린지
-- **DKO 월드 (베타):** 가운데 섬 + 크루원마다 생기는 섬, 벽돌(전용 재화)로 짓기 · 업그레이드 · 장애물 치우기 · 땅 넓히기, D-Coin 스페셜 장식 · 시간 단축, 3D 복셀 캐릭터. 데이터는 `islands` 컬렉션 (문서 id = uid) — **v20에서 `channels` · `cposts` · `ccomments` · `cheers` 규칙이 추가됐어요. 규칙을 다시 게시해 주세요**
+- **DKO 월드 (베타):** 가운데 섬 + 크루원마다 생기는 섬, 벽돌(전용 재화)로 짓기 · 업그레이드 · 장애물 치우기 · 땅 넓히기, D-Coin 스페셜 장식 · 시간 단축, 3D 복셀 캐릭터. 데이터는 `islands` 컬렉션 (문서 id = uid) — **v20에서 `channels` · `cposts` · `ccomments` · `cheers` · `esmatches` 규칙이 추가됐어요. 규칙을 다시 게시해 주세요**
 - **야문철:** 리플레이 코드 · 스탯표 · 사진으로 "누구 잘못?" 투표와 분석, 베스트 분석, 판결
 - **배지:** 업적 15종 + 한정판 3종(리그 챔피언 · 포디움 · 창단 멤버) · 프로필에 3개 장착
 - **DKO 가이드:** 업데이트 후 처음 접속하면 소개, 설정에서 다시 보기

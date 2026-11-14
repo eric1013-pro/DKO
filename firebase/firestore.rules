@@ -45,6 +45,14 @@ service cloud.firestore {
       match /endorse/{id}  { allow read, update: if signedIn(); allow create: if signedIn() && request.resource.data.from == request.auth.uid; allow delete: if isAdmin(); }
       // 1대1 진검승부 · OWCS 대회 (예측·확인 때문에 수정은 로그인한 크루원 모두)
       match /duels/{id}  { allow read, update: if signedIn(); allow create: if signedIn() && (request.resource.data.a == request.auth.uid); allow delete: if isAdmin(); }
+      // 변경 기록: 누구나 읽기, 본인 이름으로만 남기기, 고치거나 지울 수 없음
+      match /logs/{id} { allow read: if signedIn(); allow create: if signedIn() && request.resource.data.uid == request.auth.uid; allow update, delete: if false; }
+      // 이벤트(캠페인): 모두 읽기, 운영진만 열고 닫기
+      match /campaigns/{id} { allow read: if signedIn(); allow write: if isAdmin(); }
+      // 스킨 공모전 작품: 본인 이름으로만 올리기, 좋아요는 모두, 삭제는 본인·운영진
+      match /skins/{id} { allow read: if signedIn(); allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+        allow update: if isAdmin() || (signedIn() && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['uid','award','s','pal']));
+        allow delete: if isAdmin() || owner(); }
       match /series/{id} { allow read, update: if signedIn(); allow create: if signedIn() && request.resource.data.by == request.auth.uid; allow delete: if isAdmin() || owner(); }
       match /requests/{id} { allow read, update: if signedIn(); allow create: if mine(); allow delete: if isAdmin(); }
 
@@ -67,7 +75,8 @@ service cloud.firestore {
       match /blog/{id} { allow read: if signedIn(); allow write: if isAdmin() || verified() || (repOk() && request.resource.data.get('cat', 'DKO') != 'UPDATE'); }
 
       // 타운 맵 등 설정 (맵 변경권 사용자도 바꿀 수 있음)
-      match /config/{id} { allow read: if signedIn(); allow write: if isAdmin() || (signedIn() && id == 'town'); }
+      // 타운 맵(맵 변경권) · 이번 주 크루 미션 집계는 크루원도, 채팅 배경 등 나머지는 운영진만
+      match /config/{id} { allow read: if signedIn(); allow write: if isAdmin() || (signedIn() && (id == 'town' || id.matches('crew-[0-9]+'))); }
 
       // 이벤트 코드 — 목록은 운영진, 코드 입력 시 단건 조회 · 사용 처리
       match /codes/{id} {

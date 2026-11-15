@@ -1,6 +1,6 @@
 /* DKO 월드 모듈 (월드에 들어갈 때만 받아요) */
 (function(){
-const {BrickIc,C0,Coin,EQ_PRICE,EQ_S,EQ_SHIELD,EQ_T,EQ_TC,EQ_VAL,ICONS,Icon,PX_HEROES,PfpView,PixelChar,R,STICKER,StickerTray,VX_ISO,VoxelStage,WCF,W_BIG,W_CAT,W_CDECO,W_CR,W_DECO_MAX,W_EXP_COST,W_LAND_MAX,W_LM,W_LMS,W_LONG,W_LV_ROOF,W_MINE_CAP,W_MINE_RATE,W_OB,W_OB_TIME,W_PROTECT,W_SC,W_START,W_START_BRICKS,W_SW,W_SZ,W_TABS,W_TILE,W_WALK,ago,avatarOf,coinsOf,dayKey,dispName,eqId,eqName,eqParse,haptic,heroAv,html,isOnline,lmC,lmDoor,lsGet,lsSet,ownsHero,rpgEqLook,rpgNeed,rpgOf,rpgStats,rr,seed,useEffect,useMemo,useRef,useState,vxDraw,wBack,wBrick,wCells,wCube,wDrawChar,wEase,wFmtT,wHash,wLandCost,wName,wRad,wShade,wShadow,wSpeedCost,wStealCost,wStr,wSz}=window.__DKO;
+const {BrickIc,C0,Coin,EQ_PRICE,EQ_S,EQ_SHIELD,EQ_T,EQ_TC,EQ_VAL,ICONS,Icon,PX_HEROES,PfpView,PixelChar,R,STICKER,StickerTray,VX_ISO,VoxelStage,WCF,W_BIG,W_CAT,W_CDECO,W_CR,W_DECO_MAX,W_EXP_COST,W_LAND_MAX,W_LM,W_LMS,W_LONG,W_LV_ROOF,W_MINE_CAP,W_MINE_RATE,W_OB,W_OB_TIME,W_PROTECT,W_SC,W_START,W_START_BRICKS,W_SW,W_SZ,W_TABS,W_TILE,W_WALK,ago,avatarOf,coinsOf,dayKey,dispName,dkoAsk,eqId,eqName,eqParse,haptic,heroAv,hh,html,isOnline,isSuperM,lmC,lmDoor,lsGet,lsSet,ownsHero,rpgEqLook,rpgNeed,rpgOf,rpgStats,rr,seed,useEffect,useMemo,useRef,useState,vxDraw,wBack,wBrick,wCells,wCube,wDrawChar,wEase,wFmtT,wHash,wLandCost,wName,wRad,wShade,wShadow,wSpeedCost,wStealCost,wStr,wSz}=window.__DKO;
 /* 칸 크기가 커진 예전 섬: 겹치거나 땅 밖으로 나간 건물을 가장 가까운 빈 곳으로 옮겨요 */
 function wFit(items,R,land){
   const ok=(x,y)=>Math.hypot(x,y)<=R-.15||(land&&land.has(x+','+y));
@@ -89,8 +89,22 @@ function buildWorld(isl){
   C.sort((a,b)=>a.at-b.at).forEach(e=>{ if(Math.hypot(e.gx,e.gy)<W_CR+1.5) return; const cur=T.get(key(e.gx,e.gy)); if(cur&&cur.isl==='center') return;
     if(cur&&cur.isl&&cur.isl!==e.uid){ const o=L.find(l=>l.uid===cur.isl); if(o&&Math.hypot(e.gx-o.cx+.5,e.gy-o.cy+.5)<W_PROTECT) return; }
     T.set(key(e.gx,e.gy),{x:e.gx,y:e.gy,t:'grass',isl:e.uid,d:99,land:1}); });
+  /* v26.8 막힌 길 고치기: 광장에서 못 가는 섬 · 명소 문이 있으면 가장 짧은 물길에 다리를 놓아요 (대각선 틈도 메워요) */
+  { const st=key(-7,0); const reach=new Set(); const flood=from=>{ const q=[from]; reach.add(from); for(let h=0;h<q.length;h++){ const [x,y]=q[h].split(',').map(Number); for(const [ax,ay] of [[1,0],[-1,0],[0,1],[0,-1]]){ const kk=key(x+ax,y+ay); if(reach.has(kk)||!T.has(kk)) continue; reach.add(kk); q.push(kk); } } };
+    if(T.has(st)) flood(st);
+    const goals=[...L.map(l=>[l.cx,l.cy]),...W_LM.map(l=>lmDoor(l))];
+    let B=0; T.forEach(t=>{ B=Math.max(B,Math.abs(t.x),Math.abs(t.y)); }); B+=3;
+    goals.forEach(([gx,gy])=>{ const g0=key(gx,gy); if(!T.has(g0)||reach.has(g0)) return;
+      const prev=new Map([[g0,null]]); const dq=[[gx,gy]]; let hit=null;
+      while(dq.length){ const [x,y]=dq.shift(); const k0=key(x,y); if(reach.has(k0)){ hit=k0; break; }
+        for(const [ax,ay] of [[1,0],[-1,0],[0,1],[0,-1]]){ const nx=x+ax, ny=y+ay; if(Math.abs(nx)>B||Math.abs(ny)>B) continue; const kk=key(nx,ny); if(prev.has(kk)) continue; prev.set(kk,k0); if(T.has(kk)) dq.unshift([nx,ny]); else dq.push([nx,ny]); } }
+      let cur=hit; while(cur){ if(!T.has(cur)){ const [x,y]=cur.split(',').map(Number); T.set(cur,{x,y,t:'bridge',isl:null}); } cur=prev.get(cur); }
+      flood(st); }); }
   return {T,L,key};
 }
+function wNightK(){ if(window.__wDay) return 0; const t=Date.now(); if(wNightK.t&&t-wNightK.t<5000) return wNightK.v; const d=new Date(); const hr=d.getHours()+d.getMinutes()/60; wNightK.t=t; wNightK.v=hr>=19.5||hr<5.5?1:hr>=18.5?(hr-18.5):hr<6.5?(6.5-hr):0; return wNightK.v; }
+function wDuskK(){ const d=new Date(); const hr=d.getHours()+d.getMinutes()/60; return hr>=16.5&&hr<19.5?Math.sin((hr-16.5)/3*Math.PI):0; }
+try{ window.__wDay=localStorage.getItem('dko-wday')==='day'; }catch(e){}
 
 /* ── 아이템 그리기: (ox,oy)=타일 위 가운데, u=복셀 한 칸 ── */
 function wDrawItem(g,t,ox,oy,u,tm,seed,lv){
@@ -143,6 +157,22 @@ function wDrawItem(g,t,ox,oy,u,tm,seed,lv){
       [[-3,-3],[2,-3],[-3,2.4],[2,2.4]].forEach(([x,y])=>C(x,y,0,1.2,.6,1.4,'#2A2A31')); break; }
     case 'balloon': { const fy=Math.sin(tm*1.2+seed)*1.2; wShadow(g,ox,oy+u,u*4,u*2,.14); C(-1.5,-1.5,6+fy,3,3,2,'#8A5A34'); for(let i=0;i<4;i++) C(-1.4+(i%2)*2.6,-1.4+Math.floor(i/2)*2.6,8+fy,.2,.2,3,'#5A3A20');
       C(-4,-4,11+fy,8,8,7,'#FF5A1A'); C(-3,-3,18+fy,6,6,1.6,'#FF8F4D'); C(-4.1,-.6,12+fy,8.2,1.2,5,'#FFFFFF'); C(-.6,-4.1,12+fy,1.2,8.2,5,'#FFD166'); break; }
+    case 'lantern': { C(-.3,-.3,0,.6,.6,5,'#5A3A20'); const gl=.75+.25*Math.sin(tm*3+seed); C(-1.4,-1.4,5,2.8,2.8,3.2,'#FF7A5A',{t:'#FFB08A',l:'rgba(255,140,100,'+gl+')',r:'rgba(230,90,60,'+gl+')'}); C(-1.6,-1.6,8.2,3.2,3.2,.5,'#3A2A20'); g.fillStyle='rgba(255,170,110,.14)'; g.beginPath(); g.arc(ox,oy-u*6.6,u*4.5,0,Math.PI*2); g.fill(); break; }
+    case 'pumpkin': { wShadow(g,ox,oy+u,u*4.6,u*2.2); C(-2.4,-2.4,0,4.8,4.8,3.6,'#FF8A1A',{t:'#FFA94D',l:'#F57C10',r:'#D9650A'}); C(-.4,-.4,3.6,.8,.8,1.2,'#3E8A3A'); const bl=Math.sin(tm*5+seed)>-.6?'#FFE27A':'#FFB020'; C(-1.6,2.4,1.6,.8,.12,.8,bl,{l:bl,r:bl,t:bl}); C(.6,2.4,1.6,.8,.12,.8,bl,{l:bl,r:bl,t:bl}); C(-1.2,2.4,.6,2.4,.12,.5,bl,{l:bl,r:bl,t:bl}); break; }
+    case 'snowman': { wShadow(g,ox,oy+u,u*4.4,u*2.2); C(-2.2,-2.2,0,4.4,4.4,3.6,'#F4F8FF',{t:'#FFFFFF',l:'#E6EEF8',r:'#CFDBEA'}); C(-1.6,-1.6,3.6,3.2,3.2,2.8,'#F4F8FF',{t:'#FFFFFF',l:'#E6EEF8',r:'#CFDBEA'}); C(-1.7,-1.7,5.6,3.4,3.4,.5,'#E5383B'); C(-.2,1.6,4.6,.5,1.4,.4,'#FF8A1A'); C(-1.2,-1.2,6.4,2.4,2.4,1.6,'#2A2A31'); C(-1.6,-1.6,6.4,3.2,3.2,.3,'#2A2A31'); break; }
+    case 'mailbox': { C(-.3,-.3,0,.6,.6,3.4,'#3A3F4A'); C(-1.4,-1.8,3.4,2.8,3.6,2.4,'#E5383B',{t:'#FF6B6B',l:'#E5383B',r:'#B8242A'}); C(-1.3,-1.7,5.8,2.6,3.4,.4,'#C82D33'); if(Math.sin(tm*.8+seed)>.3) C(-.6,1.8,4.4,1.2,.15,.8,'#FFFFFF',{l:'#fff',r:'#E6ECF4',t:'#fff'}); C(1.4,-1.2,4.8,.2,.2,1.6,'#FFD166'); break; }
+    case 'windmill': { wShadow(g,ox,oy+u*1.4,u*6,u*3); C(-2.4,-2.4,0,4.8,4.8,8,'#F2E3C6'); C(-2.8,-2.8,8,5.6,5.6,1,'#B5523A'); C(-2,-2,9,4,4,1,'#C9653F'); C(-.6,2.4,2.6,1.2,.2,2,'#6A4024');
+      { const hx=ox+u*.2, hy=oy-u*7.4+u*1.4; const a0=tm*1.6+seed; g.save(); g.translate(hx,hy); for(let i=0;i<4;i++){ const a=a0+i*Math.PI/2; g.save(); g.rotate(a); g.fillStyle=i%2?'#FFFFFF':'#E6ECF4'; g.fillRect(-u*.5,0,u*1,u*6); g.fillStyle='rgba(0,0,0,.12)'; g.fillRect(-u*.5,u*5.4,u*1,u*.6); g.restore(); } g.fillStyle='#5A3A20'; g.beginPath(); g.arc(0,0,u*.8,0,Math.PI*2); g.fill(); g.restore(); } break; }
+    case 'gacha': { wShadow(g,ox,oy+u,u*4.4,u*2.2); C(-2,-2,0,4,4,3.6,'#E5383B',{t:'#FF6B6B',l:'#E5383B',r:'#B8242A'}); C(-1.9,-1.9,3.6,3.8,3.8,3.6,'#CFEFFF',{t:'rgba(220,245,255,.9)',l:'rgba(190,232,255,.75)',r:'rgba(150,210,240,.75)'}); 
+      for(let i=0;i<5;i++){ const cc=['#FFD166','#FF5AB4','#5AE0FF','#8CFF7A','#B98CFF'][i]; const bx=-1.2+(i%3)*1.1, by=-1.2+Math.floor(i/3)*1.4; C(bx,by,3.8+(i%2)*.8,.9,.9,.9,cc); }
+      C(-2.1,-2.1,7.2,4.2,4.2,.6,'#E5383B'); C(-.5,2,1.4,1,.2,1,'#FFD166'); break; }
+    case 'xtree': { wShadow(g,ox,oy+u*1.2,u*6,u*3); C(-.8,-.8,0,1.6,1.6,2,'#7A4E2C'); C(-4,-4,2,8,8,3,'#1F7A45'); C(-3,-3,5,6,6,3,'#26904F'); C(-2,-2,8,4,4,3,'#2EA65B'); C(-1,-1,11,2,2,2,'#38BA68'); C(-.6,-.6,13,1.2,1.2,1.2,'#FFD166',{t:'#FFF0B0',l:'#FFD166',r:'#E0A81A'});
+      for(let i=0;i<10;i++){ const on=Math.floor(tm*2.5+i)%2===0; const a=i*2.3+seed, r=1.5+(i%4)*.7, z=3+i*.95; const px=Math.cos(a)*r, py=Math.sin(a)*r; const p=[ox+(px-py)*u,oy+(px+py)*u*.5-z*u]; g.fillStyle=on?['#FF5A5A','#FFD166','#5AE0FF','#FF8AE0'][i%4]:'rgba(255,255,255,.25)'; g.beginPath(); g.arc(p[0],p[1],u*.42,0,Math.PI*2); g.fill(); } break; }
+    case 'lighthouse': { wShadow(g,ox,oy+u*1.4,u*5.6,u*2.8); for(let i=0;i<4;i++) C(-2+i*.15,-2+i*.15,i*3,4-i*.3,4-i*.3,3,i%2?'#E5383B':'#FFFFFF',i%2?{t:'#FF6B6B',l:'#E5383B',r:'#B8242A'}:{t:'#fff',l:'#F4F6FA',r:'#D5DCE6'}); C(-1.6,-1.6,12,3.2,3.2,2,'#FFE9A8',{t:'#FFF6D0',l:'#FFE9A8',r:'#F2C94C'}); C(-2,-2,14,4,4,.8,'#2A2A31');
+      { const a=tm*1.2+seed; const cx=ox, cy=oy-u*13; const L=u*22; g.save(); const gr=g.createLinearGradient(cx,cy,cx+Math.cos(a)*L,cy+Math.sin(a)*L*.5); gr.addColorStop(0,'rgba(255,240,180,.45)'); gr.addColorStop(1,'rgba(255,240,180,0)'); g.fillStyle=gr; g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx+Math.cos(a-.18)*L,cy+Math.sin(a-.18)*L*.5); g.lineTo(cx+Math.cos(a+.18)*L,cy+Math.sin(a+.18)*L*.5); g.closePath(); g.fill(); g.restore(); } break; }
+    case 'portal': { wShadow(g,ox,oy+u*1.2,u*6,u*3); C(-3.4,-.6,0,1.2,1.2,9,'#3A2A6A'); C(2.2,-.6,0,1.2,1.2,9,'#3A2A6A'); C(-3.4,-.6,9,6.8,1.2,1.2,'#3A2A6A'); C(-3.6,-.8,10.2,7.2,1.6,.5,'#B98CFF');
+      { const cx=ox+u*.3, cy=oy-u*5.2; g.save(); g.translate(cx,cy); g.scale(1,1.15); for(let i=0;i<5;i++){ const r=u*(3.2-i*.55); g.strokeStyle=['#B98CFF','#7B5CFF','#5AE0FF','#FF5AB4','#FFFFFF'][i]; g.globalAlpha=.85-i*.1; g.lineWidth=u*.55; g.beginPath(); g.arc(0,0,r,tm*(2+i*.6)+i,tm*(2+i*.6)+i+Math.PI*1.4); g.stroke(); } g.globalAlpha=1; g.restore();
+        g.save(); g.shadowColor='#B98CFF'; g.shadowBlur=u*5; g.fillStyle='rgba(200,170,255,.35)'; g.beginPath(); g.ellipse(cx,cy,u*2.6,u*3.2,0,0,Math.PI*2); g.fill(); g.restore(); } break; }
     case 'hall': { const k=lv; wShadow(g,ox,oy+u*2.4,u*12,u*6);
       C(-6,-6,0,12,12,1.4,'#9AA3AE'); C(-5.4,-5.4,1.4,10.8,10.8,5+k,'#F4E9D6');
       for(let i=0;i<3;i++){ C(-5.5,-5.5+i*4.2,1.4,.2,1.4,5+k,'#D9C9AA'); }
@@ -275,7 +305,7 @@ function WorldBeta({c,onClose}){
   const wKey=wKeyOf(isl);
   const W=useMemo(()=>buildWorldC(isl),[wKey]);
   const online=isl.filter(I=>I.uid!==c.uid&&I.here&&I.here.at&&now-I.here.at<65000);
-  useEffect(()=>{ if(c.ready&&!(c.islands||[]).some(x=>x.uid===c.uid)) c.createIsland(); },[c.ready,(c.islands||[]).length]);
+  useEffect(()=>{ if(c.ready&&!isSuperM(c.me)&&!(c.islands||[]).some(x=>x.uid===c.uid)) c.createIsland(); },[c.ready,(c.islands||[]).length]);
   useEffect(()=>{ const t=setTimeout(()=>setCloud('open'),650); const t2=setTimeout(()=>setCloud(null),1900); return ()=>{ clearTimeout(t); clearTimeout(t2); }; },[]);
   useEffect(()=>{ const t=setInterval(()=>tick(x=>x+1),1000); return ()=>clearInterval(t); },[]);
   const leave=(then)=>{ setCloud('close'); setTimeout(()=>{ onClose(); if(typeof then==='function') then(); },620); };
@@ -301,11 +331,11 @@ function WorldBeta({c,onClose}){
     if(mine._mig&&!D.has('mig')){ D.add('mig'); patch=patch?{bricks:mine.bricks,fv:1,...patch,items:patch.items||items}:{items,bricks:mine.bricks,fv:1}; }
     if(patch){ save(patch); const s=S.current; if(s&&fx.length){ const L=s.W.L.find(l=>l.uid===c.uid); fx.forEach(it=>{ const [w,h]=wSz(it); s.pop[it.i]=performance.now(); if(L){ s.fx.push({k:'burst',gx:L.cx+it.x+(w-1)/2,gy:L.cy+it.y+(h-1)/2,at:performance.now()}); s.fx.push({k:'txt',gx:L.cx+it.x+(w-1)/2,gy:L.cy+it.y+(h-1)/2,at:performance.now(),txt:it.up.to>1?'Lv.'+it.up.to+' 완성!':'완성!'}); } }); haptic(20); c.notify(fx.length===1?wName(fx[0].t)+(fx[0].up.to>1?' Lv.'+fx[0].up.to+' 업그레이드 완료!':' 완성!'):'건물 '+fx.length+'개 완성!'); } }
   });
-  /* D-rop에서 받은 벽돌은 들어오자마자 섬으로 · 장식은 상점 선물함으로 */
+  /* D-ROP에서 받은 벽돌은 들어오자마자 섬으로 · 장식은 상점 선물함으로 */
   const gift=(c.me&&c.me.wGift)||{}; const giftN=Object.values(gift.items||{}).reduce((s0,n)=>s0+(n>0?n:0),0);
   useEffect(()=>{ if(!mine||!(gift.bricks>0)||done.current.has('gb:'+gift.bricks)) return; done.current.add('gb:'+gift.bricks); const n=gift.bricks;
-    c.takeWorldGift({bricks:1}).then(ok=>{ if(!ok) return; save({bricks:mine.bricks+n}); const s=S.current; if(s) s.fx.push({k:'txt',gx:s.me.x,gy:s.me.y,at:performance.now(),txt:'+'+n,ic:'brick'}); c.notify('D-rop 선물 · 벽돌 '+n.toLocaleString()+'개가 섬에 들어왔어요!'); haptic(14); }); },[!!mine,gift.bricks]);
-  useEffect(()=>{ if(giftN&&mine&&!done.current.has('gn')){ done.current.add('gn'); setTimeout(()=>c.notify('D-rop 선물 장식 '+giftN+'개 · 상점 → 선물에서 놓을 수 있어요'),900); } },[giftN,!!mine]);
+    c.takeWorldGift({bricks:1}).then(ok=>{ if(!ok) return; save({bricks:mine.bricks+n}); const s=S.current; if(s) s.fx.push({k:'txt',gx:s.me.x,gy:s.me.y,at:performance.now(),txt:'+'+n,ic:'brick'}); c.notify('D-ROP 선물 · 벽돌 '+n.toLocaleString()+'개가 섬에 들어왔어요!'); haptic(14); }); },[!!mine,gift.bricks]);
+  useEffect(()=>{ if(giftN&&mine&&!done.current.has('gn')){ done.current.add('gn'); setTimeout(()=>c.notify('D-ROP 선물 장식 '+giftN+'개 · 상점 → 선물에서 놓을 수 있어요'),900); } },[giftN,!!mine]);
   /* 이웃이 내 가장자리 땅을 샀다면: 값의 절반을 벽돌로 받아요 */
   useEffect(()=>{ if(!mine) return; const seen=mine.soldSeen||0; let sum=0, n=0, mx=seen;
     isl.forEach(I=>{ if(I.uid===c.uid) return; I.land.forEach(e=>{ if(e.from===c.uid&&(e.at||0)>seen){ sum+=Math.floor((e.p||0)/2); n++; mx=Math.max(mx,e.at); } }); });
@@ -471,7 +501,7 @@ function WorldBeta({c,onClose}){
       }
       /* 나비 · 꽃잎 · 구름 그림자 (동화 느낌) */
       { const [c0x,c0y]=scr(-3,0); for(let i=0;i<7;i++){ const a=tm*.35+i*.9, rr2=(5+i*1.3)*WCF.TW*z*.5; const x=c0x+Math.cos(a)*rr2, y=c0y+Math.sin(a*1.3)*rr2*.45-u*6; if(x<-20||x>s.vw+20||y<-20||y>s.vh+20) continue; const fl=Math.abs(Math.sin(tm*14+i))*u*1.4+u*.3; g.fillStyle=['#FFD6E8','#FFF2A0','#CDEBFF','#E6D6FF'][i%4]; g.beginPath(); g.ellipse(x-fl*.6,y,fl,u*1.1,0,0,Math.PI*2); g.ellipse(x+fl*.6,y,fl,u*1.1,0,0,Math.PI*2); g.fill(); }
-        if(z<1.3){ for(let i=0;i<3;i++){ const x=((wHash(i,4,7)*s.vw*1.6+tm*(9+i*4))%(s.vw+400))-200, y=wHash(i,9,7)*s.vh*.8; g.fillStyle='rgba(30,70,110,.07)'; g.beginPath(); g.ellipse(x+40,y+70,120,34,0,0,Math.PI*2); g.fill(); g.fillStyle='rgba(255,255,255,.5)'; for(const [dx,dy,r3] of [[0,0,36],[34,6,28],[-32,8,26],[12,-14,26]]){ g.beginPath(); g.arc(x+dx,y+dy,r3,0,Math.PI*2); g.fill(); } } } }
+        if(z<1.3){ for(let i=0;i<3;i++){ const x=((wHash(i,4,7)*s.vw*1.6+tm*(9+i*4))%(s.vw+400))-200, y=wHash(i,9,7)*s.vh*.8; const NK=wNightK(); g.fillStyle='rgba(30,70,110,'+(.06*(1-NK*.6))+')'; g.beginPath(); g.ellipse(x+40,y+70,120,34,0,0,Math.PI*2); g.fill(); g.fillStyle=NK>.5?'rgba(196,204,255,.16)':'rgba(255,255,255,.42)'; g.beginPath(); for(const [dx,dy,r3] of [[0,0,36],[34,6,28],[-32,8,26],[12,-14,26],[0,10,30]]){ g.moveTo(x+dx+r3,y+dy); g.arc(x+dx,y+dy,r3,0,Math.PI*2); } g.fill(); } } }
       /* 명소 이름표 (늘 맨 위) */
       for(const L0 of labels){ const {l}=L0; const bob=Math.sin(tm*2+l.x)*u*.5; const x=L0.x, y=L0.y+bob; const gs=Math.max(22,u*6.2);
         g.save(); g.shadowColor='rgba(0,0,0,.35)'; g.shadowBlur=6; g.shadowOffsetY=3; const gg=g.createLinearGradient(x,y-gs/2,x,y+gs/2); gg.addColorStop(0,l.c[0]); gg.addColorStop(1,l.c[1]); g.fillStyle=gg; rr(g,x-gs/2,y-gs/2,gs,gs,gs*.3); g.fill(); g.restore();
@@ -484,13 +514,14 @@ function WorldBeta({c,onClose}){
       if(s.mode==='land'&&s.lsel){ const [px,py]=scr(s.lsel.x,s.lsel.y); const txt=(s.lsel.cost||0).toLocaleString(); g.font='900 13px "NEXON Kart Gothic",sans-serif'; const tw=g.measureText(txt).width+34; const y=py-HH-30-Math.sin(tm*4)*2;
         g.fillStyle=s.lsel.steal?'#FFD54A':'#fff'; rr(g,px-tw/2,y,tw,24,12); g.fill(); g.beginPath(); g.moveTo(px-5,y+23); g.lineTo(px,y+30); g.lineTo(px+5,y+23); g.fill(); wBrick(g,px-tw/2+13,y+10,2.4); g.fillStyle='#3A2410'; g.textAlign='left'; g.textBaseline='middle'; g.fillText(txt,px-tw/2+24,y+13); }
       /* 낮 · 노을 · 밤 */
-      const hr=new Date().getHours()+new Date().getMinutes()/60; const night=hr>=19.5||hr<5.5?1:hr>=18.5?(hr-18.5):hr<6.5?(6.5-hr):0; const dusk=hr>=16.5&&hr<19.5?Math.sin((hr-16.5)/3*Math.PI):0;
+      const night=wNightK(); const dusk=window.__wDay?0:wDuskK();
       if(dusk>0){ g.fillStyle='rgba(255,120,60,'+(dusk*.16)+')'; g.fillRect(0,0,s.vw,s.vh); }
-      if(night>0){ g.fillStyle='rgba(8,14,48,'+(night*.42)+')'; g.fillRect(0,0,s.vw,s.vh);
+      if(night>0){ const ng=g.createLinearGradient(0,0,0,s.vh); ng.addColorStop(0,'rgba(40,34,124,'+(night*.40)+')'); ng.addColorStop(.6,'rgba(26,40,110,'+(night*.30)+')'); ng.addColorStop(1,'rgba(14,44,96,'+(night*.24)+')'); g.fillStyle=ng; g.fillRect(0,0,s.vw,s.vh);
+        { const mx=s.vw*.78, my=150; const mg=g.createRadialGradient(mx,my,0,mx,my,70); mg.addColorStop(0,'rgba(255,246,200,'+(.5*night)+')'); mg.addColorStop(1,'rgba(255,246,200,0)'); g.fillStyle=mg; g.fillRect(mx-70,my-70,140,140); g.fillStyle='rgba(255,248,214,'+(.95*night)+')'; g.beginPath(); g.arc(mx,my,15,0,Math.PI*2); g.fill(); g.fillStyle='rgba(220,226,255,'+(.25*night)+')'; g.beginPath(); g.arc(mx-5,my-3,3,0,Math.PI*2); g.arc(mx+5,my+5,2.2,0,Math.PI*2); g.fill(); }
         g.globalCompositeOperation='lighter'; for(const e of ents){ if(!(e.k==='lm'||(e.k==='i'&&e.it&&['lamp','fire','neon','house','hall','shop'].includes(e.it.t)))) continue; const cx=e.gx+((e.w||1)-1)/2+(e.k==='lm'?.5:0), cy=e.gy+((e.h||1)-1)/2+(e.k==='lm'?.5:0); const [px,py]=scr(cx,cy); if(px<-80||px>s.vw+80||py<-80||py>s.vh+80) continue;
           const rg=g.createRadialGradient(px,py-u*7,0,px,py-u*7,u*12); rg.addColorStop(0,'rgba(255,190,110,'+(.35*night)+')'); rg.addColorStop(1,'rgba(255,190,110,0)'); g.fillStyle=rg; g.fillRect(px-u*12,py-u*19,u*24,u*24); }
         g.globalCompositeOperation='source-over';
-        for(let i=0;i<40;i++){ const x=wHash(i,9,9)*s.vw, y=wHash(i,5,5)*s.vh*.5; const tw=.5+.5*Math.sin(tm*2+i); g.fillStyle='rgba(255,255,255,'+(night*.5*tw)+')'; g.fillRect(x,y,1.6,1.6); } }
+        for(let i=0;i<40;i++){ const x=wHash(i,9,9)*s.vw, y=wHash(i,5,5)*s.vh*.5; const tw=.5+.5*Math.sin(tm*2+i); g.fillStyle='rgba(255,255,255,'+(night*.7*tw)+')'; g.fillRect(x,y,i%7?1.6:2.4,i%7?1.6:2.4); } }
       /* 효과 */
       s.fx=s.fx.filter(f=>pnow-f.at<1600);
       for(const f of s.fx){ const [px,py]=scr(f.gx,f.gy); const k=(pnow-f.at)/1600;
@@ -539,7 +570,7 @@ function WorldBeta({c,onClose}){
   /* 렌더 상태 동기화 */
   useEffect(()=>{ const s=S.current; if(!s) return; s.W=W; s.isl=isl; s.mode=mode; s.members=c.members; s.meM=c.me; s.ghost=ghost; s.sel=sel; s.landC=landC; s.lsel=lsel;
     s.arrive=()=>sendHere(); s.onNear=k=>setNear(k);
-    const blk=new Set(); const add=(x,y)=>blk.add(x+','+y);
+    const blk=new Set(); const add=(x,y)=>{ const t0=W.T.get(x+','+y); if(t0&&(t0.t==='bridge'||t0.t==='path')) return; blk.add(x+','+y); };
     isl.forEach(I=>{ const L=W.L.find(l=>l.uid===I.uid); if(!L) return; I.items.forEach(it=>{ if(W_WALK.has(it.t)) return; wCells(it).forEach(([a,b])=>add(L.cx+a,L.cy+b)); }); wObstacles(I,I.uid).forEach(o=>{ if(o.t!=='ob_weed') add(L.cx+o.x,L.cy+o.y); }); });
     W_LM.forEach(l=>{ for(let i=0;i<3;i++) for(let j=0;j<3;j++) add(l.x+i,l.y+j); }); W_CDECO.forEach(([x,y,t])=>{ if(!W_WALK.has(t)) wCells({t},x,y).forEach(([a,b])=>add(a,b)); });
     s.blk=blk;
@@ -571,7 +602,7 @@ function WorldBeta({c,onClose}){
     if(D.gift&&!s.npcGot&&mine){ s.npcGot=true; lsSet(npcGiftKey(),'1'); saveBricks(60); s.fx.push({k:'txt',gx:n.x,gy:n.y,at:performance.now(),txt:'+60',ic:'brick'}); wSfx('gem'); c.notify(D.n+'의 선물 · 벽돌 60개!'); }
     const tx=Math.round(n.x+1), ty=Math.round(n.y+1); s.follow=true; if(Math.hypot(s.me.x-n.x,s.me.y-n.y)>2.2) s.go(tx,ty); };
   /* 포털: 화면이 소용돌이로 덮이고 다른 세계로 넘어가요 */
-  const startDg=k=>{ if(tp) return; const D0=DG[k]; if(rpg.lv<D0.lv&&!window.confirm(D0.n+'은(는) 추천 Lv.'+D0.lv+' 이상이에요. 지금 Lv.'+rpg.lv+' 이에요. 그래도 갈까요?')) return;
+  const startDg=async k=>{ if(tp) return; const D0=DG[k]; if(rpg.lv<D0.lv&&!(await dkoAsk(D0.n+'은(는) 추천 Lv.'+D0.lv+' 이상이에요. 지금 Lv.'+rpg.lv+' 이에요. 그래도 갈까요?'))) return;
     setLm(null); setSel(null); setCard(null); setChat(false); setTp({k,dir:'in',key:Date.now()}); haptic([20,40,60]); wSfx('tp');
     setTimeout(()=>{ const s=S.current; if(s) s.paused=true; setDg(k); },750); setTimeout(()=>setTp(null),1600); };
   const exitDg=()=>{ const k=dg; setTp({k,dir:'out',key:Date.now()}); wSfx('tp'); setTimeout(()=>wBgm('world'),700); setTimeout(()=>{ setDg(null); const s=S.current; if(s){ s.paused=false; s.wake&&s.wake(); const l=W_LM.find(x=>x.dg===k); if(l) s.jump(l.x+1,l.y+4,1); sendHere(true); } },750); setTimeout(()=>setTp(null),1600); };
@@ -648,18 +679,18 @@ function WorldBeta({c,onClose}){
       const extra=it.t==='mine'?wMineStock(it,t):0;
       save({items,bricks:bricks-cost+extra},wName(it.t)+' Lv.'+to+' 업그레이드를 시작했어요!'); setInfo(null); haptic(14);
       const L=myL(); if(L) S.current.fx.push({k:'dust',gx:L.cx+it.x,gy:L.cy+it.y,at:performance.now()}); }); };
-  const speed=it=>{ const rem=(it.up.end-Date.now())/1000; const d=wSpeedCost(rem);
-    if(!window.confirm('D-Coin '+d+'개로 남은 '+wFmtT(rem)+'을(를) 바로 끝낼까요?')) return;
+  const speed=async it=>{ const rem=(it.up.end-Date.now())/1000; const d=wSpeedCost(rem);
+    if(!(await dkoAsk('D-Coin '+d+'개로 남은 '+wFmtT(rem)+'을(를) 바로 끝낼까요?'))) return;
     pay({d},()=>{ const items=mine.items.map(x=>x.i===it.i?{...x,up:{...x.up,end:Date.now()-1}}:x); save({items}); }); };
-  const remove=it=>{ const C=W_CAT[it.t]; if(C.cat!=='deco'&&C.cat!=='gem') return; if(!window.confirm(wName(it.t)+'을(를) 치울까요? '+(C.b?'벽돌 '+Math.floor(C.b/2)+'개를 돌려받아요.':'스페셜 장식은 돌려받을 수 없어요.'))) return;
+  const remove=async it=>{ const C=W_CAT[it.t]; if(C.cat!=='deco'&&C.cat!=='gem') return; if(!(await dkoAsk(wName(it.t)+'을(를) 치울까요? '+(C.b?'벽돌 '+Math.floor(C.b/2)+'개를 돌려받아요.':'스페셜 장식은 돌려받을 수 없어요.')))) return;
     save({items:mine.items.filter(x=>x.i!==it.i),bricks:bricks+(C.b?Math.floor(C.b/2):0)}); const L=myL(); if(L) S.current.fx.push({k:'dust',gx:L.cx+it.x,gy:L.cy+it.y,at:performance.now()}); setSel(null); };
   const clearOb=o=>{ if(mine.clr&&mine.clr.end>Date.now()){ c.notify('지금 다른 장애물을 치우는 중이에요.','err'); return; } const ob=W_OB[o.t];
     pay({b:ob.cost},()=>{ save(mark('ob',{bricks:bricks-ob.cost,clr:{k:o.k,t:o.t,end:Date.now()+W_OB_TIME}})); setSel(null); haptic(10); }); };
   const expand=()=>{ setInfo(null); startLand(); };
   const landN=mine?mine.land.length:0, landMax=mine?W_LAND_MAX[Math.min(5,mine.hallLv)]:0;
-  const buyLand=o=>{ if(!o||!mine) return; if(landN>=landMax){ c.notify('본부 Lv.'+mine.hallLv+'에서는 땅을 '+landMax+'칸까지 넓힐 수 있어요. 본부를 올려 보세요.','err'); return; }
+  const buyLand=async o=>{ if(!o||!mine) return; if(landN>=landMax){ c.notify('본부 Lv.'+mine.hallLv+'에서는 땅을 '+landMax+'칸까지 넓힐 수 있어요. 본부를 올려 보세요.','err'); return; }
     const cost=o.steal?wStealCost(landN):wLandCost(landN); const owner=o.steal&&isl.find(I=>I.uid===o.steal);
-    if(o.steal&&!window.confirm((owner?owner.name:'이웃 섬')+'의 가장자리 한 칸을 벽돌 '+cost.toLocaleString()+'개에 살까요? 판 사람은 절반을 벽돌로 받아요.')) return;
+    if(o.steal&&!(await dkoAsk((owner?owner.name:'이웃 섬')+'의 가장자리 한 칸을 벽돌 '+cost.toLocaleString()+'개에 살까요? 판 사람은 절반을 벽돌로 받아요.'))) return;
     const L=myL(); if(!L) return; const k=(o.x-L.cx)+','+(o.y-L.cy);
     pay({b:cost},()=>{ const e={k,at:Date.now()}; if(o.steal){ e.from=o.steal; e.p=cost; }
       save({land:[...mine.land,e],bricks:bricks-cost},o.steal?(owner?owner.name:'이웃 섬')+'에서 땅 한 칸을 샀어요!':'땅이 한 칸 넓어졌어요!');
@@ -843,7 +874,7 @@ function WShop({I,tab,setTab,coins,busy,builders,onPick,onClose,gift,rpg,onEq}){
       <div className="ws26-g">${EQ_T.map((T,ti)=>{ const id=eqId(S2.k,T.k); const n=rpg.inv[id]||0; const pr=EQ_PRICE[S2.k][ti]; const lock=ti>=1&&I.hallLv<2&&pr; const val=S2.k==='shield'?'막기 '+Math.round(EQ_SHIELD.block[ti]*100)+'%':(S2.k==='weapon'?'공격 +':'방어 +')+EQ_VAL[S2.k][ti];
         return html`<button key=${id} className=${'ws26-c tap t-'+T.k+(pr?'':' drop')+(lock?' lock':'')} onClick=${()=>onEq(S2.k,ti)}><span className="ws26-gem"><${Icon} n=${S2.ic} s=${20} w=${2.2}/></span><b>${T.n}</b><small>${val}</small>${n?html`<em className="ws26-n">보유 ${n}</em>`:null}
           <span className="ws26-p">${pr?html`<${BrickIc} s=${13}/>${pr.toLocaleString()}`:'보스 전리품'}</span></button>`; })}</div></div>`)}</div>`:null}
-    ${tab==='gift'?html`<div className="wbs-cap">D-rop에서 받은 장식이에요 · 공짜로 놓을 수 있어요</div><div className="wbs-grid">${gl.map(([k,n],i)=>html`<button key=${k} className="wbs-c tap gem gf" style=${{'--d':(i*35)+'ms'}} onClick=${()=>onPick(k,true)}>
+    ${tab==='gift'?html`<div className="wbs-cap">D-ROP에서 받은 장식이에요 · 공짜로 놓을 수 있어요</div><div className="wbs-grid">${gl.map(([k,n],i)=>html`<button key=${k} className="wbs-c tap gem gf" style=${{'--d':(i*35)+'ms'}} onClick=${()=>onPick(k,true)}>
         <span className="wbs-art"><${WItemIcon} t=${k}/><i className="wbs-sz">${wSz({t:k}).join('×')}</i></span><b>${W_CAT[k].n}</b><span className="wbs-meta"><em>×${n}</em></span><span className="wbs-p gf">무료로 놓기</span></button>`)}</div>`:null}
     ${tab==='deco'||tab==='gem'?html`<div className="wbs-cap">장식 ${wDecoCount(I)}/${W_DECO_MAX[hl]} · 본부 레벨이 오르면 더 놓을 수 있어요</div>`:null}
     <div className="wbs-grid">${list.map(([k,C],i)=>{ const mx=wMaxOf(k,hl), n=wCount(I,k); const lock=(C.req&&hl<C.req)||C.drop; const full=!lock&&mx<99&&n>=mx;
@@ -851,7 +882,7 @@ function WShop({I,tab,setTab,coins,busy,builders,onPick,onClose,gift,rpg,onEq}){
         <span className="wbs-art"><${WItemIcon} t=${k}/><i className="wbs-sz">${wSz({t:k}).join('×')}</i></span>
         <b>${C.n}</b>
         <span className="wbs-meta">${mx<99&&!lock?html`<em>${n}/${mx}</em>`:null}${C.time?html`<em><${Icon} n="clock" s=${11} w=${2.4}/>${wFmtT(C.time)}</em>`:null}</span>
-        ${C.drop?html`<span className="wbs-lock"><${Icon} n="gift" s=${13} w=${2.4}/>D-rop 전용</span>`:lock?html`<span className="wbs-lock"><${Icon} n="lock" s=${13} w=${2.4}/>본부 Lv.${C.req}</span>`:full?html`<span className="wbs-lock">최대</span>`:html`<span className=${'wbs-p'+(C.d?' d':'')}>${C.d?html`<${Coin} s=${14}/>${C.d}`:html`<${BrickIc} s=${15}/>${C.b}`}</span>`}
+        ${C.drop?html`<span className="wbs-lock"><${Icon} n="gift" s=${13} w=${2.4}/>D-ROP ${['레어','에픽','레전더리','얼티밋'][C.gr]||''}</span>`:lock?html`<span className="wbs-lock"><${Icon} n="lock" s=${13} w=${2.4}/>본부 Lv.${C.req}</span>`:full?html`<span className="wbs-lock">최대</span>`:html`<span className=${'wbs-p'+(C.d?' d':'')}>${C.d?html`<${Coin} s=${14}/>${C.d}`:html`<${BrickIc} s=${15}/>${C.b}`}</span>`}
       </button>`; })}</div>
   </div></div>`;
 }
@@ -1373,12 +1404,15 @@ function WChat({c,onSay,onSticker,onClose,where}){
 }
 /* 월드 설정: 조작 · 소리 · 부드러움 */
 function WSet({onClose}){
+  const [sky,setSky]=useState(()=>lsGet('dko-wday','auto')); useEffect(()=>{ window.__wDay=sky==='day'; },[sky]);
   const [ctl,setCtl]=useState(wCtl()); const [fps,setFps]=useState(wFps()); const [bgm,setBgm]=useState(lsGet('dko-bgm','on')!=='off'); const [sfx,setSfx]=useState(lsGet('dko-sfx','on')!=='off'); const [vol,setVol]=useState(()=>{ const n=Number(lsGet('dko-bgmv','0.55')); return isFinite(n)?n:.55; });
   const Opt=({v,cur,set,k,ic,t,d})=>html`<button className=${'ws30-o tap'+(cur===v?' on':'')} onClick=${()=>{ set(v); lsSet(k,v); haptic(8); window.dispatchEvent(new Event('dko-wset')); }}><span className="ws30-oi"><${Icon} n=${ic} s=${20} w=${2.2}/></span><b>${t}</b><small>${d}</small></button>`;
   return html`<div className="wb20-shade" onClick=${onClose}><div className="wbs ws30" onClick=${e=>e.stopPropagation()}>
     <div className="wbs-h"><b>월드 설정</b><span className="wbs-sub">조작 · 소리 · 화면</span><button className="wbi-x tap" onClick=${onClose} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
     <div className="ws30-lb">이동 방법</div>
     <div className="ws30-g"><${Opt} v="touch" cur=${ctl} set=${setCtl} k="dko-wctl" ic="target" t="터치" d="땅을 눌러 걸어가요"/><${Opt} v="joy" cur=${ctl} set=${setCtl} k="dko-wctl" ic="pad" t="조이스틱" d="왼쪽 아래 스틱으로 움직여요"/></div>
+    <div className="ws30-lb">하늘</div>
+    <div className="ws30-g"><${Opt} v="auto" cur=${sky} set=${setSky} k="dko-wday" ic="moon" t="실제 시간" d="저녁엔 노을, 밤엔 별빛"/><${Opt} v="day" cur=${sky} set=${setSky} k="dko-wday" ic="sun" t="항상 낮" d="언제나 맑은 낮"/></div>
     <div className="ws30-lb">부드러움</div>
     <div className="ws30-g"><${Opt} v="60" cur=${fps} set=${setFps} k="dko-wfps" ic="bolt" t="부드럽게" d="초당 60번 그려요"/><${Opt} v="30" cur=${fps} set=${setFps} k="dko-wfps" ic="vibe" t="절전" d="배터리 · 발열을 줄여요"/></div>
     <div className="ws30-lb">소리</div>
@@ -1410,7 +1444,7 @@ function HallRoom({c,I,onClose}){
     const size=()=>{ const r=el.getBoundingClientRect(); el.width=Math.round(r.width*dpr); el.height=Math.round(r.height*dpr); W0=r.width; H0=r.height; }; size(); const ro=new ResizeObserver(size); ro.observe(el);
     const uR0=()=>Math.min(W0/19.5,H0/13); const O=()=>[W0/2,H0*.56-4.5*uR0()];
     const P=(x,y)=>{ const uR=uR0(), [ox,oy]=O(); return [ox+(x-y)*uR, oy+(x+y)*uR*.5]; };
-    const night=(()=>{ const h=new Date().getHours(); return h>=19||h<6; })();
+    const night=wNightK()>.5;
     const tap=e=>{ const r=el.getBoundingClientRect(); const sx=e.clientX-r.left, sy=e.clientY-r.top; const uR=uR0(), [ox,oy]=O(); const a=(sx-ox)/uR, b=(sy-oy)/(uR*.5); const x=(a+b)/2, y=(b-a)/2; me.tx=Math.max(1.2,Math.min(8.4,x)); me.ty=Math.max(1.6,Math.min(8.4,y)); };
     el.addEventListener('pointerup',tap);
     let last=performance.now();

@@ -8037,8 +8037,6 @@ html.lite .pb31-sh{animation:none}
 /* ═════════ v26.8 ═════════ */
 /* ── 채팅 탭에서 화면 전체가 위로 밀리던 문제: 키보드가 없을 때는 일반 화면과 똑같이 고정해요 ── */
 html.lock:not(.kb) .tabs{top:auto!important;transform:none!important;bottom:var(--tboff,0px)!important}
-html.lock:not(.kb) .hdr{top:env(safe-area-inset-top,0px)!important}
-html.lock:not(.kb) body::before{top:0!important}
 
 /* ── 대전 허브: e스포츠 · 영웅 통계 카드도 색으로 ── */
 .ph16-t.wide{background:linear-gradient(125deg,color-mix(in srgb,var(--c1) 92%,#fff) 0%,var(--c1) 35%,var(--c2) 100%)!important;box-shadow:0 14px 30px -18px var(--c2),inset 0 1px 0 rgba(255,255,255,.3)!important}
@@ -8440,6 +8438,434 @@ html.lite .db32-in{animation:none!important}
 @keyframes db33in{from{transform:translateY(10px) scale(.9)}}
 .db33-tag{position:absolute;right:-3px;bottom:-3px;display:grid;place-items:center;width:15px;height:15px;border-radius:50%;color:#fff;box-shadow:0 0 0 2px #0A0A0D;text-decoration:none}
 .db33-tag.tc{background:#FF8A3D}.db33-tag.tp{background:#9D7BFF}
+/* ═════════ v27.2 ═════════ */
+/* ── 채팅 탭 배치 바로잡기: 키보드가 없을 땐 다른 탭과 완전히 같은 배치를 써요
+   (아이폰 홈 화면 앱에서 html 높이를 100%로 묶으면 위·아래 기준선이 안전 영역만큼 달라지던 문제) ── */
+html.lock:not(.kb),html.lock:not(.kb) body{height:auto!important;overflow:visible!important}
+html.lock:not(.kb) .hdr{position:sticky!important;top:env(safe-area-inset-top,0px)!important;padding-top:0!important;left:auto!important;right:auto!important;max-width:none!important;margin:0!important}
+html.lock:not(.kb) body::before{top:0!important}
+html.pc.lock:not(.kb) .hdr{max-width:1180px!important;margin:0 auto!important}
+/* ═════════ v27.2 상점 · 인벤토리 · 패스 칩 · 채널 분류 ═════════ */
+/* 지갑 아래: 인벤토리 버튼 한 줄 */
+.wl14-inv{grid-column:1/4;display:flex;align-items:center;gap:10px;width:100%;margin-top:4px;padding:10px 10px 10px 8px;border:0;border-top:1px solid rgba(255,255,255,.07);border-radius:0 0 12px 12px;text-align:left;color:#F4F4F6;background:none}
+.wl14-inv:active{background:rgba(255,255,255,.05)}
+.wl14-ic{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:10px;color:#fff;background:linear-gradient(145deg,#8E7BFF,#4A35C8);box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+.wl14-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.wl14-t b{font-size:14px;font-weight:800}
+.wl14-t small{font-size:11.5px;color:#9C9CA8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wl14-inv em{font-style:normal;font:900 15px/1 "Barlow Condensed",sans-serif;color:#fff;padding:4px 8px;border-radius:9px;background:rgba(255,255,255,.08)}
+.wl14-inv>svg{color:#9C9CA8}
+/* 분류 줄: 지갑 바로 아래 · 미끄러지는 선택 */
+.sc31-cats{margin:14px -16px 6px;padding:2px 16px 4px}
+.sc31-cats button{flex:none;height:36px;padding:0 14px;border:0;border-radius:18px;font-size:13.5px;font-weight:800;color:var(--muted);background:var(--panel-2);box-shadow:inset 0 0 0 1px var(--line);position:relative;z-index:1;transition:color .25s}
+.sc31-cats button.on{color:#fff;background:transparent;box-shadow:none}
+.sc31-cats .pr30-ind{background:linear-gradient(180deg,#FF8A3D,#E8420A);box-shadow:0 6px 16px -6px rgba(232,66,10,.7)}
+/* 인벤토리 */
+.iv31-tabs{margin:0 -4px 10px;padding:2px 4px}
+.iv31-tabs button{flex:none;height:34px;padding:0 14px;border:0;border-radius:17px;font-size:13px;font-weight:800;color:var(--muted);background:var(--panel-2);position:relative;z-index:1;transition:color .25s}
+.iv31-tabs button.on{color:var(--bg);background:transparent}
+.iv31-tabs .pr30-ind{background:var(--text)}
+.iv31-s{margin:6px 0 16px;animation:fp30in .35s both}
+.iv31-h{display:flex;align-items:center;gap:6px;margin:0 2px 8px}
+.iv31-h b{font-size:15px;font-weight:900}
+.iv31-h em{font-style:normal;font:900 13px/1 "Barlow Condensed",sans-serif;color:var(--faint)}
+.iv31-go{margin-left:auto;display:inline-flex;align-items:center;gap:2px;padding:4px 6px;border:0;background:none;font-size:12.5px;font-weight:800;color:var(--orange-ink)}
+.iv31-row{display:flex;flex-direction:column;gap:7px}
+.iv31-it{display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:auto auto;column-gap:11px;align-items:center;padding:11px 12px;border-radius:16px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line)}
+.iv31-it .iv31-ic{grid-row:1/3}
+.iv31-it b{font-size:14px;font-weight:800}
+.iv31-it small{grid-column:2;font-size:12px;color:var(--muted)}
+.iv31-it button{grid-row:1/3;grid-column:3;height:34px;padding:0 13px;border:0;border-radius:12px;font-size:12.5px;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF8A3D,#E8420A)}
+.iv31-ic{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;color:#fff;background:linear-gradient(145deg,#FF9A4D,#D94300)}
+.iv31-ic.dr{background:linear-gradient(145deg,var(--k1),var(--k2))}
+.iv31-ic.wd{background:linear-gradient(145deg,#5EC8FF,#145C9E)}
+.iv31-sub{margin:10px 2px 6px;font-size:12px;font-weight:800;color:var(--faint)}
+.iv31-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.iv31-g{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-height:86px;padding:8px 4px;border-radius:14px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.iv31-g small{max-width:100%;font-size:10.5px;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iv31-pf{display:grid;place-items:center;width:54px;height:54px}
+.iv31-bn{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.iv31-b{display:flex;flex-direction:column;gap:4px}
+.iv31-b i{height:52px;border-radius:12px;background-size:cover!important;background-position:center!important;box-shadow:inset 0 0 0 1px var(--line)}
+.iv31-b small{font-size:11px;font-weight:700;color:var(--muted)}
+.iv31-stk{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.iv31-st{aspect-ratio:1;display:grid;place-items:center;padding:4px;border-radius:12px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.iv31-st img{width:100%;height:100%;object-fit:contain}
+/* 추천: 프리미엄 패스 유도 */
+.pp31{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px;width:100%;margin:14px 0 4px;padding:16px;border:0;border-radius:22px;text-align:left;color:#fff;
+  background:radial-gradient(110% 120% at 100% 0%,#FFB04D 0%,#E8420A 32%,#7A1FA8 70%,#2A1060 100%);box-shadow:0 18px 34px -18px #7A1FA8,inset 0 1px 0 rgba(255,255,255,.3)}
+.pp31:active{transform:scale(.985)}
+.pp31-sh{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.3) 50%,transparent 65%);background-size:250% 100%;animation:ph25sweep 3.8s ease-in-out infinite;pointer-events:none}
+.pp31-glow{position:absolute;right:-40px;top:-50px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(255,230,150,.5),transparent 65%);pointer-events:none}
+.pp31-top{position:relative;display:flex;align-items:center;justify-content:space-between}
+.pp31-k{display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:9px;font:italic 900 11px/1 "Koverwatch","Barlow Condensed",sans-serif;letter-spacing:.1em;color:#5A2A00;background:linear-gradient(180deg,#FFE27A,#FFB020)}
+.pp31-d{font-size:11.5px;font-weight:800;opacity:.85}
+.pp31-t{position:relative;font-size:20px;font-weight:900;letter-spacing:-.03em;text-shadow:0 2px 10px rgba(0,0,0,.25)}
+.pp31-perks{position:relative;display:flex;flex-wrap:wrap;gap:6px}
+.pp31-perks span{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 10px;border-radius:14px;font-size:12px;font-weight:800;background:rgba(255,255,255,.16);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.pp31-bot{position:relative;display:flex;align-items:center;justify-content:space-between;margin-top:2px}
+.pp31-val{font-size:12.5px;font-weight:700;opacity:.9}
+.pp31-val b{font:900 18px/1 "Barlow Condensed",sans-serif;color:#FFE27A}
+.pp31-buy{display:inline-flex;align-items:center;gap:3px;height:38px;padding:0 14px;border-radius:13px;font-size:14px;font-weight:900;color:#5A2A00;background:linear-gradient(180deg,#FFF0B0,#FFC233);box-shadow:0 4px 0 #B86B00}
+/* 추천: 이모티콘 묶음 */
+.sb32{margin:18px 0 4px}
+.sb32-h{display:flex;align-items:flex-end;justify-content:space-between;margin:0 2px 10px}
+.sb32-h span{display:flex;flex-direction:column;gap:3px}
+.sb32-h em{font:italic 900 10px/1 "Koverwatch","Barlow Condensed",sans-serif;letter-spacing:.14em;color:#B48CFF}
+.sb32-h b{font-size:18px;font-weight:900;letter-spacing:-.02em}
+.sb32-h button{display:inline-flex;align-items:center;gap:2px;padding:4px 2px;border:0;background:none;font-size:12.5px;font-weight:800;color:var(--muted)}
+.sb32-row{display:flex;gap:10px;overflow-x:auto;margin:0 -16px;padding:2px 16px 8px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.sb32-row::-webkit-scrollbar{display:none}
+.sb32-c{flex:none;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;gap:8px;width:156px;padding:10px 10px 12px;border:0;border-radius:20px;text-align:left;color:var(--text);
+  background:linear-gradient(170deg,color-mix(in srgb,#B48CFF 22%,var(--panel)),var(--panel) 70%);box-shadow:inset 0 0 0 1px color-mix(in srgb,#B48CFF 30%,var(--line));animation:fp30in .45s both;animation-delay:var(--d)}
+.sb32-c:active{transform:scale(.97)}
+.sb32-art{position:relative;height:104px;border-radius:14px;background:radial-gradient(circle at 50% 40%,rgba(255,255,255,.14),transparent 70%),color-mix(in srgb,#B48CFF 14%,var(--panel-2))}
+.sb32-t{position:absolute;width:54px;height:54px;transition:transform .3s}
+.sb32-t img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25))}
+.sb32-t.t0{left:8px;top:6px;transform:rotate(-8deg)}.sb32-t.t1{right:8px;top:4px;transform:rotate(7deg)}.sb32-t.t2{left:16px;bottom:2px;transform:rotate(5deg)}.sb32-t.t3{right:14px;bottom:4px;transform:rotate(-6deg)}
+.sb32-c:hover .sb32-t.t0{transform:rotate(-14deg) translateY(-3px)}
+.sb32-tx{display:flex;flex-direction:column;gap:2px}
+.sb32-tx b{font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb32-tx small{font-size:11.5px;color:var(--muted)}
+.sb32-p{align-self:flex-start;display:inline-flex;align-items:center;gap:3px;height:28px;padding:0 11px;border-radius:14px;font-size:12.5px;font-weight:900;color:#fff;background:linear-gradient(180deg,#B48CFF,#7B4DFF)}
+.sb32-p.own{color:#2FBF87;background:color-mix(in srgb,#2FBF87 14%,transparent)}
+/* 플레이 화면 패스 칩: 이벤트 버튼 3개 폭으로 */
+.pc31{width:154px!important;gap:7px!important;height:50px!important;padding:5px 6px 5px 5px!important}
+.pc31-ring{width:38px!important;height:38px!important}
+.pc31-ring b{font-size:15px!important;margin-top:4px!important}
+.pc31-ring small{top:7px!important;font-size:6px!important}
+.pc31-nx{display:none!important}
+.pc31-n{font-size:12px!important;white-space:nowrap}
+.pc31-mid{gap:6px!important}
+.pc31-cl{width:32px!important;height:32px!important;padding:0!important;justify-content:center;border-radius:11px!important;box-shadow:0 3px 0 #B86B00!important}
+.pc31-cl{font-size:0!important}
+.pc31-cl svg{width:15px;height:15px}
+.pc31-cl em{position:absolute;top:-6px;right:-6px;font-size:10px!important}
+.pc31-go{width:18px!important}
+/* 채널 둘러보기 분류: 미끄러지는 선택 */
+.chh31-f{margin:0 -16px 10px;padding:2px 16px 4px}
+.chh31-f button{flex:none;height:34px;padding:0 14px;border:0;border-radius:17px;font-size:13px;font-weight:800;color:var(--muted);background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);position:relative;z-index:1;transition:color .25s}
+.chh31-f button.on{color:var(--bg);background:transparent;box-shadow:none}
+.chh31-f .pr30-ind{background:var(--text)}
+.iv31-st .st26{display:block;width:100%!important;height:100%!important;padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important}
+.iv31-st .st26 img{width:100%!important;height:100%!important;object-fit:contain}
+.sb32-art{overflow:hidden}
+.sb32-t{width:auto;height:auto}
+.sb32-t .st26{width:60px;height:54px;border-radius:15px}
+.sb32-t.t0{left:10px;top:8px}.sb32-t.t1{right:10px;top:6px}.sb32-t.t2{left:14px;bottom:6px}.sb32-t.t3{right:12px;bottom:8px}
+
+/* ═════════ v27.3 ═════════ */
+/* ── 채팅 입력: 기울기 없이 한 줄로 이어진 캡슐 ── */
+.composer{align-items:center;gap:8px}
+.dock .composer{padding:0 12px}
+.composer .plus,.composer .send,.composer.inline .send{transform:none;width:44px;height:44px;border-radius:50%;flex:none}
+.composer .plus>svg,.composer .send>svg{transform:none}
+.composer .plus{background:var(--panel-2);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line);transition:transform .3s cubic-bezier(.3,1.6,.5,1),color .2s,background .2s}
+.composer .plus:active{transform:scale(.88) rotate(45deg)}
+.composer .plus>svg{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.composer .inpw{display:flex;align-items:center}
+.composer .inp{height:44px;border-radius:22px;padding:0 48px 0 17px;background:var(--panel-2);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .25s,background .25s}
+.composer .inp:focus{background:var(--panel-3,var(--panel-2));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,#FF7A2E 70%,transparent),0 6px 18px -12px rgba(255,90,26,.7)}
+.composer .ghost{top:11px;left:17px}
+.emo32{position:absolute;right:4px;top:50%;width:36px;height:36px;margin-top:-18px;display:grid;place-items:center;border-radius:50%;color:var(--muted);background:none;transition:color .2s,background .2s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.emo32:active{transform:scale(.86)}
+.emo32.on{color:#FF7A2E;background:color-mix(in srgb,#FF7A2E 14%,transparent)}
+.composer .send{background:var(--panel-2);color:var(--faint);box-shadow:inset 0 0 0 1px var(--line);transition:background .25s,color .25s,box-shadow .25s,transform .35s cubic-bezier(.3,1.7,.5,1)}
+.composer .send[disabled]{opacity:1}
+.composer .send.ready{background:linear-gradient(160deg,#FF9A4D,#E8420A);color:#fff;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.3),0 8px 18px -8px rgba(232,66,10,.8);transform:scale(1.04)}
+.composer .send.ready:active{transform:scale(.9)}
+.composer .send>svg{margin-left:-2px}
+@keyframes fly{0%{transform:none}45%{transform:translate(18px,-18px);opacity:0}46%{transform:translate(-14px,14px);opacity:0}100%{transform:none;opacity:1}}
+.composer.inline .send{background:linear-gradient(160deg,#FF9A4D,#E8420A);color:#fff;box-shadow:none}
+.composer.inline .send[disabled]{background:var(--panel-2);color:var(--faint)}
+.composer.inline .inp{padding-right:17px}
+
+/* ── 채팅 목록: 새 채팅 버튼은 오른쪽 아래 ── */
+.cl33-fab{position:fixed;right:16px;bottom:calc(env(safe-area-inset-bottom,0px) + 104px + var(--tboff,0px));z-index:40;width:56px;height:56px;display:grid;place-items:center;border-radius:19px;color:#fff;
+  background:linear-gradient(160deg,#FF9A4D,#E8420A);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.35),0 12px 26px -10px rgba(232,66,10,.85);
+  transition:transform .35s cubic-bezier(.3,1.5,.5,1);animation:wbpop .45s .1s cubic-bezier(.34,1.5,.64,1) both}
+.cl33-fab:active{transform:scale(.88) rotate(90deg)}
+html.pc .cl15{position:relative}
+html.pc .cl33-fab{position:absolute;right:16px;bottom:18px}
+.cl15-list{padding-bottom:96px!important}
+.cl15-b b .cl33-nm{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.cl15-b b>svg{flex:none;color:var(--faint)}
+.cl33-pin{flex:none;display:grid;place-items:center;width:18px;height:18px;border-radius:6px;color:#FF7A2E;background:color-mix(in srgb,#FF7A2E 15%,transparent)}
+.cl15-i.mute .cl15-r i{background:var(--panel-3,#3A3A44);color:var(--muted)}
+.cl15-i.pin{box-shadow:inset 0 0 0 1px color-mix(in srgb,#FF7A2E 30%,var(--line))}
+
+/* ── 밀어서 버튼 (카톡처럼) ── */
+.rs33{position:relative;touch-action:pan-y;border-radius:20px;-webkit-user-select:none;user-select:none}
+.rs33-row{position:relative;z-index:1;transform:translate3d(var(--dx,0px),0,0);transition:transform .45s cubic-bezier(.2,1.2,.35,1);will-change:transform}
+.rs33.drag .rs33-row{transition:none}
+.rs33.drag .cl15-i{transform:none!important}
+.rs33-act{position:absolute;left:0;top:0;bottom:0;display:flex;align-items:center;gap:8px;padding-left:4px;opacity:calc(var(--k,0) * 1.4);pointer-events:none}
+.rs33.open:not(.drag) .rs33-act{pointer-events:auto}
+.rs33-b{position:relative;width:56px;height:56px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#fff;
+  transform:scale(calc(.55 + var(--k,0) * .45));transition:transform .3s cubic-bezier(.3,1.6,.5,1),width .3s cubic-bezier(.2,1,.3,1),opacity .2s}
+.rs33-b small{font-size:9.5px;font-weight:800;letter-spacing:-.04em;opacity:.92;white-space:nowrap}
+.rs33-b.rd{background:linear-gradient(160deg,#6FB8F5,#3F86D9)}
+.rs33-b.nt{background:linear-gradient(160deg,#8C93A6,#5B6175)} .rs33-b.nt.on{background:linear-gradient(160deg,#FFB35C,#E07A12)}
+.rs33-b.pn{background:linear-gradient(160deg,#FF9A4D,#E8420A)} .rs33-b.pn.on{background:linear-gradient(160deg,#8C93A6,#5B6175)}
+.rs33.drag .rs33-b:nth-child(2){transition-delay:0s}
+.rs33.full .rs33-b.rd{width:calc(var(--dx,0px) - 16px);border-radius:28px;transform:none}
+.rs33.full .rs33-b.nt,.rs33.full .rs33-b.pn{opacity:0;transform:scale(.4)}
+.rs33.full .rs33-b.rd small::after{content:" 처리"}
+
+/* ── 채팅방 ⋯ ── */
+.cr33-more{flex:none;width:40px;height:40px;display:grid;place-items:center;border-radius:13px;color:var(--text);background:none;transition:background .2s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.cr33-more:active,.cr33-more.on{background:var(--panel-2);transform:scale(.92)}
+.cr33-mute{flex:none;display:grid;place-items:center;color:var(--faint)}
+.rm33{display:flex;flex-direction:column;gap:14px;padding-bottom:6px}
+.rm33-hd{display:flex;align-items:center;gap:12px}
+.rm33-hd>div{min-width:0}
+.rm33-hd b{display:block;font-size:17px;font-weight:900;letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm33-hd small{display:block;margin-top:2px;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm33-ic{flex:none;width:48px;height:48px;display:grid;place-items:center;border-radius:16px;color:#fff;background:linear-gradient(160deg,#5A5A66,#34343C)}
+.rm33-ic b{font:900 13px/1 var(--f-disp,inherit);font-style:italic;letter-spacing:.02em}
+.rm33-ic.k-main{background:linear-gradient(160deg,#FF8A3D,#D63D00)} .rm33-ic.k-ev{background:linear-gradient(160deg,#4AA8F2,#2A6FD0)} .rm33-ic.k-pt{background:linear-gradient(160deg,#4FD19C,#1F9A6A)} .rm33-ic.k-rm{background:linear-gradient(160deg,#9B7BF2,#6A48D8)} .rm33-ic.k-wo{background:linear-gradient(135deg,#6FD0EC,#2577E8)}
+.rm33-qa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rm33-q{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:12px;border-radius:18px;text-align:left;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);transition:transform .25s cubic-bezier(.3,1.6,.5,1),background .2s}
+.rm33-q:active{transform:scale(.95)}
+.rm33-q>span{width:34px;height:34px;display:grid;place-items:center;border-radius:12px;margin-bottom:6px;color:var(--muted);background:var(--panel-2);transition:background .25s,color .25s}
+.rm33-q.on>span{color:#fff;background:linear-gradient(160deg,#FF9A4D,#E8420A)}
+.rm33-q.off>span{color:var(--faint)}
+.rm33-q b{font-size:14px;font-weight:800}
+.rm33-q small{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.rm33-sec{display:flex;align-items:center;gap:7px;margin:4px 2px -4px;font-size:13px;font-weight:800}
+.rm33-sec em{font-style:normal;color:var(--faint);font-weight:700}
+.rm33-sec span{margin-left:auto;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--muted)}
+.rm33-sec span i{width:7px;height:7px;border-radius:50%;background:#3DDC97;box-shadow:0 0 0 3px color-mix(in srgb,#3DDC97 22%,transparent)}
+.rm33-list{display:flex;flex-direction:column;gap:2px;margin:0 -6px}
+.rm33-m{display:flex;align-items:center;gap:11px;padding:7px 8px;border-radius:14px;text-align:left;background:none;animation:sh14Body .4s cubic-bezier(.2,1,.3,1) var(--d,0ms) both;transition:background .2s}
+.rm33-m:active{background:var(--panel-2)}
+.rm33-mt{flex:1;min-width:0}
+.rm33-mt b{display:flex;align-items:center;gap:5px;font-size:14.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm33-mt b .me{font-style:normal;font-size:10.5px;font-weight:800;padding:1px 6px;border-radius:6px;color:#FF7A2E;background:color-mix(in srgb,#FF7A2E 15%,transparent)}
+.rm33-mt small{display:block;margin-top:1px;font-size:12px;color:var(--muted)}
+.rm33-role{flex:none;font-size:11px;font-weight:800;padding:3px 8px;border-radius:8px;color:var(--muted);background:var(--panel-2)}
+.rm33-more{margin:6px 8px 0;padding:11px;border-radius:14px;font-size:13px;font-weight:800;color:var(--muted);background:var(--panel)}
+.rm33-none{padding:18px;text-align:center;font-size:13px;color:var(--muted)}
+.rm33-foot{display:flex;gap:8px;flex-wrap:wrap;padding-top:4px;border-top:1px solid var(--line)}
+.rm33-foot button{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;height:46px;margin-top:10px;border-radius:15px;font-size:14px;font-weight:800;color:var(--text);background:var(--panel);box-shadow:inset 0 0 0 1px var(--line)}
+.rm33-foot button.danger{color:#FF5A6A}
+
+/* ── 알림 센터: 채팅 ── */
+.cn33{margin-bottom:16px;animation:pageIn .35s var(--out)}
+.cn33-all{margin-left:4px;padding:4px 10px;border-radius:9px;font-size:11.5px;font-weight:800;color:var(--muted);background:var(--panel-2)}
+.cn33-av{position:relative;width:40px;height:40px;display:grid;place-items:center}
+.cn33-rk{position:absolute;right:-4px;bottom:-4px;width:18px;height:18px;display:grid;place-items:center;border-radius:6px;color:#fff;background:#5A5A66;box-shadow:0 0 0 2px var(--panel)}
+.cn33-rk.k-main{background:#E8560F} .cn33-rk.k-ev{background:#2F86DE} .cn33-rk.k-pt{background:#25A877} .cn33-rk.k-rm{background:#7A58E0} .cn33-rk.k-wo{background:#2B8BE8}
+.cn33-n{min-width:22px;height:22px;padding:0 7px;border-radius:11px;font:800 12px/22px var(--f-disp,inherit);text-align:center;color:#fff;background:#E5383B}
+.cn33-mo{margin-top:6px;text-align:center;font-size:12px;font-weight:700;color:var(--faint)}
+
+/* ── DKO 오리지널 · 라이트 고르기 ── */
+.ed33{position:fixed;inset:0;z-index:2600;display:flex;align-items:flex-end;justify-content:center;background:rgba(6,8,14,.72);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);animation:ed33bg .4s ease both}
+.ed33.out{animation:ed33bgo .42s ease forwards}
+@keyframes ed33bg{from{opacity:0}} @keyframes ed33bgo{to{opacity:0}}
+.ed33-in{width:100%;max-width:480px;max-height:100%;overflow-y:auto;padding:calc(env(safe-area-inset-top,0px) + 26px) 18px calc(env(safe-area-inset-bottom,0px) + 18px);animation:ed33up .6s cubic-bezier(.2,1.1,.3,1) both}
+.ed33.out .ed33-in{animation:ed33dn .42s cubic-bezier(.5,0,.8,.4) forwards}
+@keyframes ed33up{from{opacity:0;transform:translate3d(0,40px,0)}} @keyframes ed33dn{to{opacity:0;transform:translate3d(0,30px,0) scale(.98)}}
+.ed33-hd{text-align:center;color:#fff}
+.ed33-k{display:inline-block;padding:4px 10px;border-radius:8px;font:800 11px/1 var(--f-disp,inherit);letter-spacing:.14em;color:#FFB07A;background:rgba(255,122,46,.14)}
+.ed33-hd h2{margin:12px 0 6px;font-size:26px;font-weight:900;letter-spacing:-.04em}
+.ed33-hd p{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,.66)}
+.ed33-q{margin:18px 0 12px;padding:14px;border-radius:20px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);color:#fff}
+.ed33-q>b{display:block;font-size:14px;font-weight:800;margin-bottom:10px}
+.ed33-qa{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ed33-qa button{height:40px;border-radius:13px;font-size:13.5px;font-weight:800;color:rgba(255,255,255,.8);background:rgba(255,255,255,.07);transition:background .25s,color .25s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.ed33-qa button:active{transform:scale(.94)}
+.ed33-qa button.on{color:#14161C;background:#fff}
+.ed33-cards{display:flex;flex-direction:column;gap:10px}
+.ed33-c{position:relative;display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:24px;text-align:left;color:#fff;overflow:hidden;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--c1) 22%,#1A1C24),#15171E 70%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09);
+  animation:ed33up .6s cubic-bezier(.2,1.1,.3,1) calc(.15s + var(--d,0ms)) both;transition:transform .3s cubic-bezier(.3,1.5,.5,1),box-shadow .3s}
+.ed33-c::after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--c1) 40%,transparent),transparent 70%);opacity:.6;pointer-events:none}
+.ed33-c:active{transform:scale(.98)}
+.ed33-c.on{box-shadow:inset 0 0 0 2px var(--c1),0 14px 34px -16px var(--c1)}
+.ed33-top{display:flex;align-items:center;gap:11px}
+.ed33-ic{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(160deg,var(--c1),var(--c2));box-shadow:inset 0 1.5px 0 rgba(255,255,255,.3)}
+.ed33-tt{flex:1;min-width:0}
+.ed33-tt em{display:block;font:800 10.5px/1 var(--f-disp,inherit);font-style:normal;letter-spacing:.16em;color:var(--c1)}
+.ed33-tt b{display:block;margin-top:4px;font-size:18px;font-weight:900;letter-spacing:-.03em}
+.ed33-rec{display:inline-flex;align-items:center;gap:3px;padding:4px 8px;border-radius:8px;font-size:11px;font-weight:900;color:#14161C;background:#FFD24D;animation:wbpop .45s cubic-bezier(.34,1.5,.64,1) both}
+.ed33-ck{flex:none;width:24px;height:24px;display:grid;place-items:center;border-radius:8px;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.25);transition:background .25s}
+.ed33-c.on .ed33-ck{background:var(--c1);box-shadow:none}
+.ed33-who{position:relative;display:flex;flex-direction:column;gap:4px;padding:12px 12px 12px 14px;border-radius:16px;background:rgba(0,0,0,.22)}
+.ed33-who small{font-size:11px;font-weight:800;color:rgba(255,255,255,.5);margin-bottom:2px}
+.ed33-who span{font-size:14px;font-weight:800;letter-spacing:-.02em}
+.ed33-tag{align-self:flex-start;margin-top:4px;padding:3px 9px;border-radius:7px;font-style:normal;font-size:11.5px;font-weight:900;color:#fff;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.ed33-has{display:flex;flex-direction:column;gap:5px}
+.ed33-has span{display:flex;align-items:center;gap:6px;font-size:12.5px;color:rgba(255,255,255,.72)}
+.ed33-has svg{flex:none;color:var(--c1)}
+.ed33-go{width:100%;height:54px;margin-top:16px;border-radius:18px;font-size:16px;font-weight:900;color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);transition:background .3s,color .3s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.ed33-go.ok{color:#fff;background:linear-gradient(160deg,#FF9A4D,#E8420A);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.3),0 12px 26px -12px rgba(232,66,10,.9)}
+.ed33-go.ok:active{transform:scale(.97)}
+.ed33-ft{display:block;margin-top:10px;text-align:center;font-size:12px;color:rgba(255,255,255,.45)}
+/* 설정 */
+.ed33-set{margin-top:16px}
+.ed33-sw{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ed33-o{position:relative;display:flex;align-items:center;gap:10px;padding:12px;border-radius:18px;text-align:left;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .25s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.ed33-o:active{transform:scale(.96)}
+.ed33-o.on{box-shadow:inset 0 0 0 2px var(--c1)}
+.ed33-oi{flex:none;width:36px;height:36px;display:grid;place-items:center;border-radius:12px;color:#fff;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.ed33-o b{display:block;font-size:14px;font-weight:800;white-space:nowrap}
+.ed33-o small{display:block;margin-top:1px;font-size:11.5px;color:var(--muted)}
+.ed33-o>i{position:absolute;right:8px;top:8px;width:18px;height:18px;display:grid;place-items:center;border-radius:6px;color:#fff;background:var(--c1)}
+.ed33-note{margin:8px 4px 0;font-size:12px;line-height:1.5;color:var(--muted)}
+html.light .ed33-c,:root[data-theme="light"] .ed33-c{color:#fff}
+
+/* ── 링크 · 유튜브 미리보기 ── */
+.lk33{color:#4AA8F2;font-weight:600;text-decoration:none;word-break:break-all}
+.lk33:active{opacity:.7}
+.lp33{display:block;margin-top:10px;border-radius:16px;overflow:hidden;background:var(--panel-2);box-shadow:inset 0 0 0 1px var(--line);text-decoration:none;color:var(--text)}
+.lp33-th{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;background:#000}
+.lp33.short .lp33-th,.lp33.short .lp33-fr{aspect-ratio:16/9}
+.lp33-th img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,1,.3,1),filter .3s}
+.lp33-th:active img{transform:scale(1.03);filter:brightness(.85)}
+.lp33-pl{position:absolute;left:50%;top:50%;width:64px;height:46px;margin:-23px 0 0 -32px;display:grid;place-items:center;border-radius:14px;color:#fff;background:#FF0033;box-shadow:0 8px 20px -6px rgba(0,0,0,.6);transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.lp33-th:active .lp33-pl{transform:scale(.9)}
+.lp33-yt{position:absolute;left:10px;bottom:10px;padding:4px 8px;border-radius:8px;font-size:11px;font-weight:800;color:#fff;background:rgba(0,0,0,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.lp33-fr{width:100%;aspect-ratio:16/9;background:#000}
+.lp33-fr iframe{width:100%;height:100%;border:0;display:block}
+.lp33-tx{display:block;padding:10px 12px;text-decoration:none;color:var(--text)}
+.lp33-tx b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px;font-weight:800;line-height:1.4}
+.lp33-tx small{display:block;margin-top:3px;font-size:11.5px;color:var(--muted)}
+.lp33-img{display:block;aspect-ratio:1.91/1;background:var(--panel-3,#222);overflow:hidden}
+.lp33-img img{width:100%;height:100%;object-fit:cover;display:block}
+.lp33-w{display:flex;align-items:center;gap:10px;padding:11px 12px}
+.lp33-w>svg{flex:none;color:var(--faint)}
+.lp33-fv{flex:none;width:32px;height:32px;border-radius:9px;background:var(--panel);padding:6px;object-fit:contain}
+.lp33-wt{flex:1;min-width:0}
+.lp33-wt b{display:block;font-size:13.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp33-wt small{display:block;margin-top:2px;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lp33-wt small.d{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.4}
+.lp33:active{opacity:.92}
+
+/* ═════════ v27.3 다듬기 ═════════ */
+/* ── 바텀시트 닫힘: 살짝 들렸다가 부드럽게 내려가며 사라져요 (잔상 없이) ── */
+.ov{animation-fill-mode:backwards!important}
+.ov.out{opacity:0!important;-webkit-backdrop-filter:blur(0px) saturate(1)!important;backdrop-filter:blur(0px) saturate(1)!important;transition:opacity .3s cubic-bezier(.4,0,.2,1),backdrop-filter .3s ease,-webkit-backdrop-filter .3s ease!important}
+.sheet.sh30.out:not(.dgo){animation:none!important;transform:translate3d(0,104%,0)!important;opacity:0;transition:transform .34s cubic-bezier(.4,-0.06,.72,.3),opacity .16s ease .18s!important}
+.sheet.sh30.out.dgo{opacity:0;transition:transform .26s cubic-bezier(.25,.8,.35,1),opacity .14s ease .12s!important}
+html.pc .sheet.sh30.out:not(.dgo){transition:transform .24s ease,opacity .2s ease!important}
+/* 닫히는 화면들: 애니메이션이 사라지는 순간보다 먼저 끝나서 '뚝' 끊기지 않게 */
+.ppage.out{animation:ppOut33 .23s cubic-bezier(.4,0,.9,.5) forwards}
+@keyframes ppOut33{to{transform:translate3d(100%,0,0);opacity:.6}}
+.th30.out{animation-duration:.2s}
+.stp31.out{animation-duration:.22s}
+.lk25.out{animation-duration:.2s}
+.ep26.out{animation-duration:.17s}
+.dl30.out,.dl30.out .dl30-c{animation-duration:.19s}
+.ym17-pg.out,.bb14.out{transition-duration:.2s}
+
+/* ── 탭 전환: 흔들림 없이 부드럽게 (페이지는 살짝 미끄러지며 나타나고, 겉 상자는 따로 움직이지 않아요) ── */
+@keyframes tab33{from{opacity:0;transform:translate3d(var(--tx,0px),0,0)}}
+.main.in-r,.shell.in-r{--tx:10px} .main.in-l,.shell.in-l{--tx:-10px}
+.main.in-r,.main.in-l,.shell.in-r,.shell.in-l{animation:tab33 .32s cubic-bezier(.22,.8,.24,1) both}
+.main>.store7,.main>.cm30,.main>.ph16{animation:none}
+.cs15.v-list:not(.bk33) .cl15{animation:none}
+
+/* ── 꾸미기 · 캐릭터: 바꾼 게 없으면 저장 바가 카드를 가리지 않게 숨겨요 ── */
+.lk25-save.idle{position:relative!important;height:0;min-height:0;padding:0!important;margin:0!important;overflow:hidden;opacity:0;pointer-events:none}
+.lk25-save.on{animation:lk33up .42s cubic-bezier(.2,1.2,.3,1) both}
+@keyframes lk33up{from{transform:translate3d(0,40px,0);opacity:0}}
+.lk25-save .lk25-pb.gold:not(:disabled){color:#4A2A00;background:linear-gradient(180deg,#FFE27A,#F2A71B)!important;box-shadow:0 10px 22px -10px rgba(242,167,27,.8)!important}
+.lk25-char,.lk25-sc{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 18px)}
+
+/* ── 선택 표시(주황 알약)가 글자를 덮지 않게: 표시는 항상 글자 뒤에 ── */
+.pr30,.seg{isolation:isolate}
+.pr30-ind,.seg-ind{z-index:-1!important}
+.pr30>button,.seg button{position:relative}
+
+/* ── 밀어서 뒤로: 주황 그라데이션 없이 원래의 동그란 화살표로 ── */
+.sb33 i{width:46px;height:46px;top:-23px;border-radius:50%;color:#fff;background:rgba(22,24,32,.78);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  box-shadow:0 6px 18px rgba(0,0,0,.32),inset 0 0 0 1px rgba(255,255,255,.14);
+  transform:translate3d(calc(-52px + var(--k,0) * 66px),0,0) scale(calc(.6 + var(--k,0) * .4));transition:background .2s,color .2s,box-shadow .2s}
+.sb33 i svg{transform:translateX(calc(var(--k,0) * -1px))}
+.sb33.go i{background:rgba(255,255,255,.96)!important;color:#15171E;box-shadow:0 8px 22px rgba(0,0,0,.35)!important;transform:translate3d(16px,0,0) scale(1.06)}
+.sb33:not(.on) i{transition:transform .3s cubic-bezier(.2,1,.3,1),opacity .25s,background .2s}
+.sb33.fire i{opacity:0;transform:translate3d(60px,0,0) scale(.7);transition:transform .32s cubic-bezier(.3,0,.7,.6),opacity .3s}
+
+/* ── 프로필 모양 통일: 모든 곳에서 둥근 사각형 (원 → 사각형 곡률) ── */
+:root{--avr:28%}
+:root:root:root body .pfpv,:root:root:root body .pfpv.has-fr>img,:root:root:root body .pfpv.has-fr>.av,:root:root:root body .pfpv>img,:root:root:root body .pfpv .pfpv-anim{border-radius:var(--avr)!important}
+:root:root:root body .pfpv>.av{border-radius:0!important}
+:root:root:root body .pfpv:not(.has-fr){overflow:hidden!important}
+/* 테두리(프레임)는 프로필과 같은 중심의 곡률: 프로필 곡률 + 간격 */
+:root:root body .pfr{border-radius:calc(var(--s,40px) * .28 + 5px)!important}
+:root:root body .pfr b{border-radius:inherit!important}
+:root:root:root body .hd31-av{border-radius:9px!important;clip-path:none!important}
+:root:root:root body .hd31-av img{border-radius:var(--avr)!important}
+.th24-av,.mav30,.ofc30-av,.pe-pfp-a{border-radius:var(--avr)!important}
+.fp30-av,.st30-av,.ma30-av,.cs31-av,.cw26-av,.ea30-av,.cp31-av,.fr24-me,.prs30-av{border-radius:var(--avr)!important}
+.cs31-av .pfpv,.ea30-av .pfpv,.cp31-av .pfpv{box-shadow:none}
+.mav30{border-radius:30%!important}
+/* 겹쳐 쌓인 작은 프로필의 테두리선도 같은 곡률로 */
+.pfpv.ring{border-radius:var(--avr)!important}
+/* 접속 표시 점은 모서리에 살짝 걸치게 */
+.pfpv:not(.has-fr) .pfpv-on{right:2%;bottom:2%}
+
+/* ── 다이나믹 바: 프로필과 곡률을 맞춘 둥근 사각형 ── */
+.db31-pill{border-radius:15px}
+.db31.m-act.two .db31-pill,.db32.m-act.two .db31-pill{border-radius:20px}
+.db31-me{border-radius:9px}
+:root:root:root body .db31-me .pfpv,:root:root:root body .db31-me .pfpv img,:root:root:root body .db31-me .pfpv .av{border-radius:8.5px!important}
+:root:root:root body .db31-ai.av .pfpv{border-radius:8.5px!important}
+.db31-ai{border-radius:9px}
+.db31-mi{border-radius:11px}
+.db31-mi em{border-radius:6px}
+.db31-live,.db32-live{border-radius:9px}
+.db32-btns button{border-radius:10px}
+.db31-tier{border-radius:8px}
+.db33-tag{border-radius:5px}
+/* 꾸욱 누르는 동안 살짝 부풀어요 */
+.db31-pill{transform-origin:100% 50%}
+.db31-pill:active{transform:none}
+.db31.press .db31-pill{transform:scale(1.07);transition:transform .32s cubic-bezier(.2,.8,.25,1),width .52s cubic-bezier(.2,1.18,.32,1),height .42s,top .42s,box-shadow .3s;box-shadow:0 12px 30px -10px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.18)}
+.db31.press .db31-me{transform:scale(1.06);transition:transform .32s cubic-bezier(.2,.8,.25,1)}
+.db31.m-menu .db31-pill{animation:db33pop .42s cubic-bezier(.2,1.5,.4,1)}
+@keyframes db33pop{0%{transform:scale(1.07)}100%{transform:none}}
+
+/* ── 커뮤니티 버프: 너프만큼 손맛 있게 (발사 · 잔상 · 링 · 상승 화살 · 빛 조각) ── */
+.bf31 .bf30-b.bu.pop{animation:bf33lift .55s cubic-bezier(.2,1.5,.35,1)}
+@keyframes bf33lift{0%{transform:none}30%{transform:translateY(-3px) scale(1.06)}60%{transform:translateY(1px) scale(.98)}100%{transform:none}}
+.bf31 .bf30-b.bu.pop .bf30-n{color:#2FD08A}
+.bf31 .bf30-b.bu.on{box-shadow:inset 0 0 0 1px color-mix(in srgb,#2FD08A 40%,transparent)}
+.bf31-fx.up q{position:absolute;left:-13px;top:-13px;width:26px;height:26px;border-radius:50%;border:2px solid #2FD08A;opacity:0;animation:bf33ring .55s cubic-bezier(.15,.8,.3,1) .04s forwards}
+.bf31-fx.up q::before,.bf31-fx.up q::after{display:none}
+@keyframes bf33ring{0%{transform:scale(.4);opacity:.95}100%{transform:scale(1.9);opacity:0;border-width:.5px}}
+.bf33-tr{position:absolute;z-index:-1;left:-2px;top:0;width:4px;height:16px;border-radius:2px;background:linear-gradient(180deg,rgba(47,208,138,0),rgba(47,208,138,.55));opacity:0;transform-origin:50% 100%;animation:bf33trail .5s cubic-bezier(.2,.8,.3,1) .1s forwards}
+@keyframes bf33trail{0%{opacity:0;transform:translateY(8px) scaleY(.3)}35%{opacity:.8;transform:translateY(0) scaleY(1)}100%{opacity:0;transform:translateY(-16px) scaleY(.3)}}
+.bf33-ch{position:absolute;left:0;top:0}
+.bf33-ch i{position:absolute;left:-5px;top:-4px;width:10px;height:6px;opacity:0;
+  background:linear-gradient(135deg,transparent 45%,#3BE39A 45%,#3BE39A 70%,transparent 70%) left/50% 100% no-repeat,linear-gradient(225deg,transparent 45%,#3BE39A 45%,#3BE39A 70%,transparent 70%) right/50% 100% no-repeat;
+  animation:bf33up .7s cubic-bezier(.2,.8,.3,1) calc(.12s + var(--j) * .09s) forwards}
+@keyframes bf33up{0%{opacity:0;transform:translateY(4px) scale(.6)}30%{opacity:1}100%{opacity:0;transform:translateY(-30px) scale(1.05)}}
+.bf31-fx.up s{width:7px;height:7px;left:-3.5px;top:-3.5px}
+.bf31-fx.up s:nth-child(4n){background:#FFE07A}
+.bf31-fx.up em{animation-duration:.65s}
+.bf31-fx.up u{top:-27px}
+html.lite .bf33-ch,html.lite .bf33-tr,html.lite .bf31-fx.up q{display:none}
+.bf31-fx{overflow:visible!important;display:block!important}
+
+/* ── 곡률 맞추기: 안쪽 곡률 + 간격 = 바깥 곡률 ── */
+.ph25 .pc31.cl{border-radius:10px!important}
+.pb31{border-radius:24px!important} .pb31-ic{border-radius:9px!important}
+.pl21{border-radius:24px} .pl21-c{border-radius:10px}
+.ft13{border-radius:24px!important} .ft13-go{border-radius:9px}
+.cl15-i{border-radius:24px!important} .rs33{border-radius:24px}
+.cl15-av{border-radius:14px!important}
+.nc30-hero .nc30-bell{border-radius:10px}
+.nc30-hero .nc30-ack{border-radius:12px}
+.nc14-i{border-radius:22px}
+.nc14-ic{border-radius:10px}
+.nm30{border-radius:26px} .nm30-save{border-radius:12px} .nm30-pv{border-radius:24px}
+.ed33-o{border-radius:23px} .ed33-oi{border-radius:9px}
+.tbo26-b,.tbo26-r{border-radius:10px}
+.rm33-q{border-radius:22px} .rm33-q>span{border-radius:10px}
+.ed33-c{border-radius:28px} .ed33-ic{border-radius:12px} .ed33-who{border-radius:12px}
+.lp33{border-radius:16px}
 </style>
 </head>
 <body>
@@ -8698,7 +9124,7 @@ const html = htm.bind(React.createElement);
 const CFG = window.DKO_CONFIG;
 const COLS = ['members','posts','messages','parties','events','replays','orders','rooms','blog','requests','endorse','matches','reports','trash','notifs','config','codes','duels','series','campaigns','skins','logs','islands','channels','cposts','ccomments','cheers','esmatches'];
 const ADMIN_COLS = ['reports','trash','codes'];
-const APP_VERSION='27.1';
+const APP_VERSION='27.3';
 const STUDIO_LOGO = 'data:image/webp;base64,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';
 
 /* ───────── 운영진 (처음 접속 시 초기 비밀번호 0000 → 재설정) ───────── */
@@ -9250,7 +9676,7 @@ function createDemoStore(){
       const key=normKey(f.loginId||f.nick); if(acc[key]) throw AuthError('taken');
       const uid='u-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
       acc[key]={uid,h:hashPw(f.pw)}; saveAcc();
-      data.members[uid]=newMember(uid,f); persist(); emit('members');
+      data.members[uid]={...newMember(uid,f),needEd:1}; persist(); emit('members');
       S.uid=uid; ls.set(SES,uid); return data.members[uid];
     },
     async login(id,pw){
@@ -9330,7 +9756,7 @@ async function createFirebaseStore(cfg){
         if(await getMember(cred.user.uid)){ await auth.signOut().catch(()=>{}); throw AuthError('taken'); } }
       const uid=cred.user.uid;
       await accDoc(key).set({uid,nick:f.nick,createdAt:Date.now()});
-      const m=newMember(uid,f); await col('members').doc(uid).set(m);
+      const m={...newMember(uid,f),needEd:1}; await col('members').doc(uid).set(m);
       S.uid=uid; return {...m,id:uid};
     }),
     login:(id,pw)=>wrap(async()=>{
@@ -9429,9 +9855,9 @@ async function createFirebaseStore(cfg){
 function Avatar({nick,pos,s=36,online,raw}){
   const L=!raw&&LIVE.byNick&&LIVE.byNick[nick]; const pa=L&&typeof pfpAv==='function'?pfpAv(L):null;
   if(L&&typeof PfpView==='function') return html`<${PfpView} m=${L} s=${s} on=${online}/>`;
-  if(pa) return html`<span className=${'av pfp r-'+((POS[pos]||POS['올라운더']).k)} style=${{width:s+'px',height:s+'px',borderRadius:Math.max(4,Math.round(s*.22))+'px'}} title=${nick}><img src=${pfpSrc(pa)} alt="" draggable="false"/>${online?html`<i className="on"></i>`:null}</span>`;
+  if(pa) return html`<span className=${'av pfp r-'+((POS[pos]||POS['올라운더']).k)} style=${{width:s+'px',height:s+'px',borderRadius:Math.max(4,Math.round(s*.28))+'px'}} title=${nick}><img src=${pfpSrc(pa)} alt="" draggable="false"/>${online?html`<i className="on"></i>`:null}</span>`;
   const ch=(nick||'?').trim().charAt(0)||'?';
-  return html`<span className=${'av r-'+((POS[pos]||POS['올라운더']).k)} style=${{width:s+'px',height:s+'px',fontSize:Math.round(s*.4)+'px',borderRadius:Math.max(4,Math.round(s*.18))+'px'}} title=${nick}>${ch}${online?html`<i className="on"></i>`:null}</span>`;
+  return html`<span className=${'av r-'+((POS[pos]||POS['올라운더']).k)} style=${{width:s+'px',height:s+'px',fontSize:Math.round(s*.4)+'px',borderRadius:Math.max(4,Math.round(s*.28))+'px'}} title=${nick}>${ch}${online?html`<i className="on"></i>`:null}</span>`;
 }
 function PosBadge({p,mini}){ const R=POS[p]||POS['올라운더']; return html`<span className=${'badge pos r-'+R.k+(mini?' mini':'')}><${Icon} n=${R.icon} s=${mini?10:12} w=${2.4}/>${mini?R.short:p}</span>`; }
 function TierBadge({t,d,mini,label}){ const T=TIER[t]||TIER[(label||'').split(' ')[0]]||TIER['골드']; return html`<span className=${'badge tier'+(mini?' mini':'')} style=${{'--tc':T.c}}>${label||(t+(d?' '+d:''))}</span>`; }
@@ -9863,6 +10289,19 @@ const BLOG = [
     ['h','계속 판올림합니다'],
     ['p','큰 변화가 있을 때마다 버전의 앞자리를 올리고, 바뀐 내용은 이 블로그에 남깁니다. 의견은 광장 게시판에 편하게 적어 주세요.']
   ]},
+  {id:'v273',cat:'UPDATE',ver:'27.3',date:'2026.11.16',title:'DKO 오리지널 · 라이트, 채팅 밀어서 메뉴',sum:'오버워치를 안 해도 가볍게 즐기는 DKO 라이트가 생겼어요. 채팅 목록을 밀어서 읽음 · 알림 · 고정을 바로 설정해요.',body:[
+    ['h','DKO 오리지널 · 라이트'],
+    ['ul',['처음 가입하면 DKO 오리지널(대깨옵 환영)과 DKO 라이트(커뮤러 환영) 중에 골라요. 짧은 질문으로 맞는 쪽을 추천해 줘요.','라이트는 대전 탭 · 파티 · 설정의 빠른 설정 없이 채팅 · 커뮤니티 · 월드 중심으로 보여요. 설정 → DKO 버전에서 언제든 바꿀 수 있어요. 기존 계정은 모두 오리지널이에요.']],
+    ['h','채팅'],
+    ['ul',['입력창을 새로 디자인했어요. +, 입력칸(이모티콘 버튼은 칸 안으로), 보내기가 한 줄로 이어져요.','채팅 목록에서 방을 오른쪽으로 끝까지 밀면 읽음, 중간에서 놓으면 읽음 · 알림 · 고정 버튼이 나와요. 고정한 방은 맨 위, 알림 끈 방은 회색 숫자예요.','새 채팅 버튼은 오른쪽 아래로 옮겼어요.','채팅방 오른쪽 위 ⋯에서 알림 · 고정 설정과 참여 크루 목록을 봐요.','알림 센터에 채팅 탭이 생겼고, 앱을 닫아 둬도 일반 채팅 알림을 받을 수 있어요(설정 → 알림에서 끌 수 있어요).']],
+    ['h','커뮤니티 · 다듬기'],
+    ['ul',['유튜브 링크를 올리면 썸네일이 보이고 눌러서 바로 재생돼요. 다른 사이트 링크는 제목 · 설명 미리보기 카드로 보여요.','버프 애니메이션을 새로 만들었어요.','프로필은 어디서나 둥근 사각형으로 통일하고, 다이나믹 바도 같은 곡률로 바꿨어요. 꾸욱 누르는 시간은 짧아지고 누르는 동안 살짝 커져요.','바텀시트가 닫힐 때 잔상 없이 부드럽게 내려가요. 탭을 바꿀 때 화면이 흔들리던 느낌도 줄였어요.','밀어서 뒤로가기의 주황 그라데이션을 원래의 동그란 화살표로 되돌렸어요. 설정 화면도 같은 방식으로 밀어서 닫혀요.','캐릭터 꾸미기에서 저장 바가 카드를 가리던 문제와, 선택 표시가 글자를 덮던 문제를 고쳤어요.']]]},
+  {id:'v272',cat:'UPDATE',ver:'27.2',date:'2026.11.16',title:'인벤토리 · 상점 추천 정리 · 채팅 화면 바로잡기',sum:'내가 가진 아이템을 한곳에서 보고, 상점 추천 탭이 새로 정리됐어요. 채팅 화면의 위 · 아래 어긋남도 고쳤어요.',body:[
+    ['ul',['상점: D-Coin 아래 "내 인벤토리"에서 확성기 · D-ROP · 꾸미기 · 이모티콘 · 월드 선물을 모아 봐요. 분류 버튼은 지갑 바로 아래로 옮겼어요.',
+      '추천 탭: 드롭 · 접속 보상 · 프리미엄 패스(아직 없으면 혜택 안내) · 이모티콘 묶음 · 오늘의 상점 순서예요.',
+      '채팅: 아이폰 홈 화면 앱에서 DKO 로고가 내려오고 탭 바가 올라가던 문제를 고쳤어요.',
+      '플레이: 패스 칩을 이벤트 버튼 3개 폭으로 줄였어요.',
+      '커뮤니티: 최신 · 인기, 전체 · 구독한 채널, 채널 둘러보기 분류를 마지막으로 고른 대로 기억해요. 채널은 공식 채널(운영진) · 크루 채널(크루원이 만든 채널)로 나눴어요.']]]},
   {id:'v271',cat:'UPDATE',ver:'27.1',date:'2026.11.16',title:'다이나믹 바: 채팅 · 커뮤니티 새 소식',sum:'다른 방에 새 메시지가 오거나 구독한 채널에 새 글이 올라오면 바에서 알려 줘요.',body:[
     ['ul',['채팅: 보고 있지 않은 방에 새 메시지가 오면 방 이름과 내용을 보여 줘요. 누르면 그 방으로 가요.','커뮤니티: 구독한 채널 · 기본 채널에 새 글이 올라오면 알려 줘요. 누르면 그 글이 열려요.','D-Coin: 코인은 제자리에 있고 +30이 내 지갑 금액으로 바뀌어요. 바가 늘어나도 프로필 크기는 그대로예요.']]]},
   {id:'v270',cat:'UPDATE',ver:'27.0',date:'2026.11.16',title:'다이나믹 바 실시간 알림',sum:'내전 · 파티 10분 전 카운트다운, 1대1 도전장, 사진, 건물 완성까지 다이나믹 바에서 보여요.',body:[
@@ -10248,6 +10687,10 @@ const BLOG = [
   ]}
 ];
 const HELP = [
+  {icon:'sliders',t:'DKO 오리지널 · 라이트',q:[
+    ['오리지널과 라이트는 뭐가 달라요?','DKO 오리지널은 내전 · 파티 · 1대1 · 대회 · 영웅 통계가 있는 대전 탭까지 모든 기능을 써요. DKO 라이트는 오버워치를 하지 않아도 즐길 수 있게 대전 탭 · 파티 · 설정의 빠른 설정을 빼고 채팅 · 커뮤니티 · DKO 월드 · 무한의 계단 중심으로 가볍게 보여 줘요.'],
+    ['어떤 걸 골라야 할까요?','오버워치에 관심이 있고 플레이한다면(대깨옵 환영) DKO 오리지널을, 오버워치에 관심이 없거나 부담 없이 시작하고 싶다면(커뮤러 환영) DKO 라이트를 추천해요.'],
+    ['나중에 바꿀 수 있나요?','네. 설정 → DKO 버전에서 언제든 바꿀 수 있어요. 바꿔도 D-Coin · 아이템 · 기록은 그대로예요. 예전부터 쓰던 계정은 모두 오리지널로 시작해요.']]},
   {icon:'user',t:'시작하기',q:[
     ['어떻게 가입하나요?','오버워치에서 쓰는 닉네임을 아이디로 쓰고, 다른 곳에서 쓰지 않는 간단한 비밀번호를 정하면 돼요. 가입하면 D-Coin 50개와 확성기 1개를 드려요.'],
     ['구글 계정으로 로그인할 수 있나요?','지금은 구글 로그인을 쉬고 있어요. 예전에 구글로 가입했다면 운영진에게 말해 주세요.'],
@@ -11208,10 +11651,10 @@ function ChatPane({c,room,compact}){
           <${PfpView} m=${x} s=${28}/><span className="mt18-t"><b>${dispName(x)}</b><small>${x.loginId&&x.loginId!==dispName(x)?x.loginId+' · ':''}${x.pos||''}</small></span>${isOnline(x)?html`<i className="mt18-on"></i>`:null}</button>`)}</div>`; })()}
       ${godLocked(c.me,room)?html`<div className="god31"><span><${Icon} n="shieldck" s=${16} w=${2.3}/></span><div><b>관리자 계정은 이 방에서 읽기만 해요</b><small>메시지 삭제 · 방 관리 · 확성기 공지는 그대로 쓸 수 있어요</small></div></div>`:html`<form className="composer" onSubmit=${e=>{ e.preventDefault(); send(); }}>
         ${!compact?html`<button type="button" className="plus" onPointerDown=${e=>{ if(document.activeElement===inp.current) e.preventDefault(); }} onClick=${()=>{ const kb=document.documentElement.classList.contains('kb'); if(inp.current) inp.current.blur(); setTimeout(()=>c.setSheet('chatmenu'),kb?260:0); }} aria-label="투표, 룰렛, 확성기"><${Icon} n="plus" s=${20} w=${2.2}/></button>`:null}
-        <button type="button" className=${'plus'+(tray?' on':'')} onClick=${()=>setTray(x=>!x)} aria-label="이모티콘" aria-expanded=${tray}><${Icon} n="smile" s=${20} w=${2}/></button>
         <div className="inpw">
           <input ref=${inp} className="inp" onFocus=${()=>{ const b=atBottom.current; [120,350,650].forEach(t=>setTimeout(()=>{ if(b){ atBottom.current=true; stick(); } },t)); }} value=${txt} onChange=${e=>onType(e.target.value)} onCompositionStart=${()=>{ comp.current=true; }} onCompositionEnd=${()=>{ comp.current=false; if(pend.current){ pend.current=false; setTimeout(send,0); } }} onBlur=${()=>c.typing(room,false)} placeholder=${edit?'수정할 내용을 입력해요':reply?'답글 보내기':room==='all'?'메시지 보내기':'이 방에 메시지 보내기'} maxLength=${300} enterKeyHint="send" aria-label="메시지"/>
           ${ghost?html`<span className="ghost" key=${ghost.k}>${ghost.t}</span>`:null}
+          <button type="button" className=${'emo32'+(tray?' on':'')} onPointerDown=${e=>{ if(document.activeElement===inp.current) e.preventDefault(); }} onClick=${()=>setTray(x=>!x)} aria-label="이모티콘" aria-expanded=${tray}><${Icon} n="smile" s=${21} w=${2}/></button>
         </div>
         <button key=${ghost?ghost.k:'s'} onPointerDown=${e=>{ if(document.activeElement===inp.current) e.preventDefault(); }} className=${'send'+(ghost?' fly':'')+(txt.trim()?' ready':'')} type="submit" disabled=${!txt.trim()} aria-label="보내기"><${Icon} n="send" s=${19} w=${2}/></button>
       </form>`}
@@ -11273,22 +11716,24 @@ function ChatList({c}){
   const canDel=r=>!!(r.custom&&(r.custom.by===c.uid||c.isAdmin));
   const last=useMemo(()=>{ const o={}; c.messages.forEach(m=>{ if(m.deleted) return; const r=m.room||'all'; if(!o[r]||o[r].createdAt<m.createdAt) o[r]=m; }); return o; },[c.messages]);
   const rooms=c.myRooms.filter(r=>(cat==='all'||(cat==='unread'?(c.unread[r.id]||0)>0:roomCat(r.id)===cat))&&(!q||r.name.toLowerCase().includes(q.toLowerCase())))
-    .sort((x,y)=>(x.id==='all'?-1:y.id==='all'?1:0)||((last[y.id]||{}).createdAt||0)-((last[x.id]||{}).createdAt||0));
+    .sort((x,y)=>(roomPinned(c.me,y.id)?1:0)-(roomPinned(c.me,x.id)?1:0)||(x.id==='all'?-1:y.id==='all'?1:0)||((last[y.id]||{}).createdAt||0)-((last[x.id]||{}).createdAt||0));
   const cnt=k=>k==='all'?c.myRooms.length:k==='unread'?c.myRooms.filter(r=>(c.unread[r.id]||0)>0).length:c.myRooms.filter(r=>roomCat(r.id)===k).length;
   const open=c.rooms.filter(r=>!(r.members||[]).includes(c.uid));
   return html`<div className="cl15">
-    <div className="cl15-h"><b>채팅</b><div className="row g6"><${CrewPill} c=${c} onOpen=${()=>setCrew(true)}/>${c.myRooms.some(canDel)?html`<button className=${'cl15-ib tap'+(ed?' on':'')} onClick=${()=>setEd(!ed)} aria-label="방 관리">${ed?html`<span className="cl15-done">완료</span>`:html`<${Icon} n="edit" s=${18} w=${2.2}/>`}</button>`:null}<button className="cl15-ib tap" onClick=${()=>c.setSheet('rooms')} aria-label="방 찾기 · 만들기"><${Icon} n="plus" s=${19} w=${2.3}/></button></div></div>
+    <div className="cl15-h"><b>채팅</b><div className="row g6"><${CrewPill} c=${c} onOpen=${()=>setCrew(true)}/>${c.myRooms.some(canDel)?html`<button className=${'cl15-ib tap'+(ed?' on':'')} onClick=${()=>setEd(!ed)} aria-label="방 관리">${ed?html`<span className="cl15-done">완료</span>`:html`<${Icon} n="edit" s=${18} w=${2.2}/>`}</button>`:null}</div></div>
+    <button className="cl33-fab tap" onClick=${()=>c.setSheet('rooms')} aria-label="새 채팅 · 방 찾기"><${Icon} n="plus" s=${24} w=${2.4}/></button>
     <div className="cl15-cats">${CHAT_CATS.map(([k,l])=>{ const n=cnt(k); return (k==='all'||n)?html`<button key=${k} className=${'cl15-cat tap'+(cat===k?' on':'')} onClick=${()=>pick(k)}><span>${l}</span>${k!=='all'?html`<i>${n}</i>`:null}</button>`:null; })}</div>
     <${Sheet} open=${crew} onClose=${()=>setCrew(false)} title="크루원" tall=${true}>${crew?html`<${CrewSheet} c=${c} onDone=${()=>setCrew(false)}/>`:null}<//>
     <div className="cl15-list">
       ${rooms.length?html`<div className="cl26-sec"><b>채팅방</b><em>${rooms.length}</em></div>`:null}
       ${rooms.map((r,i)=>{ const L=last[r.id], n=r.id===c.room&&c.chatView==='room'?0:(c.unread[r.id]||0); const k=roomCat(r.id);
-        return html`<button key=${r.id} className=${'cl15-i tap'+(isPC()&&c.room===r.id?' on':'')} style=${{'--d':Math.min(i,10)*25+'ms'}} onClick=${()=>c.enterRoom(r.id)}>
+        const pin=roomPinned(c.me,r.id), mute=roomMuted(c.me,r.id);
+        return html`<${RoomSwipe} key=${r.id} c=${c} r=${r} n=${n} off=${ed}><button className=${'cl15-i tap'+(isPC()&&c.room===r.id?' on':'')+(pin?' pin':'')+(mute?' mute':'')} style=${{'--d':Math.min(i,10)*25+'ms'}} onClick=${()=>c.enterRoom(r.id)}>
           <span className=${'cl15-av k-'+k}>${k==='main'?html`<b className="cl15-dko">DKO</b>`:html`<${Icon} n=${roomIcon(r.id)} s=${22} w=${2}/>`}${k==='main'?html`<i className="cl15-live"></i>`:null}</span>
-          <span className="cl15-b"><b>${r.name}${r.id==='all'?html`<em>${c.onlineCount}명 접속</em>`:r.custom?html`<em>${(r.custom.members||[]).length}</em>`:null}</b>
+          <span className="cl15-b"><b><span className="cl33-nm">${r.name}</span>${mute?html`<${Icon} n="belloff" s=${13} w=${2.4}/>`:null}${pin?html`<i className="cl33-pin"><${Icon} n="pin" s=${11} w=${2.6}/></i>`:null}${r.id==='all'?html`<em>${c.onlineCount}명 접속</em>`:r.custom?html`<em>${(r.custom.members||[]).length}</em>`:null}</b>
             <small>${L?(L.uid===c.uid?'나: ':nameOf(L.uid,L.nick)+': ')+msgPreview(L):r.sub||'첫 메시지를 남겨 보세요'}</small></span>
           ${ed&&canDel(r)?html`<span className="cl15-del tap" role="button" onClick=${e=>{ e.stopPropagation(); c.deleteRoom(r.custom); }}><${Icon} n="trash" s=${17} w=${2.2}/>삭제</span>`:html`<span className="cl15-r">${L?html`<small>${ago(L.createdAt)}</small>`:null}${n?html`<i>${n>99?'99+':n}</i>`:null}</span>`}
-        </button>`; })}
+        </button><//>`; })}
       ${!rooms.length?html`<${Empty} stk="what" text=${cat==='unread'?'안 읽은 채팅이 없어요.':'이 분류에는 아직 방이 없어요.'}/>`:null}
       ${open.length&&(cat==='all'||cat==='rm')?html`<div className="cl15-sep">들어갈 수 있는 방 ${open.length}</div>${open.slice(0,8).map(r=>html`<div key=${r.id} className="cl15-i open">
         <span className="cl15-av k-rm"><${Icon} n="hash" s=${22} w=${2}/></span><span className="cl15-b"><b>${r.name}</b><small>${r.desc||'소개 없음'} · ${(r.members||[]).length}명</small></span>
@@ -11297,21 +11742,22 @@ function ChatList({c}){
   </div>`;
 }
 function Chat({c}){
-  const r=c.myRooms.find(x=>x.id===c.room)||c.myRooms[0]; const pc=isPC(); const list=c.chatView!=='room';
+  const r=c.myRooms.find(x=>x.id===c.room)||c.myRooms[0]; const pc=isPC(); const list=c.chatView!=='room'; const [rm,setRm]=useState(false);
+  const pv=useRef(c.chatView), bk=useRef(false); if(pv.current!==c.chatView){ bk.current=list&&pv.current==='room'; pv.current=c.chatView; } const back=bk.current;
   const roomView=html`<div className="cr15">
     <div className="cr15-h">
       ${!pc?html`<button className="cr15-back tap" onClick=${()=>c.setChatView('list')} aria-label="채팅 목록">${(()=>{ const t=Object.entries(c.unread).filter(([k])=>k!==r.id).reduce((x,[,n])=>x+n,0); return html`<${Icon} n="chevL" s=${22} w=${2.4}/>${t?html`<i>${t>99?'99+':t}</i>`:null}`; })()}</button>`:null}
       <span className=${'cr15-ic k-'+roomCat(r.id)}><${Icon} n=${roomIcon(r.id)} s=${16} w=${2.2}/></span>
       <div className="cr15-t"><b>${r.name}</b><span>${r.id==='all'?'DKO 크루 모두 · '+c.onlineCount+'명 접속 중':r.sub}</span></div>
       ${r.id==='world'?html`<button className="wgo30 tap" onClick=${()=>c.setWorld(true)}><${Icon} n="globe" s=${15} w=${2.3}/>월드로</button>`:null}
-      <button className="ico-btn" onClick=${()=>window.dispatchEvent(new CustomEvent('dko-room-mng'))} aria-label=${roomRole(c,r.id,c.uid)?'채팅방 관리':'채팅방 정보'}><${Icon} n=${roomRole(c,r.id,c.uid)?'shield':'info'} s=${18}/></button>
-      ${r.custom?html`<button className="ico-btn" onClick=${()=>c.leaveRoom(r)} aria-label="방 나가기"><${Icon} n="exit" s=${19}/></button>`:null}
-      <button className="ico-btn" onClick=${()=>c.setSheet('rooms')} aria-label="채팅방 관리"><${Icon} n="menu" s=${19}/></button>
+      ${roomMuted(c.me,r.id)?html`<span className="cr33-mute" aria-label="알림 꺼짐"><${Icon} n="belloff" s=${15} w=${2.3}/></span>`:null}
+      <button className=${'cr33-more tap'+(rm?' on':'')} onClick=${()=>{ setRm(true); haptic(6); }} aria-label="채팅방 메뉴"><${Icon} n="more" s=${22} w=${3.4}/></button>
     </div>
+    <${Sheet} open=${rm} onClose=${()=>setRm(false)} title="채팅방 메뉴" tall=${true}>${rm?html`<${RoomMenu} c=${c} r=${r} onClose=${()=>setRm(false)}/>`:null}<//>
     ${r.id.startsWith('ev:')?html`<${MvpCard} c=${c} evId=${r.id.slice(3)}/>`:null}
     <${ChatPane} key=${r.id} c=${c} room=${r.id}/>
   </div>`;
-  return html`<div className=${'shell cs15 '+c.dir+(pc?' pc2':list?' v-list':' v-room')}>
+  return html`<div className=${'shell cs15 '+c.dir+(pc?' pc2':list?' v-list':' v-room')+(back?' bk33':'')}>
     ${pc?html`<${ChatList} c=${c}/>${roomView}`:list?html`<${ChatList} c=${c}/>`:roomView}
   </div>`;
 }
@@ -11589,22 +12035,24 @@ function NotifCenter({c}){
   useEffect(()=>{ const t=setTimeout(()=>c.markNotifs(),1200); return ()=>clearTimeout(t); },[]);
   const pend=c.isAdmin?c.orders.filter(o=>o.status==='pending').length:0;
   const [tab,setTab]=useState(pend?'orders':'all'); const [heroOut,setHeroOut]=useState(0);
-  const F=NC_FILTER.find(x=>x[0]===tab); const list=tab==='orders'||tab==='sched'?[]:all.filter(n=>!F||!F[2]||F[2].includes(n.kind));
+  const F=NC_FILTER.find(x=>x[0]===tab); const list=tab==='orders'||tab==='sched'||tab==='chat'?[]:all.filter(n=>!F||!F[2]||F[2].includes(n.kind));
   const ack=()=>{ if(heroOut) return; c.markNotifs(); setHeroOut(1); haptic([10,30,14]); try{ window.DKOSfx&&window.DKOSfx.claim(); }catch(e){} setTimeout(()=>setHeroOut(2),1100); };
   const newN=all.filter(n=>n.createdAt>seen0).length;
   const t0=dayStart(Date.now()), y0=t0-86400000, w0=t0-6*86400000;
   const groups=[['오늘',n=>n.createdAt>=t0],['어제',n=>n.createdAt>=y0&&n.createdAt<t0],['이번 주',n=>n.createdAt>=w0&&n.createdAt<y0],['지난 알림',n=>n.createdAt<w0]].map(([l,f])=>[l,list.filter(f)]).filter(g=>g[1].length);
-  const cnt=k=>{ if(heroOut) return 0; const f=NC_FILTER.find(x=>x[0]===k); return all.filter(n=>n.createdAt>seen0&&(!f[2]||f[2].includes(n.kind))).length; };
+  const cnt=k=>{ if(k==='chat') return chatNotifRooms(c).length; if(heroOut) return 0; const f=NC_FILTER.find(x=>x[0]===k); return all.filter(n=>n.createdAt>seen0&&(!f[2]||f[2].includes(n.kind))).length; };
   let idx=0;
   const upN=(c.upcoming||[]).length;
   return html`<div className="nc14 nc30">
-    <div className="nc30-tabs">${[...NC_FILTER,['sched','일정',null],['orders',c.isAdmin?'구매 승인':'내 구매',null]].map(([k,l])=>{ const n=k==='orders'?pend:k==='sched'?upN:cnt(k); return html`<button key=${k} className=${'nc30-tab tap'+(tab===k?' on':'')} onClick=${()=>{ setTab(k); haptic(5); }}><span>${k==='sched'?html`<${Icon} n="calendar" s=${13} w=${2.4}/>`:null}${l}</span>${n?html`<i>${n>99?'99+':n}</i>`:null}</button>`; })}</div>
-    ${heroOut<2&&tab!=='sched'&&tab!=='orders'?html`<section className=${'nc30-hero'+(heroOut?' bye':'')+(newN?'':' calm')}>
+    <div className="nc30-tabs">${[NC_FILTER[0],['chat','채팅',null],...NC_FILTER.slice(1),['sched','일정',null],['orders',c.isAdmin?'구매 승인':'내 구매',null]].map(([k,l])=>{ const n=k==='orders'?pend:k==='sched'?upN:cnt(k); return html`<button key=${k} className=${'nc30-tab tap'+(tab===k?' on':'')} onClick=${()=>{ setTab(k); haptic(5); }}><span>${k==='sched'?html`<${Icon} n="calendar" s=${13} w=${2.4}/>`:null}${l}</span>${n?html`<i>${n>99?'99+':n}</i>`:null}</button>`; })}</div>
+    ${heroOut<2&&tab!=='sched'&&tab!=='orders'&&tab!=='chat'?html`<section className=${'nc30-hero'+(heroOut?' bye':'')+(newN?'':' calm')}>
       <span className="nc30-bell">${heroOut?html`<${Icon} n="check" s=${22} w=${3}/>`:html`<${Icon} n="bell" s=${22} w=${2.1}/>`}${newN&&!heroOut?html`<i>${newN>99?'99+':newN}</i>`:null}</span>
       <div><b>${heroOut||!newN?'모두 확인했어요':'새 알림 '+newN+'개'}</b><span>${heroOut?'깔끔해졌어요':newN?'명성 · 일정 · 답글 소식이 도착했어요':'새 소식이 오면 여기에 모여요'}</span></div>
       ${!heroOut?html`<button className="nc30-ack tap" onClick=${ack} aria-label="모두 확인"><${Icon} n="check" s=${18} w=${2.8}/></button>`:null}
     </section>`:null}
-    ${tab==='sched'?html`<div className="nc30-sched"><${ScheduleStrip} c=${c}/></div>`
+    ${tab==='all'?html`<${ChatNotifs} c=${c} mini=${true}/>`:null}
+    ${tab==='chat'?html`<${ChatNotifs} c=${c}/>`
+      :tab==='sched'?html`<div className="nc30-sched"><${ScheduleStrip} c=${c}/></div>`
       :tab==='orders'?html`<div className="nc14-orders"><${Orders} c=${c} mine=${!c.isAdmin}/></div>`
       :groups.length?groups.map(([t,ns])=>html`<div key=${t} className="nc14-g"><div className="nc14-gt"><span>${t}</span><i></i><em>${ns.length}</em></div>
         <div className="nc14-list">${ns.map(n=>{ const K=NOTIF_KIND[n.kind]||NOTIF_KIND.system; const isNew=n.createdAt>seen0; const d=Math.min(12,idx++)*28;
@@ -11898,7 +12346,7 @@ function PosMulti({pos,pos2,onChange}){
 }
 function PfpView({m,s=88,ring,on}){
   const pa=pfpAv(m); const anim=m.pfp==='anim'&&ownsAnimPfp(m); const fr=s>=26&&m.frame&&ownsFrame(m,m.frame)?m.frame:null;
-  return html`<span className=${'pfpv'+(ring?' ring':'')+(fr?' has-fr':'')} style=${{width:s+'px',height:s+'px'}}>
+  return html`<span className=${'pfpv'+(ring?' ring':'')+(fr?' has-fr':'')} style=${{width:s+'px',height:s+'px','--s':s+'px'}}>
     ${anim?html`<span className="pfpv-anim"><${PixelChar} av=${avatarOf(m)} scale=${Math.max(1,Math.round(s/40))} walk=${true}/></span>`:pa?html`<img src=${pfpSrc(pa)} alt="" draggable="false"/>`:html`<${Avatar} nick=${m.nick} pos=${m.pos} s=${s} raw=${true}/>`}
     <${FrameRing} id=${fr}/>${on?html`<i className="pfpv-on"></i>`:null}</span>`;
 }
@@ -12126,7 +12574,7 @@ function Home({c}){
     <svg width="0" height="0" style=${{position:'absolute'}} aria-hidden="true"><defs><linearGradient id="ringg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#FFB067"/><stop offset="1" stopColor="#FF4D0D"/></linearGradient></defs></svg>
     <${PlayHero} c=${c}/>
     <${InstallHint} c=${c}/>
-    <${PartyZone} c=${c}/>
+    ${isLiteEd(c.me)?null:html`<${PartyZone} c=${c}/>`}
   </main>`;
 }
 /* v25.5 광장 게시판: 커뮤니티 안으로 옮겼어요 */
@@ -12271,14 +12719,15 @@ function Store({c}){
       <span className="wl13-coin"><${Coin} s=${52}/></span>
       <div className="wl13-b"><span>내 D-Coin</span><b><${CountUp} to=${coinsOf(me)}/></b></div>
       <button className="wl13-add tap" onClick=${()=>{ setCat('coin'); c.setShopCat('coin'); }}><${Icon} n="plus" s=${15} w=${2.8}/><span>충전</span></button>
-      <div className="wl13-sub"><span><${Icon} n="mega" s=${13}/>확성기 <b>${megaOf(me)}</b></span><span><${Icon} n="smile" s=${13}/>이모티콘 <b>${STICKERS.filter(s=>ownsSticker(me,s)).length}</b></span></div>
+      <${InvButton} c=${c}/>
     </section>
-    <${DropCard2} c=${c}/>
-    <${LoginReward} c=${c}/>
-    <${ShopPassCard} c=${c}/>
-    <div className="chips sc-cats">${SHOP_CATS.map(([k,l])=>html`<button key=${k} className=${'chip'+(cat===k?' on':'')} onClick=${()=>{ setCat(k); c.setShopCat(k); }}><span>${l}</span></button>`)}</div>
+    <${PillRow} cls="sc31-cats" items=${SHOP_CATS} value=${cat} onPick=${k=>{ setCat(k); c.setShopCat(k); }}/>
     <div className="sc-body" key=${cat}>
       ${cat==='rec'?html`<${React.Fragment}>
+        <${DropCard2} c=${c}/>
+        <${LoginReward} c=${c}/>
+        <${PassPromo} c=${c}/>
+        <${StkBundles} c=${c} onAll=${()=>{ setCat('stk'); c.setShopCat('stk'); }}/>
         <${DailyShop} c=${c}/>
         <button className="ft13 tap" onClick=${()=>{ setCat('char'); c.setShopCat('char'); }}>
           <span className="ft13-t"><em>NEW · 신규 히어로</em><b>새 도트 히어로 5종</b><small>루크 · 팽 · 노바 · 펄스 · 기어</small><span className="ft13-go">보러 가기<${Icon} n="chev" s=${14} w=${2.6}/></span></span>
@@ -13177,12 +13626,13 @@ function Settings({c}){
       <button className="st30-edit tap" onClick=${()=>c.setSheet('profile-edit')}><${Icon} n="edit" s=${15} w=${2.3}/>꾸미기</button>
     </section>
     <${NameCard} c=${c}/>
-    <div className="st30-quick">
+    <${EdSwitch} c=${c}/>
+    ${isLiteEd(c.me)?null:html`<div className="st30-quick">
       <${Q} ic=${th==='light'?'sun':'moon'} l="테마" v=${thN[th]} a="#B48CFF" onClick=${()=>set('theme',th==='system'?'dark':th==='dark'?'light':'system')}/>
       <${Q} ic="bell" l="위 알림" v=${P.banner!==false?'켜짐':'꺼짐'} on=${P.banner!==false} a="#FF8A3D" onClick=${()=>set('banner',P.banner===false)}/>
       <${Q} ic="music" l="메시지 소리" v=${P.sound?'켜짐':'꺼짐'} on=${!!P.sound} a="#3DDC97" onClick=${()=>{ const v=!P.sound; set('sound',v); if(v){ unlockAudio(); setTimeout(()=>blip(),60); } }}/>
       <${Q} ic="help" l="가이드" v="다시 보기" a="#4AA8F2" onClick=${()=>c.openGuide()}/>
-    </div>
+    </div>`}
 
     <${Sec} t="화면" ic="sparkle" a="#B48CFF"><div className="set-group">
       <div className="set-item"><div className="t">테마</div><${Seg} items=${[['system','기기 설정'],['dark','다크'],['light','라이트']]} value=${P.theme} onChange=${v=>set('theme',v)}/></div>
@@ -13342,7 +13792,7 @@ function GlassTrack({items,idx,onPick,render,badge,cls,pad=5,label,mag:MAG=1.16,
   </div>`;
 }
 function SideNav({c}){
-  const unread=Object.values(c.unread).reduce((s,n)=>s+n,0); const badge={shop:claimable(c.me),chat:c.tab==='chat'?0:unread};
+  const unread=loudUnread(c); const badge={shop:claimable(c.me),chat:c.tab==='chat'?0:unread};
   return html`<aside className="sn15" aria-label="메뉴">
     <button className="sn15-logo tap" onClick=${()=>c.go('plaza')} aria-label="홈"><${BrandMark}/></button>
     <nav className="sn15-nav">${TABS.map(([id,l])=>html`<button key=${id} className=${'sn15-i tap'+(c.tab===id?' on':'')} onClick=${()=>{ if(id===c.tab&&id==='chat') c.setChatView('list'); if(id==='play') c.setPlaySeg('hub'); c.go(id); }}>
@@ -13354,7 +13804,7 @@ function SideNav({c}){
   </aside>`;
 }
 function TabBar({c}){
-  const unread=c.tab==='chat'?0:Object.values(c.unread).reduce((s,n)=>s+n,0);
+  const unread=c.tab==='chat'?0:loudUnread(c);
   const badge={plaza:claimable(c.me)+(c.me.drops||0),chat:unread};
   const idx=tabIndex(c.tab);
   if(false) return html`<${ArenaTabs} c=${c} badge=${badge} onPick=${id=>{ if(id===c.tab){ if(id==='chat') c.setChatView('list'); if(id==='play') c.setPlaySeg('hub'); if(id==='blog') c.setCommCh('__home'); window.scrollTo({top:0,behavior:'smooth'}); return; } c.go(id); }}/>`;
@@ -13822,7 +14272,7 @@ function AdminStage({c}){
 }
 
 /* ═════════ 푸시 알림 ═════════ */
-const PUSH_KINDS=[['match','1대1 · 대회 · 내전'],['event','일정'],['reply','답글'],['rep','명성'],['order','구매'],['update','업데이트 · 공지'],['crew','크루 미션']];
+const PUSH_KINDS=[['chat','일반 채팅'],['match','1대1 · 대회 · 내전'],['event','일정'],['reply','답글'],['rep','명성'],['order','구매'],['update','업데이트 · 공지'],['crew','크루 미션']];
 const isStandalone=()=>!!(navigator.standalone||(window.matchMedia&&matchMedia('(display-mode: standalone)').matches));
 const isIOS=()=>/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 function pushSupport(){ if(!('serviceWorker' in navigator)||!('Notification' in window)) return isIOS()&&!isStandalone()?'ios-browser':'none'; if(isIOS()&&!isStandalone()) return 'ios-browser'; return 'ok'; }
@@ -14594,6 +15044,7 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
   },[data.duels,data.series,ready]);
 
   const go=(t,seg)=>{
+    if(isLiteEd(meRef.current)&&t==='play'){ notify('라이트 버전에는 대전이 없어요',undefined,'설정 → DKO 버전에서 오리지널로 바꾸면 쓸 수 있어요'); return; }
     /* v25.5 파티는 플레이(가운데) 화면 아래로 옮겼어요 */
     if(t==='play'&&seg==='party'){ const toPz=()=>{ const el=document.getElementById('pz26'); if(el) window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-70,behavior:'smooth'}); };
       if(tab!=='plaza'){ setNav({tab:'plaza',dir:tabIndex('plaza')>tabIndex(tab)?'in-r':'in-l'}); window.scrollTo(0,0); setTimeout(toPz,450); } else toPz(); return; }
@@ -14765,9 +15216,10 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
   const trashMsg=async m=>{ await store.add('trash',{msgId:m.id,uid:m.uid,nick:m.nick,text:msgPreview(m),room:m.room||'all',msgAt:m.createdAt,byAdmin:m.uid!==uid,by:uid,byNick:me.nick,createdAt:Date.now()});
     await store.update('messages',m.id,{deleted:true,text:'',sticker:null,poll:null,reacts:{}}); };
 
+  applyEdition(me);
   const c=cRef2.current={
     ...data, ...duelApi, ...v20Api({store,uid,me,data,run,mut,notify,isAdmin,pushNotif,meRef,addRep,campQueue}), ...v268Api({store,uid,me,data,run,mut,notify,isAdmin,meRef}), setPassOpen, setStairs, commCh, setCommCh, cOpen, setCOpen, uid, me, isAdmin, store, tab, chatView, dir:nav.dir, onlineCount, upcoming, ready, scrolled, playSeg, setPlaySeg, shopSeg, setShopSeg, blogSeg, setBlogSeg, setSheet, setTown, notify, go, goShop, prefs, setPref, track,
-    room, myRooms, unread, markRead, readOf, joins, joinPills, toast, ...v269Api({mut,notify}), notifs, notifUnread:notifs.filter(n=>n.createdAt>(me.notifSeen||0)&&!(n.to==='*'&&n.by===uid)).length,
+    room, myRooms, unread, markRead, readOf, joins, joinPills, toast, ...v269Api({mut,notify}), ...v273Api({mut,notify,meRef}), notifs, notifUnread:notifs.filter(n=>n.createdAt>(me.notifSeen||0)&&!(n.to==='*'&&n.by===uid)).length,
     markNotifs(){ mut(()=>({notifSeen:Date.now()})); },
     openNotif(n){ const L=n.link||{}; setSheet(null); if(L.sheet) setTimeout(()=>setSheet(L.sheet),320); else if(L.room){ setRoomS(L.room); setChatView('room'); go('chat'); } else if(L.tab){ if(L.tab==='shop'&&L.seg) setShopSeg(L.seg); if(L.tab==='blog'&&L.ch) setCommCh(L.ch); go(L.tab,L.seg); } },
     sendRoulette(r,rm){ return run(()=>store.add('messages',{...stamp(),room:rm||'all',text:(r.tool?'🎲 '+r.label:'🎰 '+r.label+' 룰렛')+' → '+r.result,roulette:r,createdAt:msgNow()}),'결과를 채팅에 올렸어요.').then(ok=>{ if(ok){ setRoomS(rm||'all'); if(tab!=='chat') go('chat'); } return ok; }); },
@@ -15037,6 +15489,9 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
       },status==='done'?o.nick+' 님에게 지급했어요.':'요청을 거절했어요.');
     }
   };
+  if(window.__dkoDemo) window.__dkoC=c;
+  /* v27.3 라이트에서는 대전 탭이 없어요 */
+  useEffect(()=>{ if(isLiteEd(me)&&tab==='play') setNav({tab:'plaza',dir:'in-l'}); },[me.edition,tab]);
   /* v26.9 출석 버튼 대신: 하루 처음 들어오면 알아서 출석해요 */
   const autoCk=useRef(false);
   useEffect(()=>{ if(!ready||autoCk.current) return; autoCk.current=true; const cur=meRef.current; if(isSuperM(cur)) return; if(!(dailyOf(cur).got.checkin||(cur.checkin&&cur.checkin.d===dayKey()))) setTimeout(()=>c.checkin(),2200); },[ready]);
@@ -15059,7 +15514,7 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
     <${SideNav} c=${c}/>
     ${celQ[0]?html`<${Celebrate} key=${celQ[0].key} x=${celQ[0]} me=${me} onClose=${()=>setCelQ(q=>q.slice(1))}/>`:null}
     ${toast&&document.documentElement.classList.contains('dko-cov')?html`<${IslandBanner} t=${toast} onClose=${()=>setToast(null)} onOpen=${()=>{ setToast(null); if(toast.type==='ntf') setSheet('notifs'); }}/>`:null}
-    <${DlgHost}/><${NameSetup} c=${c}/>
+    <${DlgHost}/>${me.needEd?html`<${EditionPick} c=${c}/>`:html`<${NameSetup} c=${c}/>`}<${ChatAlerts} c=${c}/>
     ${town?html`<${Town} c=${c} onClose=${()=>setTown(false)}/>`:null}
     ${world?html`<${WorldGate} c=${c} onClose=${()=>setWorld(false)}/>`:null}
     ${passOpen?html`<${PassPage} c=${c} focus=${passOpen} onClose=${()=>setPassOpen(false)}/>`:null}
@@ -15084,6 +15539,7 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
     <${Sheet} open=${sheet==='buy'&&!!buyIt} onClose=${close} title="구매하기">${buyIt?html`<${BuySheet} c=${c} it=${buyIt}/>`:null}<//>
     <${Sheet} open=${sheet==='townmap'} onClose=${close} title="DKO 타운 맵" tall=${true}><${TownMapSheet} c=${c}/><//>
     <${Sheet} open=${sheet==='notifs'} onClose=${close} title="알림" tall=${true}><${NotifCenter} c=${c}/><//>
+    <${Sheet} open=${sheet==='inventory'} onClose=${close} title="내 인벤토리" tall=${true}>${sheet==='inventory'?html`<${Inventory} c=${c}/>`:null}<//>
     <${Sheet} open=${sheet==='roulette'} onClose=${close} title="룰렛" tall=${true}><${RouletteTool} c=${c} room=${room} inSheet=${true}/><//>
     <${Sheet} open=${sheet==='me'} onClose=${close} title="내 프로필"><${MeView} c=${c}/><//>
     <${Sheet} open=${sheet==='avatar'} onClose=${close} title="캐릭터 꾸미기" tall=${true}><${AvatarEditor} c=${c}/><//>
@@ -15841,8 +16297,9 @@ function ModeArt({m,me}){
 }
 function ModeSheet({c,cur,onPick}){
   const secs=['놀이터','크루 대전','정보','미니게임'];
-  return html`<div className="gm20">${secs.map(s=>html`<${React.Fragment} key=${s}><div className="gm20-sec"><i></i>${s}<i></i></div>
-    ${GAME_MODES.filter(m=>m.sec===s).map((m,i)=>html`<button key=${m.k} className=${'gm20-c tap'+(cur===m.k?' on':'')} style=${{'--c1':m.c[0],'--c2':m.c[1],'--d':(i*50)+'ms'}} onClick=${()=>onPick(m.k)}>
+  const lite=isLiteEd(c.me); const ok=m=>!(lite&&LITE_HIDE_MODES.includes(m.k));
+  return html`<div className="gm20">${secs.filter(s=>GAME_MODES.some(m=>m.sec===s&&ok(m))).map(s=>html`<${React.Fragment} key=${s}><div className="gm20-sec"><i></i>${s}<i></i></div>
+    ${GAME_MODES.filter(m=>m.sec===s&&ok(m)).map((m,i)=>html`<button key=${m.k} className=${'gm20-c tap'+(cur===m.k?' on':'')} style=${{'--c1':m.c[0],'--c2':m.c[1],'--d':(i*50)+'ms'}} onClick=${()=>onPick(m.k)}>
       <span className="gm20-l"><${ModeArt} m=${m} me=${c.me}/><span className="gm20-tx"><em>${m.e}</em><b>${m.t}${m.tag?html`<i className=${'gm20-tag '+m.tag.toLowerCase()}>${m.tag}</i>`:null}</b><small>${m.d}</small></span></span>
       <span className="gm20-r"><span className="gm20-ic"><${Icon} n=${m.ic} s=${30} w=${2.2}/></span>${cur===m.k?html`<span className="gm20-ok"><${Icon} n="check" s=${14} w=${3}/>선택됨</span>`:m.go?html`<span className="gm20-ok go"><${Icon} n="chev" s=${14} w=${3}/>바로 가기</span>`:null}</span>
     </button>`)}<//>`)}</div>`;
@@ -15851,7 +16308,7 @@ const untilMidnight=()=>{ const d=new Date(); d.setHours(24,0,0,0); return d.get
 const shortLeft=t=>{ const s=Math.max(0,Math.floor((t-Date.now())/1000)); const h=Math.floor(s/3600), m=Math.floor((s%3600)/60); return h?h+'시간 '+m+'분':m+'분'; };
 function PlayHero({c}){
   const me=c.me; const T=tierOf(me), bp=bpOf(me)%BP_PER_TIER, P=passOf(me), claim=claimable(me);
-  const [mode,setMode]=useState(()=>initMode(c.me)); const M=GAME_MODES.find(x=>x.k===mode)||GAME_MODES[0];
+  const [mode0,setMode]=useState(()=>initMode(c.me)); const mode=isLiteEd(me)&&LITE_HIDE_MODES.includes(mode0)?'world':mode0; const M=GAME_MODES.find(x=>x.k===mode)||GAME_MODES[0];
   const [,tk]=useState(0); useEffect(()=>{ const t=setInterval(()=>tk(x=>x+1),30000); return ()=>clearInterval(t); },[]);
   useEffect(()=>{ const f=e=>{ setMode(e.detail); }; window.addEventListener('dko-mode',f); return ()=>window.removeEventListener('dko-mode',f); },[]);
   const D=dailyOf(me), checked=!!D.got.checkin||!!(me.checkin&&me.checkin.d===dayKey());
@@ -15896,7 +16353,7 @@ function PlayHero({c}){
       ${pty?html`<button className=${'ph25-play tap'+(pty?'':' md')} style=${pty?null:{'--m1':M.c[0],'--m2':M.c[1]}} onClick=${()=>pty?c.setLobby(pty.id):launchMode(c,mode)}><i className="ph25-sh"></i><span className="ph25-pk">PLAY</span><b>${pty?'파티 로비':'플레이'}</b><small><${Icon} n=${pty?'users':M.ic} s=${13} w=${2.4}/>${pty?'로비 · 파티 러쉬 · 채팅':M.t}</small>${pty?html`<span className="ph25-arr"><${Icon} n="chev" s=${20} w=${2.8}/></span>`:html`<span className="ph25-gem" key=${'g'+mode}><${Icon} n=${M.ic} s=${24} w=${2.3}/></span>`}</button>`:html`<${PlayBtn} c=${c} M=${M} mode=${mode}/>`}
       <button className="ph25-mode tap" onClick=${()=>c.setSheet('modes')} aria-label="바로가기" style=${{'--c1':M.c[0],'--c2':M.c[1]}}><span className="ph25-mi" key=${'m'+mode}><${Icon} n="menu" s=${22} w=${2.4}/></span></button>
     </div>
-    <button className="ph25-more tap" onClick=${()=>{ const el=document.querySelector('.ph25'); window.scrollTo({top:(el?el.offsetTop+el.offsetHeight-60:600),behavior:'smooth'}); }}><span>파티 ${(c.parties||[]).filter(partyLive).length?'· '+(c.parties||[]).filter(partyLive).length+'개 모집 중':'찾기'}</span><${Icon} n="down" s=${16} w=${2.4}/></button>
+    ${isLiteEd(me)?null:html`<button className="ph25-more tap" onClick=${()=>{ const el=document.querySelector('.ph25'); window.scrollTo({top:(el?el.offsetTop+el.offsetHeight-60:600),behavior:'smooth'}); }}><span>파티 ${(c.parties||[]).filter(partyLive).length?'· '+(c.parties||[]).filter(partyLive).length+'개 모집 중':'찾기'}</span><${Icon} n="down" s=${16} w=${2.4}/></button>`}
   </section>`;
 }
 /* 패스 화면 (메인에서 열려요) */
@@ -16728,7 +17185,7 @@ function LkChar({c}){
     :html`<div className="lk25-g3">${keys.map(key=>{ const id=key.split('.')[1]; const own=ownsSkin(me,key); const src=skinSource(key); const sk=SKINS[key]; const on=av[cat]===id;
         return html`<button key=${key} className=${'lk25-pt tap'+(on?' on':'')+(own?'':' lock')} onClick=${()=>own?set(cat,id):lockMsg(key)}><${PixelChar} av=${{...av,[cat]:id}} scale=${2}/><small>${sk.n}</small>
           ${!own?html`<em className=${src&&src.lane==='p'?'p':''}>${src?(src.lane==='p'?'PREMIUM ':'FREE ')+src.t:sk.price?html`<${Coin} s=${10}/>${sk.price}`:'?'}</em>`:null}</button>`; })}</div>`}
-    <div className="lk25-save"><button className="lk25-pb ghost tap" onClick=${()=>setAv(avatarOf(me))} disabled=${same}>되돌리기</button><button className="lk25-pb gold tap" disabled=${same} onClick=${()=>c.saveAvatar(av)}>이 모습으로 저장</button></div>
+    <div className=${'lk25-save'+(same?' idle':' on')}><button className="lk25-pb ghost tap" onClick=${()=>setAv(avatarOf(me))} disabled=${same}>되돌리기</button><button className="lk25-pb gold tap" disabled=${same} onClick=${()=>c.saveAvatar(av)}>이 모습으로 저장</button></div>
   </div>`;
 }
 
@@ -16785,7 +17242,7 @@ function MatchWinFx({c,fx,onClose}){
 })();
 /* v25.8 왼쪽 끝에서 오른쪽으로 밀면 뒤로: 지금 화면 맨 위에 보이는 '뒤로' 버튼을 대신 눌러요 */
 /* v26.3 왼쪽 위에 '뒤로'가 있는 화면은 모두: 채팅방 · 채널 · 스레드 · 프로필 · 패스 · 꾸미기 · 로비 · 대회 방 · 도구 · 사건 */
-const SB_SEL='.cr15-back,.chp26-back,.pp20-back,.lk25-back,.pl16-back,.pl21x-back,.tl8-back,.th30-back,.pf27-ib[aria-label="뒤로"],.owr-top>.tw-exit,.bb14-top>.ico-btn,[data-swipe-back]';
+const SB_SEL='.stp31-back,.cr15-back,.chp26-back,.pp20-back,.lk25-back,.pl16-back,.pl21x-back,.tl8-back,.th30-back,.pf27-ib[aria-label="뒤로"],.owr-top>.tw-exit,.bb14-top>.ico-btn,[data-swipe-back]';
 (function(){
   if(!('ontouchstart' in window)) return;
   const on=()=>{ try{ return localStorage.getItem('dko-swipeback')!=='off'; }catch(e){ return true; } };
@@ -16796,7 +17253,7 @@ const SB_SEL='.cr15-back,.chp26-back,.pp20-back,.lk25-back,.pl16-back,.pl21x-bac
   const pageOf=b=>{ let el=b, f=null; while(el&&el!==document.body){ const st=getComputedStyle(el); if(st.position==='fixed'&&el.offsetWidth>innerWidth*.8&&el.offsetHeight>innerHeight*.6) f=el; el=el.parentElement; } return f||document.querySelector('.shell'); };
   let T=null, ind=null;
   /* v26.9 더 쫀득하게: 화면이 손가락을 1:1로 따라오다 끝에서 고무줄처럼 버티고, 화살 방울이 늘어났다가 기준선을 넘으면 '톡' 하고 커져요 */
-  const mk=()=>{ if(ind) return ind; ind=document.createElement('div'); ind.className='sb26 sb31'; ind.innerHTML='<b class="sb31-edge"></b><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></i>'; document.body.appendChild(ind); return ind; };
+  const mk=()=>{ if(ind) return ind; ind=document.createElement('div'); ind.className='sb26 sb33'; ind.innerHTML='<i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></i>'; document.body.appendChild(ind); return ind; };
   const TH=96;
   const rub=x=>{ const W=innerWidth; const lim=W*.62; return x<=lim?x:lim+(1-1/((x-lim)/(W*.5)+1))*W*.5; };
   document.addEventListener('touchstart',e=>{ T=null; if(!on()||e.touches.length!==1) return; const t=e.touches[0]; if(t.clientX>24) return; const b=target(); if(!b) return;
@@ -16951,8 +17408,8 @@ function VoteBtns({c,p,onVote,sm}){
   const b=cBuffN(p), n=cNerfN(p); const F=v=>fx&&fx.v===v; const K=v=>F(v)?fx.k:'i';
   /* 버프: 화살이 튀어 오르며 빛 조각이 흩어지고 +1이 떠올라요 · 너프: 화살이 내리꽂히며 금이 가고 버튼이 흔들려요 */
   return html`<span className=${'bf30 bf31'+(sm?' sm':'')}>
-    <button type="button" className=${'bf30-b bu tap'+(my>0?' on':'')} onClick=${e=>vote(1,e)} aria-label="버프" aria-pressed=${my>0}>
-      <span className=${'bf30-w'+(F(1)?(fx.on?' go':' off'):'')} key=${'w'+K(1)}>${F(1)&&fx.on?html`<i className="bf31-fx up">${[0,1,2,3,4,5].map(j=>html`<s key=${j} style=${{'--a':(j*60-90+(j%2?14:-8))+'deg','--r':(j%2?17:23)+'px'}}></s>`)}<em></em><u>${sm?'+1':'BUFF'}</u></i>`:null}<${BuffIc} s=${sm?16:19}/></span>
+    <button type="button" className=${'bf30-b bu tap'+(my>0?' on':'')+(F(1)&&fx.on?' pop':'')} key=${'u'+K(1)} onClick=${e=>vote(1,e)} aria-label="버프" aria-pressed=${my>0}>
+      <span className=${'bf30-w'+(F(1)?(fx.on?' go':' off'):'')} key=${'w'+K(1)}>${F(1)&&fx.on?html`<i className="bf31-fx up"><q></q>${[0,1,2,3,4,5,6,7].map(j=>html`<s key=${j} style=${{'--a':(j*45-90+(j%2?14:-8))+'deg','--r':(j%2?18:26)+'px'}}></s>`)}<em></em><b className="bf33-ch">${[0,1,2].map(j=>html`<i key=${j} style=${{'--j':j}}></i>`)}</b><b className="bf33-tr"></b><u>${sm?'+1':'BUFF'}</u></i>`:null}<${BuffIc} s=${sm?16:19}/></span>
       <span className="bf30-n"><span key=${'b'+b} className=${'bf31-nv'+(F(1)?' r':'')}>${b||''}</span></span><span className="bf30-l">버프</span></button>
     <button type="button" className=${'bf30-b bd tap'+(my<0?' on':'')+(F(-1)&&fx.on?' shk':'')} key=${'d'+K(-1)} onClick=${e=>vote(-1,e)} aria-label="너프" aria-pressed=${my<0}>
       <span className=${'bf30-w'+(F(-1)?(fx.on?' go':' off'):'')}>${F(-1)&&fx.on?html`<i className="bf31-fx dn"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 26l-5 5 2 4-4 4M20 26l6 3-1 5 4 4M20 26l-9-1-4 3"/></svg><em></em><s></s><s></s><s></s><u>${sm?'-1':'NERF'}</u></i>`:null}<${NerfIc} s=${sm?16:19}/></span>
@@ -16982,6 +17439,7 @@ function FeedPost({c,p,ch,i,rp,onOpen,onCh,onRepost,onShare,inCh,onTag,onStock})
         ${p.title?html`<p className="fp30-t">${p.flair?html`<span className="cp20-fl">${p.flair}</span>`:null}${p.title}</p>`:null}
         ${p.body?html`<${MoreText} cls="fp30-b" text=${p.body} onTag=${onTag}/>`:null}
         <${PostMeta} p=${p}/>
+        <${LinkCard} p=${p}/>
         ${p.stk?html`<${StockChip} p=${p} onOpen=${onStock}/>`:null}
         ${p.news?html`<${NewsCard} n=${p.news}/>`:null}
         ${p.meta&&p.meta.stairs?html`<div className="sg31-rec"><${Icon} n="stairs" s=${16} w=${2.4}/><b>${p.meta.stairs}</b>층 기록</div>`:null}
@@ -17126,6 +17584,7 @@ function CThread({c,p,ch,onClose,onCh,onRepost,onShare,onOpen,focus,onTag,onStoc
         ${p.meta&&p.meta.code?html`<button className="th30-code tap" onClick=${()=>{ try{ navigator.clipboard.writeText(p.meta.code); }catch(e){} c.notify('리플레이 코드를 복사했어요.'); }}><${Icon} n="copy" s=${13} w=${2.4}/>${p.meta.code}<small>탭해서 복사</small></button>`:html`<${PostMeta} p=${p}/>`}
         ${p.stk?html`<${StockChip} p=${p} onOpen=${code=>{ close(); setTimeout(()=>onStock&&onStock(code),240); }}/>`:null}
         ${p.news?html`<${NewsCard} n=${p.news}/>`:null}
+        <${LinkCard} p=${p}/>
         ${p.poll&&p.poll.opts?html`<${PollView} c=${c} p=${p}/>`:null}
         <${TagChips} p=${p} onTag=${t=>{ close(); setTimeout(()=>onTag&&onTag(t),240); }}/>
         ${p.img?html`<img className="th30-img" src=${p.img} alt=""/>`:null}
@@ -17149,12 +17608,12 @@ function CThread({c,p,ch,onClose,onCh,onRepost,onShare,onOpen,focus,onTag,onStoc
 }
 /* 채널 탭: 내 채널 (맨 앞에 채널 만들기) + 채널 둘러보기 (2열 촘촘한 카드) */
 function ChannelHub({c,chs,joined,posts,go,openPlaza,onMake,onWrite}){
-  const subs=c.me.subs||{}; const [f,setF]=useState('all');
+  const subs=c.me.subs||{}; const [f,setF0]=useState(()=>cmGet('chf','all')); const setF=v=>{ setF0(v); cmSet('chf',v); };
   const memN=id=>c.members.filter(m=>(m.subs||{})[id]).length;
   const freshN=id=>posts.filter(p=>p.ch===id&&Date.now()-(p.createdAt||0)<86400000&&p.uid!==c.uid).length;
   const plaza={id:'__plaza',n:'광장 게시판',ic:'plaza',c:['#FF9A4D','#D94300'],d:'공지 · 잡담 · 듀오 구인 · 투표',kind:'plaza'};
   const all=[...chs.filter(x=>x.kind),plaza,...chs.filter(x=>!x.kind)];
-  const list=all.filter(x=>f==='all'||(f==='mine'?(subs[x.id]||x.owner===c.uid):f==='off'?(x.official||x.kind):(!x.official&&!x.kind)));
+  const list=all.filter(x=>f==='all'||(f==='mine'?(subs[x.id]||x.owner===c.uid):f==='off'?chIsOfficial(x,c):!chIsOfficial(x,c)));
   const open=x=>x.kind==='plaza'?openPlaza():go(x.id);
   return html`<div className="chh30 chh31">
     <div className="chh30-lb"><b>내 채널</b>${joined.length?html`<em>${joined.length}</em>`:null}</div>
@@ -17165,20 +17624,20 @@ function ChannelHub({c,chs,joined,posts,go,openPlaza,onMake,onWrite}){
       ${!joined.length?html`<div className="chh31-hint"><b>구독한 채널이 여기 모여요</b><small>아래에서 마음에 드는 채널을 구독해 보세요</small></div>`:null}
     </div>
     <div className="chh30-lb"><b>채널 둘러보기</b><em>${all.length}</em></div>
-    <div className="chh30-f">${[['all','전체'],['mine','구독 중'],['crew','크루 채널'],['off','운영 채널']].map(([k,l])=>html`<button key=${k} className=${'tap'+(f===k?' on':'')} onClick=${()=>setF(k)}>${l}</button>`)}</div>
+    <${PillRow} cls="chh31-f" items=${[['all','전체'],['mine','구독 중'],['off','공식 채널'],['crew','크루 채널']]} value=${f} onPick=${setF}/>
     <div className="chh31-g">${list.map((x,i)=>{ const fr=x.kind?0:freshN(x.id); const op=x.official||x.kind; return html`<div key=${x.id} className="chh31-t tap" role="button" tabIndex="0" style=${{'--c1':x.c[0],'--c2':x.c[1],'--d':Math.min(i,12)*22+'ms'}} onClick=${()=>open(x)}>
       <div className="chh31-top"><span className="chh31-ic"><${Icon} n=${x.ic} s=${18} w=${2.3}/>${fr?html`<em>${fr>9?'9+':fr}</em>`:null}</span>
-        ${x.kind||x.owner===c.uid?html`<span className="chh31-tag">${x.owner===c.uid?'내 채널':'운영'}</span>`:html`<span onClick=${e=>e.stopPropagation()}><${SubBtn} c=${c} ch=${x} sm=${true}/></span>`}</div>
+        ${x.kind||x.owner===c.uid?html`<span className="chh31-tag">${x.owner===c.uid?'내 채널':'공식'}</span>`:html`<span onClick=${e=>e.stopPropagation()}><${SubBtn} c=${c} ch=${x} sm=${true}/></span>`}</div>
       <b className="chh31-n">${x.n}</b><small className="chh31-d">${x.d||''}</small>
       <span className="chh31-m">${op&&x.kind?html`<span>DKO 공식</span>`:html`<span><${Icon} n="users" s=${11} w=${2.4}/>${memN(x.id)}</span><span>글 ${posts.filter(p=>p.ch===x.id).length}</span>`}</span></div>`; })}</div>
     ${!list.length?html`<p className="fd30-empty">이 분류에는 아직 채널이 없어요.</p>`:null}
   </div>`;
 }
 function Community({c}){
-  const [view,setView]=useState(()=>c.commCh&&c.commCh!=='__home'?{ch:c.commCh}:{home:1}); const [sort,setSort]=useState('new'); const [tag,setTag]=useState(null); const [stk,setStk]=useState(null);
+  const [view,setView]=useState(()=>c.commCh&&c.commCh!=='__home'?{ch:c.commCh}:{home:1}); const [sort,setSort0]=useState(()=>cmGet('sort','new')==='hot'?'hot':'new'); const setSort=v=>{ setSort0(v); cmSet('sort',v); }; const [tag,setTag]=useState(null); const [stk,setStk]=useState(null);
   const [seg,setSeg]=useState(()=>{ const s=window.__commSeg; return s==='plaza'||s==='dir'?'dir':'feed'; });
   useEffect(()=>{ if(window.__commSeg==='plaza') setView({plaza:1}); window.__commSeg=null; },[]);
-  const [openPost,setOpenPost]=useState(null); const [write,setWrite]=useState(null); const [mk,setMk]=useState(false); const [scope,setScope]=useState('all');
+  const [openPost,setOpenPost]=useState(null); const [write,setWrite]=useState(null); const [mk,setMk]=useState(false); const [scope,setScope0]=useState(()=>cmGet('scope','all')==='follow'?'follow':'all'); const setScope=v=>{ setScope0(v); cmSet('scope',v); };
   const [rpFor,setRpFor]=useState(null); const [shFor,setShFor]=useState(null); const [ads,setAds]=useState(false);
   useEffect(()=>{ if(c.commCh){ setView(c.commCh==='__home'?{home:1}:{ch:c.commCh}); c.setCommCh(null); } },[c.commCh]);
   useEffect(()=>{ if(c.cOpen){ setOpenPost({id:c.cOpen}); c.setCOpen(null); } },[c.cOpen]);
@@ -17507,7 +17966,10 @@ function PollEditor({v,set}){
 /* ── 태그 ── */
 const TAG_RE=/#([0-9A-Za-z가-힣_]{1,20})/g;
 const tagsOf=p=>{ const s=new Set((p.tags||[]).map(x=>String(x).toLowerCase())); String((p.title||'')+' '+(p.body||'')).replace(TAG_RE,(_,t)=>{ s.add(t.toLowerCase()); return _; }); return [...s].slice(0,8); };
-function RichText({text,onTag}){ const out=[]; let last=0; const s=String(text||''); s.replace(TAG_RE,(m,t,idx)=>{ if(idx>last) out.push(s.slice(last,idx)); out.push(html`<button key=${idx} type="button" className="tg30-in" onClick=${e=>{ e.stopPropagation(); onTag&&onTag(t.toLowerCase()); }}>#${t}</button>`); last=idx+m.length; return m; }); if(last<s.length) out.push(s.slice(last)); return out; }
+const RT_RE=/(https?:\/\/[^\s<>"'()]+[^\s<>"'().,!?;:])|#([0-9A-Za-z가-힣_]{1,20})/g;
+function RichText({text,onTag}){ const out=[]; let last=0; const s=String(text||''); s.replace(RT_RE,(m,u,t,idx)=>{ if(idx>last) out.push(s.slice(last,idx));
+    if(u) out.push(html`<a key=${idx} className="lk33" href=${u} target="_blank" rel="noopener noreferrer" onClick=${e=>e.stopPropagation()}>${u.replace(/^https?:\/\/(www\.)?/,'').slice(0,42)}${u.replace(/^https?:\/\/(www\.)?/,'').length>42?'…':''}</a>`);
+    else out.push(html`<button key=${idx} type="button" className="tg30-in" onClick=${e=>{ e.stopPropagation(); onTag&&onTag(t.toLowerCase()); }}>#${t}</button>`); last=idx+m.length; return m; }); if(last<s.length) out.push(s.slice(last)); return out; }
 function TagInput({tags,set}){
   const [v,setV]=useState(''); const add=x=>{ const t=String(x||v).replace(/^#/,'').replace(/[^0-9A-Za-z가-힣_]/g,'').slice(0,20); if(!t||tags.includes(t.toLowerCase())||tags.length>=5){ setV(''); return; } set([...tags,t.toLowerCase()]); setV(''); haptic(6); };
   return html`<div className="tg30-box">${tags.map(t=>html`<span key=${t} className="tg30-chip">#${t}<button type="button" className="tap" onClick=${()=>set(tags.filter(x=>x!==t))} aria-label="태그 빼기"><${Icon} n="x" s=${11} w=${3}/></button></span>`)}
@@ -17556,15 +18018,7 @@ function SettingsPage({c,onClose}){
   useCover(); const [out,setOut]=useState(false); const sc=useRef(null); const [scd,setScd]=useState(false); const root=useRef(null);
   const close=()=>{ if(out) return; setOut(true); setTimeout(onClose,260); };
   useEffect(()=>{ const k=e=>{ if(e.key==='Escape'&&!document.documentElement.classList.contains('sh-open')) close(); }; document.addEventListener('keydown',k); return ()=>document.removeEventListener('keydown',k); },[out]);
-  /* 왼쪽 가장자리에서 오른쪽으로 밀면 닫혀요 */
-  useEffect(()=>{ const el=root.current; if(!el) return; let d=null;
-    const ts=e=>{ const t=e.touches[0]; if(t.clientX>28) { d=null; return; } d={x:t.clientX,y:t.clientY,on:false}; };
-    const tm=e=>{ if(!d) return; const t=e.touches[0]; const dx=t.clientX-d.x, dy=t.clientY-d.y; if(!d.on){ if(Math.abs(dy)>Math.abs(dx)){ d=null; return; } if(dx>8) d.on=true; else return; }
-      e.preventDefault(); el.style.transition='none'; el.style.transform='translate3d('+Math.max(0,dx)+'px,0,0)'; d.dx=dx; };
-    const te=()=>{ if(!d) return; const on=d.on, dx=d.dx||0; d=null; if(!on) return; el.style.transition='transform .28s cubic-bezier(.2,.9,.3,1)';
-      if(dx>el.offsetWidth*.3){ el.style.transform='translate3d(100%,0,0)'; setTimeout(onClose,260); } else el.style.transform=''; };
-    el.addEventListener('touchstart',ts,{passive:true}); el.addEventListener('touchmove',tm,{passive:false}); el.addEventListener('touchend',te); el.addEventListener('touchcancel',te);
-    return ()=>{ el.removeEventListener('touchstart',ts); el.removeEventListener('touchmove',tm); el.removeEventListener('touchend',te); el.removeEventListener('touchcancel',te); }; },[]);
+  /* 왼쪽 가장자리에서 밀어서 닫기는 앱 전체 '밀어서 뒤로'가 같은 모양으로 처리해요 (v27.3) */
   return ReactDOM.createPortal(html`<div className=${'stp31'+(out?' out':'')} ref=${root} role="dialog" aria-label="설정">
     <header className=${'stp31-top'+(scd?' scd':'')}><button className="stp31-back tap" onClick=${close} aria-label="뒤로"><${Icon} n="chevL" s=${24} w=${2.4}/></button><b>설정</b><span></span></header>
     <div className="stp31-sc" ref=${sc} onScroll=${e=>setScd(e.currentTarget.scrollTop>6)}><${Settings} c=${c}/><div style=${{height:'40px'}}></div></div>
@@ -17951,7 +18405,7 @@ function DynamicBar({c}){
   const lm=useRef(null);
   useEffect(()=>{ const L=c.messages||[]; const m=L.reduce((a,b)=>(b.createdAt||0)>=((a&&a.createdAt)||0)?b:a,null); const first=lm.current==null; const id=m?m.id:''; if(id===lm.current) return; lm.current=id; if(first||!m) return;
     const room=m.room||'all'; if(m.uid===c.uid||m.deleted||Date.now()-(m.createdAt||0)>20000) return; if(c.tab==='chat'&&(c.chatView==='room'||isPC())&&c.room===room) return;
-    const R=(c.myRooms||[]).find(r=>r.id===room); if(!R) return; const au=c.members.find(x=>x.uid===m.uid);
+    const R=(c.myRooms||[]).find(r=>r.id===room); if(!R||roomMuted(c.me,room)) return; const au=c.members.find(x=>x.uid===m.uid);
     push({kind:'chat',room,rn:R.name,m:au,msg:(au?dispName(au):m.nick||'크루')+': '+msgPreview(m).slice(0,40),dur:3000,soft:true}); },[c.messages]);
   const lp2=useRef(null);
   useEffect(()=>{ const L=(c.cposts||[]).filter(p=>!p.deleted); const p=L.reduce((a,b)=>(b.createdAt||0)>((a&&a.createdAt)||0)?b:a,null); const first=lp2.current==null; const id=p?p.id:''; if(id===lp2.current) return; lp2.current=id; if(first||!p) return;
@@ -17976,15 +18430,17 @@ function DynamicBar({c}){
   useEffect(()=>()=>{ clearTimeout(tm.current); clearTimeout(menuT.current); },[]);
   /* 손가락 */
   const openMenu=()=>{ if(cur.current){ clearTimeout(tm.current); Q.current.unshift(cur.current); cur.current=null; setAct(null); } setMode('menu'); haptic([10,20,12]); clearTimeout(menuT.current); menuT.current=setTimeout(()=>{ if(modeR.current==='menu') closeTo(pump); },3000); };
-  const down=()=>{ longed.current=false; clearTimeout(lp.current); lp.current=setTimeout(()=>{ longed.current=true; openMenu(); },420); };
-  const cancel=()=>clearTimeout(lp.current);
-  const click=()=>{ clearTimeout(lp.current); if(longed.current){ longed.current=false; return; }
+  /* v27.3 꾸욱: 0.3초면 열려요. 누르는 동안 바가 살짝 부풀어요 */
+  const pr=on=>{ const el=document.querySelector('.db31'); if(el) el.classList.toggle('press',on); };
+  const down=e=>{ if(e&&e.button>0) return; longed.current=false; clearTimeout(lp.current); if(modeR.current!=='menu') pr(true); lp.current=setTimeout(()=>{ longed.current=true; pr(false); openMenu(); },300); };
+  const cancel=()=>{ clearTimeout(lp.current); pr(false); };
+  const click=()=>{ clearTimeout(lp.current); pr(false); if(longed.current){ longed.current=false; return; }
     if(mode==='act'&&act){ const a=act; if(a.kind==='duel') return; finish();
       if(a.kind==='ntf') c.setSheet('notifs'); else if(a.kind==='join'&&a.m) c.openProfile(a.m.uid); else if(a.kind==='coin') c.goShop('shop'); else if(a.kind==='bp') c.setPassOpen(true);
       else if(a.kind==='chat') c.openRoom(a.room); else if(a.kind==='post') c.openCPost(a.id);
       else if(a.kind==='evend') c.openEvent(a.e.id); else if(a.kind==='build') c.setWorld(true); else if((a.kind==='cd'||a.kind==='go')&&a.cd){ if(a.cd.k.startsWith('pt:')) c.setLobby(a.cd.k.slice(3)); else c.go('play','events'); } return; }
     if(mode==='menu') return; if(soon){ if(soon.k.startsWith('pt:')) c.setLobby(soon.k.slice(3)); else c.go('play','events'); return; } if(pty&&mode==='idle'){ c.setLobby(pty.id); return; } haptic(8); c.openProfile(c.uid); };
-  const k=c.notifUnread+(c.isAdmin?(c.orders||[]).filter(o=>o.status==='pending').length:0);
+  const k=c.notifUnread+chatNotifN(c)+(c.isAdmin?(c.orders||[]).filter(o=>o.status==='pending').length:0);
   const A=act; const col=A?({chat:'#FF8A3D',post:'#B98CFF',coin:'#FFB020',bp:'#6CB6FF',join:'#34D399',duel:'#FF5C6E',cd:'#FF8A3D',go:'#FF8A3D',evend:'#B98CFF',build:'#3FA8EE',photo:'#4AA8F2'})[A.kind]||A.col:null;
   /* 너비: 내용에 맞춰 정해요 */
   const cw=String(coins.toLocaleString()).length;
@@ -18018,7 +18474,7 @@ function DynamicBar({c}){
 
 /* ── PC: 왼쪽 메뉴 대신 위쪽 가운데 탭 5개 ── */
 function PcTabs({c}){
-  const unread=c.tab==='chat'?0:Object.values(c.unread||{}).reduce((s,n)=>s+n,0); const badge={plaza:claimable(c.me)+(c.me.drops||0),chat:unread};
+  const unread=c.tab==='chat'?0:loudUnread(c); const badge={plaza:claimable(c.me)+(c.me.drops||0),chat:unread};
   const idx=tabIndex(c.tab);
   return html`<nav className="pt31" aria-label="메뉴"><i className="pt31-ink" style=${{transform:'translateX('+idx*100+'%)'}}></i>
     ${TABS.map(([id,l],i)=>html`<button key=${id} className=${'pt31-t tap'+(i===idx?' on':'')} onClick=${()=>{ if(id===c.tab){ if(id==='chat') c.setChatView('list'); if(id==='play') c.setPlaySeg('hub'); window.scrollTo({top:0,behavior:'smooth'}); return; } if(id==='play') c.setPlaySeg('hub'); c.go(id); }}>
@@ -18045,6 +18501,303 @@ function TabIcon2({id,on}){ const t=TAB_SVG[id]; if(!t) return null;
 function v269Api({mut,notify}){ return {
   saveDnd(d){ return mut(m=>({push:{...(m.push||{}),dnd:{on:!!d.on,from:Number(d.from)||0,to:Number(d.to)||0}}})).then(ok=>{ if(ok) notify(d.on?'방해 금지 시간을 정했어요.':'방해 금지를 껐어요.'); return ok; }); }
 }; }
+
+/* ═════════ v27.2: 인벤토리 · 상점 추천 · 패스 유도 · 이모티콘 묶음 ═════════ */
+/* ── 내가 가진 것 모아 보기 ── */
+function invList(me){
+  const stk=STICKERS.filter(s=>ownsSticker(me,s));
+  const heroes=PX_HEROES.filter(h=>ownsHero(me,h.id));
+  const frames=FRAMES.filter(f=>f.id!=='none'&&ownsFrame(me,f.id));
+  const banners=BANNERS.filter(b=>!b.free&&ownsBanner(me,b.id));
+  const parts=Object.keys(SKINS).filter(k=>SKINS[k].price&&ownsSkin(me,k));
+  const drops=Object.keys(DROP_KINDS).map(k=>({k,n:dropCnt(me,k)})).filter(x=>x.n>0);
+  const gift=((me.wGift||{}).items)||{}; const wItems=Object.entries(gift).filter(([,n])=>n>0);
+  return {stk,heroes,frames,banners,parts,drops,wItems,mega:megaOf(me),anim:ownsAnimPfp(me)};
+}
+const invCount=me=>{ const L=invList(me); return L.mega+L.drops.reduce((s,x)=>s+x.n,0)+L.stk.length+L.heroes.length+L.frames.length+L.banners.length+L.parts.length+L.wItems.reduce((s,[,n])=>s+n,0)+(L.anim?1:0); };
+const INV_TABS=[['all','전체'],['use','쓰는 것'],['look','꾸미기'],['stk','이모티콘'],['world','월드']];
+function Inventory({c}){
+  const me=c.me; const L=invList(me); const [t,setT]=useState('all');
+  const Sec=({k,title,n,children,act})=>(t==='all'||t===k)&&n?html`<section className="iv31-s"><div className="iv31-h"><b>${title}</b><em>${n}</em>${act||null}</div>${children}</section>`:null;
+  const goLocker=x=>{ c.setSheet(null); setTimeout(()=>c.openLocker(x),260); };
+  const useN=L.mega+L.drops.reduce((s,x)=>s+x.n,0), lookN=L.heroes.length+L.frames.length+L.banners.length+L.parts.length+(L.anim?1:0), worldN=L.wItems.reduce((s,[,n])=>s+n,0);
+  const empty=t==='use'?!useN:t==='look'?!lookN:t==='stk'?!L.stk.length:t==='world'?!worldN:!invCount(me);
+  return html`<div className="iv31">
+    <${PillRow} cls="iv31-tabs" items=${INV_TABS} value=${t} onPick=${setT}/>
+    <${Sec} k="use" title="쓰는 아이템" n=${useN}>
+      <div className="iv31-row">
+        ${L.mega?html`<div className="iv31-it"><span className="iv31-ic mega"><${Icon} n="mega" s=${22} w=${2.2}/></span><b>확성기</b><small>보유 ${L.mega}개</small><button className="tap" onClick=${()=>{ c.setSheet(null); c.go('chat'); }}>채팅에서 쓰기</button></div>`:null}
+        ${L.drops.map(x=>{ const K=DROP_KINDS[x.k]; return html`<div key=${x.k} className="iv31-it" style=${{'--k1':K.c[0],'--k2':K.c[1]}}><span className="iv31-ic dr"><${Icon} n=${K.ic} s=${22} w=${2.2}/></span><b>${K.n}</b><small>보유 ${x.n}개</small><button className="tap" onClick=${()=>{ c.setSheet(null); setTimeout(()=>c.openDrop(x.k),260); }}>열기</button></div>`; })}
+      </div>
+    <//>
+    <${Sec} k="look" title="꾸미기" n=${lookN} act=${html`<button className="iv31-go tap" onClick=${()=>goLocker('char')}>꾸미러 가기<${Icon} n="chev" s=${13} w=${2.6}/></button>`}>
+      ${L.heroes.length?html`<div className="iv31-sub">도트 히어로 · ${L.heroes.length}</div><div className="iv31-grid">${L.heroes.map(h=>html`<span key=${h.id} className="iv31-g hero"><${PixelChar} av=${heroAv(h.id)} scale=${2}/><small>${h.n}</small></span>`)}</div>`:null}
+      ${L.frames.length||L.anim?html`<div className="iv31-sub">프로필 · ${L.frames.length+(L.anim?1:0)}</div><div className="iv31-grid">${L.anim?html`<span className="iv31-g"><span className="iv31-pf"><${PfpView} m=${{...me,pfp:'anim',frame:null}} s=${44}/></span><small>움직이는 프로필</small></span>`:null}${L.frames.map(f=>html`<span key=${f.id} className="iv31-g"><span className="iv31-pf"><${PfpView} m=${{...me,frame:f.id}} s=${44}/></span><small>${f.n}</small></span>`)}</div>`:null}
+      ${L.banners.length?html`<div className="iv31-sub">배너 · ${L.banners.length}</div><div className="iv31-bn">${L.banners.map(b=>html`<span key=${b.id} className="iv31-b"><i style=${{background:bannerBg(b.id)}}></i><small>${b.n}</small></span>`)}</div>`:null}
+      ${L.parts.length?html`<div className="iv31-sub">파츠 · ${L.parts.length}</div><div className="iv31-grid">${L.parts.map(k=>{ const [ct,id]=k.split('.'); return html`<span key=${k} className="iv31-g"><${PixelChar} av=${{...avatarOf(me),[ct]:id}} scale=${2}/><small>${SKINS[k].n}</small></span>`; })}</div>`:null}
+    <//>
+    <${Sec} k="stk" title="이모티콘" n=${L.stk.length}>
+      <div className="iv31-stk">${L.stk.map(s=>html`<span key=${s.id} className="iv31-st"><${StkTile} src=${s.src} anim=${s.anim}/></span>`)}</div>
+    <//>
+    <${Sec} k="world" title="월드에서 받을 선물" n=${worldN} act=${html`<button className="iv31-go tap" onClick=${()=>{ c.setSheet(null); setTimeout(()=>c.setWorld(true),260); }}>월드로<${Icon} n="chev" s=${13} w=${2.6}/></button>`}>
+      <div className="iv31-row">${L.wItems.map(([id,n])=>{ const C=(typeof W_CAT!=='undefined'&&W_CAT[id])||{n:id}; return html`<div key=${id} className="iv31-it"><span className="iv31-ic wd"><${Icon} n="cube" s=${20} w=${2.2}/></span><b>${C.n}</b><small>${n}개 · 월드에 들어가면 섬으로 옮겨져요</small></div>`; })}</div>
+    <//>
+    ${empty?html`<${Empty} stk="sleep" text=${t==='all'?'아직 가진 아이템이 없어요.':'이 분류에는 아직 없어요.'}/>`:null}
+  </div>`;
+}
+function InvButton({c}){ const n=invCount(c.me); const L=invList(c.me);
+  return html`<button className="wl14-inv tap" onClick=${()=>c.setSheet('inventory')}>
+    <span className="wl14-ic"><${Icon} n="bag" s=${16} w=${2.3}/></span><span className="wl14-t"><b>내 인벤토리</b><small>${[L.mega?'확성기 '+L.mega:null,L.drops.length?'D-ROP '+L.drops.reduce((s,x)=>s+x.n,0):null,'이모티콘 '+L.stk.length].filter(Boolean).join(' · ')}</small></span>
+    <em>${n}</em><${Icon} n="chev" s=${15} w=${2.6}/></button>`; }
+
+/* ── 추천: 프리미엄 패스가 없으면 구매 유도 카드 ── */
+function PassPromo({c}){
+  const me=c.me; if(passOf(me).premium) return html`<${ShopPassCard} c=${c}/>`;
+  const days=Math.max(0,Math.ceil((SEASON.end-Date.now())/86400000));
+  const premN=PASS_TRACK.filter(x=>x&&x.p).length;
+  return html`<button className="pp31 tap" onClick=${()=>{ haptic(10); c.setPassOpen(true); }}>
+    <i className="pp31-sh"></i><i className="pp31-glow"></i>
+    <div className="pp31-top"><span className="pp31-k"><${Icon} n="crown" s=${13} w=${2.6}/>PREMIUM PASS</span><span className="pp31-d">${SEASON.name} · D-${days}</span></div>
+    <b className="pp31-t">프리미엄 패스로 보상 ${premN}개 더</b>
+    <div className="pp31-perks">
+      <span><${Icon} n="gift" s=${14} w=${2.4}/>매일 접속 보상 +30</span>
+      <span><${Icon} n="smile" s=${14} w=${2.4}/>시즌 이모티콘</span>
+      <span><${Icon} n="sparkle" s=${14} w=${2.4}/>움직이는 프로필</span>
+    </div>
+    <div className="pp31-bot"><span className="pp31-val">D-Coin 가치 <b>×${PASS_MULT}</b></span><span className="pp31-buy">${WON(PASS_PRICE)} · 자세히<${Icon} n="chev" s=${14} w=${2.8}/></span></div>
+  </button>`; }
+
+/* ── 추천: 이모티콘 묶음 ── */
+function StkBundles({c,onAll}){
+  const me=c.me;
+  return html`<section className="sb32">
+    <div className="sb32-h"><span><em>PREMIUM PACK</em><b>이모티콘 묶음</b></span><button className="tap" onClick=${onAll}>전체 보기<${Icon} n="chev" s=${13} w=${2.6}/></button></div>
+    <div className="sb32-row">${PX_PACKS.map((p,i)=>{ const own=isTrick(me)||!!(me.owned&&me.owned['pack:'+p.id]); const ss=STICKERS.filter(s=>s.pack===p.id);
+      return html`<button key=${p.id} className=${'sb32-c tap'+(own?' own':'')} style=${{'--d':i*70+'ms'}} onClick=${()=>own?c.notify('이미 가진 팩이에요. 채팅에서 바로 쓸 수 있어요.'):c.setSheet('stkpay-'+p.id)}>
+        <span className="sb32-art">${ss.slice(0,4).map((x,j)=>html`<span key=${x.id} className=${'sb32-t t'+j}><${StkTile} src=${x.src}/></span>`)}</span>
+        <span className="sb32-tx"><b>${p.n}</b><small>${ss.length}종 · 영구 소장</small></span>
+        <span className=${'sb32-p'+(own?' own':'')}>${own?html`<${Icon} n="check" s=${12} w=${3}/>보유 중`:WON(p.won)}</span></button>`; })}</div>
+  </section>`; }
+
+/* ── 커뮤니티 · 선택 기억 ── */
+const cmGet=(k,d)=>{ try{ return localStorage.getItem('dko-cm-'+k)||d; }catch(e){ return d; } };
+const cmSet=(k,v)=>{ try{ localStorage.setItem('dko-cm-'+k,v); }catch(e){} };
+const chIsOfficial=(x,c)=>!!(x.kind||x.preset||x.official||(x.owner&&c&&isSuperM((c.members||[]).find(m=>m.uid===x.owner))));
+/* ═════════ v27.3: 채팅 밀어서 메뉴 · 방 메뉴 · 채팅 알림 · DKO 오리지널/라이트 · 링크 미리보기 ═════════ */
+Object.assign(ICONS,{
+  belloff:'M8.7 3.9A6 6 0 0 1 18 8c0 3 .5 5.2 1.2 6.7 M17 17H3s3-2 3-9c0-.7.1-1.4.3-2 M10.3 21a1.9 1.9 0 0 0 3.4 0 M3 3l18 18',
+  chatck:'M21 12a8.5 8.5 0 0 1-12.4 7.5L3 21l1.5-5.6A8.5 8.5 0 1 1 21 12z M8.5 12l2.4 2.4 4.6-4.8',
+  pinoff:'M9 3h6l-1 6 3 3H7l3-3z M12 15v6 M3 3l18 18',
+  more:'M5 12h.01 M12 12h.01 M19 12h.01'
+});
+
+/* ── 방별 개인 설정: 고정 · 알림 끄기 ── */
+const chatPrefsOf=me=>(me&&me.chatPrefs)||{};
+const roomPinned=(me,id)=>!!((chatPrefsOf(me).pin||{})[id]);
+const roomMuted=(me,id)=>!!((chatPrefsOf(me).mute||{})[id]);
+const loudUnread=c=>Object.entries(c.unread||{}).filter(([k])=>!roomMuted(c.me,k)).reduce((s,[,n])=>s+n,0);
+/* 알림 종 숫자: 알림을 마지막으로 연 뒤에 새 메시지가 온 방 수(알림 끈 방 제외) */
+function chatNotifRooms(c){
+  const seen=(c.me&&c.me.notifSeen)||0; const last={};
+  (c.messages||[]).forEach(m=>{ if(m.deleted||m.uid===c.uid) return; const r=m.room||'all'; if(!last[r]||last[r].createdAt<m.createdAt) last[r]=m; });
+  return (c.myRooms||[]).filter(r=>(c.unread||{})[r.id]>0&&!roomMuted(c.me,r.id)).map(r=>({r,n:c.unread[r.id],m:last[r.id]})).filter(x=>x.m)
+    .sort((a,b)=>b.m.createdAt-a.m.createdAt).map(x=>({...x,fresh:x.m.createdAt>seen}));
+}
+const chatNotifN=c=>chatNotifRooms(c).filter(x=>x.fresh).length;
+/* 방에 있는 크루 */
+function roomMembers(c,id){
+  const ok=m=>m&&!isBanned(m);
+  let L;
+  if(id==='all'||id==='world') L=c.members.filter(ok);
+  else if(id.startsWith('ev:')){ const ev=(c.events||[]).find(e=>'ev:'+e.id===id); const s=new Set(((ev&&ev.attendees)||[]).map(a=>a.uid)); L=c.members.filter(m=>ok(m)&&s.has(m.uid)); }
+  else if(id.startsWith('pt:')){ const p=(c.parties||[]).find(e=>'pt:'+e.id===id); const s=new Set(((p&&p.participants)||[]).map(a=>a.uid)); L=c.members.filter(m=>ok(m)&&s.has(m.uid)); }
+  else if(id.startsWith('rm:')){ const r=(c.rooms||[]).find(e=>'rm:'+e.id===id); const s=new Set((r&&r.members)||[]); L=c.members.filter(m=>ok(m)&&s.has(m.uid)); }
+  else L=[];
+  const wOn=m=>id==='world'&&isOnline(m)&&m.where==='world'?2:isOnline(m)?1:0;
+  return L.slice().sort((a,b)=>(a.uid===c.uid?-1:0)-(b.uid===c.uid?-1:0)||wOn(b)-wOn(a)||(b.lastSeen||0)-(a.lastSeen||0));
+}
+
+/* ── 카톡처럼 오른쪽으로 밀기: 끝까지 = 읽음, 중간에서 놓으면 읽음 · 알림 · 고정 버튼 ── */
+const RS_OPEN=196;
+function RoomSwipe({c,r,n,off,children}){
+  const box=useRef(null), st=useRef(null), dxR=useRef(0), lastDrag=useRef(0); const [dx,setDx0]=useState(0); const [drag,setDrag]=useState(false); const [full,setFull]=useState(false);
+  const setDx=v=>{ dxR.current=v; setDx0(v); };
+  useEffect(()=>{ const f=e=>{ if(e.detail!==r.id&&dxR.current) setDx(0); }; window.addEventListener('dko-rs',f); return ()=>window.removeEventListener('dko-rs',f); },[r.id]);
+  useEffect(()=>{ if(!dx) return; const f=e=>{ if(box.current&&!box.current.contains(e.target)) setDx(0); }; document.addEventListener('pointerdown',f,true); return ()=>document.removeEventListener('pointerdown',f,true); },[dx>0]);
+  const W=()=>(box.current?box.current.offsetWidth:360);
+  const down=e=>{ if(off||(e.pointerType==='mouse'&&e.button!==0)) return; st.current={x:e.clientX,y:e.clientY,b:dxR.current,ax:null,id:e.pointerId,hit:false}; };
+  const move=e=>{ const s=st.current; if(!s) return; const mx=e.clientX-s.x, my=e.clientY-s.y;
+    if(s.ax==null){ if(Math.abs(mx)<9&&Math.abs(my)<9) return; s.ax=(Math.abs(mx)>Math.abs(my)*1.3&&(mx>0||s.b>0))?'x':'y';
+      if(s.ax==='x'){ try{ box.current.setPointerCapture(s.id); }catch(_){} setDrag(true); window.dispatchEvent(new CustomEvent('dko-rs',{detail:r.id})); } else { st.current=null; return; } }
+    let v=s.b+mx; if(v<0) v=v*.2; const lim=W()*.94; if(v>lim) v=lim+(v-lim)*.15;
+    const hit=v>W()*.62; if(hit!==s.hit){ s.hit=hit; setFull(hit); haptic(hit?14:6); }
+    setDx(v); };
+  const up=()=>{ const s=st.current; st.current=null; if(!s||s.ax!=='x') return; setDrag(false); lastDrag.current=Date.now(); const v=dxR.current;
+    if(s.hit){ setFull(false); setDx(0); if(n){ c.markRead(r.id); haptic([8,30,10]); c.notify('읽음 처리했어요'); } }
+    else if(v>RS_OPEN*.42) setDx(RS_OPEN); else setDx(0); };
+  const act=(fn)=>e=>{ e.stopPropagation(); fn(); setTimeout(()=>setDx(0),160); };
+  const k=Math.max(0,Math.min(1,dx/RS_OPEN));
+  return html`<div ref=${box} className=${'rs33'+(drag?' drag':'')+(dx>0?' open':'')+(full?' full':'')} style=${{'--k':k.toFixed(3),'--dx':dx+'px'}}
+      onPointerDown=${down} onPointerMove=${move} onPointerUp=${up} onPointerCancel=${up}
+      onClickCapture=${e=>{ if(Date.now()-lastDrag.current<350){ e.preventDefault(); e.stopPropagation(); return; } if(dxR.current>0&&!e.target.closest('.rs33-act')){ e.preventDefault(); e.stopPropagation(); setDx(0); } }}>
+    <div className="rs33-act" aria-hidden=${dx>0?'false':'true'}>
+      <button type="button" className="rs33-b rd tap" onClick=${act(()=>{ c.markRead(r.id); haptic(10); })} aria-label="읽음"><${Icon} n="chatck" s=${22} w=${2.1}/><small>읽음</small></button>
+      <button type="button" className=${'rs33-b nt tap'+(roomMuted(c.me,r.id)?' on':'')} onClick=${act(()=>c.toggleRoomMute(r.id))} aria-label="알림"><${Icon} n=${roomMuted(c.me,r.id)?'bell':'belloff'} s=${21} w=${2.1}/><small>${roomMuted(c.me,r.id)?'알림 켜기':'알림 끄기'}</small></button>
+      <button type="button" className=${'rs33-b pn tap'+(roomPinned(c.me,r.id)?' on':'')} onClick=${act(()=>c.toggleRoomPin(r.id))} aria-label="고정"><${Icon} n=${roomPinned(c.me,r.id)?'pinoff':'pin'} s=${21} w=${2.1}/><small>${roomPinned(c.me,r.id)?'고정 해제':'고정'}</small></button>
+    </div>
+    <div className="rs33-row">${children}</div>
+  </div>`;
+}
+
+/* ── 채팅방 안 ⋯ 메뉴 ── */
+function RoomMenu({c,r,onClose}){
+  const id=r.id; const pin=roomPinned(c.me,id), mute=roomMuted(c.me,id); const L=roomMembers(c,id); const [more,setMore]=useState(false);
+  const on=L.filter(isOnline).length; const role=roomRole(c,id,c.uid);
+  const shown=more?L:L.slice(0,30);
+  const after=f=>{ onClose(); setTimeout(f,300); };
+  return html`<div className="rm33">
+    <div className="rm33-hd"><span className=${'rm33-ic k-'+roomCat(id)}>${id==='all'?html`<b>DKO</b>`:html`<${Icon} n=${roomIcon(id)} s=${22} w=${2.1}/>`}</span>
+      <div><b>${r.name}</b><small>${id==='all'?'DKO 크루 모두':r.sub||''}</small></div></div>
+    <div className="rm33-qa">
+      <button className=${'rm33-q tap'+(mute?' off':' on')} onClick=${()=>c.toggleRoomMute(id)}><span><${Icon} n=${mute?'belloff':'bell'} s=${20} w=${2.2}/></span><b>알림</b><small>${mute?'꺼짐':'켜짐'}</small></button>
+      <button className=${'rm33-q tap'+(pin?' on':'')} onClick=${()=>c.toggleRoomPin(id)}><span><${Icon} n="pin" s=${20} w=${2.2}/></span><b>고정</b><small>${pin?'맨 위에 고정됨':'목록 맨 위로'}</small></button>
+      <button className="rm33-q tap" onClick=${()=>after(()=>window.dispatchEvent(new CustomEvent('dko-room-mng')))}><span><${Icon} n=${role?'shield':'info'} s=${20} w=${2.2}/></span><b>${role?'방 관리':'방 정보'}</b><small>${role?'공지 · 배경 · 멤버':'공지 · 배경'}</small></button>
+    </div>
+    <div className="rm33-sec"><b>참여 크루</b><em>${L.length}</em>${on?html`<span><i></i>${on}명 접속 중</span>`:null}</div>
+    <div className="rm33-list">${shown.map((m,i)=>{ const w=isOnline(m)&&m.where?WHERE_L[m.where]:null;
+      return html`<button key=${m.uid} className="rm33-m tap" style=${{'--d':Math.min(i,12)*22+'ms'}} onClick=${()=>after(()=>c.openProfile(m.uid))}>
+        <${PfpView} m=${m} s=${38} on=${isOnline(m)}/>
+        <span className="rm33-mt"><b className=${hasGold(m)?'gold':''}>${dispName(m)}${m.uid===c.uid?html`<em className="me">나</em>`:null}</b>
+          <small>${isOnline(m)?(w?w+'에 있어요':'접속 중'):ago(m.lastSeen||m.joinedAt||0)+' 접속'}</small></span>
+        ${specialOf(m)?html`<${SpecialTag} m=${m} mini=${true}/>`:roomRole(c,id,m.uid)?html`<span className="rm33-role">${({owner:'방장',sub:'부방장',admin:'운영진'})[roomRole(c,id,m.uid)]}</span>`:null}
+      </button>`; })}
+      ${!more&&L.length>30?html`<button className="rm33-more tap" onClick=${()=>setMore(true)}>${L.length-30}명 더 보기</button>`:null}
+      ${!L.length?html`<p className="rm33-none">아직 참여한 크루가 없어요.</p>`:null}</div>
+    <div className="rm33-foot">
+      <button className="tap" onClick=${()=>after(()=>c.setSheet('rooms'))}><${Icon} n="chat" s=${17} w=${2.2}/>다른 채팅방</button>
+      ${id==='world'?html`<button className="tap" onClick=${()=>after(()=>c.setWorld(true))}><${Icon} n="globe" s=${17} w=${2.2}/>월드로 가기</button>`:null}
+      ${r.custom?html`<button className="tap danger" onClick=${()=>after(()=>c.leaveRoom(r))}><${Icon} n="exit" s=${17} w=${2.2}/>방 나가기</button>`:null}
+    </div>
+  </div>`;
+}
+
+/* ── 알림 센터: 채팅 ── */
+function ChatNotifs({c,mini}){
+  const L=chatNotifRooms(c); if(!L.length) return mini?null:html`<div className="nc14-empty"><${Empty} stk="sleep" text="안 읽은 채팅이 없어요."/></div>`;
+  const go=id=>{ c.setSheet(null); setTimeout(()=>c.openRoom(id),200); };
+  const rows=mini?L.slice(0,3):L;
+  return html`<div className=${'cn33'+(mini?' mini':'')}>
+    <div className="nc14-gt"><span>안 읽은 채팅</span><i></i><em>${L.length}</em>${!mini&&L.length>1?html`<button className="cn33-all tap" onClick=${()=>{ L.forEach(x=>c.markRead(x.r.id)); haptic(10); }}>모두 읽음</button>`:null}</div>
+    <div className="nc14-list">${rows.map(({r,n,m,fresh},i)=>{ const au=c.members.find(x=>x.uid===m.uid);
+      return html`<button key=${r.id} className=${'nc14-i cn33-i tap'+(fresh?' new':'')} style=${{'--kc':'#4AA8F2','--d':i*28+'ms'}} onClick=${()=>go(r.id)}>
+        <span className="cn33-av">${au?html`<${PfpView} m=${au} s=${38}/>`:html`<span className=${'nc14-ic'}><${Icon} n=${roomIcon(r.id)} s=${19} w=${2.2}/></span>`}<i className=${'cn33-rk k-'+roomCat(r.id)}><${Icon} n=${roomIcon(r.id)} s=${10} w=${2.6}/></i></span>
+        <span className="nc14-b"><span className="nc14-k"><b>${r.name}</b><em>${ago(m.createdAt)}</em></span><span className="nc14-t">${(au?dispName(au):m.nick||'크루')+': '+msgPreview(m)}</span></span>
+        <span className="cn33-n">${n>99?'99+':n}</span>
+      </button>`; })}</div>
+    ${mini&&L.length>3?html`<div className="cn33-mo">채팅 탭에서 ${L.length-3}개 더 보기</div>`:null}
+  </div>`;
+}
+
+/* ── 앱이 가려져 있을 때 채팅을 기기 알림으로 (서버 푸시와 같은 tag라 겹치지 않아요) ── */
+function ChatAlerts({c}){
+  const lm=useRef(null);
+  useEffect(()=>{ const L=c.messages||[]; let m=null; for(const x of L) if(!m||(x.createdAt||0)>(m.createdAt||0)) m=x; const id=m?m.id:''; if(lm.current===null){ lm.current=id; return; } if(id===lm.current) return; lm.current=id;
+    if(!m||m.uid===c.uid||m.deleted||m.sys||Date.now()-(m.createdAt||0)>60000) return; const room=m.room||'all';
+    const me=c.me; const P=me.push||{}; if(!document.hidden||!P.on||(P.off||[]).includes('chat')||roomMuted(me,room)||dndNow(me)) return;
+    if(typeof Notification==='undefined'||Notification.permission!=='granted') return;
+    const R=(c.myRooms||[]).find(r=>r.id===room); if(!R) return; const au=c.members.find(x=>x.uid===m.uid);
+    navigator.serviceWorker&&navigator.serviceWorker.getRegistration('./').then(reg=>reg&&reg.showNotification(R.name,{body:(au?dispName(au):m.nick||'크루')+': '+msgPreview(m).slice(0,80),icon:'icon-192.png',badge:'icon-192.png',tag:'chat-'+room,renotify:true,data:{link:JSON.stringify({room})}})).catch(()=>{});
+  },[c.messages]);
+  return null;
+}
+
+/* ═════════ DKO 오리지널 · 라이트 ═════════ */
+const edOf=me=>(me&&me.edition==='lite')?'lite':'original';
+const isLiteEd=me=>edOf(me)==='lite';
+const LITE_HIDE_MODES=['match','duel','stats','esports'];
+const TABS_ALL=TABS.slice();
+/* 탭 목록을 에디션에 맞춰요 (TABS 배열을 그대로 고쳐서 탭 바 · PC 탭 · 탭 순서가 모두 따라와요) */
+function applyEdition(me){ const lite=isLiteEd(me); const want=lite?TABS_ALL.filter(t=>t[0]!=='play'):TABS_ALL;
+  if(TABS.length===want.length&&TABS.every((t,i)=>t===want[i])) return; TABS.splice(0,TABS.length,...want);
+  document.documentElement.classList.toggle('ed-lite',lite); }
+const ED_INFO={
+  original:{k:'original',n:'DKO 오리지널',e:'ORIGINAL',tag:'대깨옵 환영',c:['#FF8A3D','#C93800'],ic:'swords',
+    who:['오버워치에 관심이 있고 플레이해요','크루와 내전 · 파티 · 1대1까지 즐기고 싶어요'],
+    has:['대전 탭 (내전 · 1대1 · 대회 · 영웅 통계)','파티 모집 · 파티 러쉬','채팅 · 커뮤니티 · 월드 · 상점 전부']},
+  lite:{k:'lite',n:'DKO 라이트',e:'LITE',tag:'커뮤러 환영',c:['#4AA8F2','#1D5FC0'],ic:'chat',
+    who:['저는 오버워치에 관심이 없어요','부담 없이 시작하고 싶어요'],
+    has:['채팅 · 커뮤니티 · DKO 월드 · 무한의 계단','대전 탭과 파티 없이 가볍게','언제든 설정에서 오리지널로 바꿀 수 있어요']}
+};
+function EdCard({k,on,rec,onPick,i}){ const E=ED_INFO[k];
+  return html`<button type="button" className=${'ed33-c tap'+(on?' on':'')} style=${{'--c1':E.c[0],'--c2':E.c[1],'--d':(i||0)*90+'ms'}} onClick=${()=>onPick(k)} aria-pressed=${on}>
+    <span className="ed33-top"><span className="ed33-ic"><${Icon} n=${E.ic} s=${22} w=${2.3}/></span><span className="ed33-tt"><em>${E.e}</em><b>${E.n}</b></span>
+      ${rec?html`<span className="ed33-rec"><${Icon} n="sparkle" s=${11} w=${2.6}/>추천</span>`:null}<span className="ed33-ck">${on?html`<${Icon} n="check" s=${14} w=${3.2}/>`:null}</span></span>
+    <span className="ed33-who"><small>이런 분들에게 추천해요</small>${E.who.map(w=>html`<span key=${w}>${w}</span>`)}<i className="ed33-tag">${E.tag}</i></span>
+    <span className="ed33-has">${E.has.map(h=>html`<span key=${h}><${Icon} n="check" s=${12} w=${2.8}/>${h}</span>`)}</span>
+  </button>`; }
+/* 처음 가입한 크루에게: 짧은 질문으로 추천 → 고르기 */
+function EditionPick({c}){
+  const [ans,setAns]=useState(null); const [pick,setPick]=useState(null); const [out,setOut]=useState(false);
+  const rec=ans==null?null:ans==='no'?'lite':'original'; const cur=pick||rec;
+  const done=()=>{ if(!cur||out) return; haptic([10,40,14]); setOut(true); setTimeout(()=>c.setEdition(cur,true),420); };
+  return ReactDOM.createPortal(html`<div className=${'ed33'+(out?' out':'')} role="dialog" aria-label="DKO 버전 고르기">
+    <div className="ed33-in">
+      <div className="ed33-hd"><span className="ed33-k">WELCOME TO DKO</span><h2>어떻게 즐겨 볼까요?</h2><p>나에게 맞는 DKO를 골라 주세요. 나중에 설정에서 언제든 바꿀 수 있어요.</p></div>
+      <div className="ed33-q"><b>오버워치를 플레이하세요?</b>
+        <div className="ed33-qa">${[['yes','자주 해요'],['some','가끔 해요'],['no','안 해요']].map(([k,l])=>html`<button key=${k} type="button" className=${'tap'+(ans===k?' on':'')} onClick=${()=>{ setAns(k); setPick(null); haptic(8); }}>${l}</button>`)}</div></div>
+      <div className="ed33-cards">
+        <${EdCard} k="original" i=${0} on=${cur==='original'} rec=${rec==='original'} onPick=${k=>{ setPick(k); haptic(8); }}/>
+        <${EdCard} k="lite" i=${1} on=${cur==='lite'} rec=${rec==='lite'} onPick=${k=>{ setPick(k); haptic(8); }}/>
+      </div>
+      <button type="button" className=${'ed33-go tap'+(cur?' ok':'')} disabled=${!cur} onClick=${done}>${cur?ED_INFO[cur].n+'로 시작하기':'하나를 골라 주세요'}</button>
+      <small className="ed33-ft">설정 → DKO 버전에서 바꿀 수 있어요</small>
+    </div>
+  </div>`,document.body);
+}
+/* 설정: 에디션 바꾸기 */
+function EdSwitch({c}){ const cur=edOf(c.me);
+  return html`<section className="ed33-set">
+    <div className="st30-lb"><span className="st30-li" style=${{'--a':'#4AA8F2'}}><${Icon} n="sliders" s=${13} w=${2.4}/></span>DKO 버전</div>
+    <div className="ed33-sw">${['original','lite'].map(k=>{ const E=ED_INFO[k]; return html`<button key=${k} type="button" className=${'ed33-o tap'+(cur===k?' on':'')} style=${{'--c1':E.c[0],'--c2':E.c[1]}} onClick=${()=>cur!==k&&c.setEdition(k)}>
+      <span className="ed33-oi"><${Icon} n=${E.ic} s=${18} w=${2.3}/></span><span><b>${E.n}</b><small>${E.tag}</small></span>${cur===k?html`<i><${Icon} n="check" s=${12} w=${3.2}/></i>`:null}</button>`; })}</div>
+    <p className="ed33-note">${cur==='lite'?'라이트: 대전 탭 · 파티 · 빠른 설정 없이 채팅과 커뮤니티 중심으로 보여요.':'오리지널: 내전 · 파티 · 대전까지 DKO의 모든 기능을 써요.'}</p>
+  </section>`; }
+
+/* ═════════ 커뮤니티 링크 미리보기 ═════════ */
+const URL_RE=/https?:\/\/[^\s<>"'()]+[^\s<>"'().,!?;:]/g;
+const urlsOf=s=>String(s||'').match(URL_RE)||[];
+function ytId(u){ try{ const x=new URL(u); const h=x.hostname.replace(/^www\.|^m\./,'');
+  if(h==='youtu.be') return x.pathname.slice(1).split('/')[0]||null;
+  if(h==='youtube.com'||h==='music.youtube.com'){ if(x.pathname==='/watch') return x.searchParams.get('v'); const m=/^\/(shorts|live|embed)\/([\w-]{6,})/.exec(x.pathname); if(m) return m[2]; }
+  return null; }catch(e){ return null; } }
+const hostOf=u=>{ try{ return new URL(u).hostname.replace(/^www\./,''); }catch(e){ return u; } };
+function LinkCard({p}){
+  const u=urlsOf(p.body)[0]||urlsOf(p.title)[0]; const [play,setPlay]=useState(false); const [bad,setBad]=useState(false);
+  if(!u||p.news) return null; const yt=ytId(u); const stop=e=>e.stopPropagation();
+  if(yt&&/^[\w-]{6,20}$/.test(yt)){ const short=/\/shorts\//.test(u);
+    return html`<div className=${'lp33 yt'+(short?' short':'')} onClick=${stop}>
+      ${play?html`<div className="lp33-fr"><iframe src=${'https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&playsinline=1&rel=0'} title="YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen=${true}></iframe></div>`
+        :html`<button type="button" className="lp33-th tap" onClick=${()=>{ setPlay(true); haptic(8); }} aria-label="영상 재생"><img src=${'https://i.ytimg.com/vi/'+yt+'/hqdefault.jpg'} alt="" loading="lazy" onError=${e=>{ e.currentTarget.style.opacity=0; }}/><span className="lp33-pl"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span><span className="lp33-yt">YouTube${short?' Shorts':''}</span></button>`}
+      ${p.lp&&p.lp.u===u&&p.lp.t?html`<a className="lp33-tx" href=${u} target="_blank" rel="noopener noreferrer"><b>${p.lp.t}</b><small>${p.lp.site||'YouTube'}</small></a>`:null}
+    </div>`; }
+  const L=p.lp&&p.lp.u===u?p.lp:null; const h=hostOf(u);
+  return html`<a className=${'lp33 web'+(L&&L.img&&!bad?' big':'')} href=${u} target="_blank" rel="noopener noreferrer" onClick=${stop}>
+    ${L&&L.img&&!bad?html`<span className="lp33-img"><img src=${L.img} alt="" loading="lazy" referrerPolicy="no-referrer" onError=${()=>setBad(true)}/></span>`:null}
+    <span className="lp33-w"><img className="lp33-fv" src=${'https://www.google.com/s2/favicons?sz=64&domain='+encodeURIComponent(h)} alt="" loading="lazy" onError=${e=>{ e.currentTarget.style.visibility='hidden'; }}/>
+      <span className="lp33-wt"><b>${(L&&L.t)||h}</b>${L&&L.d?html`<small className="d">${L.d}</small>`:null}<small>${(L&&L.site)||h}</small></span><${Icon} n="chev" s=${16} w=${2.4}/></span>
+  </a>`;
+}
+
+/* ═════════ API ═════════ */
+function v273Api({mut,notify,meRef}){
+  const flip=(key,id,msgOn,msgOff)=>{ const on=!((chatPrefsOf(meRef.current)[key]||{})[id]); haptic(10);
+    return mut(m=>{ const p=chatPrefsOf(m); const o={...(p[key]||{})}; if(on) o[id]=Date.now(); else delete o[id]; return {chatPrefs:{...p,[key]:o}}; }).then(ok=>{ if(ok) notify(on?msgOn:msgOff); return ok; }); };
+  return {
+    toggleRoomPin(id){ return flip('pin',id,'채팅방을 맨 위에 고정했어요','고정을 풀었어요'); },
+    toggleRoomMute(id){ return flip('mute',id,'이 방 알림을 껐어요','이 방 알림을 켰어요'); },
+    setEdition(ed,first){ const k=ed==='lite'?'lite':'original'; return mut(()=>({edition:k,needEd:0})).then(ok=>{ if(ok){ haptic(12); notify(first?ED_INFO[k].n+'에 온 걸 환영해요!':ED_INFO[k].n+'로 바꿨어요', first?'gold':undefined, first?'설정 → DKO 버전에서 언제든 바꿀 수 있어요':undefined); } return ok; }); }
+  };
+}
 
 window.__DKO={BrickIc,C0,Coin,EQ_PRICE,EQ_S,EQ_SHIELD,EQ_T,EQ_TC,EQ_VAL,ICONS,Icon,PX_HEROES,PfpView,PixelChar,R,STICKER,StickerTray,VX_ISO,VoxelStage,WCF,W_BIG,W_CAT,W_CDECO,W_CR,W_DECO_MAX,W_EXP_COST,W_LAND_MAX,W_LM,W_LMS,W_LONG,W_LV_ROOF,W_MINE_CAP,W_MINE_RATE,W_OB,W_OB_TIME,W_PROTECT,W_SC,W_START,W_START_BRICKS,W_SW,W_SZ,W_TABS,W_TILE,W_WALK,ago,avatarOf,coinsOf,dayKey,dispName,dkoAsk,eqId,eqName,eqParse,haptic,heroAv,hh,html,isOnline,isSuperM,lmC,lmDoor,lsGet,lsSet,ownsHero,rpgEqLook,rpgNeed,rpgOf,rpgStats,rr,seed,useEffect,useMemo,useRef,useState,vxDraw,wBack,wBrick,wCells,wCube,wDrawChar,wEase,wFmtT,wHash,wLandCost,wName,wRad,wShade,wShadow,wSpeedCost,wStealCost,wStr,wSz};
 ReactDOM.createRoot(document.getElementById('root')).render(html`<${Root}/>`);

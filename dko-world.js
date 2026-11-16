@@ -1,6 +1,6 @@
 /* DKO 월드 모듈 (월드에 들어갈 때만 받아요) */
 (function(){
-const {BrickIc,C0,Coin,EQ_PRICE,EQ_S,EQ_SHIELD,EQ_T,EQ_TC,EQ_VAL,ICONS,Icon,PX_HEROES,PfpView,PixelChar,R,STICKER,StickerTray,VX_ISO,VoxelStage,WCF,W_BIG,W_CAT,W_CDECO,W_CR,W_DECO_MAX,W_EXP_COST,W_LAND_MAX,W_LM,W_LMS,W_LONG,W_LV_ROOF,W_MINE_CAP,W_MINE_RATE,W_OB,W_OB_TIME,W_PROTECT,W_SC,W_START,W_START_BRICKS,W_SW,W_SZ,W_TABS,W_TILE,W_WALK,ago,avatarOf,coinsOf,dayKey,dispName,dkoAsk,eqId,eqName,eqParse,haptic,heroAv,hh,html,isOnline,isSuperM,lmC,lmDoor,lsGet,lsSet,ownsHero,rpgEqLook,rpgNeed,rpgOf,rpgStats,rr,seed,useEffect,useMemo,useRef,useState,vxDraw,wBack,wBrick,wCells,wCube,wDrawChar,wEase,wFmtT,wHash,wLandCost,wName,wRad,wShade,wShadow,wSpeedCost,wStealCost,wStr,wSz}=window.__DKO;
+const {BrickIc,C0,Coin,EQ_PRICE,EQ_S,EQ_SHIELD,EQ_T,EQ_TC,EQ_VAL,ICONS,Icon,PX_HEROES,PfpView,PixelChar,R,STICKER,StickerTray,VX_ISO,VoxelStage,WCF,W_BIG,W_CAT,W_CDECO,W_CR,W_CROP,W_DECO_MAX,W_EXP_COST,W_LAND_MAX,W_LM,W_LMS,W_LONG,W_LV_ROOF,W_MINE_CAP,W_MINE_RATE,W_OB,W_OB_TIME,W_PROTECT,W_SC,W_START,W_START_BRICKS,W_SW,W_SZ,W_TABS,W_TILE,W_WALK,ago,avatarOf,coinsOf,dayKey,dispName,dkoAsk,eqId,eqName,eqParse,haptic,heroAv,hh,html,isOnline,isSuperM,lmC,lmDoor,lsGet,lsSet,ownsHero,partyLive,rpgEqLook,rpgNeed,rpgOf,rpgStats,rr,seed,useEffect,useMemo,useRef,useState,vxDraw,wBack,wBrick,wCells,wCropOf,wCube,wDrawChar,wEase,wFmtT,wHash,wLandCost,wName,wPlotEnd,wPlotOf,wPlotWater,wRad,wShade,wShadow,wSpeedCost,wStealCost,wStr,wSz,wTag,wTopIsl,wWeek0,wWeekScore,wXmas}=window.__DKO;
 /* 칸 크기가 커진 예전 섬: 겹치거나 땅 밖으로 나간 건물을 가장 가까운 빈 곳으로 옮겨요 */
 function wFit(items,R,land){
   const ok=(x,y)=>Math.hypot(x,y)<=R-.15||(land&&land.has(x+','+y));
@@ -28,7 +28,7 @@ function wNorm(s){
 const wBuilders=I=>1+I.items.filter(it=>it.t==='hut'&&it.lv>=1).length;
 const wBusy=(I,now)=>I.items.filter(it=>it.up&&it.up.end>now).length;
 const wCount=(I,t)=>I.items.filter(it=>it.t===t).length;
-const wDecoCount=I=>I.items.filter(it=>{ const C=W_CAT[it.t]; return C&&(C.cat==='deco'||C.cat==='gem'); }).length;
+const wDecoCount=I=>I.items.filter(it=>{ const C=W_CAT[it.t]; return C&&(C.cat==='deco'||C.cat==='gem'||C.cat==='xmas'); }).length;
 const wMaxOf=(t,hl)=>{ const C=W_CAT[t]; if(!C) return 0; if(C.uniq) return 1; if(C.max) return C.max[Math.min(5,hl)]; if(C.max1) return hl>=(C.req||1)?C.max1:0; return hl>=(C.req||1)?99:0; };
 const wMineStock=(it,now)=>{ if(it.t!=='mine'||it.lv<1) return 0; const lv=it.lv; const age=(now-(it.c||now))/3600000; return Math.min(W_MINE_CAP[lv],Math.floor(age*W_MINE_RATE[lv])); };
 /* 장애물은 섬이 바뀔 때만 다시 계산해요 (매 프레임 X) */
@@ -109,6 +109,7 @@ try{ window.__wDay=localStorage.getItem('dko-wday')==='day'; }catch(e){}
 /* ── 아이템 그리기: (ox,oy)=타일 위 가운데, u=복셀 한 칸 ── */
 function wDrawItem(g,t,ox,oy,u,tm,seed,lv){
   lv=lv||1; const C=(...a)=>wCube(g,ox,oy,u,...a);
+  if(W_DRAWX[t]){ W_DRAWX[t](g,ox,oy,u,tm,seed||0,lv,C); return; }
   const v=wHash(seed||0,7,1); const roof=W_LV_ROOF[lv]||W_LV_ROOF[1];
   switch(t){
     case 'tree': wShadow(g,ox,oy+u*1.2,u*7,u*3.4); C(-1,-1,0,2,2,6,'#8A5A34'); C(-4,-4,5,8,8,5,v>.5?'#4FB86A':'#3FA65C'); C(-3,-3,10,6,6,3,v>.5?'#6ED487':'#59C377'); break;
@@ -295,6 +296,8 @@ function WorldBeta({c,onClose}){
   const [dg,setDg]=useState(null); const [tp,setTp]=useState(null); const [chat,setChat]=useState(false); const [edit,setEdit]=useState(null); const [cedit,setCedit]=useState(null);
   const [welcome,setWelcome]=useState(false); const [ctext,setCtext]=useState(''); const logRef=useRef(new Map()); const cRef=useRef(c); cRef.current=c;
   const [wset,setWset]=useState(false); const [near,setNear]=useState(null); const [door,setDoor]=useState(null); const [hallIn,setHallIn]=useState(false); const [npcT,setNpcT]=useState(null); const [ctl,setCtl]=useState(wCtl());
+  const [gd,setGd]=useState(null); const [gbk,setGbk]=useState(null); const [qs,setQs]=useState(false); const [mapO,setMapO]=useState(false); const [ew,setEw]=useState(null); const [rtab,setRtab]=useState('isl'); const [mm,setMm0]=useState(()=>lsGet('dko-wmm','mini'));
+  const setMm=v=>{ setMm0(v); lsSet('dko-wmm',v); };
   useEffect(()=>{ if(!npcT) return; const t=setTimeout(()=>setNpcT(null),6500); return ()=>clearTimeout(t); },[npcT&&npcT.k]);
   useEffect(()=>{ const f=()=>{ setCtl(wCtl()); const s=S.current; if(s) s.fps30=wFps()==='30'; }; window.addEventListener('dko-wset',f); wBgm('world'); return ()=>{ window.removeEventListener('dko-wset',f); window.DKOSfx&&window.DKOSfx.bgmStop(); }; },[]);
   const rpg=rpgOf(c.me);
@@ -305,6 +308,11 @@ function WorldBeta({c,onClose}){
   const wKey=wKeyOf(isl);
   const W=useMemo(()=>buildWorldC(isl),[wKey]);
   const online=isl.filter(I=>I.uid!==c.uid&&I.here&&I.here.at&&now-I.here.at<65000);
+  /* v27.5 연말 시즌 · 이번 주 인기 섬 · DKO 전적 · 같은 파티 */
+  const xmOn=useMemo(()=>wXmas(),[]);
+  const topU=useMemo(()=>{ const t=wTopIsl(isl); return t?t.uid:null; },[isl]);
+  const recM=useMemo(()=>{ const o={}; isl.forEach(I=>{ o[I.uid]=wRecOf(c,I.uid); }); return o; },[wKey,c.matches,c.duels]);
+  const ptyS=useMemo(()=>wPartyUids(c),[c.parties,c.uid]);
   useEffect(()=>{ if(c.ready&&!isSuperM(c.me)&&!(c.islands||[]).some(x=>x.uid===c.uid)) c.createIsland(); },[c.ready,(c.islands||[]).length]);
   useEffect(()=>{ const t=setTimeout(()=>setCloud('open'),650); const t2=setTimeout(()=>setCloud(null),1900); return ()=>{ clearTimeout(t); clearTimeout(t2); }; },[]);
   useEffect(()=>{ const t=setInterval(()=>tick(x=>x+1),1000); return ()=>clearInterval(t); },[]);
@@ -315,7 +323,7 @@ function WorldBeta({c,onClose}){
   const mark=(k,extra)=>{ if(!mine) return extra||{}; const D=dayD(mine); if(D[k]) return extra||{}; return {...(extra||{}),daily:{...D,[k]:1}}; };
   /* 접속 표시: 월드에 있는 동안 20초마다 · 도착할 때 위치를 알려요 */
   const pingAt=useRef(0);
-  const sendHere=force=>{ const s=S.current; if(!s||!c.islandPing||s.paused) return; const t=Date.now(); if(!force&&t-pingAt.current<2500) return; pingAt.current=t; const h={at:t,x:Math.round(s.me.x*10)/10,y:Math.round(s.me.y*10)/10}; if(s.me.say&&t-s.me.say.at<60000) h.say=s.me.say; c.islandPing({here:h}); };
+  const sendHere=force=>{ const s=S.current; if(!s||!c.islandPing||s.paused) return; const t=Date.now(); if(!force&&t-pingAt.current<2500) return; pingAt.current=t; const h={at:t,x:Math.round(s.me.x*10)/10,y:Math.round(s.me.y*10)/10}; if(s.me.say&&t-s.me.say.at<60000) h.say=s.me.say; if(s.me.emo&&wEmoOn(s.me.emo)) h.emo={k:s.me.emo.k,at:s.me.emo.at}; c.islandPing({here:h}); };
   useEffect(()=>{ if(!mine) return; const t0=setTimeout(()=>sendHere(true),900); const iv=setInterval(()=>sendHere(true),20000); return ()=>{ clearTimeout(t0); clearInterval(iv); }; },[!!mine]);
   useEffect(()=>()=>{ c.islandPing&&c.islandPing({here:null}); },[]);
   /* 예전 섬 정리 · 다 지은 건물 마무리 */
@@ -329,7 +337,7 @@ function WorldBeta({c,onClose}){
       const s=S.current; if(s){ const L=s.W.L.find(l=>l.uid===c.uid); const [x,y]=mine.clr.k.split(',').map(Number); if(L){ s.fx.push({k:'txt',gx:L.cx+x,gy:L.cy+y,at:performance.now(),txt:'+'+gain,ic:'brick'}); s.fx.push({k:'dust',gx:L.cx+x,gy:L.cy+y,at:performance.now()}); } }
       if(wHash(t%991,7,2)<.15){ c.worldCoins&&c.worldCoins(3,'장애물에서 D-Coin 3개를 찾았어요!'); } }
     if(mine._mig&&!D.has('mig')){ D.add('mig'); patch=patch?{bricks:mine.bricks,fv:1,...patch,items:patch.items||items}:{items,bricks:mine.bricks,fv:1}; }
-    if(patch){ save(patch); const s=S.current; if(s&&fx.length){ const L=s.W.L.find(l=>l.uid===c.uid); fx.forEach(it=>{ const [w,h]=wSz(it); s.pop[it.i]=performance.now(); if(L){ s.fx.push({k:'burst',gx:L.cx+it.x+(w-1)/2,gy:L.cy+it.y+(h-1)/2,at:performance.now()}); s.fx.push({k:'txt',gx:L.cx+it.x+(w-1)/2,gy:L.cy+it.y+(h-1)/2,at:performance.now(),txt:it.up.to>1?'Lv.'+it.up.to+' 완성!':'완성!'}); } }); haptic(20); c.notify(fx.length===1?wName(fx[0].t)+(fx[0].up.to>1?' Lv.'+fx[0].up.to+' 업그레이드 완료!':' 완성!'):'건물 '+fx.length+'개 완성!'); } }
+    if(patch){ save(patch); const s=S.current; if(s&&fx.length){ const L=s.W.L.find(l=>l.uid===c.uid); fx.forEach(it=>{ const [w,h]=wSz(it); s.pop[it.i]=performance.now(); if(L){ s.fx.push({k:'burst',gx:L.cx+it.x+(w-1)/2,gy:L.cy+it.y+(h-1)/2,at:performance.now()}); s.fx.push({k:'txt',gx:L.cx+it.x+(w-1)/2,gy:L.cy+it.y+(h-1)/2,at:performance.now(),txt:it.up.to>1?'Lv.'+it.up.to+' 완성!':'완성!'}); } }); haptic(20); const it0=fx[0]; wDyn({ic:'home',col:'#3FA8EE',lab:'건물 완성',t:fx.length===1?wName(it0.t)+(it0.up.to>1?' Lv.'+it0.up.to+' 업그레이드 완료!':' 완성!'):'건물 '+fx.length+'개 완성!',b:'눌러서 보러 가기',go:()=>{ const s2=S.current, L2=s2&&s2.W.L.find(l=>l.uid===c.uid); if(L2){ s2.jump(L2.cx+it0.x+1,L2.cy+it0.y+2,1.1); setSel({i:it0.i}); } },dur:4200}); } }
   });
   /* D-ROP에서 받은 벽돌은 들어오자마자 섬으로 · 장식은 상점 선물함으로 */
   const gift=(c.me&&c.me.wGift)||{}; const giftN=Object.values(gift.items||{}).reduce((s0,n)=>s0+(n>0?n:0),0);
@@ -376,12 +384,13 @@ function WorldBeta({c,onClose}){
     s.wake=()=>{ if(s.sleep&&!dead){ s.sleep=false; last=performance.now(); raf=requestAnimationFrame(frame); } };
     s.fps30=wFps()==='30';
     const frame=now=>{ if(dead) return; if(s.paused){ s.sleep=true; return; } if(s.fps30&&now-last<31){ raf=requestAnimationFrame(frame); return; } const dt=Math.min(.05,(now-last)/1000); last=now; const tm=now/1000;
-      const m=s.me; m.walk=false;
+      const m=s.me; m.walk=false; const x0=m.x, y0=m.y;
       /* 조이스틱: 길찾기 없이 바로 그 방향으로 (막히면 벽을 따라 미끄러져요) */
-      const J=s.joy; if(J&&(Math.abs(J[0])>.12||Math.abs(J[1])>.12)){ m.path=[]; s.mark=null; const mag=Math.min(1,Math.hypot(J[0],J[1])); const [wx,wy]=wJoyDir(J[0],J[1]); const want=4.4*mag; m.v=(m.v||0)+(want-(m.v||0))*Math.min(1,dt*9); const sp=m.v*dt;
+      const J=s.joy; if(J&&(Math.abs(J[0])>.12||Math.abs(J[1])>.12)){ m.path=[]; s.mark=null; if(m.emo){ m.emo=null; s.emoOff=1; } const mag=Math.min(1,Math.hypot(J[0],J[1])); const [wx,wy]=wJoyDir(J[0],J[1]); const want=4.4*mag; m.v=(m.v||0)+(want-(m.v||0))*Math.min(1,dt*9); const sp=m.v*dt;
         const nx=m.x+wx*sp, ny=m.y+wy*sp; const ok=(x,y)=>!blocked(Math.round(x),Math.round(y)); if(ok(nx,ny)){ m.x=nx; m.y=ny; } else if(ok(nx,m.y)) m.x=nx; else if(ok(m.x,ny)) m.y=ny; m.ty=Math.atan2(-wx,wy); m.walk=true; m.ph=(m.ph||0)+sp*4.4; s.follow=true; s.jmoved=now; }
-      else if(m.path.length){ if(step(m,4.6,dt)){ s.mark=null; s.arrive&&s.arrive(); } }
+      else if(m.path.length){ if(m.emo){ m.emo=null; s.emoOff=1; } if(step(m,4.6,dt)){ s.mark=null; s.arrive&&s.arrive(); } }
       else if(s.jmoved&&now-s.jmoved>400){ s.jmoved=0; s.arrive&&s.arrive(); }
+      { const dd=Math.hypot(m.x-x0,m.y-y0); if(dd>0&&dd<2){ s.wd=(s.wd||0)+dd; if(s.wd>=10){ s.wd-=10; wQ('walk',10); } } }
       turn(m,dt,12);
       if(m.walk&&now-(s.stepAt||0)>(m.v>3?260:340)){ s.stepAt=now; wSfx('step',.8); s.fx.push({k:'step',gx:m.x,gy:m.y,at:now}); }
       { let nk=null, nd=1.7; for(const l of W_LM){ const [dx,dy]=lmDoor(l); const d=Math.hypot(dx-m.x,dy-m.y); if(d<nd){ nd=d; nk=l.k; } } if(nk!==s.lmNear){ s.lmNear=nk; s.onNear&&s.onNear(nk); } }
@@ -423,6 +432,7 @@ function WorldBeta({c,onClose}){
         if(isB){ ctx.strokeStyle='rgba(90,58,32,.45)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(px-HW*.5,py-HH*.5); ctx.lineTo(px+HW*.5,py+HH*.5); ctx.stroke(); }
         if(T.t==='grass'&&wHash(T.x,T.y,11)>.82){ ctx.fillStyle=wShade(col[0],-0.15); ctx.fillRect(px-2*z,py-1*z,2*z,3*z); ctx.fillRect(px+3*z,py+1*z,2*z,2*z); }
         if(T.t==='grass'&&wHash(T.x,T.y,23)>.93){ ctx.fillStyle=['#FFFFFF','#FFD6E8','#FFF2A0'][Math.floor(wHash(T.x,T.y,4)*3)]; ctx.fillRect(px-5*z,py,1.6*z,1.6*z); ctx.fillRect(px+4*z,py-2*z,1.6*z,1.6*z); }
+        if(s.xm&&(T.t==='grass'||T.t==='sand')&&wHash(T.x,T.y,31)>.58){ ctx.fillStyle='rgba(255,255,255,.8)'; ctx.beginPath(); ctx.ellipse(px+(wHash(T.x,T.y,32)-.5)*HW*.7,py+(wHash(T.x,T.y,33)-.5)*HH*.7,HW*(.22+wHash(T.x,T.y,34)*.16),HH*(.2+wHash(T.x,T.y,35)*.14),0,0,Math.PI*2); ctx.fill(); }
         if(T.t==='path'){ ctx.fillStyle='rgba(160,120,70,.22)'; for(let i=0;i<4;i++){ const a=wHash(T.x,T.y,i*3+1), b=wHash(T.x,T.y,i*3+2); ctx.beginPath(); ctx.ellipse(px+(a-.5)*HW*1.1,py+(b-.5)*HH*1.1,2.6*z,1.5*z,0,0,Math.PI*2); ctx.fill(); } ctx.fillStyle='rgba(255,255,255,.28)'; ctx.fillRect(px-HW*.3,py-HH*.35,2*z,1*z); }
         if((front||left)&&!isB&&T.t!=='bridge'){ ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=2*z; ctx.beginPath(); if(front){ ctx.moveTo(px+HW,py+side+2*z); ctx.lineTo(px,py+HH+side+2*z); } if(left){ ctx.moveTo(px-HW,py+side+2*z); ctx.lineTo(px,py+HH+side+2*z); } ctx.stroke(); }
         if((s.mode==='place'||s.mode==='move')&&T.isl===s.uid&&T.t!=='bridge'){ ctx.strokeStyle='rgba(255,255,255,.28)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(px,py-HH); ctx.lineTo(px+HW,py); ctx.lineTo(px,py+HH); ctx.lineTo(px-HW,py); ctx.closePath(); ctx.stroke(); }
@@ -446,13 +456,14 @@ function WorldBeta({c,onClose}){
       if(s.mark){ const [px,py]=scr(s.mark.x,s.mark.y); const k=((pnow-s.mark.at)/900)%1; g.strokeStyle='rgba(255,255,255,'+(.85-k*.6)+')'; g.lineWidth=2; g.beginPath(); g.ellipse(px,py,HW*(.25+k*.35),HH*(.25+k*.35),0,0,Math.PI*2); g.stroke(); g.fillStyle='rgba(255,138,61,.55)'; g.beginPath(); g.ellipse(px,py,HW*.16,HH*.16,0,0,Math.PI*2); g.fill(); }
       const ents=[]; const u=WCF.TW*z/17;
       s.isl.forEach(I=>{ const L=s.W.L.find(l=>l.uid===I.uid); if(!L) return;
-        I.items.forEach(it=>{ const [w,h]=wSz(it); const gx=L.cx+it.x, gy=L.cy+it.y; ents.push({d:gx+gy+(w-1)/2+(h-1)/2,k:'i',it,gx,gy,w,h,own:I.uid===s.uid,seed:wStr(it.i)}); });
+        I.items.forEach(it=>{ const [w,h]=wSz(it); const gx=L.cx+it.x, gy=L.cy+it.y; ents.push({d:gx+gy+(w-1)/2+(h-1)/2,k:'i',it,gx,gy,w,h,own:I.uid===s.uid,seed:wStr(it.i),I}); });
         wObstacles(I,I.uid).forEach(o=>{ const gx=L.cx+o.x, gy=L.cy+o.y; const T=s.W.T.get(gx+','+gy); if(!T||T.isl!==I.uid) return; ents.push({d:gx+gy,k:'ob',o,gx,gy,own:I.uid===s.uid,clr:I.clr&&I.clr.k===o.k?I.clr:null}); });
         ents.push({d:L.cx+L.cy+L.r+2,k:'name',gx:L.cx+L.r*.7,gy:L.cy+L.r*.7,I});
         const os=s.ospot[I.uid]; if(I.uid!==s.uid&&os&&!s.olc.has(I.uid)) ents.push({d:os[0]+os[1]+.05,k:'owner',gx:os[0],gy:os[1],uid:I.uid});
         I.items.forEach(it=>{ if(it.up&&it.up.end>t){ const [w,h]=wSz(it); ents.push({d:L.cx+it.x+L.cy+it.y+w+h-1.1,k:'builder',gx:L.cx+it.x+w-.4,gy:L.cy+it.y+h-.25,it}); } });
       });
-      W_CDECO.forEach(([x,y,t2],i)=>{ const [w,h]=wSz({t:t2}); ents.push({d:x+y+(w-1)/2+(h-1)/2,k:'i',it:{t:t2,lv:1,i:'c'+i},gx:x,gy:y,w,h,seed:i*13}); });
+      wFootEnts(s,ents,t);
+      wCDeco(s.xm).forEach(([x,y,t2],i)=>{ const [w,h]=wSz({t:t2}); ents.push({d:x+y+(w-1)/2+(h-1)/2,k:'i',it:{t:t2,lv:1,i:'c'+i},gx:x,gy:y,w,h,seed:i*13}); });
       W_LM.forEach(l=>ents.push({d:l.x+l.y+2.9,k:'lm',l,gx:l.x+1,gy:l.y+1}));
       ents.push({d:s.me.x+s.me.y+.05,k:'me',gx:s.me.x,gy:s.me.y});
       (s.npcs||[]).forEach(n=>ents.push({d:n.x+n.y+.04,k:'npc',gx:n.x,gy:n.y,n}));
@@ -470,6 +481,7 @@ function WorldBeta({c,onClose}){
           if(isSel) sc*=1+Math.sin(tm*6)*.02;
           if(building&&it.lv===0){ g.save(); g.translate(px,py); g.scale(sc*sc0,sc*sc0); C0(g,u,tm); g.restore(); }
           else drawIt(itType(it,e.w,e.h),px,py,u,tm,e.seed,it.lv||1,it.r,sc*sc0);
+          if(it.t==='farm'&&e.I&&!building) wFarmDraw(g,px,py,u,tm,e.I,it,e.own,t,!e.own&&wCanWater(e.I,it.i,s.uid,t));
           if(building){ const hk=Math.sqrt(sc0); wScaffold(g,px,py,u*sc0,tm,it.t==='hall'?14:W_BIG.has(it.t)?11:7); const tot=it.up.end-(it.up.st||it.up.end-1000); const p=Math.max(0,Math.min(1,1-(it.up.end-t)/Math.max(1,tot)));
             const by=py-u*(it.t==='hall'?22:18)*sc0; const bw=Math.max(54,u*13), bh=Math.max(7,u*1.6);
             g.fillStyle='rgba(10,16,30,.7)'; rr(g,px-bw/2-2,by-2,bw+4,bh+4,(bh+4)/2); g.fill(); g.fillStyle='#7CD957'; rr(g,px-bw/2,by,bw*p,bh,bh/2); g.fill();
@@ -483,11 +495,13 @@ function WorldBeta({c,onClose}){
           else { const isSel=e.own&&s.sel&&s.sel.ob===e.o.k; if(isSel){ g.strokeStyle='rgba(255,255,255,.85)'; g.lineWidth=2.4; diamond(e.gx,e.gy,1,1); g.stroke(); } wDrawItem(g,e.o.t,px,py,u,tm,wStr(e.o.k),1); } }
         else if(e.k==='name'){ const nm0=(e.I.name||'').slice(0,12); g.font='900 '+Math.max(10,Math.round(u*2.4))+'px "NEXON Kart Gothic",sans-serif'; const tw=g.measureText(nm0).width+18; const y=py+u*2;
           g.fillStyle='rgba(255,247,230,.95)'; rr(g,px-tw/2,y,tw,u*4.2,u*1.2); g.fill(); g.fillStyle='#C9965A'; g.fillRect(px-tw/2,y+u*4.2-2,tw,2); g.fillStyle='#3A2410'; g.textAlign='center'; g.textBaseline='middle'; g.fillText(nm0,px,y+u*2.2);
-          g.fillStyle='#FF5A1A'; g.font='900 '+Math.max(9,Math.round(u*1.9))+'px "NEXON Kart Gothic",sans-serif'; g.fillText('본부 Lv.'+e.I.hallLv,px,y+u*5.6); }
+          g.fillStyle='#FF5A1A'; g.font='900 '+Math.max(9,Math.round(u*1.9))+'px "NEXON Kart Gothic",sans-serif'; g.fillText('본부 Lv.'+e.I.hallLv,px,y+u*5.6); wNameX(g,px,y,u,tm,e.I,s); }
+        else if(e.k==='ft') wFootDraw(g,px,py,u,e);
         else if(e.k==='owner'){ const m2=(s.members||[]).find(x=>x.uid===e.uid); if(m2){ const zz=!isOnline(m2);
             if(zz){ const br=1+Math.sin(tm*1.6+e.gx)*.025; g.save(); g.translate(px,py); g.scale(1,br); g.translate(-px,-py); wDrawChar(g,px,py+u*.6,u*.95,avatarOf(m2),.45,0,false,dispName(m2)+' · 쿨쿨',false,{}); g.restore(); wSleepZ(g,px,py,u,tm,e.gx); }
             else wDrawChar(g,px,py,u*.95,avatarOf(m2),Math.sin(tm*.6+e.gx)*.8+.4,tm+e.gx,false,dispName(m2),false,{wave:Math.sin(tm*.5+e.gx)>.92}); } }
         else if(e.k==='builder') wDrawChar(g,px,py,u*.7,{base:'robot',color:'orange'},-2.4,tm,false,null,false,{hammer:true,hat:true});
+        else if(e.k==='me'&&s.me.emo&&wEmoOn(s.me.emo)){ wDrawEmo(g,px,py,u*.95,tm,avatarOf(s.meM),s.me.yaw,dispName(s.meM),true,{ph:s.me.ph,eq:rpgEqLook(rpgOf(s.meM))},s.me.emo); if(s.me.say&&Date.now()-s.me.say.at<7000) wBubble(g,px,py-u*21,s.me.say,u); }
         else if(e.k==='me'){ const em=s.me.emote&&pnow<s.me.emote; const hop=em?Math.abs(Math.sin((s.me.emote-pnow)/1400*Math.PI*3))*u*3:0; const bob=s.me.walk?Math.abs(Math.sin(s.me.ph*.5))*u*.7:Math.sin(tm*2)*u*.12; wDrawChar(g,px,py-hop-bob,u*.95,avatarOf(s.meM),em?0.4:s.me.yaw,tm,s.me.walk,dispName(s.meM),true,{wave:em,ph:s.me.ph,eq:rpgEqLook(rpgOf(s.meM))}); if(em&&s.me.emoji){ g.font=(u*5)+'px sans-serif'; g.textAlign='center'; g.fillText(s.me.emoji,px,py-u*22-hop); }  if(s.me.say&&Date.now()-s.me.say.at<7000) wBubble(g,px,py-u*21,s.me.say,u); }
         else if(e.k==='npc'){ const n=e.n; wDrawChar(g,px,py-(n.walk?Math.abs(Math.sin(n.ph*.5))*u*.6:0),u*.9,avatarOf(n.m),n.yaw,tm+n.x,n.walk,dispName(n.m),false,{wave:n.wave>pnow,ph:n.ph}); }
         else if(e.k==='fn'){ const n=e.n, D=n.def; wDrawChar(g,px,py-(n.walk?Math.abs(Math.sin(n.ph*.5))*u*.6:Math.sin(tm*2+n.x)*u*.12),u*.92,D.av,n.yaw,tm+n.x,n.walk,null,false,{ph:n.ph,wave:n.talk>pnow});
@@ -495,7 +509,8 @@ function WorldBeta({c,onClose}){
           if(D.gift&&!s.npcGot){ const by=py-u*23+Math.sin(tm*4)*u*.6; g.fillStyle='#FFD54A'; g.beginPath(); g.arc(px,by,u*2.2,0,Math.PI*2); g.fill(); g.fillStyle='#7A4E00'; g.font='900 '+Math.round(u*3)+'px sans-serif'; g.fillText('!',px,by+1); }
           if(n.say&&pnow<n.talk) wBubble(g,px,py-u*(D.gift&&!s.npcGot?27:21),{t:n.say},u);
           s.npcHit.push({id:D.id,x:px,y:py-u*8,r:Math.max(30,u*8)}); }
-        else if(e.k==='ol'){ const o=e.o; wDrawChar(g,px,py-(o.walk?Math.abs(Math.sin(o.ph*.5))*u*.7:0),u*.95,avatarOf(o.m),o.yaw,tm+o.x,o.walk,dispName(o.m),false,{ph:o.ph,on:true,eq:rpgEqLook(rpgOf(o.m))}); if(o.say&&Date.now()-o.say.at<7000) wBubble(g,px,py-u*21,o.say,u); }
+        else if(e.k==='ol'&&!e.o.walk&&e.o.emo&&wEmoOn(e.o.emo)){ const o=e.o; wDrawEmo(g,px,py,u*.95,tm,avatarOf(o.m),o.yaw,dispName(o.m),false,{ph:o.ph,on:true,eq:rpgEqLook(rpgOf(o.m))},o.emo); if(s.pty&&s.pty.has(o.m.uid)) wPartyTag(g,px,py,u); if(o.say&&Date.now()-o.say.at<7000) wBubble(g,px,py-u*21,o.say,u); }
+        else if(e.k==='ol'){ const o=e.o; if(s.pty&&s.pty.has(o.m.uid)) wPartyTag(g,px,py,u); wDrawChar(g,px,py-(o.walk?Math.abs(Math.sin(o.ph*.5))*u*.7:0),u*.95,avatarOf(o.m),o.yaw,tm+o.x,o.walk,dispName(o.m),false,{ph:o.ph,on:true,eq:rpgEqLook(rpgOf(o.m))}); if(o.say&&Date.now()-o.say.at<7000) wBubble(g,px,py-u*21,o.say,u); }
         else if(e.k==='ghost'){ const gh=e.gh; g.fillStyle=gh.ok?'rgba(124,217,87,.45)':'rgba(255,70,70,.45)'; diamond(e.gx,e.gy,e.w,e.h); g.fill(); g.strokeStyle=gh.ok?'rgba(200,255,180,.9)':'rgba(255,170,170,.9)'; g.lineWidth=2; g.stroke();
           g.save(); g.globalAlpha=.55+.25*Math.sin(tm*5); drawIt(itType(gh,e.w,e.h),px,py-u*(1+Math.sin(tm*5)*.6),u,tm,1,gh.lv||1,gh.r,W_SC[gh.t]||1); g.restore(); }
       }
@@ -522,6 +537,7 @@ function WorldBeta({c,onClose}){
           const rg=g.createRadialGradient(px,py-u*7,0,px,py-u*7,u*12); rg.addColorStop(0,'rgba(255,190,110,'+(.35*night)+')'); rg.addColorStop(1,'rgba(255,190,110,0)'); g.fillStyle=rg; g.fillRect(px-u*12,py-u*19,u*24,u*24); }
         g.globalCompositeOperation='source-over';
         for(let i=0;i<40;i++){ const x=wHash(i,9,9)*s.vw, y=wHash(i,5,5)*s.vh*.5; const tw=.5+.5*Math.sin(tm*2+i); g.fillStyle='rgba(255,255,255,'+(night*.7*tw)+')'; g.fillRect(x,y,i%7?1.6:2.4,i%7?1.6:2.4); } }
+      if(s.xm) wSnowFx(g,s,tm);
       /* 효과 */
       s.fx=s.fx.filter(f=>pnow-f.at<1600);
       for(const f of s.fx){ const [px,py]=scr(f.gx,f.gy); const k=(pnow-f.at)/1600;
@@ -543,12 +559,15 @@ function WorldBeta({c,onClose}){
     s.fnpc=W_NPC.map(D=>({def:D,x:D.home[0],y:D.home[1],path:[],yaw:Math.random()*6,ty:0,wait:1+Math.random()*3,ph:0,v:0,talk:0,say:null,li:0}));
     s.npcGot=lsGet(npcGiftKey(),'')==='1';
     const pts=new Map();
-    const down=e=>{ el.setPointerCapture(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]); if(pts.size===1) s.drag={x:e.clientX,y:e.clientY,cx:s.cam.x,cy:s.cam.y,moved:false}; else if(pts.size===2){ const [a,b]=[...pts.values()]; s.pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),z:s.tz}; } };
+    /* v27.5 캐릭터를 꾹 누르면(0.42초) 감정 휠 */
+    const lpChk=e=>{ clearTimeout(s.lpT); if(s.mode!=='view'||!s.onLong) return; const r=el.getBoundingClientRect(); const sx=e.clientX-r.left, sy=e.clientY-r.top; const [mx,my]=scr(s.me.x,s.me.y); const u0=WCF.TW*s.cam.z/17;
+      if(Math.hypot(sx-mx,sy-(my-u0*8))>Math.max(36,u0*9)) return; s.lpT=setTimeout(()=>{ const D=s.drag; if(D&&!D.moved){ D.moved=true; D.lp=true; haptic([12,30,14]); s.onLong(mx,my-u0*9); } },420); };
+    const down=e=>{ el.setPointerCapture(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]); if(pts.size===1){ s.drag={x:e.clientX,y:e.clientY,cx:s.cam.x,cy:s.cam.y,moved:false}; lpChk(e); } else if(pts.size===2){ clearTimeout(s.lpT); const [a,b]=[...pts.values()]; s.pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),z:s.tz}; } };
     const move=e=>{ if(!pts.has(e.pointerId)) return; pts.set(e.pointerId,[e.clientX,e.clientY]);
       if(pts.size===2&&s.pinch){ const [a,b]=[...pts.values()]; const d=Math.hypot(a[0]-b[0],a[1]-b[1]); s.tz=Math.max(.42,Math.min(2.4,s.pinch.z*d/s.pinch.d)); if(s.drag) s.drag.moved=true; return; }
-      const D=s.drag; if(!D) return; const dx=e.clientX-D.x, dy=e.clientY-D.y; if(Math.hypot(dx,dy)>6){ D.moved=true; s.follow=false; }
+      const D=s.drag; if(!D||D.lp) return; const dx=e.clientX-D.x, dy=e.clientY-D.y; if(Math.hypot(dx,dy)>6){ D.moved=true; s.follow=false; clearTimeout(s.lpT); }
       if(D.moved){ const z=s.cam.z; const a=(-dx/z)/(WCF.TW/2), b=(-dy/z)/(WCF.TH/2); s.cam.x=D.cx+(a+b)/2; s.cam.y=D.cy+(b-a)/2; } };
-    const up=e=>{ pts.delete(e.pointerId); if(pts.size<2) s.pinch=null; const D=s.drag; if(pts.size===0) s.drag=null; if(!D||D.moved) return;
+    const up=e=>{ clearTimeout(s.lpT); pts.delete(e.pointerId); if(pts.size<2) s.pinch=null; const D=s.drag; if(pts.size===0) s.drag=null; if(!D||D.moved) return;
       const r=el.getBoundingClientRect(); const sx=e.clientX-r.left, sy=e.clientY-r.top; const [wx,wy]=unscr(sx,sy); const tx=Math.round(wx), ty=Math.round(wy);
       s.onTap&&s.onTap(tx,ty,s.W.T.get(tx+','+ty),sx,sy); };
     const wheel=e=>{ e.preventDefault(); s.tz=Math.max(.42,Math.min(2.4,s.tz*(e.deltaY>0?.9:1.1))); };
@@ -557,8 +576,9 @@ function WorldBeta({c,onClose}){
   },[]);
   /* 크루원 섬 방문 보상: 섬마다 하루 한 번 벽돌 +15 */
   useEffect(()=>{ const s=S.current; if(!s||!mine) return; const T=s.W.T.get(Math.round(s.me.x)+','+Math.round(s.me.y)); if(!T||!T.isl||T.isl==='center'||T.isl===c.uid) return;
+    { const fk='ft:'+T.isl; if(Date.now()-(visRef.current[fk]||0)>3600000){ visRef.current[fk]=Date.now(); const o0=isl.find(x=>x.uid===T.isl); if(o0&&c.footIsland) c.footIsland(o0); } }
     const day=dayKey(); const V=mine.visits&&mine.visits.d===day?mine.visits:{d:day,ids:[]}; if(V.ids.includes(T.isl)||visRef.current[T.isl]===day) return; visRef.current[T.isl]=day;
-    const o=isl.find(x=>x.uid===T.isl); save(mark('visit',{visits:{d:day,ids:[...V.ids,T.isl]},bricks:mine.bricks+15})); s.fx.push({k:'txt',gx:s.me.x,gy:s.me.y,at:performance.now(),txt:'+15',ic:'brick'}); c.notify((o?o.name:'크루원 섬')+' 방문 보상 · 벽돌 +15'); haptic(12); });
+    const o=isl.find(x=>x.uid===T.isl); save(mark('visit',{visits:{d:day,ids:[...V.ids,T.isl]},bricks:mine.bricks+15})); s.fx.push({k:'txt',gx:s.me.x,gy:s.me.y,at:performance.now(),txt:'+15',ic:'brick'}); wDyn({ic:'foot',col:'#FFB15C',lab:'섬 방문',t:(o?o.name:'크루원 섬')+'에 발자국을 남겼어요',b:'방문 보상 · 벽돌 +15 · 방명록도 남겨 봐요',gl:'방명록',go:()=>{ if(o){ closeAll(); setGbk(o.uid); } },dur:4200}); wQ('visit'); haptic(12); });
   /* 땅 넓히기 후보: 내 땅과 맞닿은 바다 · 다리 · 이웃 섬 가장자리 */
   const landC=useMemo(()=>{ if(!mine) return []; const T=W.T; const out=new Map(); const itemAt=new Set();
     isl.forEach(I=>{ const L=W.L.find(l=>l.uid===I.uid); if(L) I.items.forEach(it=>wCells(it).forEach(([a,b])=>itemAt.add((L.cx+a)+','+(L.cy+b)))); });
@@ -569,17 +589,17 @@ function WorldBeta({c,onClose}){
     return [...out.values()]; },[W,c.uid,!!mine,isl]);
   /* 렌더 상태 동기화 */
   useEffect(()=>{ const s=S.current; if(!s) return; s.W=W; s.isl=isl; s.mode=mode; s.members=c.members; s.meM=c.me; s.ghost=ghost; s.sel=sel; s.landC=landC; s.lsel=lsel;
-    s.arrive=()=>sendHere(); s.onNear=k=>setNear(k);
+    s.arrive=()=>sendHere(); s.onNear=k=>setNear(k); s.xm=xmOn; s.top=topU; s.rec=recM; s.pty=ptyS; s.onLong=(x,y)=>{ setChat(false); setEw([x,y]); };
     const blk=new Set(); const add=(x,y)=>{ const t0=W.T.get(x+','+y); if(t0&&(t0.t==='bridge'||t0.t==='path')) return; blk.add(x+','+y); };
     isl.forEach(I=>{ const L=W.L.find(l=>l.uid===I.uid); if(!L) return; I.items.forEach(it=>{ if(W_WALK.has(it.t)) return; wCells(it).forEach(([a,b])=>add(L.cx+a,L.cy+b)); }); wObstacles(I,I.uid).forEach(o=>{ if(o.t!=='ob_weed') add(L.cx+o.x,L.cy+o.y); }); });
-    W_LM.forEach(l=>{ for(let i=0;i<3;i++) for(let j=0;j<3;j++) add(l.x+i,l.y+j); }); W_CDECO.forEach(([x,y,t])=>{ if(!W_WALK.has(t)) wCells({t},x,y).forEach(([a,b])=>add(a,b)); });
+    W_LM.forEach(l=>{ for(let i=0;i<3;i++) for(let j=0;j<3;j++) add(l.x+i,l.y+j); }); wCDeco(xmOn).forEach(([x,y,t])=>{ if(!W_WALK.has(t)) wCells({t},x,y).forEach(([a,b])=>add(a,b)); });
     s.blk=blk;
     isl.forEach(I=>{ const L=W.L.find(l=>l.uid===I.uid); if(!L) return; const sp=[[0,2],[1,2],[-1,2],[2,1],[2,0],[2,2],[-2,2],[0,3],[1,3],[3,0],[2,-1],[-3,0]].map(([a,b])=>[L.cx+a,L.cy+b]).find(([x,y])=>{ const T=W.T.get(x+','+y); return T&&T.isl===I.uid&&!blk.has(x+','+y); }); s.ospot[I.uid]=sp||[L.cx+2,L.cy+2]; });
     /* 접속 중인 크루원: 알려 준 위치까지 걸어가요 */
     const live=new Set();
     online.forEach(I=>{ const m=(c.members||[]).find(x=>x.uid===I.uid); if(!m) return; live.add(I.uid); const h=I.here; let o=s.olc.get(I.uid);
       if(!o){ o={x:h.x,y:h.y,tx:h.x,ty:h.y,path:[],yaw:0,ty0:0,ph:0,v:0,m}; o.ty=0; s.olc.set(I.uid,o); }
-      o.m=m; o.say=h.say||null; if(o.tx!==h.x||o.ty0!==h.y){ o.tx=h.x; o.ty0=h.y; if(Math.hypot(h.x-o.x,h.y-o.y)>40){ o.x=h.x; o.y=h.y; o.path=[]; } else o.path=(s.route&&s.route(o.x,o.y,Math.round(h.x),Math.round(h.y)))||[[h.x,h.y]]; } });
+      o.m=m; o.say=h.say||null; o.emo=h.emo||null; if(o.tx!==h.x||o.ty0!==h.y){ o.tx=h.x; o.ty0=h.y; if(Math.hypot(h.x-o.x,h.y-o.y)>40){ o.x=h.x; o.y=h.y; o.path=[]; } else o.path=(s.route&&s.route(o.x,o.y,Math.round(h.x),Math.round(h.y)))||[[h.x,h.y]]; } });
     for(const k of [...s.olc.keys()]) if(!live.has(k)) s.olc.delete(k);
     if(s.npcs) s.npcs=s.npcs.filter(n=>!live.has(n.m.uid));
   });
@@ -597,7 +617,7 @@ function WorldBeta({c,onClose}){
     for(const [x,y] of fr){ if(s.go(x,y)) break; } s.follow=true; setLm(k); setSel(null); setCard(null); haptic(8); };
   const enterLm=l=>{ haptic(14); if(l.dg){ startDg(l.dg); return; } const s=S.current; if(s){ const [cx2,cy2]=lmC(l); s.follow=false; s.cam.x+=(cx2-s.cam.x)*.5; s.cam.y+=(cy2-s.cam.y)*.5; s.tz=Math.min(2.2,s.cam.z*1.6); } wSfx('door'); setDoor(l); setLm(null); setTimeout(()=>{ onClose(); l.go(c); },950); };
   /* 주민 NPC와 이야기 · 우체부 피피는 하루 한 번 선물 */
-  const talkNpc=id=>{ const s=S.current; if(!s) return; const n=(s.fnpc||[]).find(x=>x.def.id===id); if(!n) return; const D=n.def; n.say=D.lines[n.li++%D.lines.length]; n.talk=performance.now()+4600; n.path=[]; wSfx('npc'); haptic(8);
+  const talkNpc=id=>{ const s=S.current; if(!s) return; const n=(s.fnpc||[]).find(x=>x.def.id===id); if(!n) return; const D=n.def; const Q0=qState().Q; const q0=wNqOf(D.id); const ctx={q:q0,p:Q0.p,got:!!Q0.got[D.id],lv:wAffLv(((mine&&mine.aff)||{})[D.id])}; n.say=wNpcSay(D,n.li++,ctx); if(q0&&!ctx.got&&(Q0.p[q0.k]||0)>=q0.n) setTimeout(()=>claimQ(D.id),500); n.talk=performance.now()+4600; n.path=[]; wSfx('npc'); haptic(8);
     setNpcT({id,t:n.say,k:Date.now()}); setLm(null); setSel(null);
     if(D.gift&&!s.npcGot&&mine){ s.npcGot=true; lsSet(npcGiftKey(),'1'); saveBricks(60); s.fx.push({k:'txt',gx:n.x,gy:n.y,at:performance.now(),txt:'+60',ic:'brick'}); wSfx('gem'); c.notify(D.n+'의 선물 · 벽돌 60개!'); }
     const tx=Math.round(n.x+1), ty=Math.round(n.y+1); s.follow=true; if(Math.hypot(s.me.x-n.x,s.me.y-n.y)>2.2) s.go(tx,ty); };
@@ -607,6 +627,78 @@ function WorldBeta({c,onClose}){
     setTimeout(()=>{ const s=S.current; if(s) s.paused=true; setDg(k); },750); setTimeout(()=>setTp(null),1600); };
   const exitDg=()=>{ const k=dg; setTp({k,dir:'out',key:Date.now()}); wSfx('tp'); setTimeout(()=>wBgm('world'),700); setTimeout(()=>{ setDg(null); const s=S.current; if(s){ s.paused=false; s.wake&&s.wake(); const l=W_LM.find(x=>x.dg===k); if(l) s.jump(l.x+1,l.y+4,1); sendHere(true); } },750); setTimeout(()=>setTp(null),1600); };
   const saveBricks=n=>{ const cc=cRef.current; const I=(cc.islands||[]).find(x=>x.uid===cc.uid); const b0=I?(I.bricks==null?W_START_BRICKS:I.bricks):0; return cc.saveIsland({bricks:b0+n}); };
+  /* ═══ v27.5 월드 대규모 업데이트 1부: 의뢰 · 텃밭 · 방명록 · 감정 · 지도 · 다이나믹 바 ═══ */
+  const closeAll=()=>{ setShop(false); setPpl(false); setMsn(false); setRank(false); setWset(false); setEdit(null); setInfo(null); setGd(null); setGbk(null); setQs(false); setMapO(false); setCard(null); setLm(null); setSel(null); setEw(null); setNpcT(null); };
+  /* NPC 의뢰: 하루 진행 상황을 모아 두었다가 잠깐 뒤에 한 번에 저장 */
+  const qPend=useRef({}); const qT=useRef(0); const qSeen=useRef({});
+  const qState=()=>{ const cc=cRef.current; const I=(cc.islands||[]).find(x=>x.uid===cc.uid); const Q=wNqDay(I); Object.entries(qPend.current).forEach(([k,n])=>{ Q.p[k]=(Q.p[k]||0)+n; }); return {Q,I}; };
+  const qFlush=()=>{ const {Q,I}=qState(); if(!I) return; qPend.current={}; cRef.current.saveIsland({nq:Q}); };
+  const claimQ=id=>{ const {Q,I}=qState(); if(!I) return; const D=W_NPC.find(x=>x.id===id); const q=wNqOf(id); if(!D||!q||Q.got[id]||(Q.p[q.k]||0)<q.n) return;
+    const aff={...(I.aff||{})}; const p0=aff[id]||0, l0=wAffLv(p0); aff[id]=p0+20; const l1=wAffLv(aff[id]); const G=l1>l0?W_AFFG[l1]:null;
+    qPend.current={}; clearTimeout(qT.current); let b=(I.bricks==null?W_START_BRICKS:I.bricks)+W_NQR[id]; if(G&&G.b) b+=G.b;
+    cRef.current.saveIsland({nq:{...Q,got:{...Q.got,[id]:1}},aff,bricks:b});
+    if(G&&G.d) cRef.current.worldCoins(G.d); if(G&&G.item&&cRef.current.giveWorldItem) cRef.current.giveWorldItem('n_'+id);
+    const s=S.current; const n=s&&(s.fnpc||[]).find(x=>x.def.id===id); if(s){ const at=n?[n.x,n.y]:[s.me.x,s.me.y]; s.fx.push({k:'burst',gx:at[0],gy:at[1],at:performance.now()}); s.fx.push({k:'txt',gx:at[0],gy:at[1],at:performance.now(),txt:'+'+W_NQR[id],ic:'brick'}); if(n){ n.say=l1>l0?'우리 이제 '+W_AFFN[l1]+'예요! 선물 받아 줘요♪':'고마워요! 내일 또 부탁해도 될까요?'; n.talk=performance.now()+4200; } }
+    wSfx('gem'); haptic([14,30,20]);
+    wDyn({ic:'heart',col:D.c,lab:D.n,t:l1>l0?'호감도 UP! '+W_AFFN[l1]:'의뢰 완료 · 벽돌 +'+W_NQR[id],b:G?'선물: '+G.t+(G.item?' · 상점 → 선물에서 놓아요':''):'호감도 +20 · '+aff[id]+'/'+(W_AFF[l1+1]||'MAX'),dur:4400}); };
+  useEffect(()=>{ const f=e=>{ const {k,n}=e.detail||{}; if(!k) return; qPend.current[k]=(qPend.current[k]||0)+(n||1); clearTimeout(qT.current); qT.current=setTimeout(qFlush,1500);
+      const {Q}=qState(); W_NPC.forEach(D=>{ const q=wNqOf(D.id); if(!q||q.k!==k||Q.got[D.id]||qSeen.current[D.id]) return; if((Q.p[k]||0)>=q.n){ qSeen.current[D.id]=1; wDyn({id:'nq'+D.id,ic:'scroll',col:D.c,lab:'주민 의뢰',t:D.n+'의 의뢰 완료!',b:'눌러서 보상 받기 · 호감도 +20',gl:'받기',go:()=>claimQ(D.id),dur:5200}); } }); };
+    window.addEventListener('dko-wq',f); return ()=>{ window.removeEventListener('dko-wq',f); clearTimeout(qT.current); if(Object.keys(qPend.current).length) qFlush(); }; },[]);
+  const qReady=mine?W_NPC.some(D=>{ const q=wNqOf(D.id); const Q=wNqDay(mine); return q&&!Q.got[D.id]&&(Q.p[q.k]||0)>=q.n; }):false;
+  const goNpc=id=>{ const s=S.current; const n=s&&(s.fnpc||[]).find(x=>x.def.id===id); if(!n) return; closeAll(); s.follow=true; if(Math.hypot(s.me.x-n.x,s.me.y-n.y)>12) s.jump(n.x+1,n.y+1,1.1); else s.go(Math.round(n.x+1),Math.round(n.y+1)); setTimeout(()=>talkNpc(id),900); };
+  /* 텃밭 */
+  const goPlot=pid=>{ const L=myL(); const it=mine&&mine.items.find(x=>x.i===pid); const s=S.current; if(!L||!it||!s) return; closeAll(); s.jump(L.cx+it.x+1,L.cy+it.y+1,1.15); };
+  const plant=(pid,k)=>{ const C=wCropOf(k); if(!C||!mine) return; if(C.lv>mine.hallLv){ c.notify('본부 Lv.'+C.lv+'부터 심을 수 있어요.','err'); return; } if(wPlotOf(mine,pid)){ c.notify('이미 자라고 있어요.','err'); return; } if(mine.bricks<C.cost){ c.notify('벽돌이 '+(C.cost-mine.bricks)+'개 모자라요.','err'); return; }
+    save({['garden.'+pid]:{c:k,at:Date.now()},bricks:mine.bricks-C.cost}); wQ('plant'); wSfx('pick'); haptic(10); const s=S.current, L=myL(), it=mine.items.find(x=>x.i===pid); if(s&&L&&it) s.fx.push({k:'dust',gx:L.cx+it.x,gy:L.cy+it.y,at:performance.now()}); };
+  const harvest=pids=>{ if(!mine) return; const t=Date.now(); const outs=pids.map(pid=>{ const P=wPlotOf(mine,pid); const end=wPlotEnd(mine,pid); if(!P||t<end) return null; const C=wCropOf(P.c); const n=Math.min(3,wPlotWater(mine,pid,P.at).length); return {pid,C,gain:C.get+Math.round(C.get*.1*n),coin:C.coin||0}; }).filter(Boolean); if(!outs.length) return;
+    const sum=outs.reduce((a,o)=>a+o.gain,0); const patch={bricks:mine.bricks+sum}; outs.forEach(o=>{ patch['garden.'+o.pid]=null; }); save(patch);
+    const coin=outs.reduce((a,o)=>a+o.coin,0); if(coin) c.worldCoins(coin);
+    const s=S.current, L=myL(); if(s&&L) outs.forEach(o=>{ const it=mine.items.find(x=>x.i===o.pid); if(!it) return; s.fx.push({k:'burst',gx:L.cx+it.x,gy:L.cy+it.y,at:performance.now()}); s.fx.push({k:'txt',gx:L.cx+it.x,gy:L.cy+it.y,at:performance.now(),txt:'+'+o.gain,ic:'brick'}); });
+    wQ('harvest',outs.length); wSfx('gem'); haptic([12,24,16]);
+    wDyn({ic:'sprout',col:'#7CD957',lab:'텃밭 수확',t:(outs.length===1?outs[0].C.n:'작물 '+outs.length+'개')+' 수확!',b:'벽돌 +'+sum.toLocaleString()+(coin?' · D-Coin +'+coin:''),dur:3200}); };
+  const waterPlots=(I0,pids)=>{ const t=Date.now(); const L0=pids.filter(pid=>wCanWater(I0,pid,c.uid,t)).map(pid=>({pid,at:wPlotOf(I0,pid).at})); if(!L0.length){ wDyn({ic:'drop',col:'#3FA2F2',t:'지금은 물 줄 작물이 없어요',b:'자라는 작물마다 한 번씩 줄 수 있어요 (작물당 최대 3명)',dur:2800}); return; }
+    c.waterIsland(I0,L0); wQ('water',L0.length); wSfx('pick'); haptic(12); const s=S.current, L=s&&s.W.L.find(l=>l.uid===I0.uid); if(s&&L) L0.forEach(o=>{ const it=I0.items.find(x=>x.i===o.pid); if(it) s.fx.push({k:'txt',gx:L.cx+it.x,gy:L.cy+it.y,at:performance.now(),txt:'물 주기!'}); });
+    wDyn({ic:'drop',col:'#3FA2F2',lab:'물 주기',t:I0.name+' 텃밭에 물을 줬어요',b:'작물 '+L0.length+'개가 20% 더 빨리 자라요',dur:3000}); };
+  const farmTap=(I0,fp,tx,ty)=>{ const s=S.current; const t=Date.now(); haptic(8);
+    if(I0.uid===c.uid){ const end=wPlotEnd(I0,fp.i); if(end&&t>=end){ harvest([fp.i]); return; } setCard(null); setLm(null); if(sel&&sel.i===fp.i){ closeAll(); setGd({pid:fp.i}); return; } setSel({i:fp.i}); return; }
+    if(wPlotOf(I0,fp.i)) waterPlots(I0,[fp.i]); else wDyn({ic:'sprout',col:'#7CD957',t:'아직 아무것도 심지 않은 텃밭이에요',dur:2200}); if(s){ s.follow=true; if(Math.hypot(s.me.x-tx,s.me.y-ty)>2) s.go(tx+1,ty+1); } };
+  const myReady=(()=>{ const L=W.L.find(l=>l.uid===c.uid); if(!mine||!L) return []; return mine.items.filter(it=>{ if(it.t!=='farm') return false; const e=wPlotEnd(mine,it.i); return e&&now>=e; }).map(it=>[L.cx+it.x,L.cy+it.y]); })();
+  /* 방명록 */
+  const gbWrite=(I0,t)=>{ if(!c.guestWrite) return; c.guestWrite(I0,t); wQ('gb'); wSfx('pick'); haptic(10); wDyn({ic:'book',col:'#C29BFF',lab:'방명록',t:'한마디를 남겼어요',b:I0.name+'에 발자국과 함께 남아요',dur:2600}); };
+  const gbDel=(I0,id)=>{ c.guestDel&&c.guestDel(I0,id); haptic(8); };
+  const recClaim=g=>{ if(!mine||!(g>0)) return; save({lkAt:Date.now(),bricks:mine.bricks+g}); wSfx('gem'); haptic([12,24,16]); wDyn({ic:'swords',col:'#FF7A7A',lab:'DKO 전적 보상',t:'벽돌 +'+g.toLocaleString(),b:'내전 · 1대1 기록이 섬에 반영됐어요',dur:3400}); };
+  /* 감정 표현 */
+  const doEmo=k=>{ const s=S.current; if(!s) return; s.me.emo={k,at:Date.now()}; s.me.path=[]; s.mark=null; pingAt.current=0; sendHere(true); setEw(null); wQ('emote'); wSfx('pick'); haptic(10); };
+  const openEmo=()=>{ const s=S.current; if(!s||!s.scr) return; const [x,y]=s.scr(s.me.x,s.me.y); const u0=WCF.TW*s.cam.z/17; closeAll(); setChat(false); setEw([x,y-u0*9]); };
+  /* 지도: 빠른 이동 */
+  const mapGo=(x,y)=>{ const s=S.current; if(!s) return; closeAll(); s.fx.push({k:'dust',gx:s.me.x,gy:s.me.y,at:performance.now()}); s.jump(x,y,1); s.fx.push({k:'burst',gx:s.me.x,gy:s.me.y,at:performance.now()}); wSfx('tp'); haptic([10,20,30]); };
+  const quick=[{k:'c',n:'가운데 섬',ic:'plaza',c:['#FFD54A','#E8900A'],go:()=>{ closeAll(); goCenter(); }},{k:'m',n:'내 섬',ic:'home',c:['#FFB15C','#E8420A'],go:()=>{ closeAll(); goMine(); }},
+    ...W_LM.map(l=>({k:l.k,n:l.n.replace(' 포털',''),ic:l.ic,c:l.c,go:()=>{ closeAll(); if(l.dg) startDg(l.dg); else openLm(l.k); }}))];
+  /* 키보드 */
+  const onKey=code=>{ if(dg) return; const s=S.current; if(!s) return;
+    if(code==='Escape'){ closeAll(); setChat(false); return; }
+    if(code==='KeyM'){ const o=mapO; closeAll(); if(!o) setMapO(true); return; }
+    if(code==='KeyQ'){ if(ew) setEw(null); else openEmo(); return; }
+    if(code==='KeyG'){ closeAll(); setGd(true); return; }
+    if(code==='KeyE'||code==='Space'||code==='Enter'){ if(sheetOpen||mode!=='view') return; const l=near&&W_LM.find(x=>x.k===near); if(l){ enterLm(l); return; } const n=(s.fnpc||[]).map(n=>({n,d:Math.hypot(n.x-s.me.x,n.y-s.me.y)})).sort((a,b)=>a.d-b.d)[0]; if(n&&n.d<2.8) talkNpc(n.n.def.id); } };
+  /* 월드 다이나믹 바: 텃밭 다 자람 · 물 주기 · 방명록 · 크루 입장 · 파티 · DKO 전적 */
+  const dySeen=useRef(null);
+  useEffect(()=>{ if(!mine) return; let first=false; if(!dySeen.current){ let raw=null; try{ raw=localStorage.getItem('dko-gd-seen'); }catch(e){} first=!raw; try{ dySeen.current=new Set(JSON.parse(raw||'[]')); }catch(e){ dySeen.current=new Set(); } }
+    const t=Date.now(); const S0=dySeen.current; let ch=false;
+    mine.items.filter(x=>x.t==='farm').forEach(it=>{ const P=wPlotOf(mine,it.i); if(!P) return; const end=wPlotEnd(mine,it.i); const key='r:'+it.i+':'+P.at; const C=wCropOf(P.c);
+      if(t>=end&&!S0.has(key)){ S0.add(key); ch=true; wDyn({id:key,ic:'sprout',col:'#7CD957',lab:'텃밭',t:C.n+' 다 자랐어요!',b:'눌러서 수확하러 가기',gl:'가기',go:()=>goPlot(it.i),dur:5200}); }
+      wPlotWater(mine,it.i,P.at).forEach(([k])=>{ const wk='w:'+k+':'+P.at; if(S0.has(wk)) return; S0.add(wk); ch=true; if(first) return; const m0=c.members.find(x=>x.uid===k.slice(it.i.length+1)); wDyn({id:wk,ic:'drop',col:'#3FA2F2',lab:'물 주기',t:(m0?dispName(m0):'크루')+'님이 '+C.n+'에 물을 줬어요',b:'20% 더 빨리 자라요 · 수확 보너스 +10%',go:()=>goPlot(it.i),dur:3800}); }); });
+    Object.entries(mine.gb||{}).forEach(([id,e])=>{ if(!e||!e.t||e.u===c.uid) return; const gk='gb:'+id; if(S0.has(gk)) return; S0.add(gk); ch=true; if(first||t-e.at>7*86400000) return; const m0=c.members.find(x=>x.uid===e.u); wDyn({id:gk,ic:'book',col:'#C29BFF',lab:'방명록',t:(m0?dispName(m0):'크루')+': '+String(e.t).slice(0,22),b:'내 섬 방명록에 한마디를 남겼어요',gl:'보기',go:()=>{ closeAll(); setGbk(c.uid); },dur:4600}); });
+    (c.parties||[]).forEach(p=>{ if(!(p.participants||[]).some(x=>x.uid===c.uid)||!p.at) return; const pk='p:'+p.id+':'+p.at; if(S0.has(pk)) return; if(t>=p.at-5*60000&&t<p.at+30*60000){ S0.add(pk); ch=true; wDyn({id:pk,ic:'users',col:'#FF8A3D',lab:'파티',t:(p.title||'파티')+(t>=p.at?' 시작했어요!':' 곧 시작해요'),b:'눌러서 파티 로비로 가기',gl:'로비',go:()=>leave(()=>c.setLobby&&c.setLobby(p.id)),dur:6000}); } });
+    if(ch){ try{ localStorage.setItem('dko-gd-seen',JSON.stringify([...S0].slice(-500))); }catch(e){} } });
+  const olSeen=useRef(null); const olKey=online.map(I=>I.uid).sort().join(',');
+  useEffect(()=>{ const ids=online.map(I=>I.uid); if(olSeen.current==null){ olSeen.current=new Set(ids); return; }
+    ids.forEach(u=>{ if(olSeen.current.has(u)) return; olSeen.current.add(u); const m0=c.members.find(x=>x.uid===u); const I=online.find(x=>x.uid===u); const pt=ptyS.has(u); if(m0) wDyn({id:'ol'+u,ic:'users',col:pt?'#FF8A3D':'#3DDC84',lab:pt?'파티원':'크루',t:dispName(m0)+'님이 월드에 들어왔어요',b:'눌러서 옆으로 가기',go:()=>{ const s=S.current; if(s&&I&&I.here) s.jump(I.here.x+1,I.here.y+1,1.1); },dur:3600}); });
+    [...olSeen.current].forEach(u=>{ if(!ids.includes(u)) olSeen.current.delete(u); }); },[olKey]);
+  const recGain=mine?wRecGain(wRecOf(c,c.uid,mine.lkAt||Date.now()-7*86400000)):0; const recRef=useRef(0);
+  useEffect(()=>{ if(recGain>recRef.current&&mine){ const first=recRef.current===0; recRef.current=recGain; setTimeout(()=>wDyn({id:'rec'+recGain,ic:'swords',col:'#FF7A7A',lab:'DKO 연동',t:first?'내전 · 1대1 전적 보상이 쌓였어요':'새 전적이 월드에 반영됐어요',b:'벽돌 +'+recGain.toLocaleString()+' 받으러 가기',gl:'받기',go:()=>{ closeAll(); setRtab('rec'); setRank(true); },dur:5200}),first?2600:0); } else if(recGain<recRef.current) recRef.current=recGain; },[recGain,!!mine]);
+  useEffect(()=>{ if(!mine) return; let seen=false; try{ seen=localStorage.getItem('dko-w275')==='1'; }catch(e){} if(seen) return; const t=setTimeout(()=>{ try{ localStorage.setItem('dko-w275','1'); }catch(e){} wDyn({ic:'emote',col:'#FF8FB0',lab:'새 기능',t:'캐릭터를 꾹 누르면 감정 표현!',b:'PC는 WASD로 걷고 Q 감정 · M 지도 · E 들어가기',dur:6000}); },3400); return ()=>clearTimeout(t); },[!!mine]);
+  useEffect(()=>{ document.documentElement.classList.toggle('dko-wopen',!dg); return ()=>document.documentElement.classList.remove('dko-wopen'); },[!!dg]);
   /* 월드 채팅: 접속한 크루의 말풍선을 모아 보여 줘요 */
   const sendSay=(t,emo)=>{ t=String(t||'').trim().slice(0,60); if(!t) return; const s=S.current; s.me.say={t,at:Date.now()}; if(emo){ s.me.emote=performance.now()+1400; s.me.emoji=t; } pingAt.current=0; sendHere(true); c.sendMessage(t,'world'); setCtext(''); haptic(8); tick(x=>x+1); };
   const sendStk=id=>{ const s=S.current; s.me.say={st:id,t:'',at:Date.now()}; s.me.emote=performance.now()+1200; s.me.emoji=null; pingAt.current=0; sendHere(true); c.sendSticker(id,'world'); haptic(10); tick(x=>x+1); };
@@ -633,6 +725,7 @@ function WorldBeta({c,onClose}){
       const hit=(s.lmHit||[]).filter(h=>Math.hypot(h.x-sx,h.y-sy)<h.r).sort((a,b)=>Math.hypot(a.x-sx,a.y-sy)-Math.hypot(b.x-sx,b.y-sy))[0];
       if(hit){ openLm(hit.k); return; }
       const lmT=W_LM.find(l=>tx>=l.x&&tx<=l.x+2&&ty>=l.y&&ty<=l.y+2); if(lmT){ openLm(lmT.k); return; }
+      if(T&&T.isl&&T.isl!=='center'){ const I0=isl.find(x=>x.uid===T.isl); const L0=I0&&s.W.L.find(l=>l.uid===I0.uid); const fp=L0&&I0.items.find(x=>x.t==='farm'&&x.x===tx-L0.cx&&x.y===ty-L0.cy); if(fp){ farmTap(I0,fp,tx,ty); return; } }
       if(T&&T.isl===c.uid&&mine&&L){ const lx=tx-L.cx, ly=ty-L.cy; const it=mine.items.find(x=>wCells(x).some(([a,b])=>a===lx&&b===ly)); const ob=wObstacles(mine,c.uid).find(o=>o.x===lx&&o.y===ly);
         if(it){ if(it.t==='mine'&&it.lv>=1&&!(it.up&&it.up.end>Date.now())&&wMineStock(it,Date.now())>=1&&(!sel||sel.i!==it.i)){ collect(it); } setSel({i:it.i}); setCard(null); setLm(null); haptic(8); return; }
         if(ob){ setSel({ob:ob.k}); setCard(null); setLm(null); haptic(8); return; } }
@@ -646,12 +739,13 @@ function WorldBeta({c,onClose}){
   const builders=mine?wBuilders(mine):1, busy=mine?wBusy(mine,now):0;
   const pay=(cost,cb)=>{ if(cost.b&&bricks<cost.b){ c.notify('벽돌이 '+(cost.b-bricks)+'개 모자라요. 벽돌 공방에서 모아 보세요.','err'); return; }
     if(cost.d){ if(coins<cost.d){ c.notify('D-Coin이 '+(cost.d-coins)+'개 모자라요.','err'); return; } c.worldCoins(-cost.d).then(ok=>{ if(ok) cb(); }); return; } cb(); };
-  const collect=it=>{ const st=wMineStock(it,Date.now()); if(st<1) return; const items=mine.items.map(x=>x.i===it.i?{...x,c:Date.now()}:x); save(mark('col',{items,bricks:bricks+st})); haptic(12);
+  const collect=it=>{ const st=wMineStock(it,Date.now()); if(st<1) return; const items=mine.items.map(x=>x.i===it.i?{...x,c:Date.now()}:x); save(mark('col',{items,bricks:bricks+st})); haptic(12); wQ('col');
     const s=S.current, L=myL(); if(s&&L){ const el=document.querySelector('.wb20-res .bk'); const r=el?el.getBoundingClientRect():{left:30,top:40,width:20,height:20}; s.fx.push({k:'bricks',gx:L.cx+it.x+.5,gy:L.cy+it.y+.5,at:performance.now(),tx:r.left+r.width/2,ty:r.top+r.height/2}); s.fx.push({k:'txt',gx:L.cx+it.x+.5,gy:L.cy+it.y+.5,at:performance.now(),txt:'+'+st,ic:'brick'}); } };
   const startPlace=(t,isGift)=>{ if(!mine) return; const C=W_CAT[t]; const hl=mine.hallLv;
     if(isGift){ const sh={t}; const f=findFree(sh); if(!f){ c.notify('놓을 빈 땅이 없어요. 땅을 넓히거나 장애물을 치워 보세요.','err'); return; } const [lx,ly]=f; const L=myL(); setShop(false); setSel(null); setLm(null); setMode('place'); setGhost({t,gx:L.cx+lx,gy:L.cy+ly,lx,ly,ok:true,gift:true}); S.current.jump(L.cx+lx+1,L.cy+ly+1); return; }
     if(wCount(mine,t)>=wMaxOf(t,hl)){ c.notify(C.req&&hl<C.req?'섬 본부 '+C.req+'레벨이 필요해요.':'지금은 더 지을 수 없어요. 본부를 올려 보세요.','err'); return; }
-    if((C.cat==='deco'||C.cat==='gem')&&wDecoCount(mine)>=W_DECO_MAX[hl]){ c.notify('장식은 본부 '+hl+'레벨에서 '+W_DECO_MAX[hl]+'개까지예요.','err'); return; }
+    if(C.cat==='xmas'&&!wXmas()){ c.notify('연말 장식은 시즌(11/15 ~ 1/6)에만 지을 수 있어요.','err'); return; }
+    if((C.cat==='deco'||C.cat==='gem'||C.cat==='xmas')&&wDecoCount(mine)>=W_DECO_MAX[hl]){ c.notify('장식은 본부 '+hl+'레벨에서 '+W_DECO_MAX[hl]+'개까지예요.','err'); return; }
     if(C.time&&busy>=builders){ c.notify('건축가가 모두 일하는 중이에요. 끝나거나 시간을 단축하면 지을 수 있어요.','err'); return; }
     if(C.b&&bricks<C.b){ c.notify('벽돌이 '+(C.b-bricks)+'개 모자라요.','err'); return; } if(C.d&&coins<C.d){ c.notify('D-Coin이 '+(C.d-coins)+'개 모자라요.','err'); return; }
     const sh={t}; const f=findFree(sh); if(!f){ c.notify('놓을 빈 땅이 없어요. 땅을 넓히거나 장애물을 치워 보세요.','err'); return; } const [lx,ly]=f; const L=myL(); setShop(false); setSel(null); setLm(null); setMode('place'); setGhost({t,gx:L.cx+lx,gy:L.cy+ly,lx,ly,ok:true});
@@ -659,13 +753,13 @@ function WorldBeta({c,onClose}){
   const confirmPlace=()=>{ const gh=ghost; if(!gh||!gh.ok) return; const C=W_CAT[gh.t];
     if(mode==='move'){ const items=mine.items.map(x=>x.i===sel.i?{...x,x:gh.lx,y:gh.ly,r:gh.r?1:0}:x); save({items}); S.current.pop[sel.i]=performance.now(); setMode('view'); setGhost(null); haptic(10); return; }
     if(gh.gift){ c.takeWorldGift({item:gh.t}).then(ok=>{ if(!ok){ c.notify('선물함에 그 장식이 없어요.','err'); return; } const id=gh.t+Date.now().toString(36); const rr0=gh.r?{r:1}:{};
-        save({items:[...mine.items,{i:id,t:gh.t,x:gh.lx,y:gh.ly,lv:1,...rr0}]},wName(gh.t)+'을(를) 놓았어요!'); const s=S.current; const [w,h]=wSz(gh); s.pop[id]=performance.now(); s.fx.push({k:'burst',gx:gh.gx+(w-1)/2,gy:gh.gy+(h-1)/2,at:performance.now()}); setMode('view'); setGhost(null); setSel({i:id}); haptic(14); }); return; }
+        save({items:[...mine.items,{i:id,t:gh.t,x:gh.lx,y:gh.ly,lv:1,...rr0}]},wName(gh.t)+'을(를) 놓았어요!'); const s=S.current; const [w,h]=wSz(gh); s.pop[id]=performance.now(); s.fx.push({k:'burst',gx:gh.gx+(w-1)/2,gy:gh.gy+(h-1)/2,at:performance.now()}); setMode('view'); setGhost(null); setSel({i:id}); haptic(14); wQ('build'); }); return; }
     pay({b:C.b||0,d:C.d||0},()=>{ const id=gh.t+Date.now().toString(36); const t=Date.now(); const rr0=gh.r?{r:1}:{};
       const it=C.time?{i:id,t:gh.t,x:gh.lx,y:gh.ly,lv:0,...rr0,up:{to:1,st:t,end:t+C.time*1000}}:{i:id,t:gh.t,x:gh.lx,y:gh.ly,lv:1,...rr0};
       if(gh.t==='mine'&&!C.time) it.c=t;
       save({items:[...mine.items,it],bricks:bricks-(C.b||0)},C.time?wName(gh.t)+' 공사를 시작했어요!':null);
       const s=S.current; const [w,h]=wSz(gh); s.pop[id]=performance.now(); s.fx.push({k:'dust',gx:gh.gx+(w-1)/2,gy:gh.gy+(h-1)/2,at:performance.now()}); if(!C.time) s.fx.push({k:'burst',gx:gh.gx+(w-1)/2,gy:gh.gy+(h-1)/2,at:performance.now()});
-      setMode('view'); setGhost(null); setSel({i:id}); haptic(14); }); };
+      setMode('view'); setGhost(null); setSel({i:id}); haptic(14); wQ('build'); }); };
   const cancelPlace=()=>{ setMode('view'); setGhost(null); };
   const rotGhost=()=>setGhost(g0=>{ if(!g0) return g0; const n={...g0,r:!g0.r}; n.ok=freeAt(n.lx,n.ly,mode==='move'&&sel?sel.i:null,n); return n; });
   const selIt=sel&&sel.i&&mine?mine.items.find(x=>x.i===sel.i):null;
@@ -682,7 +776,7 @@ function WorldBeta({c,onClose}){
   const speed=async it=>{ const rem=(it.up.end-Date.now())/1000; const d=wSpeedCost(rem);
     if(!(await dkoAsk('D-Coin '+d+'개로 남은 '+wFmtT(rem)+'을(를) 바로 끝낼까요?'))) return;
     pay({d},()=>{ const items=mine.items.map(x=>x.i===it.i?{...x,up:{...x.up,end:Date.now()-1}}:x); save({items}); }); };
-  const remove=async it=>{ const C=W_CAT[it.t]; if(C.cat!=='deco'&&C.cat!=='gem') return; if(!(await dkoAsk(wName(it.t)+'을(를) 치울까요? '+(C.b?'벽돌 '+Math.floor(C.b/2)+'개를 돌려받아요.':'스페셜 장식은 돌려받을 수 없어요.')))) return;
+  const remove=async it=>{ const C=W_CAT[it.t]; if(C.cat!=='deco'&&C.cat!=='gem'&&C.cat!=='xmas'&&it.t!=='farm') return; if(it.t==='farm'&&wPlotOf(mine,it.i)&&!(await dkoAsk('작물이 자라고 있어요. 텃밭을 치우면 작물도 사라져요. 그래도 치울까요?'))) return; if(!(await dkoAsk(wName(it.t)+'을(를) 치울까요? '+(C.b?'벽돌 '+Math.floor(C.b/2)+'개를 돌려받아요.':'스페셜 장식은 돌려받을 수 없어요.')))) return;
     save({items:mine.items.filter(x=>x.i!==it.i),bricks:bricks+(C.b?Math.floor(C.b/2):0)}); const L=myL(); if(L) S.current.fx.push({k:'dust',gx:L.cx+it.x,gy:L.cy+it.y,at:performance.now()}); setSel(null); };
   const clearOb=o=>{ if(mine.clr&&mine.clr.end>Date.now()){ c.notify('지금 다른 장애물을 치우는 중이에요.','err'); return; } const ob=W_OB[o.t];
     pay({b:ob.cost},()=>{ save(mark('ob',{bricks:bricks-ob.cost,clr:{k:o.k,t:o.t,end:Date.now()+W_OB_TIME}})); setSel(null); haptic(10); }); };
@@ -705,34 +799,40 @@ function WorldBeta({c,onClose}){
   const lmD=lm&&W_LM.find(x=>x.k===lm);
   const totStock=mine?mine.items.filter(it=>it.t==='mine'&&!(it.up&&it.up.end>now)).reduce((s0,it)=>s0+wMineStock(it,now),0):0;
   const meHere=S.current?{x:S.current.me.x,y:S.current.me.y}:null;
+  const sheetOpen=!!(shop||ppl||msn||rank||wset||edit||info||cedit||hallIn||gd||gbk||qs||mapO);
   return ReactDOM.createPortal(html`<div className="wb20">
     <canvas ref=${cv} className="wb20-cv" aria-label="DKO 월드"></canvas>
-    <div className="wb20-top">
-      <button className="wb20-ib tap" onClick=${leave} aria-label="나가기"><${Icon} n="chevL" s=${20} w=${2.4}/></button>
-      <div className="wb20-tt"><b>DKO 월드</b><span>섬 ${isl.length}개 · ${(()=>{ const h=new Date().getHours(); return h>=19||h<6?'밤':h>=17?'노을':'낮'; })()}</span></div>
-      <button className="wb20-ib tap wo26-btn" onClick=${()=>setPpl(true)} aria-label="접속 중인 크루"><${Icon} n="users" s=${18}/><em>${online.length+1}</em></button>
-      <button className="wb20-ib tap wb23-msn" onClick=${()=>setMsn(true)} aria-label="오늘의 섬 미션"><${Icon} n="target" s=${18}/>${mine&&!dayD(mine).got&&['col','ob','visit'].every(k=>dayD(mine)[k])?html`<i></i>`:null}</button>
-      <button className="wb20-ib tap" onClick=${()=>setRank(true)} aria-label="섬 랭킹"><${Icon} n="trophy" s=${18}/></button>
-      <button className="wb20-ib tap" onClick=${()=>setWset(true)} aria-label="월드 설정"><${Icon} n="gear" s=${18}/></button>
-      <div className="wb20-res">
-        <span className="bk"><${BrickIc} s=${18}/><b>${bricks.toLocaleString()}</b></span>
-        <span className="dc"><${Coin} s=${16}/><b>${coins.toLocaleString()}</b></span>
-        <span className="bd" title="건축가"><${Icon} n="tool" s=${14} w=${2.4}/><b>${builders-busy}/${builders}</b></span>
+    ${!dg?html`<div className="wt69">
+      <button className="wt69-b tap" onClick=${leave} aria-label="나가기"><${Icon} n="chevL" s=${20} w=${2.6}/></button>
+      <div className="wb20-res wt69-r">
+        <span className="bk"><${BrickIc} s=${17}/><b>${bricks.toLocaleString()}</b></span>
+        <span className="dc"><${Coin} s=${15}/><b>${coins.toLocaleString()}</b></span>
+        <span className="bd" title="건축가"><${Icon} n="tool" s=${13} w=${2.4}/><b>${builders-busy}/${builders}</b></span>
       </div>
-    </div>
-    ${hint&&mode==='view'&&!sel&&!lm?html`<div className="wb20-hint" onClick=${()=>setHint(false)}><b>섬을 키우고, 가운데 섬 명소로 놀러 가요!</b> 명소를 누르면 걸어가서 상점 · 채팅 · 커뮤니티로 들어가요. 땅 넓히기로 바다까지 섬을 키울 수 있어요.<${Icon} n="x" s=${14}/></div>`:null}
+    </div>`:null}
+    ${!dg?html`<${WDyn} c=${c} area=${locName(meHere)||'DKO 월드'} sub=${((h=>h>=19||h<6?'밤':h>=17?'노을':'낮')(new Date().getHours()))+(xmOn?' · 연말':'')+' · '+(online.length+1)+'명'} hidden=${sheetOpen} wide=${mm==='off'} onIdle=${()=>{ closeAll(); setMapO(true); }}/>`:null}
+    ${!dg&&mm!=='off'?html`<${WMini} S=${S} ready=${myReady} onOpen=${()=>{ closeAll(); setMapO(true); haptic(8); }} onHide=${()=>{ setMm('off'); haptic(6); }}/>`:null}
+    ${!dg?html`<div className=${'wr69'+(mm==='off'?' up':'')}>
+      ${mm==='off'?html`<button className="wr69-b tap mp" onClick=${()=>{ setMm('mini'); haptic(6); }} aria-label="미니맵 펼치기"><${Icon} n="map" s=${19} w=${2.3}/><small>지도</small></button>`:null}
+      <button className="wr69-b tap" onClick=${()=>{ closeAll(); setPpl(true); haptic(6); }} aria-label="크루 위치"><${Icon} n="users" s=${19} w=${2.3}/><em className="on">${online.length+1}</em><small>크루</small></button>
+      <button className="wr69-b tap" onClick=${()=>{ closeAll(); setQs(true); haptic(6); }} aria-label="주민 의뢰"><${Icon} n="scroll" s=${19} w=${2.3}/>${qReady?html`<i className="dot"></i>`:null}<small>의뢰</small></button>
+      <button className="wr69-b tap" onClick=${()=>{ closeAll(); setMsn(true); haptic(6); }} aria-label="오늘의 섬 미션"><${Icon} n="target" s=${19} w=${2.3}/>${mine&&!dayD(mine).got&&['col','ob','visit'].every(k=>dayD(mine)[k])?html`<i className="dot"></i>`:null}<small>미션</small></button>
+      <button className="wr69-b tap" onClick=${()=>{ closeAll(); setRank(true); haptic(6); }} aria-label="랭킹"><${Icon} n="trophy" s=${19} w=${2.3}/>${recGain>0?html`<i className="dot"></i>`:null}<small>랭킹</small></button>
+      <button className="wr69-b tap" onClick=${()=>{ closeAll(); setWset(true); haptic(6); }} aria-label="월드 설정"><${Icon} n="gear" s=${19} w=${2.3}/><small>설정</small></button>
+    </div>`:null}
+    <${WKeys} on=${mode==='view'&&!dg&&!sheetOpen&&!ew} onMove=${(x,y)=>{ const s=S.current; if(s) s.joy=[x,y]; }} onKey=${onKey}/>
     ${mode==='view'&&!sel&&!lm&&!dg?html`<div className="wd26">
       ${totStock>=10?html`<button className="wd26-col tap" onClick=${()=>{ const t=Date.now(); const items=mine.items.map(x=>x.t==='mine'&&x.lv>=1&&!(x.up&&x.up.end>t)?{...x,c:t}:x); save({items,bricks:bricks+totStock}); haptic(14); const s=S.current, L=myL(); if(s&&L) s.fx.push({k:'txt',gx:L.cx,gy:L.cy,at:performance.now(),txt:'+'+totStock,ic:'brick'}); c.notify('벽돌 '+totStock+'개를 모았어요!'); }}><${BrickIc} s=${18}/>모두 모으기 <b>+${totStock}</b></button>`:null}
       <div className="wd26-bar">
-        <button className="wd26-b tap" onClick=${()=>{ if(giftN) setStab('gift'); setShop(true); haptic(8); }}><span className="wd26-i"><${Icon} n="bag" s=${20} w=${2.2}/>${giftN?html`<em className="wd26-gf">${giftN}</em>`:null}</span><small>상점</small></button>
-        <button className="wd26-b tap" onClick=${()=>{ setPpl(true); haptic(6); }}><span className="wd26-i"><${Icon} n="map" s=${20} w=${2.2}/>${online.length?html`<em className="wd26-on">${online.length}</em>`:null}</span><small>위치</small></button>
+        <button className="wd26-b tap" onClick=${()=>{ closeAll(); if(giftN) setStab('gift'); setShop(true); haptic(8); }}><span className="wd26-i"><${Icon} n="bag" s=${20} w=${2.2}/>${giftN?html`<em className="wd26-gf">${giftN}</em>`:null}</span><small>상점</small></button>
+        <button className="wd26-b tap" onClick=${()=>{ closeAll(); setGd(true); haptic(6); }}><span className="wd26-i"><${Icon} n="sprout" s=${20} w=${2.2}/>${myReady.length?html`<em className="wd26-on">${myReady.length}</em>`:null}</span><small>텃밭</small></button>
         <button className="wd26-shop tap" onClick=${()=>{ goMine(); haptic(10); }}><span className="wd26-si"><${Icon} n="home" s=${30} w=${2.3}/></span><b>내 섬</b></button>
-        <button className="wd26-b tap" onClick=${()=>{ setEdit('menu'); haptic(6); }}><span className="wd26-i"><${Icon} n="edit" s=${19} w=${2.2}/></span><small>편집</small></button>
+        <button className="wd26-b tap" onClick=${()=>{ closeAll(); setEdit('menu'); haptic(6); }}><span className="wd26-i"><${Icon} n="edit" s=${19} w=${2.2}/></span><small>편집</small></button>
         <button className=${'wd26-b tap'+(chat?' on':'')} onClick=${()=>{ setChat(!chat); haptic(6); }}><span className="wd26-i"><${Icon} n="chat" s=${20} w=${2.2}/></span><small>채팅</small></button>
       </div>
     </div>`:null}
     ${chat&&mode==='view'&&!dg?html`<${WChat} c=${c} onSay=${sendSay} onSticker=${sendStk} onClose=${()=>setChat(false)} where=${(online.length+1)+'명 · 말풍선으로 떠요'}/>`:null}
-    ${ctl==='joy'&&mode==='view'&&!dg&&!chat&&!hallIn?html`<${Joy} onMove=${(x,y)=>{ const s=S.current; if(s) s.joy=[x,y]; }}/>`:null}
+    ${ctl==='joy'&&mode==='view'&&!dg&&!chat&&!hallIn&&!sel&&!lm&&!cs&&!sheetOpen&&!ew?html`<${Joy} onMove=${(x,y)=>{ const s=S.current; if(s) s.joy=[x,y]; }}/>`:null}
     ${near&&mode==='view'&&!dg&&!lm&&!sel&&!chat?(()=>{ const l=W_LM.find(x=>x.k===near); return l?html`<button className="wnr30 tap" key=${l.k} style=${{'--g1':l.c[0],'--g2':l.c[1]}} onClick=${()=>enterLm(l)}><span className="gi30"><${Icon} n=${l.ic} s=${18} w=${2.3}/></span><b>${l.n}</b><em>${l.dg?'포털 타기':'들어가기'}<${Icon} n="chev" s=${14} w=${2.8}/></em></button>`:null; })():null}
     ${npcT&&mode==='view'&&!wset&&!chat&&!shop&&!edit&&!ppl&&!msn&&!rank&&!hallIn&&!cedit&&!info?(()=>{ const D=W_NPC.find(x=>x.id===npcT.id); return D?html`<div className="wnp30" key=${npcT.k} style=${{'--n':D.c}} onClick=${()=>talkNpc(D.id)}><span className="wnp30-n">${D.n}</span><p>${npcT.t}</p><small>눌러서 다음 이야기</small><button className="tap" onClick=${e=>{ e.stopPropagation(); setNpcT(null); }} aria-label="닫기"><${Icon} n="x" s=${14} w=${2.8}/></button></div>`:null; })():null}
     ${wset?html`<${WSet} onClose=${()=>setWset(false)}/>`:null}
@@ -745,6 +845,8 @@ function WorldBeta({c,onClose}){
         <button className="we26-c tap" onClick=${()=>{ setEdit(null); startLand(); }}><span className="gi30" style=${{'--g1':'#8EE06A','--g2':'#2F9A3A'}}><${Icon} n="expand" s=${22} w=${2.2}/></span><b>땅 넓히기</b><small>바다 · 이웃 가장자리</small></button>
         <button className="we26-c tap" onClick=${()=>{ setEdit(null); setStab('build'); setShop(true); }}><span className="gi30" style=${{'--g1':'#7CC2FF','--g2':'#2563EB'}}><${Icon} n="tool" s=${22} w=${2.2}/></span><b>짓기 · 꾸미기</b><small>건물 · 장식 놓기</small></button>
         <button className="we26-c tap" onClick=${()=>{ setEdit(null); goMine(); const h=mine&&mine.items.find(x=>x.t==='hall'); if(h){ setSel({i:h.i}); setInfo({i:h.i}); } }}><span className="gi30" style=${{'--g1':'#C29BFF','--g2':'#6A3FD8'}}><${Icon} n="home" s=${22} w=${2.2}/></span><b>내 섬 정보</b><small>본부 · 섬 이름</small></button>
+        <button className="we26-c tap" onClick=${()=>{ setEdit(null); setGd(true); }}><span className="gi30" style=${{'--g1':'#B6EE7A','--g2':'#3E9A2A'}}><${Icon} n="sprout" s=${22} w=${2.2}/></span><b>텃밭</b><small>씨앗 심기 · 수확</small></button>
+        <button className="we26-c tap" onClick=${()=>{ setEdit(null); setGbk(c.uid); }}><span className="gi30" style=${{'--g1':'#E2C2FF','--g2':'#8A4FE0'}}><${Icon} n="book" s=${22} w=${2.2}/></span><b>내 방명록</b><small>발자국 · 한마디</small></button>
         <button className="we26-c tap" onClick=${()=>{ setEdit(null); setHallIn(true); }}><span className="gi30" style=${{'--g1':'#FFD27A','--g2':'#E0731A'}}><${Icon} n="exit" s=${22} w=${2.2}/></span><b>마을회관 들어가기</b><small>트로피 · 장비 · 섬 기록</small></button>
       </div></div></div>`:null}
     ${cedit?html`<${CharEdit} c=${c} tab=${cedit} onClose=${()=>setCedit(null)}/>`:null}
@@ -778,7 +880,7 @@ function WorldBeta({c,onClose}){
         ${selIt.t==='hall'&&!inProg?html`<button className="tap" onClick=${()=>{ setSel(null); startLand(); }}><i><${Icon} n="expand" s=${22} w=${2.3}/></i><small>땅 넓히기</small></button>`:null}
         ${canRot(selIt.t)&&!inProg?html`<button className="tap" onClick=${()=>rotate(selIt)}><i><${Icon} n="reset" s=${21} w=${2.4}/></i><small>돌리기</small></button>`:null}
         ${selIt.t!=='hall'&&!inProg?html`<button className="tap" onClick=${()=>{ setMode('move'); setGhost({t:selIt.t,lv:selIt.lv,r:!!selIt.r,gx:myL().cx+selIt.x,gy:myL().cy+selIt.y,lx:selIt.x,ly:selIt.y,ok:true}); }}><i><${Icon} n="move" s=${22} w=${2.3}/></i><small>옮기기</small></button>`:null}
-        ${(C0d.cat==='deco'||C0d.cat==='gem')?html`<button className="tap red" onClick=${()=>remove(selIt)}><i><${Icon} n="trash" s=${20} w=${2.3}/></i><small>치우기</small></button>`:null}
+        ${selIt.t==='farm'?html`<button className="tap up" onClick=${()=>{ const pid=selIt.i; closeAll(); setGd({pid}); }}><i><${Icon} n="sprout" s=${22} w=${2.4}/></i><small>${wPlotOf(mine,selIt.i)?'텃밭 보기':'씨앗 심기'}</small></button>`:null}${(C0d.cat==='deco'||C0d.cat==='gem'||C0d.cat==='xmas'||selIt.t==='farm')?html`<button className="tap red" onClick=${()=>remove(selIt)}><i><${Icon} n="trash" s=${20} w=${2.3}/></i><small>치우기</small></button>`:null}
       </div>
     </div>`:null}
     ${mode==='view'&&selOb?html`<div className="wb20-rib" key=${selOb.k}>
@@ -787,12 +889,16 @@ function WorldBeta({c,onClose}){
     </div>`:null}
     ${info&&mine?html`<${WInfo} c=${c} I=${mine} info=${info} now=${now} onClose=${()=>setInfo(null)} onUp=${upgrade} onExp=${expand} nm=${nm} setNm=${setNm} rename=${rename}/>`:null}
     ${shop&&mine?html`<${WShop} I=${mine} tab=${stab} setTab=${setStab} coins=${coins} busy=${busy} builders=${builders} onPick=${startPlace} onClose=${()=>setShop(false)} gift=${gift} rpg=${rpg} onEq=${buyEq}/>`:null}
-    ${cs&&mode==='view'?html`<div className="wb20-card" onClick=${e=>e.stopPropagation()}>
-      ${cm?html`<${PfpView} m=${cm} s=${44}/>`:null}<div className="wb20-cb"><b>${cs.name}</b><span>${cm?dispName(cm):''} · 본부 Lv.${cs.hallLv} · ♥ ${Object.keys(cs.likes||{}).length}</span></div>
-      <button className=${'wb20-like tap'+(!!(cs.likes||{})[c.uid]?' on':'')} onClick=${()=>c.likeIsland(cs)} aria-label="좋아요"><${Icon} n="heart" s=${18} fill=${(cs.likes||{})[c.uid]?'currentColor':'none'}/></button>
-      ${cm?html`<button className="wb20-ib tap" onClick=${()=>c.openProfile(cm.uid)} aria-label="프로필"><${Icon} n="user" s=${17}/></button>`:null}
-      <button className="wb20-ib tap" onClick=${()=>setCard(null)} aria-label="닫기"><${Icon} n="x" s=${17}/></button>
-    </div>`:null}
+    ${cs&&mode==='view'?(()=>{ const liked=!!(cs.likes||{})[c.uid]; const wp=cs.items.filter(it=>it.t==='farm'&&wCanWater(cs,it.i,c.uid,now)).map(it=>it.i); const gbN=Object.values(cs.gb||{}).filter(e=>e&&e.t).length; const ws=wWeekScore(cs);
+      return html`<div className="wc69" key=${cs.uid} onClick=${e=>e.stopPropagation()}>
+        <div className="wc69-h">${cm?html`<${PfpView} m=${cm} s=${44}/>`:null}<div className="wc69-t"><b>${cs.name}${topU===cs.uid?html`<em className="wc69-top"><${Icon} n="crown" s=${11} w=${2.6}/>이번 주 1위</em>`:null}</b><small>${cm?dispName(cm):''} · 본부 Lv.${cs.hallLv} · 이번 주 ${ws.sc}점</small></div>
+          <button className="wc69-x tap" onClick=${()=>setCard(null)} aria-label="닫기"><${Icon} n="x" s=${16} w=${2.8}/></button></div>
+        <div className="wc69-a">
+          <button className=${'tap lk'+(liked?' on':'')} onClick=${()=>{ c.likeIsland(cs); if(!liked) wQ('like'); haptic(8); }}><${Icon} n="heart" s=${17} w=${2.4} fill=${liked?'currentColor':'none'}/><b>${Object.keys(cs.likes||{}).length}</b></button>
+          <button className="tap gb" onClick=${()=>{ setCard(null); setGbk(cs.uid); }}><${Icon} n="book" s=${17} w=${2.3}/><b>방명록${gbN?' '+gbN:''}</b></button>
+          <button className=${'tap wt'+(wp.length?'':' off')} onClick=${()=>waterPlots(cs,wp)}><${Icon} n="drop" s=${17} w=${2.3}/><b>물 주기${wp.length?' '+wp.length:''}</b></button>
+          ${cm?html`<button className="tap pf" onClick=${()=>c.openProfile(cm.uid)} aria-label="프로필"><${Icon} n="user" s=${17} w=${2.3}/></button>`:null}
+        </div></div>`; })():null}
     ${ppl?html`<div className="wb20-shade" onClick=${()=>setPpl(false)}><div className="wbs wo26" onClick=${e=>e.stopPropagation()}>
       <div className="wbs-h"><b>위치</b><span className="wbs-sub"><i className="wo26-dot"></i>${online.length+1}명 접속 중</span><button className="wbi-x tap" onClick=${()=>setPpl(false)} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
       <div className="wo26-pl">
@@ -803,7 +909,7 @@ function WorldBeta({c,onClose}){
       <div className="wo26-sec">지금 접속 중</div>
       <div className="wo26-l">
         <div className="wo26-r me"><span className="wo26-av"><${PfpView} m=${c.me} s=${40}/><i></i></span><span className="wo26-t"><b>${dispName(c.me)}<em>나</em></b><small>${locName(meHere)}</small></span></div>
-        ${online.map(I=>{ const m=c.members.find(x=>x.uid===I.uid); if(!m) return null; return html`<div key=${I.uid} className="wo26-r"><span className="wo26-av"><${PfpView} m=${m} s=${40}/><i></i></span><span className="wo26-t"><b>${dispName(m)}</b><small>${locName(I.here)}</small></span>
+        ${online.map(I=>{ const m=c.members.find(x=>x.uid===I.uid); if(!m) return null; return html`<div key=${I.uid} className="wo26-r"><span className="wo26-av"><${PfpView} m=${m} s=${40}/><i></i></span><span className="wo26-t"><b>${dispName(m)}${ptyS.has(I.uid)?html`<em className="wo26-pt">파티</em>`:null}</b><small>${locName(I.here)}</small></span>
           ${I.here.zone?html`<button className="wo26-go tap" onClick=${()=>{ setPpl(false); startDg(I.here.zone); }}>따라가기</button>`:html`<button className="wo26-go tap" onClick=${()=>{ S.current.jump(I.here.x+1,I.here.y+1,1.1); setPpl(false); setLm(null); setSel(null); }}>옆으로</button>`}
           <button className="wo26-go alt tap" onClick=${()=>{ goIsland(I.uid); setPpl(false); }}>섬 가기</button></div>`; })}
         ${!online.length?html`<p className="wo26-none">지금은 나만 있어요. 크루원이 들어오면 여기 바로 보여요.</p>`:null}
@@ -817,12 +923,12 @@ function WorldBeta({c,onClose}){
       <div className="wbi-b"><div className="wm23">${[['col','벽돌 공방에서 벽돌 모으기','home'],['ob','장애물 하나 치우기','axe'],['visit','크루원 섬에 놀러 가기','globe']].map(([k,t,ic])=>html`<div key=${k} className=${'wm23-r'+(D[k]?' ok':'')}><span className="wm23-ic"><${Icon} n=${D[k]?'check':ic} s=${18} w=${2.6}/></span><b>${t}</b><em>${D[k]?'완료':'진행 중'}</em></div>`)}</div>
         <button className=${'wbi-go tap'+(all&&!D.got?'':' off')} onClick=${()=>{ if(!all||D.got) return; save({daily:{...D,got:1},bricks:mine.bricks+80}); c.worldCoins(3,'섬 미션 완료! 벽돌 80 · D-Coin 3'); setMsn(false); }}>${D.got?'오늘 보상 받음':html`<${BrickIc} s=${20}/>80 + D-Coin 3 받기`}</button>
         <p className="wbi-d" style=${{marginTop:'10px'}}>매일 0시에 새로 시작해요.</p></div></div></div>`; })():null}
-    ${rank?html`<div className="wb20-shade" onClick=${()=>setRank(false)}><div className="wbs" onClick=${e=>e.stopPropagation()}>
-      <div className="wbs-h"><b>섬 랭킹</b><span className="wbs-sub">본부 레벨 · 건물 · 땅 · 좋아요</span><button className="wbi-x tap" onClick=${()=>setRank(false)} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
-      <div className="wr21">${[...isl].map(I=>({I,sc:I.hallLv*100+I.items.length*5+Object.keys(I.likes||{}).length*20+(I.exp||0)*60+I.land.length*12})).sort((a,b)=>b.sc-a.sc).map(({I,sc},i)=>{ const m=c.members.find(x=>x.uid===I.uid);
-        return html`<button key=${I.uid} className=${'wr21-r tap'+(I.uid===c.uid?' me':'')} onClick=${()=>{ goIsland(I.uid,1); setRank(false); }}>
-          <span className="wr21-n">${i+1}</span>${m?html`<${PfpView} m=${m} s=${34}/>`:null}<span className="wr21-t"><b>${I.name}</b><small>본부 Lv.${I.hallLv} · 건물 ${I.items.length} · 땅 +${I.land.length} · ♥ ${Object.keys(I.likes||{}).length}</small></span><em>${sc.toLocaleString()}</em></button>`; })}</div>
-      <p className="wr21-tip">크루원 섬에 놀러 가면 섬마다 하루 한 번 벽돌 15개를 받아요.</p></div></div>`:null}
+    ${rank?html`<${WRank} c=${c} isl=${isl} mine=${mine} tab=${rtab} setTab=${setRtab} onGo=${uid=>{ goIsland(uid,1); setRank(false); }} onClaim=${recClaim} onClose=${()=>setRank(false)}/>`:null}
+    ${gd&&mine?html`<${WGarden} I=${mine} now=${now} focus=${gd.pid||null} onClose=${()=>setGd(null)} onPlant=${plant} onHarvest=${harvest} onGo=${goPlot} onBuild=${()=>{ setGd(null); startPlace('farm'); }}/>`:null}
+    ${gbk?(()=>{ const I0=isl.find(x=>x.uid===gbk); return I0?html`<${WGuest} c=${c} I=${I0} isOwner=${I0.uid===c.uid} onClose=${()=>setGbk(null)} onWrite=${t=>gbWrite(I0,t)} onDel=${id=>gbDel(I0,id)} onGo=${I0.uid!==c.uid?()=>{ setGbk(null); goIsland(I0.uid); }:null}/>`:null; })():null}
+    ${qs&&mine?html`<${WQuest} I=${mine} onClose=${()=>setQs(false)} onClaim=${id=>claimQ(id)} onGo=${goNpc}/>`:null}
+    ${mapO?html`<${WMapSheet} S=${S} c=${c} ready=${myReady} quick=${quick} onClose=${()=>setMapO(false)} onGo=${mapGo}/>`:null}
+    ${ew&&!dg?html`<${WEmoWheel} at=${ew} onPick=${doEmo} onClose=${()=>setEw(null)}/>`:null}
     ${dg?html`<${Dungeon} key=${dg} c=${c} kind=${dg} onExit=${exitDg} saveBricks=${saveBricks}/>`:null}
     ${tp?html`<div className=${'tp26 k-'+tp.k+' '+tp.dir} key=${tp.key} aria-hidden="true"><i className="tp26-sw"></i><i className="tp26-ring"></i><div className="tp26-t"><em>${DG[tp.k].e}</em><b>${tp.dir==='in'?DG[tp.k].n+'(으)로 이동 중':'DKO 월드로 돌아가는 중'}</b></div></div>`:null}
     ${welcome?html`<div className="wo27" onClick=${e=>e.stopPropagation()}><div className="wo27-c">
@@ -869,20 +975,20 @@ function WShop({I,tab,setTab,coins,busy,builders,onPick,onClose,gift,rpg,onEq}){
   const list=tab==='gift'||tab==='eq'?[]:Object.entries(W_CAT).filter(([k,v])=>v.cat===tab&&k!=='hall');
   return html`<div className="wb20-shade" onClick=${onClose}><div className="wbs" onClick=${e=>e.stopPropagation()}>
     <div className="wbs-h"><b>상점</b><span className="wbs-sub"><${BrickIc} s=${16}/>${I.bricks.toLocaleString()}<i></i><${Coin} s=${14}/>${coins.toLocaleString()}<i></i>건축가 ${builders-busy}/${builders}</span><button className="wbi-x tap" onClick=${onClose} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
-    <div className="wbs-tabs">${gl.length?html`<button className=${'tap gift'+(tab==='gift'?' on':'')} onClick=${()=>setTab('gift')}>선물<em>${gl.reduce((s,[,n])=>s+n,0)}</em></button>`:null}${W_TABS.map(([k,l])=>html`<button key=${k} className=${'tap'+(tab===k?' on':'')+(k==='gem'?' gem':'')} onClick=${()=>setTab(k)}>${l}</button>`)}${rpg?html`<button className=${'tap eqt'+(tab==='eq'?' on':'')} onClick=${()=>setTab('eq')}>장비</button>`:null}</div>
+    <div className="wbs-tabs">${gl.length?html`<button className=${'tap gift'+(tab==='gift'?' on':'')} onClick=${()=>setTab('gift')}>선물<em>${gl.reduce((s,[,n])=>s+n,0)}</em></button>`:null}${W_TABS.map(([k,l])=>html`<button key=${k} className=${'tap'+(tab===k?' on':'')+(k==='gem'?' gem':'')+(k==='xmas'?' xm':'')} onClick=${()=>setTab(k)}>${l}</button>`)}${rpg?html`<button className=${'tap eqt'+(tab==='eq'?' on':'')} onClick=${()=>setTab('eq')}>장비</button>`:null}</div>
     ${tab==='eq'&&rpg?html`<div className="wbs-cap">사냥할 때 쓰는 장비 · 실버는 본부 Lv.2부터 · 골드는 헬바운드 보스 전리품</div><div className="ws26-eq">${EQ_S.map(S2=>html`<div key=${S2.k} className="ws26-r"><div className="ws26-rh"><${Icon} n=${S2.ic} s=${16} w=${2.3}/><b>${S2.n}</b><small>${S2.sub}</small></div>
       <div className="ws26-g">${EQ_T.map((T,ti)=>{ const id=eqId(S2.k,T.k); const n=rpg.inv[id]||0; const pr=EQ_PRICE[S2.k][ti]; const lock=ti>=1&&I.hallLv<2&&pr; const val=S2.k==='shield'?'막기 '+Math.round(EQ_SHIELD.block[ti]*100)+'%':(S2.k==='weapon'?'공격 +':'방어 +')+EQ_VAL[S2.k][ti];
         return html`<button key=${id} className=${'ws26-c tap t-'+T.k+(pr?'':' drop')+(lock?' lock':'')} onClick=${()=>onEq(S2.k,ti)}><span className="ws26-gem"><${Icon} n=${S2.ic} s=${20} w=${2.2}/></span><b>${T.n}</b><small>${val}</small>${n?html`<em className="ws26-n">보유 ${n}</em>`:null}
           <span className="ws26-p">${pr?html`<${BrickIc} s=${13}/>${pr.toLocaleString()}`:'보스 전리품'}</span></button>`; })}</div></div>`)}</div>`:null}
-    ${tab==='gift'?html`<div className="wbs-cap">D-ROP에서 받은 장식이에요 · 공짜로 놓을 수 있어요</div><div className="wbs-grid">${gl.map(([k,n],i)=>html`<button key=${k} className="wbs-c tap gem gf" style=${{'--d':(i*35)+'ms'}} onClick=${()=>onPick(k,true)}>
+    ${tab==='gift'?html`<div className="wbs-cap">D-ROP · 주민 선물로 받은 장식이에요 · 공짜로 놓을 수 있어요</div><div className="wbs-grid">${gl.map(([k,n],i)=>html`<button key=${k} className="wbs-c tap gem gf" style=${{'--d':(i*35)+'ms'}} onClick=${()=>onPick(k,true)}>
         <span className="wbs-art"><${WItemIcon} t=${k}/><i className="wbs-sz">${wSz({t:k}).join('×')}</i></span><b>${W_CAT[k].n}</b><span className="wbs-meta"><em>×${n}</em></span><span className="wbs-p gf">무료로 놓기</span></button>`)}</div>`:null}
-    ${tab==='deco'||tab==='gem'?html`<div className="wbs-cap">장식 ${wDecoCount(I)}/${W_DECO_MAX[hl]} · 본부 레벨이 오르면 더 놓을 수 있어요</div>`:null}
-    <div className="wbs-grid">${list.map(([k,C],i)=>{ const mx=wMaxOf(k,hl), n=wCount(I,k); const lock=(C.req&&hl<C.req)||C.drop; const full=!lock&&mx<99&&n>=mx;
+    ${tab==='deco'||tab==='gem'||tab==='xmas'?html`<div className="wbs-cap">장식 ${wDecoCount(I)}/${W_DECO_MAX[hl]} · ${tab==='xmas'?(wXmas()?'연말 시즌 한정 · 1월 6일까지 지을 수 있어요':'연말 시즌(11/15 ~ 1/6)에 열려요'):'본부 레벨이 오르면 더 놓을 수 있어요'}</div>`:null}
+    <div className="wbs-grid">${list.map(([k,C],i)=>{ const mx=wMaxOf(k,hl), n=wCount(I,k); const off=C.cat==='xmas'&&!wXmas(); const lock=(C.req&&hl<C.req)||C.drop||off; const full=!lock&&mx<99&&n>=mx;
       return html`<button key=${k} className=${'wbs-c tap'+(lock?' lock':'')+(full?' full':'')+(C.d?' gem':'')} style=${{'--d':(i*35)+'ms'}} onClick=${()=>!lock&&!full&&onPick(k)}>
         <span className="wbs-art"><${WItemIcon} t=${k}/><i className="wbs-sz">${wSz({t:k}).join('×')}</i></span>
         <b>${C.n}</b>
         <span className="wbs-meta">${mx<99&&!lock?html`<em>${n}/${mx}</em>`:null}${C.time?html`<em><${Icon} n="clock" s=${11} w=${2.4}/>${wFmtT(C.time)}</em>`:null}</span>
-        ${C.drop?html`<span className="wbs-lock"><${Icon} n="gift" s=${13} w=${2.4}/>D-ROP ${['레어','에픽','레전더리','얼티밋'][C.gr]||''}</span>`:lock?html`<span className="wbs-lock"><${Icon} n="lock" s=${13} w=${2.4}/>본부 Lv.${C.req}</span>`:full?html`<span className="wbs-lock">최대</span>`:html`<span className=${'wbs-p'+(C.d?' d':'')}>${C.d?html`<${Coin} s=${14}/>${C.d}`:html`<${BrickIc} s=${15}/>${C.b}`}</span>`}
+        ${off?html`<span className="wbs-lock"><${Icon} n="snow" s=${13} w=${2.4}/>연말 시즌</span>`:C.npc?html`<span className="wbs-lock"><${Icon} n="heart" s=${13} w=${2.4}/>주민 선물</span>`:C.drop?html`<span className="wbs-lock"><${Icon} n="gift" s=${13} w=${2.4}/>D-ROP ${['레어','에픽','레전더리','얼티밋'][C.gr]||''}</span>`:lock?html`<span className="wbs-lock"><${Icon} n="lock" s=${13} w=${2.4}/>본부 Lv.${C.req}</span>`:full?html`<span className="wbs-lock">최대</span>`:html`<span className=${'wbs-p'+(C.d?' d':'')}>${C.d?html`<${Coin} s=${14}/>${C.d}`:html`<${BrickIc} s=${15}/>${C.b}`}</span>`}
       </button>`; })}</div>
   </div></div>`;
 }
@@ -1072,7 +1178,7 @@ function Dungeon({c,kind,onExit,getBricks,saveBricks}){
         if(p){ const m=spawn(t,p[0],p[1],A.c,i,j*140); m.aggro=!!MOB[t].boss||Math.random()<.5; j++; } } });
       if(!j){ setTimeout(()=>clearArea(i),600); }
       setAr({id:A.id,n:A.n,boss:!!A.boss,k:Date.now()}); if(A.boss){ wSfx('roar'); wBgm('boss'); s.shake=.8; } else wSfx('pop'); };
-    const clearArea=i=>{ const A=D.areas[i], S0=s.stage; if(S0.cleared[i]) return; S0.cleared[i]=1; const now=performance.now(); const sec=(now-S0.t0[i])/1000;
+    const clearArea=i=>{ const A=D.areas[i], S0=s.stage; if(S0.cleared[i]) return; S0.cleared[i]=1; wQ('stage'); const now=performance.now(); const sec=(now-S0.t0[i])/1000;
       const stars=S0.deaths[i]?1:(sec<(A.boss?150:A.mobs.some(([t])=>MOB[t].mini)?90:55)&&S0.hurt[i]<s.st.hp*.6)?3:2;
       const r=s.rpg; const old=r.story||{best:0,stars:{},clears:0}; r.story={best:Math.max(old.best||0,i+1),stars:{...(old.stars||{}),[A.id]:Math.max((old.stars||{})[A.id]||0,stars)},clears:(old.clears||0)+(i===D.areas.length-1?1:0)};
       const gt=M.gates[i]; if(gt&&!gt.open){ gt.open=true; gt.at=now; gt.cells.forEach(([x,y])=>M.blk.delete(x+','+y)); setTimeout(()=>wSfx('gate'),500); s.shake=.5; }
@@ -1123,9 +1229,9 @@ function Dungeon({c,kind,onExit,getBricks,saveBricks}){
     const hurtMob=(m,dmg,crit)=>{ m.hp-=dmg; m.hit=.18; m.aggro=true; const kb=m.boss?.15:.55; const dx=m.x-s.me.x, dy=m.y-s.me.y, d=Math.hypot(dx,dy)||1; const nx=m.x+dx/d*kb, ny=m.y+dy/d*kb; if(!blocked(Math.round(nx),Math.round(ny))){ m.x=nx; m.y=ny; }
       s.fx.push({k:'num',x:m.x,y:m.y,at:performance.now(),t:String(dmg),crit,col:crit?'#FFD54A':'#FFFFFF'}); s.fx.push({k:'spk',x:m.x,y:m.y,at:performance.now(),crit,c:MOB[m.t].c[0]}); wSfx(crit?'crit':'hit');
       const B0=MOB[m.t]; if(B0.summon&&!m.sum1&&m.hp<m.mhp*.55){ m.sum1=1; summon(m); } if(B0.summon&&!m.sum2&&m.hp<m.mhp*.25){ m.sum2=1; summon(m); }
-      if(m.hp<=0){ const now=performance.now(); s.mobs=s.mobs.filter(x=>x!==m); s.dying.push({m,at:now}); s.loot.k++; s.rpg.kills=(s.rpg.kills||0)+1; addXp(MOB[m.t].xp); dropLoot(m); s.fx.push({k:'poof',x:m.x,y:m.y,at:now,c:MOB[m.t].c[0],big:m.boss||m.mini}); wSfx(MOB[m.t].kind==='slime'?'slime':'pop');
+      if(m.hp<=0){ const now=performance.now(); s.mobs=s.mobs.filter(x=>x!==m); s.dying.push({m,at:now}); s.loot.k++; s.rpg.kills=(s.rpg.kills||0)+1; wQ('kill'); addXp(MOB[m.t].xp); dropLoot(m); s.fx.push({k:'poof',x:m.x,y:m.y,at:now,c:MOB[m.t].c[0],big:m.boss||m.mini}); wSfx(MOB[m.t].kind==='slime'?'slime':'pop');
         if(m.boss&&!D.story){ s.boss[m.t]=now+(MOB[m.t].re||80)*1000; s.drops.push({k:'chest',tier:m.t==='kslime'?'silver':'gold',x:m.x,y:m.y,at:now,z:1}); }
-        if(m.boss){ s.rpg.boss=(s.rpg.boss||0)+1; say(MOB[m.t].n+' 처치! 보물 상자가 떨어졌어요'); haptic([30,40,80]); }
+        if(m.boss){ s.rpg.boss=(s.rpg.boss||0)+1; wQ('boss'); say(MOB[m.t].n+' 처치! 보물 상자가 떨어졌어요'); haptic([30,40,80]); }
         if(!D.story&&s.loot.k>0&&s.loot.k%25===0) s.drops.push({k:'chest',tier:'wood',x:m.x,y:m.y,at:now,z:1});
         if(D.story&&m.ar!=null&&!s.mobs.some(x=>x.ar===m.ar)) clearArea(m.ar); } };
     const summon=m=>{ for(let i=0;i<3;i++){ const a=i/3*6.28+Math.random(); const x=Math.round(m.x+Math.cos(a)*3), y=Math.round(m.y+Math.sin(a)*3); if(!blocked(x,y)){ const q=spawn('mush',x,y,[m.hx,m.hy],m.ar,i*160); q.aggro=true; } } say(MOB[m.t].n+'이(가) 부하를 불렀어요!'); wSfx('roar'); s.shake=.6; };
@@ -1315,6 +1421,7 @@ function Dungeon({c,kind,onExit,getBricks,saveBricks}){
     ${ar?html`<div className=${'st30-ban'+(ar.clear?' clr':'')+(ar.boss?' boss':'')} key=${ar.k} onAnimationEnd=${()=>setAr(null)}><em>${ar.clear?'STAGE CLEAR':ar.boss?'BOSS STAGE':'STAGE'}</em><b>${ar.id} ${ar.n}</b>${ar.clear?html`<span className="st30-stars">${[0,1,2].map(i=>html`<${Icon} key=${i} n="star" s=${22} w=${2} fill=${i<ar.stars?'currentColor':'none'}/>`)}</span>`:null}</div>`:null}
     ${chat?html`<${WChat} c=${c} onSay=${sayD} onSticker=${stkD} onClose=${()=>setChat(false)} where=${D.n+'에서 · 말풍선으로 떠요'}/>`:null}
     ${ctl==='joy'&&!chat&&!sum?html`<${Joy} onMove=${(x,y)=>{ const s=S.current; if(s) s.joy=[x,y]; }}/>`:null}
+    <${WKeys} on=${!chat&&!sum&&!chest} onMove=${(x,y)=>{ const s=S.current; if(s) s.joy=[x,y]; }} onKey=${code=>{ const s=S.current; if(!s) return; if(code==='Space'||code==='KeyJ'){ s.attack&&s.attack(); } else if(code==='KeyK'||code==='ShiftLeft'||code==='ShiftRight'){ if(H.shield) s.block&&s.block(); } }}/>
     ${chest?html`<${ChestOpen} key=${chest.k} tier=${chest.tier} got=${chest.got} stars=${chest.stars} title=${chest.title} onDone=${()=>{ setChest(null); const s=S.current; if(s) s.freeze=false; commit(false); }}/>`:null}
     ${H.boss?html`<div className="dg26-boss" key=${H.boss.n}><b>${H.boss.n}</b><div><i style=${{width:pct(H.boss.hp)}}></i></div></div>`:null}
     ${toast?html`<div className="dg26-toast" key=${toast.k}>${toast.t}</div>`:null}
@@ -1431,7 +1538,9 @@ function Joy({onMove}){
   return html`<div className=${'wj30'+(k?' on':'')} ref=${ref} onPointerDown=${down} onPointerMove=${move} onPointerUp=${up} onPointerCancel=${up}><i className="wj30-r"></i><i className="wj30-k" style=${k?{transform:'translate('+k[0]+'px,'+k[1]+'px)'}:null}></i></div>`;
 }
 /* 화면 방향(dx,dy) → 월드 방향 */
-const wJoyDir=(dx,dy)=>{ const a=dx/(WCF.TW/2), b=dy/(WCF.TH/2); let x=(a+b)/2, y=(b-a)/2; const d=Math.hypot(x,y)||1; return [x/d,y/d]; };
+/* v27.5 화면 기준 이동: 조이스틱(또는 WASD)을 미는 방향 그대로, 어느 방향이든 화면에서 같은 빠르기로 움직여요.
+   (예전엔 월드 칸 기준으로 맞춰서 위아래는 느리고 좌우는 빨랐어요) 대각선 칸 방향 = 1 */
+const wJoyDir=(dx,dy)=>{ const d=Math.hypot(dx,dy)||1; const a=dx/d/(WCF.TW/2), b=dy/d/(WCF.TH/2); const K=33; return [(a+b)/2*K,(b-a)/2*K]; };
 /* 문 열고 들어가기 */
 function WDoor({l,dir}){ return html`<div className=${'wdr30 '+(dir||'in')} style=${{'--g1':l.c[0],'--g2':l.c[1]}} aria-hidden="true"><i className="wdr30-l"></i><i className="wdr30-r"></i><i className="wdr30-lt"></i>
   <div className="wdr30-t"><span className="gi30"><${Icon} n=${l.ic} s=${26} w=${2.2}/></span><b>${l.n}</b><small>${dir==='out'?'밖으로 나가는 중':'안으로 들어가는 중'}</small></div></div>`; }
@@ -1523,6 +1632,367 @@ function wHexShield(g,x,y,u,tm,k,tier){ const T=EQ_TC[tier]||EQ_TC.b; const R=u*
   g.strokeStyle='rgba(255,255,255,.9)'; g.lineWidth=3; for(let i=0;i<3;i++){ const a=tm*2.6+i*2.094; g.beginPath(); g.ellipse(x,y,R*1.02,R*1.14,0,a,a+.55); g.stroke(); }
   g.globalAlpha=(.16+.14*Math.sin(tm*6))*k+.1; g.strokeStyle='#D6F1FF'; g.lineWidth=1; for(let i=0;i<6;i++){ const a=i/6*6.2832+Math.PI/6; g.beginPath(); g.moveTo(x,y); g.lineTo(x+Math.cos(a)*R,y+Math.sin(a)*R*1.12); g.stroke(); } hex(R*.52,Math.PI/6); g.stroke();
   g.restore(); }
+
+/* ═════════ v27.5 DKO 월드 초대규모 업데이트 · 1부 ═════════
+   화면 기준 이동 + WASD · 원형 미니맵(빠른 이동) · 감정 휠 · 텃밭 · 방명록/발자국/이번 주 인기 섬
+   크리스마스 장식 · NPC 의뢰와 호감도 · 월드 전용 다이나믹 바 · DKO(내전 · 1대1 · 파티) 연동 */
+
+/* ── 이벤트 통로: 의뢰 진행 · 월드 다이나믹 바 ── */
+const wQ=(k,n)=>{ try{ window.dispatchEvent(new CustomEvent('dko-wq',{detail:{k,n:n||1}})); }catch(e){} };
+const wDyn=ev=>{ try{ window.dispatchEvent(new CustomEvent('dko-wdyn',{detail:ev})); }catch(e){} };
+
+/* ── 키보드: WASD · 방향키로 걷고, E/스페이스로 들어가기 · Q 감정 · M 지도 ── */
+function WKeys({on,onMove,onKey}){
+  const R=useRef({}); R.current={on,onMove,onKey};
+  useEffect(()=>{ const P=new Set(); const M={KeyW:'u',ArrowUp:'u',KeyS:'d',ArrowDown:'d',KeyA:'l',ArrowLeft:'l',KeyD:'r',ArrowRight:'r'};
+    const upd=()=>{ let x=0,y=0; if(P.has('l')) x--; if(P.has('r')) x++; if(P.has('u')) y--; if(P.has('d')) y++; const d=Math.hypot(x,y); R.current.onMove(d?x/d:0,d?y/d:0); };
+    const typing=e=>{ const t=e.target; return !!t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'||t.isContentEditable); };
+    const kd=e=>{ if(typing(e)||e.metaKey||e.ctrlKey||e.altKey) return; const k=M[e.code]; if(k){ if(!R.current.on) return; e.preventDefault(); if(!P.has(k)){ P.add(k); upd(); } return; } if(!e.repeat&&R.current.onKey) R.current.onKey(e.code,e); };
+    const ku=e=>{ const k=M[e.code]; if(k&&P.has(k)){ P.delete(k); upd(); } };
+    const bl=()=>{ if(P.size){ P.clear(); upd(); } };
+    R.current.clear=bl;
+    window.addEventListener('keydown',kd); window.addEventListener('keyup',ku); window.addEventListener('blur',bl);
+    return ()=>{ window.removeEventListener('keydown',kd); window.removeEventListener('keyup',ku); window.removeEventListener('blur',bl); }; },[]);
+  useEffect(()=>{ if(!on&&R.current.clear) R.current.clear(); },[on]);
+  return null;
+}
+
+/* ── 감정 표현 ── d: 보여 주는 시간(ms) · 0이면 움직일 때까지 */
+const W_EMO=[{k:'wave',n:'손 흔들기',ic:'hand',d:2400},{k:'dance',n:'춤',ic:'music',d:3600},{k:'sit',n:'앉기',ic:'down2',d:0},{k:'heart',n:'하트',ic:'heart',d:2800},{k:'cheer',n:'만세',ic:'up',d:2200},{k:'sleep',n:'쿨쿨',ic:'moon',d:0}];
+const wEmoOn=e=>{ if(!e||!e.k) return false; const D=W_EMO.find(x=>x.k===e.k); if(!D) return false; const el=Date.now()-e.at; return el>=0&&el<(D.d||120000); };
+function wHeart(g,x,y,s,col){ g.fillStyle=col; g.beginPath(); g.moveTo(x,y+s*.42); g.bezierCurveTo(x-s*1.15,y-s*.35,x-s*.5,y-s*1.1,x,y-s*.45); g.bezierCurveTo(x+s*.5,y-s*1.1,x+s*1.15,y-s*.35,x,y+s*.42); g.fill(); }
+function wDrawEmo(g,px,py,u,tm,av,yaw,name,isMe,ex,emo){
+  const k=emo.k, el=Math.max(0,(Date.now()-emo.at)/1000); const E={...(ex||{})};
+  if(k==='sit'||k==='sleep'){ g.save(); g.translate(px,py+u*.7); g.scale(1.08,.76); wDrawChar(g,0,0,u,av,k==='sleep'?.45:yaw,tm,false,null,false,{...E,wave:false}); g.restore();
+    if(name) wTag(g,px,py-u*13.4,u,name,isMe,E.on); if(k==='sleep') wSleepZ(g,px-u*2,py+u*4,u,tm,3); return; }
+  if(k==='dance'){ const b=el*2.6; const hop=Math.abs(Math.sin(b*Math.PI))*u*2.6; const spin=yaw+Math.sin(b*Math.PI)*1.3*((Math.floor(b)%2)?1:-1);
+    wDrawChar(g,px,py-hop,u,av,spin,tm,true,name,isMe,{...E,ph:el*16,wave:Math.floor(b)%2===0});
+    for(let i=0;i<3;i++){ const q=(el*.8+i/3)%1; g.globalAlpha=Math.sin(q*Math.PI); g.fillStyle=['#FF6B8A','#7CC2FF','#FFD54A'][i]; const nx=px+Math.sin(q*6+i*2)*u*4+(i-1)*u*4, ny=py-u*(18+q*11);
+      g.beginPath(); g.ellipse(nx,ny,u*1.05,u*.78,-.4,0,Math.PI*2); g.fill(); g.fillRect(nx+u*.72,ny-u*3.4,u*.42,u*3.4); g.fillRect(nx+u*.72,ny-u*3.4,u*1.6,u*.5); } g.globalAlpha=1; return; }
+  if(k==='heart'){ const hop=el<.5?Math.sin(el/.5*Math.PI)*u*1.6:0; wDrawChar(g,px,py-hop,u,av,.35,tm,false,name,isMe,{...E,wave:el<1.2});
+    for(let i=0;i<4;i++){ if(el<.25*i) continue; const q=((el-.25*i)*.55)%1; g.globalAlpha=Math.max(0,Math.min(1,(1-q)*1.6)); wHeart(g,px+Math.sin(q*5+i*1.7)*u*4.2,py-u*(17+q*13),u*(1.3+q*.9),i%2?'#FF8FB0':'#FF3E6C'); } g.globalAlpha=1; return; }
+  if(k==='cheer'){ const hop=Math.abs(Math.sin(el*Math.PI*1.8))*u*3.2; wDrawChar(g,px,py-hop,u,av,.4,tm,false,name,isMe,{...E,wave:true});
+    for(let i=0;i<7;i++){ const a=i/7*Math.PI*2+el*2.4; const r=u*(6.5+Math.sin(el*7+i)*1.2); g.fillStyle=i%2?'#FFE08A':'#FFFFFF'; const x=px+Math.cos(a)*r, y=py-u*11-hop+Math.sin(a)*r*.55; g.fillRect(x-u*.55,y-u*.15,u*1.1,u*.3); g.fillRect(x-u*.15,y-u*.55,u*.3,u*1.1); } return; }
+  wDrawChar(g,px,py,u,av,.4,tm,false,name,isMe,{...E,wave:true});
+}
+/* 캐릭터를 꾹 누르면 펼쳐지는 원형 감정 휠 */
+function WEmoWheel({at,onPick,onClose}){
+  const vw=window.innerWidth||390, vh=window.innerHeight||800; const R=84;
+  const x=Math.max(R+46,Math.min(vw-R-46,at[0])), y=Math.max(R+130,Math.min(vh-R-170,at[1]));
+  return html`<div className="we69" onPointerDown=${e=>{ if(e.target===e.currentTarget){ e.preventDefault(); onClose(); } }}>
+    <div className="we69-w" style=${{left:x+'px',top:y+'px'}}>
+      <i className="we69-ring"></i>
+      <span className="we69-c"><${Icon} n="emote" s=${20} w=${2.3}/><small>감정</small></span>
+      ${W_EMO.map((E,i)=>{ const a=-Math.PI/2+i/W_EMO.length*Math.PI*2; return html`<button key=${E.k} className=${'we69-b tap k-'+E.k} style=${{'--x':Math.round(Math.cos(a)*R)+'px','--y':Math.round(Math.sin(a)*R)+'px','--i':i}} onClick=${()=>onPick(E.k)}><span><${Icon} n=${E.ic} s=${20} w=${2.4}/></span><b>${E.n}</b></button>`; })}
+    </div></div>`;
+}
+
+/* ── 미니맵 ── 월드 전체를 한 번 작게 그려 두고(섬이 바뀔 때만), 위에 나 · 크루 · 명소만 다시 그려요 */
+function wMiniBase(s){ if(s.mmB&&s.mmB.W===s.W) return s.mmB;
+  let a=1e9,b=-1e9,c0=1e9,d=-1e9; for(const T of s.W.T.values()){ const ix=T.x-T.y, iy=T.x+T.y; if(ix<a) a=ix; if(ix>b) b=ix; if(iy<c0) c0=iy; if(iy>d) d=iy; }
+  const K=5, P=6; const w=Math.ceil((b-a+2)*K+P*2), h=Math.ceil((d-c0+2)*K/2+P*2); const cv=document.createElement('canvas'); cv.width=w*2; cv.height=h*2; const g=cv.getContext('2d'); g.setTransform(2,0,0,2,0,0);
+  const toB=(x,y)=>[((x-y)-a+1)*K+P,((x+y)-c0+1)*K/2+P];
+  const fromB=(bx,by)=>{ const s1=(bx-P)/K+a-1, s2=(by-P)*2/K+c0-1; return [(s1+s2)/2,(s2-s1)/2]; };
+  const col=T=>T.t==='bridge'?'#C9965A':T.t==='path'?'#F3E3BE':T.t==='sand'?'#F6E4B0':T.t==='stone'?'#E4E0D6':T.isl===s.uid?'#FFC27A':T.isl==='center'?'#A4E894':'#7ED67F';
+  const dia=(x,y,ex,c)=>{ g.fillStyle=c; g.beginPath(); g.moveTo(x,y-K/2-ex*.5); g.lineTo(x+K+ex,y); g.lineTo(x,y+K/2+ex*.5); g.lineTo(x-K-ex,y); g.closePath(); g.fill(); };
+  for(const T of s.W.T.values()){ const [x,y]=toB(T.x,T.y); dia(x,y+1.2,1.6,'rgba(10,40,80,.28)'); }
+  for(const T of s.W.T.values()){ const [x,y]=toB(T.x,T.y); dia(x,y,1.4,'rgba(255,255,255,.7)'); }
+  for(const T of s.W.T.values()){ const [x,y]=toB(T.x,T.y); dia(x,y,.45,col(T)); }
+  s.mmB={W:s.W,cv,w,h,toB,fromB}; return s.mmB;
+}
+function wMiniRender(cv,s,o){
+  const B=wMiniBase(s); const d=2; const [W,H]=o.sz; if(cv.width!==Math.round(W*d)||cv.height!==Math.round(H*d)){ cv.width=Math.round(W*d); cv.height=Math.round(H*d); }
+  const g=cv.getContext('2d'); g.setTransform(d,0,0,d,0,0); g.clearRect(0,0,W,H); g.save();
+  if(o.round){ g.beginPath(); g.arc(W/2,H/2,W/2,0,Math.PI*2); g.clip(); }
+  const gr=g.createLinearGradient(0,0,0,H); gr.addColorStop(0,'#63CBEC'); gr.addColorStop(1,'#2F8FCB'); g.fillStyle=gr; g.fillRect(0,0,W,H);
+  g.strokeStyle='rgba(255,255,255,.18)'; g.lineWidth=1; for(let i=0;i<8;i++){ const y=(i+.5)*H/8; g.beginPath(); for(let x=0;x<=W;x+=8) g.lineTo(x,y+Math.sin(x*.12+i)*1.4); g.stroke(); }
+  const sc=o.sc; const [bx,by]=B.toB(o.cx,o.cy); const ox=W/2-bx*sc, oy=H/2-by*sc;
+  g.drawImage(B.cv,ox,oy,B.w*sc,B.h*sc);
+  const P=(x,y)=>{ const [a,b]=B.toB(x,y); return [ox+a*sc,oy+b*sc]; };
+  const big=!!o.big; const z=Math.max(.6,Math.min(1.6,sc*1.6));
+  /* 섬 이름 · 이번 주 인기 섬 왕관 */
+  if(big){ g.textAlign='center'; g.textBaseline='middle'; (s.W.L||[]).forEach(L=>{ const I=(s.isl||[]).find(i=>i.uid===L.uid); if(!I) return; const [x,y]=P(L.cx,L.cy+L.r*.9); const nm=(I.uid===s.uid?'내 섬':(I.name||'')).slice(0,9);
+      g.font='800 10.5px "NEXON Kart Gothic",sans-serif'; const tw=g.measureText(nm).width+12; g.fillStyle=I.uid===s.uid?'rgba(232,66,10,.92)':'rgba(10,18,36,.66)'; rr(g,x-tw/2,y-8,tw,16,8); g.fill(); g.fillStyle='#fff'; g.fillText(nm,x,y+.5);
+      if(s.top===I.uid){ const [cx,cy]=P(L.cx,L.cy); wCrown(g,cx,cy-4,7); } });
+    const [x0,y0]=P(-4,-2); g.font='900 11px "NEXON Kart Gothic",sans-serif'; const t0='가운데 섬'; const tw=g.measureText(t0).width+14; g.fillStyle='rgba(255,247,230,.95)'; rr(g,x0-tw/2,y0-9,tw,18,9); g.fill(); g.fillStyle='#3A2410'; g.fillText(t0,x0,y0+.5); }
+  else if(s.top){ const L=(s.W.L||[]).find(l=>l.uid===s.top); if(L){ const [cx,cy]=P(L.cx,L.cy); wCrown(g,cx,cy-2,5); } }
+  /* 명소 */
+  W_LM.forEach(l=>{ const [x,y]=P(l.x+1,l.y+1); const r=big?7*z:3.6; g.fillStyle=l.c[1]; g.beginPath(); g.arc(x,y,r,0,Math.PI*2); g.fill(); g.strokeStyle='#fff'; g.lineWidth=big?2:1.2; g.stroke();
+    if(big&&r>6){ g.save(); g.translate(x-r*.62,y-r*.62); g.scale(r*1.24/24,r*1.24/24); g.strokeStyle='#fff'; g.lineWidth=2.6; g.lineCap='round'; g.lineJoin='round'; g.stroke(wIcon(l.ic)); g.restore(); } });
+  /* 텃밭 다 자람 · 주민 */
+  (o.ready||[]).forEach(([x,y])=>{ const [px,py]=P(x,y); const k=.5+.5*Math.sin(Date.now()/240); g.fillStyle='rgba(124,217,87,'+(.35+k*.4)+')'; g.beginPath(); g.arc(px,py,big?7:4.5,0,Math.PI*2); g.fill(); g.fillStyle='#fff'; g.beginPath(); g.arc(px,py,big?2.6:1.7,0,Math.PI*2); g.fill(); });
+  if(big) (s.fnpc||[]).forEach(n=>{ const [x,y]=P(n.x,n.y); g.fillStyle=n.def.c; g.beginPath(); g.arc(x,y,3.4,0,Math.PI*2); g.fill(); g.strokeStyle='rgba(255,255,255,.9)'; g.lineWidth=1.2; g.stroke(); });
+  /* 크루 */
+  for(const ol of (s.olc?s.olc.values():[])){ const [x,y]=P(ol.x,ol.y); const pt=s.pty&&ol.m&&s.pty.has(ol.m.uid); g.fillStyle=pt?'#FF8A3D':'#3DDC84'; g.beginPath(); g.arc(x,y,big?5.2:3.4,0,Math.PI*2); g.fill(); g.strokeStyle='#fff'; g.lineWidth=big?2:1.4; g.stroke();
+    if(big&&ol.m){ const nm=dispName(ol.m).slice(0,6); g.font='800 10px "NEXON Kart Gothic",sans-serif'; g.textAlign='center'; g.textBaseline='bottom'; g.lineWidth=3; g.strokeStyle='rgba(0,0,0,.45)'; g.strokeText(nm,x,y-7); g.fillStyle='#fff'; g.fillText(nm,x,y-7); } }
+  /* 나: 바라보는 방향 화살표 */
+  { const [mx,my]=P(s.me.x,s.me.y); const wx=-Math.sin(s.me.yaw), wy=Math.cos(s.me.yaw); const ang=Math.atan2((wx+wy)*16,(wx-wy)*32); const r=big?8:6;
+    if(big){ const k=(Date.now()%1600)/1600; g.strokeStyle='rgba(255,90,26,'+(1-k)+')'; g.lineWidth=2; g.beginPath(); g.arc(mx,my,r+k*12,0,Math.PI*2); g.stroke(); }
+    g.save(); g.translate(mx,my); g.rotate(ang); g.lineJoin='round'; g.fillStyle='#FF5A1A'; g.strokeStyle='#fff'; g.lineWidth=2.2; g.beginPath(); g.moveTo(r,0); g.lineTo(-r*.72,r*.74); g.lineTo(-r*.3,0); g.lineTo(-r*.72,-r*.74); g.closePath(); g.stroke(); g.fill(); g.restore(); }
+  g.restore();
+  if(o.round){ g.strokeStyle='rgba(255,255,255,.95)'; g.lineWidth=3; g.beginPath(); g.arc(W/2,H/2,W/2-1.5,0,Math.PI*2); g.stroke(); }
+  return {ox,oy,sc,B};
+}
+function wCrown(g,x,y,s){ g.save(); g.fillStyle='#FFD54A'; g.strokeStyle='#8A5A00'; g.lineWidth=Math.max(1,s*.18); g.lineJoin='round'; g.beginPath(); g.moveTo(x-s,y+s*.55); g.lineTo(x-s*1.05,y-s*.45); g.lineTo(x-s*.45,y); g.lineTo(x,y-s*.75); g.lineTo(x+s*.45,y); g.lineTo(x+s*1.05,y-s*.45); g.lineTo(x+s,y+s*.55); g.closePath(); g.stroke(); g.fill(); g.fillStyle='#FF5A5A'; g.beginPath(); g.arc(x,y+s*.1,s*.2,0,Math.PI*2); g.fill(); g.restore(); }
+/* 오른쪽 위 원형 미니맵: 누르면 큰 지도 · − 로 접기 */
+function WMini({S,onOpen,onHide,top,ready}){
+  const cv=useRef(null); const R=useRef({}); R.current={top,ready};
+  useEffect(()=>{ let dead=false, t=0; const loop=()=>{ if(dead) return; const s=S.current, el=cv.current;
+      if(s&&el&&!s.paused&&s.W){ try{ wMiniRender(el,s,{sz:[86,86],sc:.42,cx:s.me.x,cy:s.me.y,round:true,ready:R.current.ready}); }catch(e){} }
+      t=setTimeout(loop,200); }; loop(); return ()=>{ dead=true; clearTimeout(t); }; },[]);
+  return html`<div className="wm69">
+    <button className="wm69-map tap" onClick=${onOpen} aria-label="지도 크게 보기"><canvas ref=${cv} style=${{width:'86px',height:'86px'}}></canvas><i className="wm69-n">N</i></button>
+    <button className="wm69-min tap" onClick=${onHide} aria-label="미니맵 접기"><${Icon} n="minus" s=${13} w=${3.2}/></button>
+  </div>`;
+}
+/* 큰 지도(바텀 시트): 두 손가락 · +/− 로 확대, 끌어서 둘러보기, 누르면 그곳으로 빠른 이동 */
+function WMapSheet({S,c,onClose,onGo,quick,ready}){
+  const cv=useRef(null); const [z,setZ]=useState(1); const V=useRef(null); const dr=useRef(null); const zR=useRef(1); zR.current=z; const pin=useRef(null);
+  useEffect(()=>{ let dead=false, t=0; const loop=()=>{ if(dead) return; const s=S.current, el=cv.current;
+      if(s&&el&&s.W){ const r=el.getBoundingClientRect(); if(r.width>10){ const B=wMiniBase(s); const fit=Math.min(r.width/B.w,r.height/B.h)*.96; if(!V.current) V.current=B.fromB(B.w/2,B.h/2);
+        try{ el.__m=wMiniRender(el,s,{sz:[r.width,r.height],sc:fit*zR.current,cx:V.current[0],cy:V.current[1],big:true,ready}); }catch(e){}
+        const P=pin.current; if(P&&Date.now()-P.at<900&&el.__m){ const g=el.getContext('2d'); const [a,b]=el.__m.B.toB(P.x,P.y); const x=el.__m.ox+a*el.__m.sc, y=el.__m.oy+b*el.__m.sc; const k=(Date.now()-P.at)/900; g.strokeStyle='rgba(255,255,255,'+(1-k)+')'; g.lineWidth=3; g.beginPath(); g.arc(x,y,6+k*22,0,Math.PI*2); g.stroke(); } } }
+      t=setTimeout(loop,60); }; loop(); return ()=>{ dead=true; clearTimeout(t); }; },[]);
+  const zoom=f=>{ setZ(v=>Math.max(1,Math.min(4.5,v*f))); haptic(5); };
+  const center=()=>{ const s=S.current; if(s){ V.current=[s.me.x,s.me.y]; if(zR.current<1.8) setZ(2.2); } haptic(6); };
+  const pts=useRef(new Map());
+  const down=e=>{ e.currentTarget.setPointerCapture(e.pointerId); pts.current.set(e.pointerId,[e.clientX,e.clientY]); if(pts.current.size===1) dr.current={x:e.clientX,y:e.clientY,v:V.current?[...V.current]:null,mv:false}; else if(pts.current.size===2){ const [a,b]=[...pts.current.values()]; dr.current={pinch:Math.hypot(a[0]-b[0],a[1]-b[1]),z:zR.current,mv:true}; } };
+  const move=e=>{ if(!pts.current.has(e.pointerId)) return; pts.current.set(e.pointerId,[e.clientX,e.clientY]); const D=dr.current; if(!D) return; const el=cv.current; const m=el&&el.__m; if(!m) return;
+    if(D.pinch&&pts.current.size===2){ const [a,b]=[...pts.current.values()]; setZ(Math.max(1,Math.min(4.5,D.z*Math.hypot(a[0]-b[0],a[1]-b[1])/D.pinch))); return; }
+    const dx=e.clientX-D.x, dy=e.clientY-D.y; if(Math.hypot(dx,dy)>6) D.mv=true; if(!D.mv||!D.v) return; const [bx,by]=m.B.toB(D.v[0],D.v[1]); V.current=m.B.fromB(bx-dx/m.sc,by-dy/m.sc); };
+  const up=e=>{ pts.current.delete(e.pointerId); const D=dr.current; if(pts.current.size) return; dr.current=null; if(!D||D.mv) return; const el=cv.current; const m=el&&el.__m; if(!m) return; const r=el.getBoundingClientRect();
+    const [wx,wy]=m.B.fromB((e.clientX-r.left-m.ox)/m.sc,(e.clientY-r.top-m.oy)/m.sc); const s=S.current; const T=s&&s.W.T.get(Math.round(wx)+','+Math.round(wy)); if(!T){ haptic(4); return; }
+    pin.current={x:Math.round(wx),y:Math.round(wy),at:Date.now()}; haptic(12); setTimeout(()=>onGo(Math.round(wx),Math.round(wy)),260); };
+  return html`<div className="wb20-shade" onClick=${onClose}><div className="wbs w69s wmp69" onClick=${e=>e.stopPropagation()}>
+    <div className="wbs-h"><b>월드 지도</b><span className="wbs-sub">누르면 그곳으로 빠른 이동</span><button className="wbi-x tap" onClick=${onClose} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
+    <div className="wmp69-m"><canvas ref=${cv} onPointerDown=${down} onPointerMove=${move} onPointerUp=${up} onPointerCancel=${up} onWheel=${e=>zoom(e.deltaY>0?.85:1.18)}></canvas>
+      <div className="wmp69-z"><button className="tap" onClick=${()=>zoom(1.4)} aria-label="확대"><${Icon} n="plus" s=${17} w=${3}/></button><button className="tap" onClick=${()=>zoom(1/1.4)} aria-label="축소"><${Icon} n="minus" s=${17} w=${3}/></button><button className="tap me" onClick=${center} aria-label="내 위치"><${Icon} n="compass" s=${17} w=${2.4}/></button></div>
+      <div className="wmp69-lg"><span><i className="me"></i>나</span><span><i className="cr"></i>크루</span><span><i className="pt"></i>파티</span><span><i className="gd"></i>수확</span></div></div>
+    <div className="wmp69-q">${quick.map(q=>html`<button key=${q.k} className="tap" onClick=${q.go}><span className="gi30" style=${{'--g1':q.c[0],'--g2':q.c[1]}}><${Icon} n=${q.ic} s=${15} w=${2.4}/></span>${q.n}</button>`)}</div>
+  </div></div>`;
+}
+
+/* ── 월드 전용 다이나믹 바 ── 평소엔 지금 있는 곳 · 소식이 오면 펼쳐지고, 누르면 그 위치로 */
+function WDyn({c,area,sub,hidden,wide,onIdle}){
+  const [cur,setCur]=useState(null); const Q=useRef([]); const tm=useRef(0); const curR=useRef(null);
+  const next=()=>{ const n=Q.current.shift()||null; curR.current=n; setCur(n); clearTimeout(tm.current); if(n) tm.current=setTimeout(next,n.dur||3800); };
+  const push=ev=>{ if(!ev||!ev.t) return; if(ev.id&&(Q.current.some(x=>x.id===ev.id)||(curR.current&&curR.current.id===ev.id))) return; if(Q.current.length>6) Q.current.shift(); Q.current.push({...ev,k:Date.now()+Math.random()}); if(!curR.current) next(); };
+  useEffect(()=>{ const f=e=>push(e.detail); window.addEventListener('dko-wdyn',f); return ()=>{ window.removeEventListener('dko-wdyn',f); clearTimeout(tm.current); }; },[]);
+  const tk=useRef(c.toast&&c.toast.k);
+  useEffect(()=>{ const t=c.toast; if(!t||t.k===tk.current) return; tk.current=t.k; const err=t.type==='err';
+    push({ic:err?'alert':t.type==='ntf'?'bell':t.type==='gold'?'coin':'check',col:err?'#FF5468':t.type==='gold'?'#FFB020':'#3DDC84',t:t.msg,b:t.body||'',dur:t.body?4200:2800,err}); },[c.toast]);
+  const A=cur;
+  return html`<div className=${'wdy69'+(A?' on':'')+(A&&A.err?' err':'')+(hidden?' hid':'')+(wide?' wide':'')} style=${A?{'--c':A.col||'#3DDC84'}:null} role="status" onClick=${()=>{ if(A){ const go=A.go; next(); if(go){ haptic(10); go(); } } else if(onIdle) onIdle(); }}>
+    ${A?html`<div className="wdy69-a" key=${A.k}><span className="wdy69-ic">${A.ic==='coin'?html`<${Coin} s=${17}/>`:html`<${Icon} n=${A.ic||'bell'} s=${16} w=${2.6}/>`}</span><span className="wdy69-t">${A.lab?html`<em>${A.lab}</em>`:null}<b>${A.t}</b>${A.b?html`<small>${A.b}</small>`:null}</span>${A.go?html`<span className="wdy69-go">${A.gl||'이동'}<${Icon} n="chev" s=${12} w=${3}/></span>`:null}<i className="wdy69-bar" style=${{animationDuration:(A.dur||3800)+'ms'}}></i></div>`
+      :html`<div className="wdy69-i" key="idle"><span className="wdy69-pin"><${Icon} n="pin" s=${12} w=${2.8}/></span><b>${area}</b>${sub?html`<small>${sub}</small>`:null}</div>`}
+  </div>`;
+}
+
+/* ── 텃밭 ── */
+function WCropIc({k,s}){ const C=wCropOf(k); if(!C) return null; const [a,b]=C.c; const S0=s||28; const lf='#3FB65C', lf2='#2F9A4A'; let body=null;
+  if(C.sh==='root') body=html`<path d="M12 9.6c-2.7 0-4.5 2-4.5 4.6 0 3.2 2.5 6.6 4.5 7.4 2-.8 4.5-4.2 4.5-7.4 0-2.6-1.8-4.6-4.5-4.6z" fill=${a}/><path d="M9.6 14.4h2M12.4 16.8h2M10.6 18.9h1.4" stroke=${b} stroke-width="1.1" stroke-linecap="round"/><path d="M12 10C10.6 6.4 8 4.9 6.1 5.5c.6 2.4 3 4 5.9 4.5zM12 10c1.4-3.6 4-5.1 5.9-4.5-.6 2.4-3 4-5.9 4.5z" fill=${lf}/><path d="M12 10V3.4" stroke=${lf2} stroke-width="1.6" stroke-linecap="round"/>`;
+  else if(C.sh==='corn') body=html`<path d="M12 3.5c2.6 0 4.2 3.6 4.2 8.3S14.6 20.5 12 20.5 7.8 16.5 7.8 11.8 9.4 3.5 12 3.5z" fill=${a}/><path d="M9.6 7.5h4.8M8.9 10.5h6.2M8.9 13.5h6.2M9.4 16.5h5.2M12 4v16" stroke=${b} stroke-width=".9" opacity=".7"/><path d="M12 21c-3.8-.6-6-4.6-6.6-9.5 1.8 2.5 3.6 5.6 6.6 9.5zM12 21c3.8-.6 6-4.6 6.6-9.5-1.8 2.5-3.6 5.6-6.6 9.5z" fill=${lf}/>`;
+  else if(C.sh==='berry') body=html`<path d="M12 21c-3.6-2.4-6.4-5.8-6.4-9 0-2.6 2.6-3.8 6.4-3.8s6.4 1.2 6.4 3.8c0 3.2-2.8 6.6-6.4 9z" fill=${a}/>${[[9,12],[12,11],[15,12],[10.5,15],[13.5,15],[12,18]].map(([x,y],i)=>html`<ellipse key=${i} cx=${x} cy=${y} rx=".55" ry=".8" fill="#FFE08A"/>`)}<path d="M12 9c-2-2.2-4.6-2.6-5.6-1.6 1.4.4 2.8 1.2 3.4 2.2-1-.1-2.2.2-2.8.8 2 .6 3.6.3 5-1.4 1.4 1.7 3 2 5 1.4-.6-.6-1.8-.9-2.8-.8.6-1 2-1.8 3.4-2.2-1-1-3.6-.6-5.6 1.6z" fill=${lf}/>`;
+  else if(C.sh==='pump') body=html`<ellipse cx="12" cy="14.6" rx="8.4" ry="6.2" fill=${a}/><path d="M12 8.6c-1.8 0-2.6 2.8-2.6 6s.8 6 2.6 6 2.6-2.8 2.6-6-.8-6-2.6-6zM6.4 10.4c-1.4 1.6-1.6 6.6 0 8.4M17.6 10.4c1.4 1.6 1.6 6.6 0 8.4" stroke=${b} stroke-width="1.1" fill="none"/><path d="M12 8.8V5.2c0-.8 1-1.6 2-1.6" stroke="#6B8E23" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M13 6c1.6-1.8 4-1.6 4.8-.6-1.2 1-3 1.4-4.8.6z" fill=${lf}/>`;
+  else if(C.sh==='melon') body=html`<circle cx="12" cy="13.4" r="8" fill=${a}/><path d="M12 5.4c-2.6 2.4-3 13.6 0 16M12 5.4c2.6 2.4 3 13.6 0 16M6 8.4c-1.6 3.2-1.4 7.8.6 10.6M18 8.4c1.6 3.2 1.4 7.8-.6 10.6" stroke=${b} stroke-width="1.5" fill="none"/><ellipse cx="9" cy="9.6" rx="2" ry="1.2" fill="#fff" opacity=".35" transform="rotate(-30 9 9.6)"/>`;
+  else if(C.sh==='flower') body=html`<path d="M12 21v-6" stroke=${lf2} stroke-width="1.8" stroke-linecap="round"/><path d="M12 18c-2.4-.2-4-1.4-4.6-3 2 0 3.6.9 4.6 3z" fill=${lf}/>${[0,1,2,3,4].map(i=>{ const an=-Math.PI/2+i*Math.PI*2/5; const x=12+Math.cos(an)*4.2, y=9.6+Math.sin(an)*4.2; return html`<ellipse key=${i} cx=${x.toFixed(2)} cy=${y.toFixed(2)} rx="2.9" ry="2.2" fill=${a} transform=${'rotate('+(an*180/Math.PI).toFixed(1)+' '+x.toFixed(2)+' '+y.toFixed(2)+')'}/>`; })}<circle cx="12" cy="9.6" r="2.3" fill=${b}/>`;
+  else body=html`<circle cx="12" cy="14" r="7.2" fill=${a}/><circle cx="12" cy="14" r="7.2" fill="none" stroke=${b} stroke-width="1" opacity=".5"/><ellipse cx="9.4" cy="11.4" rx="2.2" ry="1.4" fill="#fff" opacity=".4" transform="rotate(-30 9.4 11.4)"/><path d="M12 7.4V4.2" stroke="#7A4E2C" stroke-width="1.6" stroke-linecap="round"/><path d="M12.4 5.6c1.8-1.8 4.4-1.6 5.2-.6-1.4 1-3.4 1.4-5.2.6z" fill=${lf}/>`;
+  return html`<svg className="wci69" viewBox="0 0 24 24" width=${S0} height=${S0} aria-hidden="true">${body}</svg>`;
+}
+const wFmtLeft=ms=>{ const s=Math.max(0,Math.ceil(ms/1000)); if(s<60) return s+'초'; const m=Math.ceil(s/60); if(m<60) return m+'분'; const h=Math.floor(m/60), mm=m%60; return h+'시간'+(mm?' '+mm+'분':''); };
+/* 월드 위 텃밭 칸: 자라는 단계 · 다 자라면 반짝 · 물 줄 수 있으면 물방울 */
+function wFarmDraw(g,px,py,u,tm,I,it,own,now,canW){
+  const P=wPlotOf(I,it.i); const Pr=(x,y,z)=>[px+(x-y)*u,py+(x+y)*u*.5-z*u];
+  if(!P){ if(own){ const b=Math.sin(tm*3+it.x)*u*.4; const [x,y]=Pr(0,0,4); g.globalAlpha=.85; g.fillStyle='rgba(255,255,255,.9)'; g.beginPath(); g.arc(x,y-u*2+b,u*1.9,0,Math.PI*2); g.fill(); g.strokeStyle='#5DAE48'; g.lineWidth=Math.max(1.5,u*.45); g.lineCap='round'; g.beginPath(); g.moveTo(x-u*.9,y-u*2+b); g.lineTo(x+u*.9,y-u*2+b); g.moveTo(x,y-u*2.9+b); g.lineTo(x,y-u*1.1+b); g.stroke(); g.globalAlpha=1; } return; }
+  const C=wCropOf(P.c); const end=wPlotEnd(I,it.i); const k=Math.max(0,Math.min(1,(now-P.at)/Math.max(1,end-P.at))); const ready=now>=end; const wet=wPlotWater(I,it.i,P.at).length;
+  if(wet){ g.fillStyle='rgba(40,60,110,.16)'; g.beginPath(); g.ellipse(px,py,u*6.4,u*3.2,0,0,Math.PI*2); g.fill(); }
+  const spots=[[-2,-2],[2,-2],[-2,2],[2,2]]; const st=ready?3:k<.25?0:k<.6?1:2;
+  spots.forEach(([sx,sy],i)=>{ const sw=Math.sin(tm*2.2+i+it.x)*u*.25; const [x,y]=Pr(sx,sy,.9);
+    if(st===0){ g.fillStyle='#7A4E2C'; g.beginPath(); g.ellipse(x,y,u*1.1,u*.55,0,0,Math.PI*2); g.fill(); g.fillStyle='#6ED487'; g.beginPath(); g.ellipse(x-u*.5+sw*.3,y-u*.9,u*.55,u*.3,-.6,0,Math.PI*2); g.ellipse(x+u*.5+sw*.3,y-u*.9,u*.55,u*.3,.6,0,Math.PI*2); g.fill(); return; }
+    const hgt=st===1?2.2:3.6; g.strokeStyle='#3E9A52'; g.lineWidth=Math.max(1,u*.35); g.beginPath(); g.moveTo(x,y); g.lineTo(x+sw,y-u*hgt); g.stroke();
+    g.fillStyle=st===1?'#6ED487':'#4FB86A'; for(const [dx,dy,r] of [[-1,-.55,-.7],[1,-.75,.7],[-.6,-1,-.4],[.7,-1.05,.5]]){ g.beginPath(); g.ellipse(x+dx*u*(st===1?.8:1.15)+sw,y-u*hgt*(-dy)*.62-u*.4,u*(st===1?.75:1.05),u*.42,r,0,Math.PI*2); g.fill(); }
+    if(st>=2){ const fr=st===3?1:.62; const fx=x+sw, fy=y-u*hgt*.95; const col=st===3?C.c[0]:'#9CCB6A';
+      if(C.sh==='flower'){ for(let j=0;j<5;j++){ const an=j*1.2566+tm*.3; g.fillStyle=col; g.beginPath(); g.ellipse(fx+Math.cos(an)*u*.9*fr,fy+Math.sin(an)*u*.55*fr,u*.75*fr,u*.5*fr,an,0,Math.PI*2); g.fill(); } g.fillStyle=C.c[1]; g.beginPath(); g.arc(fx,fy,u*.45*fr,0,Math.PI*2); g.fill(); }
+      else if(C.sh==='corn'){ g.fillStyle=col; g.beginPath(); g.ellipse(fx,fy,u*.6*fr,u*1.3*fr,.2,0,Math.PI*2); g.fill(); }
+      else if(C.sh==='root'){ g.fillStyle=col; g.beginPath(); g.ellipse(x,y-u*.2,u*.9*fr,u*.55*fr,0,0,Math.PI*2); g.fill(); }
+      else { const r=u*(C.sh==='pump'||C.sh==='melon'?1.35:1)*fr; g.fillStyle=col; g.beginPath(); g.arc(fx,fy+(C.sh==='pump'||C.sh==='melon'?u*1.6:0),r,0,Math.PI*2); g.fill(); g.fillStyle='rgba(255,255,255,.4)'; g.beginPath(); g.arc(fx-r*.35,fy-r*.35+(C.sh==='pump'||C.sh==='melon'?u*1.6:0),r*.3,0,Math.PI*2); g.fill(); } } });
+  const [bx,by]=Pr(0,0,9);
+  if(ready){ for(let i=0;i<4;i++){ const q=(tm*.8+i/4)%1; const a=i*1.7+tm; const x=px+Math.cos(a)*u*5, y=py-u*(3+q*6); g.fillStyle='rgba(255,247,190,'+(1-q)+')'; g.fillRect(x-u*.5,y-u*.12,u,u*.24); g.fillRect(x-u*.12,y-u*.5,u*.24,u); }
+    if(own){ const b=Math.sin(tm*4+it.x)*u*.6; g.fillStyle='#fff'; g.beginPath(); g.arc(bx,by-u*2+b,u*2.6,0,Math.PI*2); g.fill(); g.beginPath(); g.moveTo(bx-u*.9,by+u*.4+b); g.lineTo(bx,by+u*1.6+b); g.lineTo(bx+u*.9,by+u*.4+b); g.fill();
+      g.fillStyle=C.c[0]; g.beginPath(); g.arc(bx,by-u*2+b,u*1.3,0,Math.PI*2); g.fill(); g.fillStyle='#3FB65C'; g.beginPath(); g.ellipse(bx+u*.5,by-u*3.4+b,u*.7,u*.35,-.5,0,Math.PI*2); g.fill(); } }
+  else if(canW){ const b=Math.sin(tm*4+it.x)*u*.6; g.fillStyle='rgba(255,255,255,.95)'; g.beginPath(); g.arc(bx,by-u*2+b,u*2.4,0,Math.PI*2); g.fill(); g.fillStyle='#3FA2F2'; g.beginPath(); g.moveTo(bx,by-u*3.6+b); g.quadraticCurveTo(bx+u*1.3,by-u*1.8+b,bx,by-u*1.1+b); g.quadraticCurveTo(bx-u*1.3,by-u*1.8+b,bx,by-u*3.6+b); g.fill(); }
+  else if(own&&k>0){ const w=u*7, h=Math.max(3,u*.8); g.fillStyle='rgba(10,16,30,.55)'; rr(g,px-w/2,py+u*2.4,w,h,h/2); g.fill(); g.fillStyle='#7CD957'; rr(g,px-w/2,py+u*2.4,w*k,h,h/2); g.fill(); }
+}
+/* 텃밭 바텀 시트: 칸을 고르고 씨앗을 심어요 · 다 자란 건 한 번에 수확 */
+function WGarden({I,now,focus,onClose,onPlant,onHarvest,onBuild,onGo}){
+  const plots=I.items.filter(it=>it.t==='farm'); const [sel,setSel]=useState(()=>focus||(plots.find(p=>!wPlotOf(I,p.i))||plots[0]||{}).i||null);
+  const xm=wXmas(); const crops=W_CROP.filter(C=>!C.xmas||xm); const readyL=plots.filter(p=>{ const e=wPlotEnd(I,p.i); return e&&now>=e; });
+  const sp=sel&&wPlotOf(I,sel); const max=wMaxOf('farm',I.hallLv);
+  return html`<div className="wb20-shade" onClick=${onClose}><div className="wbs w69s wg69" onClick=${e=>e.stopPropagation()}>
+    <div className="wbs-h"><b>텃밭</b><span className="wbs-sub"><${Icon} n="sprout" s=${14} w=${2.4}/>${plots.length}/${max}칸 · 크루가 물을 주면 20%씩 빨라져요</span><button className="wbi-x tap" onClick=${onClose} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
+    <div className="w69-body">
+      ${!plots.length?html`<div className="wg69-empty"><span className="gi30" style=${{'--g1':'#8EE06A','--g2':'#2F9A3A'}}><${Icon} n="sprout" s=${30} w=${2.2}/></span><b>아직 텃밭이 없어요</b><small>텃밭을 지으면 씨앗을 심고 실제 시간으로 키울 수 있어요. 본부 레벨이 오를수록 칸과 작물이 늘어나요.</small><button className="wbi-go tap" onClick=${onBuild}><${BrickIc} s=${18}/>${W_CAT.farm.b} · 텃밭 짓기</button></div>`:html`
+      ${readyL.length?html`<button className="wg69-all tap" onClick=${()=>onHarvest(readyL.map(p=>p.i))}><${Icon} n="sprout" s=${18} w=${2.4}/>다 자란 작물 ${readyL.length}개 모두 수확</button>`:null}
+      <div className="wg69-plots">${plots.map((p,i)=>{ const P=wPlotOf(I,p.i); const end=wPlotEnd(I,p.i); const rd=end&&now>=end; const k=P?Math.max(0,Math.min(1,(now-P.at)/Math.max(1,end-P.at))):0; const wn=P?Math.min(3,wPlotWater(I,p.i,P.at).length):0;
+        return html`<button key=${p.i} className=${'wg69-p tap'+(sel===p.i?' on':'')+(rd?' rd':'')+(P?'':' em')} onClick=${()=>{ setSel(p.i); if(rd) onHarvest([p.i]); }}>
+          <span className="wg69-ring" style=${{'--k':(rd?1:k)}}>${P?html`<${WCropIc} k=${P.c} s=${30}/>`:html`<${Icon} n="plus" s=${20} w=${2.6}/>`}</span>
+          <b>${P?wCropOf(P.c).n:(i+1)+'번 칸'}</b><small>${!P?'비어 있어요':rd?'수확하기!':wFmtLeft(end-now)+' 남음'}</small>${wn?html`<em className="wg69-w">${Array.from({length:wn}).map((_,j)=>html`<${Icon} key=${j} n="drop" s=${10} w=${2.6} fill="currentColor"/>`)}</em>`:null}</button>`; })}
+        ${plots.length<max?html`<button className="wg69-p tap add" onClick=${onBuild}><span className="wg69-ring"><${Icon} n="plus" s=${20} w=${2.6}/></span><b>칸 늘리기</b><small><${BrickIc} s=${11}/>${W_CAT.farm.b}</small></button>`:null}</div>
+      ${sel?html`<div className="wg69-sec">${sp?'자라는 중':'씨앗 고르기'}<span>${sp?'':'본부 Lv.'+I.hallLv+' · 벽돌 '+I.bricks.toLocaleString()}</span></div>
+        ${sp?(()=>{ const C=wCropOf(sp.c); const end=wPlotEnd(I,sel); const rd=now>=end; const wn=Math.min(3,wPlotWater(I,sel,sp.at).length); return html`<div className="wg69-cur"><${WCropIc} k=${sp.c} s=${44}/><div><b>${C.n}</b><small>${rd?'다 자랐어요! 눌러서 수확해요':'다 자라기까지 '+wFmtLeft(end-now)}</small><small>크루 물 주기 ${wn}/3 · 수확 보너스 +${wn*10}%</small></div>${rd?html`<button className="wbi-mini tap" onClick=${()=>onHarvest([sel])}>수확</button>`:html`<button className="wbi-mini ghost tap" onClick=${()=>onGo(sel)}>보러 가기</button>`}</div>`; })()
+        :html`<div className="wg69-seeds">${crops.map(C=>{ const lock=C.lv>I.hallLv; const poor=!lock&&I.bricks<C.cost; return html`<button key=${C.k} className=${'wg69-s tap'+(lock?' lock':'')+(poor?' poor':'')+(C.xmas?' xm':'')} onClick=${()=>!lock&&onPlant(sel,C.k)}>
+            <${WCropIc} k=${C.k} s=${34}/><b>${C.n}</b><small><${Icon} n="clock" s=${10} w=${2.6}/>${wFmtLeft(C.sec*1000)}</small>
+            <span className="wg69-gain"><${BrickIc} s=${11}/>+${C.get.toLocaleString()}${C.coin?html` · <${Coin} s=${10}/>${C.coin}`:null}</span>
+            ${lock?html`<span className="wg69-lk"><${Icon} n="lock" s=${11} w=${2.6}/>본부 Lv.${C.lv}</span>`:html`<span className="wg69-c"><${BrickIc} s=${12}/>${C.cost}</span>`}</button>`; })}</div>`}`:null}
+      `}
+    </div></div></div>`;
+}
+
+/* ── 방명록 · 발자국 ── */
+function WGuest({c,I,isOwner,onClose,onWrite,onDel,onGo}){
+  const [t,setT]=useState(''); const m=c.members.find(x=>x.uid===I.uid); const w0=wWeek0(); const ws=wWeekScore(I,w0);
+  const list=Object.entries(I.gb||{}).filter(([k,e])=>e&&e.t).map(([k,e])=>({id:k,...e})).sort((a,b)=>b.at-a.at).slice(0,60);
+  const feet=Object.entries(I.foot||{}).filter(([u,at])=>typeof at==='number'&&u!==I.uid).sort((a,b)=>b[1]-a[1]).slice(0,12);
+  const send=()=>{ const v=t.trim().slice(0,60); if(!v) return; onWrite(v); setT(''); };
+  return html`<div className="wb20-shade" onClick=${onClose}><div className="wbs w69s wgb69" onClick=${e=>e.stopPropagation()}>
+    <div className="wbs-h"><b>${isOwner?'내 섬 방명록':I.name+' 방명록'}</b><span className="wbs-sub">${m?dispName(m)+'의 섬':''}</span><button className="wbi-x tap" onClick=${onClose} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
+    <div className="w69-body">
+      <div className="wgb69-st"><span><${Icon} n="heart" s=${15} w=${2.4} fill="currentColor"/><b>${Object.keys(I.likes||{}).length}</b><small>좋아요</small></span><span><${Icon} n="foot" s=${15} w=${2.4}/><b>${Object.keys(I.foot||{}).filter(u=>u!==I.uid).length}</b><small>발자국</small></span><span><${Icon} n="book" s=${15} w=${2.4}/><b>${list.length}</b><small>방명록</small></span><span className="wk"><${Icon} n="crown" s=${15} w=${2.4}/><b>${ws.sc}</b><small>이번 주 점수</small></span></div>
+      ${feet.length?html`<div className="wg69-sec">최근 다녀간 크루<span>발자국은 섬에 남아요</span></div><div className="wgb69-ft">${feet.map(([u,at])=>{ const mm=c.members.find(x=>x.uid===u); return mm?html`<span key=${u} className="wgb69-f"><${PfpView} m=${mm} s=${34}/><small>${ago(at)}</small></span>`:null; })}</div>`:null}
+      <div className="wg69-sec">한마디<span>${isOwner?'내 섬에 남긴 글':'따뜻한 한마디를 남겨요'}</span></div>
+      ${!isOwner?html`<div className="wgb69-in"><input className="inp" value=${t} maxLength=${60} placeholder="섬 정말 예뻐요! (60자)" onChange=${e=>setT(e.target.value)} onKeyDown=${e=>{ if(e.key==='Enter'){ e.preventDefault(); send(); } }}/><button className=${'wbi-mini tap'+(t.trim()?'':' off')} onClick=${send}><${Icon} n="send" s=${15} w=${2.4}/></button></div>`:null}
+      <div className="wgb69-l">${list.length?list.map(e=>{ const mm=c.members.find(x=>x.uid===e.u); return html`<div key=${e.id} className="wgb69-r">${mm?html`<${PfpView} m=${mm} s=${36}/>`:html`<span className="wgb69-av"></span>`}<div><b>${mm?dispName(mm):'크루'}<small>${ago(e.at)}</small></b><p>${e.t}</p></div>${isOwner||e.u===c.uid?html`<button className="wgb69-x tap" onClick=${()=>onDel(e.id)} aria-label="지우기"><${Icon} n="trash" s=${14} w=${2.3}/></button>`:null}</div>`; })
+        :html`<p className="wgb69-none">${isOwner?'아직 방명록이 비어 있어요. 크루가 놀러 오면 한마디를 남겨요.':'첫 번째 한마디를 남겨 보세요!'}</p>`}</div>
+      ${!isOwner&&onGo?html`<button className="wbi-go ghost tap" onClick=${onGo}>섬 구경 가기</button>`:null}
+    </div></div></div>`;
+}
+/* 섬 위 발자국: 사흘 안에 다녀간 크루가 섬 입구 쪽에 작게 남겨요 */
+function wFootEnts(s,ents,now){ if(s.cam.z<.5) return; (s.isl||[]).forEach(I=>{ const F=I.foot; if(!F) return; const sp=s.ospot[I.uid]; const L=s.W.L.find(l=>l.uid===I.uid); if(!sp||!L) return;
+  Object.entries(F).filter(([u,at])=>typeof at==='number'&&u!==I.uid&&now-at<3*86400000).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([u,at],vi)=>{ const h=wStr(u); const a=(h%628)/100; const hue=h%360;
+    for(let j=0;j<3;j++){ const r=1.4+j*.62+vi*.12; const gx=sp[0]+Math.cos(a)*r, gy=sp[1]+Math.sin(a)*r; const T=s.W.T.get(Math.round(gx)+','+Math.round(gy)); if(!T||T.isl!==I.uid) continue; ents.push({d:gx+gy-.45,k:'ft',gx,gy,col:'hsla('+hue+',70%,38%,'+Math.max(.18,.5-(now-at)/(3*86400000)*.3)+')',ang:a+Math.PI,j}); } }); }); }
+function wFootDraw(g,px,py,u,e){ g.save(); g.translate(px,py); g.scale(1,.5); g.rotate(e.ang+(e.j%2?.25:-.25)); g.fillStyle=e.col; g.beginPath(); g.ellipse(0,0,u*.95,u*.6,0,0,Math.PI*2); g.fill(); for(let i=0;i<3;i++){ g.beginPath(); g.arc(u*1.25,(i-1)*u*.5,u*.26,0,Math.PI*2); g.fill(); } g.restore(); }
+
+/* ── 섬 이름표 장식: 이번 주 인기 1위 왕관 · DKO 내전/1대1 전적 ── */
+function wNameX(g,px,y,u,tm,I,s){
+  const r=s.rec&&s.rec[I.uid]; if(r&&(r.mw||r.dw)){ const txt=(r.mw?'내전 '+r.mw+'승':'')+(r.mw&&r.dw?' · ':'')+(r.dw?'1대1 '+r.dw+'승':''); g.font='800 '+Math.max(9,Math.round(u*1.8))+'px "NEXON Kart Gothic",sans-serif'; const tw=g.measureText(txt).width+14, th=Math.max(14,u*3); const ty=y+u*7.4;
+    g.fillStyle='rgba(28,20,60,.78)'; rr(g,px-tw/2,ty,tw,th,th/2); g.fill(); g.fillStyle='#FFD54A'; g.textAlign='center'; g.textBaseline='middle'; g.fillText(txt,px,ty+th/2+.5); }
+  if(s.top===I.uid){ const b=Math.sin(tm*2.4)*u*.5; const cy=y-u*3.4+b; const rg=g.createRadialGradient(px,cy,0,px,cy,u*7); rg.addColorStop(0,'rgba(255,220,100,.55)'); rg.addColorStop(1,'rgba(255,220,100,0)'); g.fillStyle=rg; g.fillRect(px-u*7,cy-u*7,u*14,u*14); wCrown(g,px,cy,Math.max(7,u*2.2));
+    g.font='900 '+Math.max(9,Math.round(u*1.7))+'px "NEXON Kart Gothic",sans-serif'; const t2='이번 주 인기 1위'; const tw=g.measureText(t2).width+12, th=Math.max(13,u*2.8); g.fillStyle='#FFB020'; rr(g,px-tw/2,cy-u*2.4-th-2,tw,th,th/2); g.fill(); g.fillStyle='#3A2410'; g.textAlign='center'; g.textBaseline='middle'; g.fillText(t2,px,cy-u*2.4-th/2-1.5); }
+}
+function wPartyTag(g,px,py,u){ g.font='900 '+Math.max(9,Math.round(u*1.8))+'px "NEXON Kart Gothic",sans-serif'; const t='파티'; const tw=g.measureText(t).width+12, th=Math.max(13,u*2.8); const y=py-u*21.5; g.fillStyle='#FF8A3D'; rr(g,px-tw/2,y-th/2,tw,th,th/2); g.fill(); g.fillStyle='#fff'; g.textAlign='center'; g.textBaseline='middle'; g.fillText(t,px,y+.5); }
+/* DKO 기록: 내전(승/참가) · 1대1(승/참가) */
+const wRecOf=(c,uid,since)=>{ let mw=0,mp=0,dw=0,dp=0; (c.matches||[]).forEach(mt=>{ if(since&&(mt.createdAt||0)<since) return; const inA=(mt.A||[]).some(x=>x.uid===uid), inB=(mt.B||[]).some(x=>x.uid===uid); if(!inA&&!inB) return; mp++; if((inA&&mt.winner==='A')||(inB&&mt.winner==='B')) mw++; });
+  (c.duels||[]).forEach(d=>{ if(d.status!=='done'||d.sa==null) return; const t=d.confAt||d.recAt||d.createdAt||0; if(since&&t<since) return; if(d.a!==uid&&d.b!==uid) return; dp++; const win=d.sa>d.sb?d.a:d.sb>d.sa?d.b:null; if(win===uid) dw++; });
+  return {mw,mp,dw,dp}; };
+const wRecGain=r=>r.mw*60+(r.mp-r.mw)*20+r.dw*50+(r.dp-r.dw)*15;
+const wPartyUids=c=>{ const S0=new Set(); const t=Date.now(); (c.parties||[]).forEach(p=>{ const ps=p.participants||[]; if(!ps.some(x=>x.uid===c.uid)) return; const at=p.at||0; const live=typeof partyLive==='function'?partyLive(p):false; if(!live&&!(at>t-3600000&&at-t<3*3600000)) return; ps.forEach(x=>{ if(x.uid&&x.uid!==c.uid) S0.add(x.uid); }); }); return S0; };
+
+/* ── NPC 의뢰 · 호감도 ── */
+const W_NQ={
+  toby:[{k:'col',n:2,t:'벽돌 공방에서 벽돌 2번 모으기'},{k:'build',n:1,t:'섬에 건물이나 장식 1개 놓기'},{k:'harvest',n:2,t:'텃밭 작물 2번 수확하기'}],
+  sera:[{k:'visit',n:2,t:'크루원 섬 2곳 놀러 가기'},{k:'emote',n:3,t:'감정 표현 3번 하기'},{k:'walk',n:150,t:'월드를 150칸 산책하기'}],
+  pipi:[{k:'gb',n:1,t:'크루 섬 방명록에 한마디 남기기'},{k:'water',n:2,t:'크루 텃밭에 물 2번 주기'},{k:'like',n:1,t:'마음에 드는 섬에 좋아요 누르기'}],
+  owl:[{k:'kill',n:15,t:'포털 너머 몬스터 15마리 사냥하기'},{k:'stage',n:1,t:'동화 숲 스테이지 1개 깨기'},{k:'kill',n:25,t:'몬스터 25마리 사냥하기'}],
+  guard:[{k:'kill',n:20,t:'몬스터 20마리 물리치기'},{k:'boss',n:1,t:'보스 1마리 쓰러뜨리기'},{k:'walk',n:250,t:'섬 순찰 250칸 걷기'}],
+  mia:[{k:'plant',n:2,t:'텃밭에 씨앗 2개 심기'},{k:'harvest',n:1,t:'다 자란 작물 1번 수확하기'},{k:'build',n:1,t:'섬을 장식 하나로 꾸미기'}]};
+const W_NQR={toby:90,sera:70,pipi:80,owl:140,guard:150,mia:80};
+const W_AFF=[0,20,50,100,170,260]; const W_AFFN=['처음 만남','아는 사이','친한 사이','단골','절친','단짝'];
+const W_AFFG={1:{b:100,t:'벽돌 100개'},2:{item:1,t:'전용 장식'},3:{d:10,t:'D-Coin 10'},4:{b:500,t:'벽돌 500개'},5:{d:30,t:'D-Coin 30'}};
+const wAffLv=p=>{ let l=0; W_AFF.forEach((v,i)=>{ if((p||0)>=v) l=i; }); return l; };
+const wNqOf=id=>{ const L=W_NQ[id]; if(!L) return null; const d=dayKey(); return L[Math.floor(wHash(wStr(d),wStr(id),9)*L.length)%L.length]; };
+const wNqDay=I=>{ const q=I&&I.nq; return q&&q.d===dayKey()?{d:q.d,p:{...(q.p||{})},got:{...(q.got||{})}}:{d:dayKey(),p:{},got:{}}; };
+const W_NPCL={
+  sera:{2:['요즘 섬이 점점 예뻐지는 게 보여요!','가운데 섬 지도는 오른쪽 위 동그라미를 눌러 봐요.','캐릭터를 꾹 누르면 감정 표현을 할 수 있어요.'],3:['오늘도 와 줬네요! 기다리고 있었어요.','당신 덕분에 월드가 더 북적북적해졌어요.','우리 단짝이니까 비밀 하나: 밤엔 별이 더 반짝여요.']},
+  toby:{2:['단골 손님께는 특별히 웃어 드리죠!','이번 주엔 연말 장식이 잘 팔려요.','텃밭 작물은 비쌀수록 오래 걸려요.'],3:['당신은 우리 가게 VIP예요!','최고의 손님에게 최고의 미소를!','장사는 신용, 우정은 영원!']},
+  pipi:{2:['편지 배달하다 당신 섬 지나가면 기분 좋아요!','방명록에 글 남기면 섬 주인한테 바로 알려 줘요.','크루 텃밭에 물 주면 하루가 반짝!'],3:['당신 편지는 제일 먼저 배달할게요!','우리 우정은 등기 우편처럼 튼튼해요.','오늘 하늘이 당신 섬처럼 맑아요.']},
+  owl:{2:['흐음, 실력이 늘었군요.','보스의 빨간 원은 피하는 게 상책이에요.','지식은 나눌수록 커지지요.'],3:['당신은 이제 제 최고의 제자예요.','곧 얼음 섬과 하늘섬 이야기를 들려줄게요.','부엉, 오늘도 멋진 모험을!']},
+  guard:{2:['순찰 협조에 감사드립니다.','이상 없음! 당신 덕분이에요.','헬바운드 보스 조심하세요.'],3:['당신은 명예 경비대원입니다!','삐빅, 우정 지수 최대치.','언제든 든든하게 지켜 드릴게요.']},
+  mia:{2:['꽃 냄새 맡으러 왔어요?','텃밭에 물 주는 건 사랑 주는 거예요.','포인세티아는 연말에만 심을 수 있어요.'],3:['당신 섬의 꽃이 제일 예뻐요!','우리 같이 꽃밭 만들어요.','오늘의 꽃말은 "변치 않는 우정"이에요.']}};
+const wNpcSay=(D,li,ctx)=>{ const q=ctx.q; const p=q?Math.min(q.n,ctx.p[q.k]||0):0;
+  if(q&&!ctx.got&&p>=q.n) return '의뢰 다 했네요! 정말 고마워요. 작은 보답이에요♪';
+  if(q&&!ctx.got&&li%3===0) return '오늘 부탁이 있어요: '+q.t+' ('+p+'/'+q.n+')';
+  const L=ctx.lv>=4?(W_NPCL[D.id]||{})[3]:ctx.lv>=2?(W_NPCL[D.id]||{})[2]:null; const all=L?[...L,...D.lines]:D.lines; return all[li%all.length]; };
+/* 의뢰 바텀 시트 */
+function WQuest({I,onClose,onClaim,onGo}){
+  const Q=wNqDay(I); const aff=I.aff||{};
+  return html`<div className="wb20-shade" onClick=${onClose}><div className="wbs w69s wq69" onClick=${e=>e.stopPropagation()}>
+    <div className="wbs-h"><b>주민 의뢰</b><span className="wbs-sub">매일 0시에 새 의뢰 · 호감도가 오르면 선물</span><button className="wbi-x tap" onClick=${onClose} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
+    <div className="w69-body"><div className="wq69-l">${W_NPC.map(D=>{ const q=wNqOf(D.id); if(!q) return null; const p=Math.min(q.n,Q.p[q.k]||0); const done=p>=q.n, got=!!Q.got[D.id]; const pts=aff[D.id]||0; const lv=wAffLv(pts); const nx=W_AFF[lv+1]; const G=W_AFFG[lv+1];
+      return html`<div key=${D.id} className=${'wq69-r'+(got?' got':done?' done':'')} style=${{'--n':D.c}}>
+        <span className="wq69-av"><i>${D.n.split(' ').pop().slice(0,1)}</i></span>
+        <div className="wq69-t"><b>${D.n}<span className="wq69-h">${[0,1,2,3,4].map(i=>html`<${Icon} key=${i} n="heart" s=${11} w=${2.4} fill=${i<lv?'currentColor':'none'}/>`)}</span><em>${W_AFFN[lv]}</em></b>
+          <small>${q.t}</small>
+          <span className="wq69-bar"><i style=${{width:(p/q.n*100)+'%'}}></i></span>
+          <span className="wq69-m"><span><${BrickIc} s=${11}/>${W_NQR[D.id]} · 호감도 +20</span>${nx!=null?html`<span>다음 선물 ${G?G.t:''} · ${pts}/${nx}</span>`:html`<span>호감도 최대!</span>`}</span></div>
+        ${got?html`<span className="wq69-ok"><${Icon} n="check" s=${16} w=${3}/></span>`:done?html`<button className="wq69-go tap" onClick=${()=>onClaim(D.id)}>보상</button>`:html`<button className="wq69-go alt tap" onClick=${()=>onGo(D.id)}>찾아가기</button>`}
+      </div>`; })}</div>
+      <p className="wq69-tip">주민을 직접 눌러 이야기하면 그날의 부탁을 들려줘요. 호감도가 오르면 대사가 바뀌고 전용 장식을 선물해요.</p></div></div></div>`;
+}
+
+/* ── 랭킹 · 이번 주 인기 섬 · 크루 전적(DKO 연동) ── */
+function WRank({c,isl,mine,tab,setTab,onGo,onClaim,onClose}){
+  const w0=wWeek0(); const top=wTopIsl(isl);
+  const since=mine?(mine.lkAt||Date.now()-7*86400000):Date.now(); const my=wRecOf(c,c.uid,since); const gain=wRecGain(my);
+  const mem=useMemo(()=>(c.members||[]).filter(m=>!m.banned).map(m=>({m,r:wRecOf(c,m.uid)})).filter(x=>x.r.mp||x.r.dp).sort((a,b)=>(b.r.mw*2+b.r.dw)-(a.r.mw*2+a.r.dw)).slice(0,20),[c.members,c.matches,c.duels]);
+  const feed=[...(c.matches||[]).map(mt=>({k:'m'+mt.id,t:mt.createdAt||0,x:'내전 '+(mt.size||'')+'대'+(mt.size||''),y:mt.winner==='D'?'무승부':(mt.winner==='A'?'BLUE':'RED')+' 승리',z:[...(mt.winner==='B'?mt.B:mt.A)||[]].map(x=>x.nick).slice(0,5).join(' · ')})),
+    ...(c.duels||[]).filter(d=>d.status==='done'&&d.sa!=null).map(d=>({k:'d'+d.id,t:d.confAt||d.recAt||d.createdAt||0,x:'1대1',y:(d.aNick||'')+' '+d.sa+' : '+d.sb+' '+(d.bNick||''),z:d.sa>d.sb?(d.aNick||'')+' 승리':d.sb>d.sa?(d.bNick||'')+' 승리':'무승부'}))].sort((a,b)=>b.t-a.t).slice(0,8);
+  return html`<div className="wb20-shade" onClick=${onClose}><div className="wbs w69s wrk69" onClick=${e=>e.stopPropagation()}>
+    <div className="wbs-h"><b>랭킹</b><span className="wbs-sub">섬 · 인기 · 크루 전적</span><button className="wbi-x tap" onClick=${onClose} aria-label="닫기"><${Icon} n="x" s=${18} w=${3}/></button></div>
+    <div className="wbs-tabs">${[['isl','섬 랭킹'],['hot','이번 주 인기'],['rec','크루 전적']].map(([k,l])=>html`<button key=${k} className=${'tap'+(tab===k?' on':'')} onClick=${()=>setTab(k)}>${l}</button>`)}</div>
+    <div className="w69-body">
+    ${tab==='isl'?html`<div className="wr21">${[...isl].map(I=>({I,sc:I.hallLv*100+I.items.length*5+Object.keys(I.likes||{}).length*20+(I.exp||0)*60+I.land.length*12})).sort((a,b)=>b.sc-a.sc).map(({I,sc},i)=>{ const m=c.members.find(x=>x.uid===I.uid);
+        return html`<button key=${I.uid} className=${'wr21-r tap'+(I.uid===c.uid?' me':'')} onClick=${()=>onGo(I.uid)}>
+          <span className="wr21-n">${i+1}</span>${m?html`<${PfpView} m=${m} s=${34}/>`:null}<span className="wr21-t"><b>${I.name}</b><small>본부 Lv.${I.hallLv} · 건물 ${I.items.length} · 땅 +${I.land.length} · ♥ ${Object.keys(I.likes||{}).length}</small></span><em>${sc.toLocaleString()}</em></button>`; })}</div>
+      <p className="wr21-tip">크루원 섬에 놀러 가면 섬마다 하루 한 번 벽돌 15개를 받아요.</p>`:null}
+    ${tab==='hot'?html`${top?(()=>{ const m=c.members.find(x=>x.uid===top.uid); const S0=wWeekScore(top,w0); return html`<button className="wh69 tap" onClick=${()=>onGo(top.uid)}><i className="wh69-sh"></i><span className="wh69-cr"><${Icon} n="crown" s=${22} w=${2.4}/></span>
+        ${m?html`<${PfpView} m=${m} s=${56}/>`:null}<div><em>이번 주 인기 섬 TOP 1</em><b>${top.name}</b><small>${m?dispName(m):''} · ♥ ${S0.lk} · 발자국 ${S0.ft} · 방명록 ${S0.gb}</small></div><span className="wh69-sc">${S0.sc}<small>점</small></span></button>`; })()
+        :html`<div className="wh69 none"><span className="wh69-cr"><${Icon} n="crown" s=${22} w=${2.4}/></span><div><em>이번 주 인기 섬 TOP 1</em><b>아직 없어요</b><small>좋아요 · 발자국 · 방명록을 받으면 점수가 올라가요</small></div></div>`}
+      <div className="wr21">${[...isl].map(I=>({I,S0:wWeekScore(I,w0)})).filter(x=>x.S0.sc>0).sort((a,b)=>b.S0.sc-a.S0.sc).map(({I,S0},i)=>{ const m=c.members.find(x=>x.uid===I.uid); return html`<button key=${I.uid} className=${'wr21-r tap'+(I.uid===c.uid?' me':'')} onClick=${()=>onGo(I.uid)}><span className="wr21-n">${i+1}</span>${m?html`<${PfpView} m=${m} s=${34}/>`:null}<span className="wr21-t"><b>${I.name}</b><small>♥ ${S0.lk} · 발자국 ${S0.ft} · 방명록 ${S0.gb}</small></span><em>${S0.sc}</em></button>`; })}</div>
+      <p className="wr21-tip">매주 월요일 0시에 새로 집계해요 · 좋아요 3점 · 발자국 2점 · 방명록 2점</p>`:null}
+    ${tab==='rec'?html`<div className="wrc69"><span className="gi30" style=${{'--g1':'#FF7A7A','--g2':'#B0203A'}}><${Icon} n="swords" s=${20} w=${2.3}/></span><div><b>DKO 전적 보상</b><small>내전 승리 60 · 참가 20 · 1대1 승리 50 · 참가 15 벽돌</small><small>새 기록: 내전 ${my.mw}승 ${my.mp-my.mw}패 · 1대1 ${my.dw}승 ${my.dp-my.dw}패</small></div>
+        <button className=${'wbi-mini tap'+(gain>0?'':' off')} onClick=${()=>gain>0&&onClaim(gain)}><${BrickIc} s=${14}/>${gain}</button></div>
+      <div className="wg69-sec">크루 전적<span>DKO 내전 · 1대1 기록이 섬 이름표에 떠요</span></div>
+      <div className="wr21">${mem.length?mem.map(({m,r},i)=>html`<div key=${m.uid} className=${'wr21-r'+(m.uid===c.uid?' me':'')}><span className="wr21-n">${i+1}</span><${PfpView} m=${m} s=${34}/><span className="wr21-t"><b>${dispName(m)}</b><small>내전 ${r.mw}승 / ${r.mp}전 · 1대1 ${r.dw}승 / ${r.dp}전</small></span><em>${r.mw*2+r.dw}</em></div>`):html`<p className="wgb69-none">아직 기록이 없어요. 내전이나 1대1을 하면 여기 쌓여요.</p>`}</div>
+      ${feed.length?html`<div className="wg69-sec">최근 결과</div><div className="wrf69">${feed.map(f=>html`<div key=${f.k} className="wrf69-r"><em>${f.x}</em><b>${f.y}</b><small>${f.z} · ${ago(f.t)}</small></div>`)}</div>`:null}`:null}
+    </div></div></div>`;
+}
+
+/* ── 크리스마스 · 텃밭 · NPC 선물 장식 그림 ── */
+const W_DRAWX={
+  farm:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u*.6,u*7.6,u*3.8,.16); C(-4,-4,0,8,8,.8,'#9A6A44'); [-3.2,-.8,1.6].forEach(y=>C(-3.4,y,.8,6.8,1.5,.45,'#6B4226',{t:'#7A4E2C',l:'#5A3820',r:'#4A2E18'})); [[-4.3,-4.3],[3.6,-4.3],[-4.3,3.6],[3.6,3.6]].forEach(([x,y])=>C(x,y,0,.7,.7,2,'#D9A86A')); },
+  xm_tree:(g,ox,oy,u,tm,seed)=>{ g.save(); g.translate(ox,oy); g.scale(.8,.8); wDrawItem(g,'xtree',0,0,u,tm,seed,1); g.restore(); },
+  xm_big:(g,ox,oy,u,tm,seed)=>{ g.save(); g.translate(ox,oy); g.scale(1.9,1.9); wDrawItem(g,'xtree',0,0,u,tm,seed,1); g.restore(); const k=.5+.5*Math.sin(tm*3); const P=[ox,oy-u*28]; g.fillStyle='rgba(255,230,140,'+(.25+k*.25)+')'; g.beginPath(); g.arc(P[0],P[1],u*(3+k),0,Math.PI*2); g.fill(); },
+  xm_gift:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*5.4,u*2.6); C(.6,-3.2,0,2.8,2.8,2,'#2E9A57'); C(1.75,-3.2,0,.5,2.8,2.05,'#FFFFFF'); C(-3.2,-2.4,0,3.2,3.2,2.8,'#E5383B'); C(-1.85,-2.4,0,.5,3.2,2.85,'#FFD54A'); C(-3.2,-1.05,0,3.2,.5,2.85,'#FFD54A'); C(-.8,.8,0,2.6,2.6,1.8,'#3B82F6'); C(.25,.8,0,.5,2.6,1.85,'#FFFFFF'); C(-2.8,-2,2.8,2.4,2.4,1.6,'#FFD54A'); C(-1.85,-2,2.8,.5,2.4,1.65,'#E5383B'); },
+  xm_candy:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u*.6,u*2.4,u*1.2); for(let i=0;i<9;i++) C(-.6,-.6,i,1.2,1.2,1,i%2?'#FFFFFF':'#E5383B'); C(.6,-.6,8,1.2,1.2,1,'#FFFFFF'); C(1.8,-.6,8,1.2,1.2,1,'#E5383B'); C(1.8,-.6,7,1.2,1.2,1,'#FFFFFF'); C(1.8,-.6,6,1.2,1.2,1,'#E5383B'); },
+  xm_light:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u*.6,u*2.4,u*1.2); C(-1,-1,0,2,2,.8,'#3A3F4C'); C(-.45,-.45,.8,.9,.9,9,'#2B2F3A'); C(-.9,-.9,9.8,1.8,1.8,.6,'#FFD54A');
+    for(let i=0;i<8;i++){ const on=Math.floor(tm*3+i)%3!==0; const a=i*1.3+seed; const z=2+i; const px=Math.cos(a)*1.3, py=Math.sin(a)*1.3; const p=[ox+(px-py)*u,oy+(px+py)*u*.5-z*u]; g.fillStyle=on?['#FF5A5A','#FFD166','#5AE0FF','#7CF0B5'][i%4]:'rgba(255,255,255,.25)'; g.beginPath(); g.arc(p[0],p[1],u*.48,0,Math.PI*2); g.fill(); if(on){ g.fillStyle='rgba(255,240,200,.25)'; g.beginPath(); g.arc(p[0],p[1],u*1.1,0,Math.PI*2); g.fill(); } } },
+  xm_snow:(g,ox,oy,u,tm,seed,lv,C)=>{ const o={t:'#FFFFFF',l:'#E6EEFA',r:'#C9D6EA'}; wShadow(g,ox,oy+u*.8,u*5,u*2.4,.12); C(-3.2,-3,0,6.4,6,1.2,'#F4F8FF',o); C(-2.2,-2.2,1.2,4.6,4.2,1.2,'#FFFFFF',o); C(-1,-1.2,2.4,2.2,2,.9,'#FFFFFF',o); },
+  xm_deer:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*5,u*2.4); const b='#A8703F', d='#7A4E2C'; [[-2.2,-.8],[1,-.8],[-2.2,.4],[1,.4]].forEach(([x,y])=>C(x,y,0,.7,.6,3,d)); C(-2.6,-1,3,4.8,2,2.2,b); C(-2.9,-.4,4.4,.6,.6,.6,'#FFFFFF'); C(1.4,-.7,4.8,1.3,1.4,2.2,b); C(1.2,-1,6.8,2.4,2,1.7,b); C(3.5,-.35,7.2,.8,.8,.8,'#FF3B30',{t:'#FF7A6E',l:'#FF3B30',r:'#C42A20'}); C(1.5,-1.3,8.5,.4,.4,1.8,'#E8D2A6'); C(1.5,.4,8.5,.4,.4,1.8,'#E8D2A6'); C(.9,-1.3,9.8,.6,.4,.4,'#E8D2A6'); C(.9,.4,9.8,.6,.4,.4,'#E8D2A6');
+    const k=.5+.5*Math.sin(tm*4); g.fillStyle='rgba(255,80,60,'+(.18+k*.25)+')'; g.beginPath(); g.arc(ox+(3.9+.05)*u,oy+(3.9)*u*.5-7.6*u,u*1.4,0,Math.PI*2); g.fill(); },
+  xm_wreath2:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*9,u*3); const gr='#2E7D4F'; C(-7.6,-.8,0,1.6,1.6,8,gr); C(6,-.8,0,1.6,1.6,8,gr); C(-7.6,-.8,8,15.2,1.6,1.8,gr); for(let i=0;i<9;i++){ const x=-7+i*1.7; C(x,-.9,9.6,1,1.8,.6,'#3FA65C'); } C(-1,-1.1,6.8,2,.5,1.6,'#E5383B'); C(-.4,-1.15,5.6,.8,.5,1.2,'#E5383B');
+    for(let i=0;i<10;i++){ const on=Math.floor(tm*2.5+i)%2===0; const x=-7+i*1.55; const p=[ox+(x+.8)*u,oy+(x+.8)*u*.5-9.8*u]; g.fillStyle=on?['#FFD166','#FF5A5A','#5AE0FF'][i%3]:'rgba(255,255,255,.3)'; g.beginPath(); g.arc(p[0],p[1],u*.42,0,Math.PI*2); g.fill(); } },
+  xm_sleigh2:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*9,u*3); C(-6.5,-2.2,0,13,.5,.5,'#FFD54A'); C(-6.5,1.7,0,13,.5,.5,'#FFD54A'); C(-6,-2.2,.5,.5,4.4,1.2,'#C98A00'); C(5,-2.2,.5,.5,4.4,1.2,'#C98A00'); C(-6,-2.2,1.5,12,4.4,2.6,'#D7263D'); C(-6.4,-2.4,4.1,1.6,4.8,2.6,'#B81E31'); C(-4.4,-2.2,4.1,10.4,4.4,.4,'#8A1424');
+    C(-2.4,-1.6,4.5,2.4,2.4,2.2,'#3B82F6'); C(.4,-1.4,4.5,2.4,2.2,1.6,'#2E9A57'); C(2.6,-1.6,4.5,1.8,2,2.6,'#FFD54A'); C(-1.4,-1.6,4.5,.4,2.4,2.25,'#FFFFFF'); },
+  xm_ginger:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u*1.5,u*7,u*3.4); const w='#B5703A'; C(-4,-4,0,8,8,6,w); C(-4.6,-4.6,6,9.2,9.2,1,'#FFFFFF',{t:'#FFFFFF',l:'#F2F2F2',r:'#DCDCDC'}); C(-3.6,-3.6,7,7.2,7.2,1.4,w); C(-2.6,-2.6,8.4,5.2,5.2,1.4,'#FFFFFF',{t:'#FFFFFF',l:'#F2F2F2',r:'#DCDCDC'}); C(-1.6,-1.6,9.8,3.2,3.2,1.4,w); C(-.6,-.6,11.2,1.2,1.2,1,'#E5383B');
+    C(-1,4,0,2,.3,3.4,'#7A3E1A'); C(-3.4,4,3.2,1.6,.3,1.6,'#8ED6FF',{t:'#BDEBFF',l:'#8ED6FF',r:'#6CB8E6'}); C(1.8,4,3.2,1.6,.3,1.6,'#8ED6FF',{t:'#BDEBFF',l:'#8ED6FF',r:'#6CB8E6'}); for(let i=0;i<5;i++) C(-3.6+i*1.7,4.05,5.4,.8,.3,.5,['#FF5A5A','#7CF0B5','#FFD54A','#5AE0FF','#FF8AE0'][i]); },
+  n_toby2:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*9,u*3); [[-6,-1.6],[5.2,-1.6],[-6,1],[5.2,1]].forEach(([x,y])=>C(x,y,0,.8,.8,4,'#7A4E2C')); C(-6.4,-2,2,13,3.6,1.6,'#C98A56'); C(-5,-1.4,3.6,2,2,1.4,'#FF4B3E'); C(-2.4,-1.4,3.6,2,2,1.2,'#FFD54A'); C(.2,-1.4,3.6,2,2,1.4,'#3FB65C'); C(2.8,-1.4,3.6,2,2,1,'#FF9A2E');
+    for(let i=0;i<6;i++) C(-7+i*2.4,-2.4,7.4,2.4,4.4,.6,i%2?'#FFFFFF':'#2F7FE0'); C(-6.8,-2.4,4,.4,.4,3.4,'#5A3A20'); C(6.4,-2.4,4,.4,.4,3.4,'#5A3A20'); },
+  n_sera:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u*.6,u*3,u*1.4); C(-.5,-.5,0,1,1,8,'#8A5A34'); C(-3.6,-.4,5.6,4,.8,1.6,'#FF8FB0'); C(-.4,-.4,3.4,4.2,.8,1.6,'#7CC2FF'); C(-3,-.6,7.6,3.4,.8,.3,'#FFFFFF'); C(-1,-1,8,2,2,1,'#FFD54A'); },
+  n_pipi:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*4.4,u*2.2); C(-2.6,-2.6,0,5.2,5.2,4,'#7CC2FF'); C(-2.8,-2.8,4,5.6,5.6,.6,'#2F7FE0'); C(-1.4,2.6,1.6,2.8,.3,1.2,'#1A3A6A'); const b=Math.sin(tm*3)*u*.3; for(let i=0;i<3;i++){ const p=[ox+(-1+i)*u*1.4,oy-u*(5.4+i*.3)+b]; g.fillStyle='#FFFFFF'; g.fillRect(p[0]-u*1.1,p[1]-u*.7,u*2.2,u*1.4); g.strokeStyle='#E5383B'; g.lineWidth=Math.max(1,u*.25); g.beginPath(); g.moveTo(p[0]-u*1.1,p[1]-u*.7); g.lineTo(p[0],p[1]); g.lineTo(p[0]+u*1.1,p[1]-u*.7); g.stroke(); } },
+  n_owl:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*4.4,u*2.2); ['#C0392B','#2F7FE0','#3FA65C','#8E44AD','#E67E22'].forEach((col,i)=>C(-2.6+(i%2)*.3,-2+(i%2)*.2,i*1.1,5.2-(i%2)*.4,4,1.1,col)); C(-1,-1,5.5,2,2,2,'#A8805A'); C(-.6,-1.1,6.8,.5,.3,.5,'#FFFFFF'); C(.4,-1.1,6.8,.5,.3,.5,'#FFFFFF'); },
+  n_guard:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*3.6,u*1.8); C(-1.6,-1.6,0,3.2,3.2,3,'#FF6B4A'); C(-1.4,-1.4,3,2.8,2.8,2.4,'#E8E8EE'); C(-1,1.4,3.6,2,.3,.9,'#2B2F3A'); const k=Math.floor(tm*2)%2; C(-.3,-.3,5.4,.6,.6,1.4,'#8E98A8'); C(-.5,-.5,6.8,1,1,1,k?'#FF3B30':'#FFD54A'); },
+  n_mia:(g,ox,oy,u,tm,seed,lv,C)=>{ wShadow(g,ox,oy+u,u*5,u*2.4); [[-2.8,-2.8,'#FF6B8A'],[.6,-2.6,'#FFD166'],[-2.6,.6,'#B98CFF'],[.8,.8,'#7CC8FF']].forEach(([x,y,col])=>{ C(x,y,0,2.2,2.2,1.6,'#C9653A'); C(x+.5,y+.5,1.6,1.2,1.2,1,'#3E9A52'); C(x+.2,y+.2,2.6,1.8,1.8,1,col); }); }
+};
+W_DRAWX.xm_wreath=(g,ox,oy,u,tm,seed,lv,C)=>{ g.save(); g.translate(ox,oy); g.scale(.55,.55); W_DRAWX.xm_wreath2(g,0,0,u,tm,seed,lv,(...a)=>wCube(g,0,0,u,...a)); g.restore(); };
+W_DRAWX.xm_sleigh=(g,ox,oy,u,tm,seed,lv,C)=>{ g.save(); g.translate(ox,oy); g.scale(.55,.55); W_DRAWX.xm_sleigh2(g,0,0,u,tm,seed,lv,(...a)=>wCube(g,0,0,u,...a)); g.restore(); };
+W_DRAWX.n_toby=(g,ox,oy,u,tm,seed,lv,C)=>{ g.save(); g.translate(ox,oy); g.scale(.55,.55); W_DRAWX.n_toby2(g,0,0,u,tm,seed,lv,(...a)=>wCube(g,0,0,u,...a)); g.restore(); };
+/* 가운데 섬 연말 장식 (시즌에만) */
+const W_XDECO=[[-2,-2,'xm_big'],[-3,-1,'xm_gift'],[-1,1,'xm_snow'],[-9,1,'xm_light'],[-1,-3,'xm_light'],[-12,4,'snowman'],[-6,-2,'xm_candy'],[0,3,'xm_deer'],[2,-5,'xm_gift'],[-11,-8,'xm_snow']];
+const wCDeco=xm=>xm?[...W_CDECO,...W_XDECO]:W_CDECO;
+/* 눈 내리는 밤 */
+function wSnowFx(g,s,tm){ const W=s.vw, H=s.vh; g.fillStyle='rgba(255,255,255,.85)'; for(let i=0;i<60;i++){ const sp=18+wHash(i,3,3)*26; const y=((wHash(i,1,5)*H+tm*sp)%(H+20))-10; const x=(wHash(i,2,7)*W+Math.sin(tm*.8+i)*14+tm*6)%(W+20)-10; const r=.9+wHash(i,5,1)*1.8; g.globalAlpha=.35+wHash(i,4,4)*.5; g.beginPath(); g.arc(x,y,r,0,Math.PI*2); g.fill(); } g.globalAlpha=1; }
+/* 크루 텃밭에 물 줄 수 있나: 자라는 중 · 내가 이번 작물에 아직 안 줬고 · 3번 미만 */
+const wCanWater=(I,pid,uid,now)=>{ if(!I||I.uid===uid) return false; const P=wPlotOf(I,pid); if(!P) return false; const end=wPlotEnd(I,pid); if(now>=end) return false; const W0=wPlotWater(I,pid,P.at); if(W0.length>=3) return false; return !W0.some(([k])=>k===pid+'_'+uid); };
 
 window.__DKOW={WorldBeta,WItemIcon,WorldThumb,warm:typeof wWarm==="function"?wWarm:null};
 })();

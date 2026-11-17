@@ -639,7 +639,7 @@ function WorldBeta({c,onClose}){
     cRef.current.saveIsland({nq:{...Q,got:{...Q.got,[id]:1}},aff,bricks:b});
     if(G&&G.d) cRef.current.worldCoins(G.d); if(G&&G.item&&cRef.current.giveWorldItem) cRef.current.giveWorldItem('n_'+id);
     const s=S.current; const n=s&&(s.fnpc||[]).find(x=>x.def.id===id); if(s){ const at=n?[n.x,n.y]:[s.me.x,s.me.y]; s.fx.push({k:'burst',gx:at[0],gy:at[1],at:performance.now()}); s.fx.push({k:'txt',gx:at[0],gy:at[1],at:performance.now(),txt:'+'+W_NQR[id],ic:'brick'}); if(n){ n.say=l1>l0?'우리 이제 '+W_AFFN[l1]+'예요! 선물 받아 줘요♪':'고마워요! 내일 또 부탁해도 될까요?'; n.talk=performance.now()+4200; } }
-    wSfx('gem'); haptic([14,30,20]);
+    wSfx('gem'); haptic([14,30,20]); cRef.current.repDaily&&cRef.current.repDaily('nq',5,6,'월드 주민 의뢰');
     wDyn({ic:'heart',col:D.c,lab:D.n,t:l1>l0?'호감도 UP! '+W_AFFN[l1]:'의뢰 완료 · 벽돌 +'+W_NQR[id],b:G?'선물: '+G.t+(G.item?' · 상점 → 선물에서 놓아요':''):'호감도 +20 · '+aff[id]+'/'+(W_AFF[l1+1]||'MAX'),dur:4400}); };
   useEffect(()=>{ const f=e=>{ const {k,n}=e.detail||{}; if(!k) return; qPend.current[k]=(qPend.current[k]||0)+(n||1); clearTimeout(qT.current); qT.current=setTimeout(qFlush,1500);
       const {Q}=qState(); W_NPC.forEach(D=>{ const q=wNqOf(D.id); if(!q||q.k!==k||Q.got[D.id]||qSeen.current[D.id]) return; if((Q.p[k]||0)>=q.n){ qSeen.current[D.id]=1; wDyn({id:'nq'+D.id,ic:'scroll',col:D.c,lab:'주민 의뢰',t:D.n+'의 의뢰 완료!',b:'눌러서 보상 받기 · 호감도 +20',gl:'받기',go:()=>claimQ(D.id),dur:5200}); } }); };

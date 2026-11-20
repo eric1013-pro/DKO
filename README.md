@@ -128,6 +128,19 @@ firebase deploy --only functions
 - 안 오면 설정 → 푸시 알림 아래 점검표에서 빨간 항목을 확인해요. (키 없음 / 권한 차단 / 이 기기 등록 없음)
 - 함수 로그: Firebase 콘솔 → Functions → dkoPush → 로그에서 오류를 볼 수 있어요.
 
+## 5-1. DKO 월드 AI 주민 (Gemini) — v29.7
+
+주민 말풍선의 **대화하기**는 서버 함수 `dkoNpc`가 Gemini에 물어봐서 대답해요. 키를 넣기 전에는 준비된 대사로 대답하니 앱은 그대로 동작해요.
+
+1. https://aistudio.google.com/apikey 에서 API 키를 만들어요.
+2. 터미널에서 키를 비밀값으로 저장해요 (코드나 앱에는 키가 들어가지 않아요).
+```
+firebase functions:secrets:set GEMINI_API_KEY
+firebase deploy --only functions:dkoNpc
+```
+3. (선택) 모델이나 하루 횟수를 바꾸려면 `functions/.env` 에 `NPC_MODEL=gemini-2.5-flash`, `NPC_DAILY=40` 을 적고 다시 배포해요.
+- 로그인한 회원만 쓸 수 있고, 한 사람당 하루 40번(한국 날짜 기준)으로 막아요. Cloud Functions는 Blaze 요금제가 필요해요.
+
 ## 6. 보안 메모
 
 - 권한 · 인증 배지 · 제재 · 운영진 여부는 규칙으로 막혀 있어서 본인이 바꿀 수 없어요.

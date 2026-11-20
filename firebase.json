@@ -1,14 +1,61 @@
 {
   "hosting": {
     "public": ".",
-    "ignore": ["firebase.json", ".firebaserc", "firebase/**", "functions/**", "README.md", "**/.*"],
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "firebase/**",
+      "functions/**",
+      "README.md",
+      "**/.*"
+    ],
     "headers": [
-      { "source": "/index.html", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] },
-      { "source": "/firebase-messaging-sw.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] },
-      { "source": "/manifest.webmanifest", "headers": [{ "key": "Content-Type", "value": "application/manifest+json" }] }
+      {
+        "source": "/index.html",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/firebase-messaging-sw.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "/manifest.webmanifest",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/manifest+json"
+          }
+        ]
+      }
     ]
   },
-  "firestore": { "rules": "firebase/firestore.rules" },
-  "database": { "rules": "firebase/database.rules.json" },
-  "functions": [{ "source": "functions", "codebase": "default", "ignore": ["node_modules", ".git"] }]
+  "firestore": {
+    "rules": "firebase/firestore.rules"
+  },
+  "database": {
+    "rules": "firebase/database.rules.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git"
+      ]
+    }
+  ],
+  "storage": {
+    "rules": "firebase/storage.rules"
+  }
 }

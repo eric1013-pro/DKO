@@ -13509,6 +13509,116 @@ html.st99-on .tabs,html.st99-on .db31{visibility:hidden}
 :root[data-theme="light"] .st99-code{background:#0B0E18;color:#CFE3FF}
 .st99-cv.big .k{left:auto;right:10px;top:auto;bottom:10px}
 .st99-wh .st99-cv .pk{right:10px;top:10px}
+/* ═════════ v29.9.5 피날레 마무리 ═════════ */
+/* 채팅 분류 칩: 기울기를 없애 글자가 또렷하게 · 고른 칩은 X로 해제 */
+.cl15-cats:empty{display:none}
+.cl15-cat,.cl15-cat:active,.cl15-cat:focus,.cl15-cat.on{transform:none!important;border-radius:99px!important}
+.cl15-cat>*{transform:none!important}
+.cl15-cat{height:34px;padding:0 14px;font-size:13.5px;font-weight:800;-webkit-font-smoothing:antialiased;border:1px solid var(--line);background:var(--panel)}
+.cl15-cat i{font:800 11.5px/1 var(--f-body)!important;opacity:.6}
+.cl15-cat.on{border-color:transparent;padding-right:10px}
+.cl15-cat.on svg{margin-left:1px;opacity:.85}
+/* 프로필 그림: 테두리 장식 · 접속 점이 잘리지 않게 바깥은 보이게 하고 안쪽 그림만 둥글게 잘라요 */
+.pfpv{overflow:visible!important}
+.pfpv>img,.pfpv>.av,.pfpv>.pfpv-anim{border-radius:inherit!important;overflow:hidden}
+.fd30,.fp30,.fp30-row{overflow:visible}
+.fp30-l{padding-left:2px}
+.fp30-a{white-space:nowrap}
+/* 움직이는 프로필: 몸 전체 대신 얼굴 위주로 (사진 프로필과 같은 비율) */
+.pfpv-anim{place-items:start center!important}
+.pfpv-anim>*{transform:translateY(-6%) scale(1.85);transform-origin:50% 0}
+/* ── 프로필 새 단장: 가운데 정렬 · 공유/꾸미기는 이름 아래 버튼 줄 · 더 깔끔한 카드 ── */
+.pf78-id .pf76-chips,.pf78-id .pf27-chips{justify-content:center!important;margin:2px auto 0!important;max-width:420px;align-self:center}
+.pf78-id .pf27-chip{height:30px;display:inline-flex;align-items:center}
+.pf99-acts{order:9;display:flex;justify-content:center;gap:8px;width:100%;max-width:420px;margin:8px auto 2px}
+.pf78-id .pf76-chips{order:8}
+.pf99-acts>button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:42px;padding:0 10px;border-radius:14px;border:1px solid var(--line);background:color-mix(in srgb,var(--panel) 86%,transparent);color:var(--text);font-weight:800;font-size:13px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:transform .15s}
+.pf99-acts>button:first-child:not(:only-child){background:var(--text);color:var(--bg);border-color:transparent}
+.pf99-acts>button:active{transform:scale(.96)}
+.pf99-acts>button span{white-space:nowrap}
+.pf78-av{box-shadow:0 0 0 4px var(--bg),0 0 0 5px color-mix(in srgb,var(--orange,#FF8A3D) 40%,transparent),0 18px 36px -14px rgba(0,0,0,.75)!important}
+.pf78-nm{font-size:28px!important;letter-spacing:-.03em}
+.pf76-sub{justify-content:center}
+.pf27-stats{border-radius:22px!important}
+.pf27-top .pf76-tr{gap:6px}
+/* ── 스튜디오: 채널 안 · 로고 이미지 · 큰 코드 ── */
+.chp99-st{margin-top:12px}
+.chp99-st .st99-hero{padding:18px 16px 16px}
+.chp99-st .st99-hero h2{font-size:22px}
+.st99-lg.img{overflow:hidden;background:#fff}
+.st99-lg.img img{width:100%;height:100%;object-fit:cover;display:block}
+.st99-lgup{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:var(--panel-2)}
+.st99-lgup>span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.st99-lgup b{font-size:14px;font-weight:900}.st99-lgup small{font-size:11.5px;color:var(--faint)}
+.st99-lgup label,.st99-lgup>button{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 12px;border-radius:12px;border:0;background:var(--text);color:var(--bg);font-weight:900;font-size:12.5px;cursor:pointer}
+.st99-lgup>button{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+.st99-big{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:#0B0E18;color:#CFE3FF;border:1px solid #222A40}
+.st99-bigi{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#5B8CFF,#9B6BFF)}
+.st99-big>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column}.st99-big b{font-weight:900}.st99-big small{font-size:11.5px;opacity:.7}
+.st99-big button{height:34px;padding:0 12px;border-radius:10px;border:0;background:rgba(255,255,255,.1);color:#fff;font-weight:800}
+/* ── THRE3RIC 로고(인트로 워드마크)로 통일 ── */
+.t3lg{display:inline-flex!important;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(120% 140% at 50% 0%,#232838,#0A0C14)!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)!important;color:transparent!important}
+.t3lg img{display:block;width:84%;height:auto;max-height:70%;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.fn98-logo.t3lg{width:88px!important;height:40px!important;border-radius:12px!important;padding:0!important;flex:none}
+.fn99-lg.t3lg{width:96px!important;height:48px!important;border-radius:14px!important}
+.al98-rl.t3lg{width:64px!important;min-width:64px;height:40px!important;border-radius:12px!important}
+/* ── Finance 다듬기: 카드 · 탭 · 숫자 ── */
+.fn98-seg{padding:4px!important;border-radius:16px!important;background:var(--panel-2)!important;gap:2px!important}
+.fn98-seg button{border-radius:12px!important;height:38px!important;font-weight:900!important;transition:background .2s,color .2s}
+.fn98-card{border-radius:22px!important;box-shadow:inset 0 0 0 1px var(--line),0 14px 30px -24px rgba(0,0,0,.6)!important}
+.fn98-card.hero{background:radial-gradient(120% 90% at 100% 0%,rgba(255,138,61,.14),transparent 60%),var(--panel)!important}
+.fn98 b,.fn98 em{font-variant-numeric:tabular-nums}
+/* ── 이벤트 전체 보기 ── */
+.ea99{display:flex;flex-direction:column;gap:10px;padding-bottom:16px}
+.ea99-c{position:relative;display:flex;align-items:center;gap:14px;width:100%;padding:16px 14px 16px 16px;border-radius:22px;border:0;color:#fff;text-align:left;overflow:hidden;background:radial-gradient(120% 120% at 100% 0%,rgba(255,255,255,.22),transparent 55%),linear-gradient(140deg,var(--e1),var(--e2));box-shadow:0 14px 28px -18px var(--e2);animation:sk99in .4s var(--d) both}
+.ea99-c.cl{box-shadow:0 0 0 2px #FFD23A,0 14px 28px -16px var(--e2)}
+.ea99-ic{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.ea99-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.ea99-t em{font:italic 400 11px var(--f-ow);letter-spacing:.14em;opacity:.85}
+.ea99-t b{font-size:17px;font-weight:900;letter-spacing:-.02em}
+.ea99-t>small{font-size:12px;opacity:.85;line-height:1.4}
+.ea99-m{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ea99-m i{font-style:normal;font-size:10.5px;font-weight:900;padding:3px 8px;border-radius:99px;background:rgba(0,0,0,.22)}
+.ea99-m i.k{background:#FFD23A;color:#3A1E00}
+.ea99-bar{display:block;height:5px;margin-top:8px;border-radius:9px;background:rgba(0,0,0,.25);overflow:hidden}
+.ea99-bar i{display:block;height:100%;border-radius:9px;background:rgba(255,255,255,.9)}
+.ea99-l{font-size:11px!important;font-weight:800;opacity:.85}
+/* ── 파티 끝나고 추천 ── */
+.pe99 p{margin:0 0 14px;font-size:13.5px;color:var(--muted);line-height:1.55}.pe99 p b{color:var(--text)}
+.pe99-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.pe99-c{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 6px 12px;border-radius:20px;border:1.5px solid var(--line);background:var(--panel);color:var(--text);transition:transform .2s cubic-bezier(.3,1.5,.5,1),border-color .2s,background .2s}
+.pe99-c.on{border-color:#FF5C8A;background:color-mix(in srgb,#FF5C8A 12%,var(--panel));transform:translateY(-2px)}
+.pe99-av{position:relative}
+.pe99-av i{position:absolute;right:-6px;bottom:-6px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#FF5C8A;color:#fff;box-shadow:0 0 0 3px var(--sheet,var(--panel));animation:cl99pop .35s cubic-bezier(.3,1.6,.5,1)}
+.pe99-c b{font-size:13.5px;font-weight:900;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pe99-c small{font-size:11px;color:var(--faint);font-weight:700}
+.pe99-a{display:flex;gap:8px;margin-top:16px}
+.pe99-a button{flex:1;height:50px;border-radius:16px;border:0;background:linear-gradient(180deg,#FF7AA0,#E8306A);color:#fff;font-weight:900;font-size:15px}
+.pe99-a button.ghost{flex:.6;background:var(--panel-2);color:var(--text)}
+.pe99-a button:disabled{opacity:.45}
+/* ── 피날레 ── */
+.fn995{position:fixed;inset:0;z-index:99990;display:grid;place-items:center;background:radial-gradient(120% 80% at 50% 0%,#1B1440 0%,#07070D 60%);animation:fn995in .5s ease both}
+@keyframes fn995in{from{opacity:0}}
+.fn995-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.fn995-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:min(92vw,460px);padding:24px;text-align:center;color:#fff}
+.fn995-k{font:italic 400 13px var(--f-ow);letter-spacing:.34em;color:#FFD23A;animation:fn995up .7s .3s cubic-bezier(.2,1,.3,1) both}
+.fn995-v{display:flex;align-items:baseline;font:italic 400 clamp(64px,22vw,120px)/1 var(--f-ow);letter-spacing:-.02em;background:linear-gradient(180deg,#FFFFFF 10%,#FFD9A8 45%,#FF8A3D 80%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 30px rgba(255,138,61,.55));animation:fn995pop 1s .45s cubic-bezier(.2,1.5,.35,1) both}
+.fn995-v i{font-style:normal;font-size:.45em;margin-right:.08em;opacity:.8}
+.fn995-t{font-size:26px;font-weight:900;letter-spacing:-.03em;animation:fn995up .7s .75s cubic-bezier(.2,1,.3,1) both}
+.fn995-in p{margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.75);animation:fn995up .7s .9s cubic-bezier(.2,1,.3,1) both}
+.fn995-s{display:flex;gap:22px;margin:8px 0 4px;animation:fn995up .7s 1.05s cubic-bezier(.2,1,.3,1) both}
+.fn995-s span{display:flex;flex-direction:column;font-size:11.5px;color:rgba(255,255,255,.6);font-weight:700}
+.fn995-s b{font:italic 400 30px/1.1 var(--f-ow);color:#fff}
+.fn995-by{font-size:11.5px;color:rgba(255,255,255,.5);letter-spacing:.04em;animation:fn995up .7s 1.2s both}
+.fn995-x{margin-top:10px;height:48px;padding:0 34px;border-radius:99px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font-weight:900;font-size:15px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:fn995up .7s 1.35s both}
+@keyframes fn995up{from{opacity:0;transform:translateY(18px)}}
+@keyframes fn995pop{0%{opacity:0;transform:scale(.4) rotate(-8deg);filter:blur(10px)}100%{opacity:1;transform:none}}
+.fn995-b{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;margin:14px auto 0;padding:14px 30px;border-radius:20px;border:1px solid rgba(255,210,58,.35);background:radial-gradient(120% 140% at 50% 0%,rgba(255,138,61,.25),rgba(255,138,61,.04));color:var(--text);overflow:hidden}
+.fn995-bs{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,230,160,.35) 48%,transparent 62%);background-size:250% 100%;animation:pc99sh 3.5s ease-in-out infinite;pointer-events:none}
+.fn995-b em{font:italic 400 11px var(--f-ow);letter-spacing:.3em;color:#FF8A3D}
+.fn995-b b{font:italic 400 30px/1.1 var(--f-ow);background:linear-gradient(180deg,#FFE3B8,#FF8A3D);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fn995-b small{font-size:11px;color:var(--faint);font-weight:700}
+@media (prefers-reduced-motion:reduce){.fn995 *{animation:none!important}}
+.st99-fc .st99-cv .k{display:none}
 </style>
 </head>
 <body>
@@ -14959,10 +15069,14 @@ const BLOG = [
     ['h','계속 판올림합니다'],
     ['p','큰 변화가 있을 때마다 버전의 앞자리를 올리고, 바뀐 내용은 이 블로그에 남깁니다. 의견은 광장 게시판에 편하게 적어 주세요.']
   ]},
-  {id:'v2995',cat:'UPDATE',ver:'29.9.5',date:'2026.11.21',title:'피날레 · DKO 스튜디오 오픈 · 바로가기 확장 · 화면 다듬기',sum:'크루 스튜디오가 바이브 코딩으로 만든 게임 · 도구 · 사이트를 올리고 앱 안에서 바로 실행하는 DKO 스튜디오가 열렸어요. 바로가기도 늘리고 자잘한 화면 문제를 고쳤어요.',body:[
-    ['h','DKO 스튜디오 (새 기능)'],['ul',['누구나 스튜디오를 열 수 있어요 (이름 · 로고 · 색 · 소개 · 멤버 최대 12명 · 대표 사이트). 운영진이 공식 인증 배지를 달아 줘요.','작품 올리기: HTML 코드를 붙여 넣거나 .html 파일을 불러오면 앱과 분리된 상자(샌드박스)에서 바로 실행돼요. GitHub Pages 같은 사이트 링크도 걸 수 있어요.','작품마다 소개 · 분류 · 태그 · 표지 · 업데이트 기록(버전) · 리믹스 허용.','실행(전체 화면) · 좋아요 · 별점 · 댓글 · 공유 링크 · 리믹스 · 스튜디오 팔로우 · 크루 픽.','작품 안의 저장(localStorage)은 작품별로 이 기기에 따로 저장돼요. 작품 코드는 크루 계정 · 재화 · 대화에 접근할 수 없어요.','커뮤니티 맨 위 · 전체 탭 · 바로가기에서 들어가요.']],
-    ['h','바로가기'],['ul',['놀이터(DKO 월드 · 타운 · 스튜디오)가 맨 위로, 크루(1대1 · 파티 · 내전 · 파티 러쉬)는 그 아래로.','라이프 칸 추가: DKO 뮤직 · DKO Finance · D-ROP · DKO 패스를 바로 열어요.']],
-    ['h','고친 것'],['ul',['플레이의 파티 화면이 뿌옇고 어둡게 보이던 문제를 고쳤어요.','다이나믹 바의 프로필이 동그라미 대신 프로필 규격(둥근 사각형)으로 보여요.','채팅 위 분류(전체 · 메인 · 월드 · 내전)를 고를 때 모양이 바뀌던 문제를 고쳤어요.','AI 주민 상인 토비가 예전 화폐 이름(D-Coin) 대신 D-ot이라고 말해요.']],
+  {id:'v2995',cat:'UPDATE',ver:'29.9.5',date:'2026.11.21',title:'DKO 피날레 · DKO 스튜디오 · 프로필 새 단장 · Finance 다듬기',sum:'DKO 앱의 마지막 피날레 버전이에요. 크루 스튜디오 작품관이 커뮤니티 채널로 열리고, 프로필 · 채팅 · Finance · 이벤트를 다듬었어요. 함께해 준 크루 모두 고마워요.',body:[
+    ['h','DKO 스튜디오 (커뮤니티 > DKO 스튜디오 채널)'],['ul',['스튜디오를 열고(이름 · 로고 이미지 올리기 · 색 · 소개 · 멤버 12명 · 대표 사이트) 바이브 코딩 작품을 올려요. 운영진이 공식 인증 배지를 달아 줘요.','HTML 코드를 붙여 넣거나 .html 파일을 불러오면 앱과 분리된 상자(샌드박스)에서 바로 실행돼요. 아주 큰 코드(최대 15MB)도 나눠 저장해서 올릴 수 있어요. 사이트 링크도 걸 수 있어요.','실행(전체 화면) · 좋아요 · 별점 · 댓글 · 공유 링크 · 업데이트 기록 · 리믹스 · 팔로우 · 크루 픽.','작품 안의 저장 기능은 작품별로 이 기기에 따로 저장돼요. 작품 코드는 크루 계정 · 재화 · 대화에 접근할 수 없어요.']],
+    ['h','프로필'],['ul',['태그 · 배틀태그 줄을 가운데 정렬했어요.','공유 · 프로필 꾸미기 · 리포트 카드를 이름 아래 버튼 줄로 옮기고, 위쪽은 설정만 남겼어요.','움직이는 프로필은 몸 전체 대신 얼굴 위주로 보여요. 프로필 테두리 장식과 접속 점이 잘리지 않아요.']],
+    ['h','다이나믹 바 · 채팅 · 이벤트'],['ul',['다이나믹 바를 꾹 눌러 펼쳤을 때도 내 프로필을 누르면 바로 프로필로 가요 (따로 있던 프로필 버튼은 없앴어요).','채팅 분류에서 전체 · 메인을 없애고, 월드 · 내전 · 파티 · 내 방 · 안 읽음만 골라서 보고 다시 누르면 풀려요. 글자가 또렷해졌어요.','이벤트 [더 보기]를 누르면 진행 중인 이벤트를 한 화면에서 봐요 (남은 시간 · 보상 · 미션).']],
+    ['h','파티 · 바로가기'],['ul',['파티가 끝나면 같이 한 크루를 2명까지 추천할 수 있어요 (추천받으면 명성 +4).','바로가기에서 파티 러쉬는 뺐어요 (파티에 들어가면 쓰는 기능이라서).']],
+    ['h','DKO Finance'],['ul',['TRK 주가가 10분마다 아주 조금씩 저절로 움직여요 (너무 멀어지면 천천히 돌아와요).','대주주 트릭의 기본 지분을 60% → 15%로 낮췄어요. 크루가 모으면 최대 주주(의장)가 될 수 있어요.','THRE3RIC 로고를 인트로 워드마크로 통일하고 카드 · 탭을 다듬었어요.']],
+    ['h','커뮤니티'],['ul',['인기 지수는 실시간으로 줄지 않고, 날짜가 바뀔 때마다 하루 15%씩만 천천히 줄어요.','피드 한가운데 있던 스튜디오 카드는 채널로 옮겼어요.']],
+    ['h','피날레'],['ul',['설정 맨 아래 버전을 누르면 폭죽과 함께 마지막 버전이 떠요. 이번 버전을 처음 열 때도 한 번 보여 줘요.','AI 주민 상인 토비가 D-ot이라고 말해요. 파티 화면 뿌연 문제 · 다이나믹 바 둥근 사각형도 함께 고쳤어요.']],
   ]},
   {id:'v299',cat:'UPDATE',ver:'29.9',date:'2026.11.20',title:'월드 파티 · 월드 UI 대개편 · 꾸미기 담보 대출 · 주주총회 2.0 · 의장 모드 · 타격감',sum:'DKO 월드 안에서만 쓰는 파티가 생기고, 소셜 아일랜드 조작이 디코아와 같은 유동 스틱이 됐어요. Finance에는 담보 대출 · 회사 금고 · 스톡옵션 · 배당 · 자사주 결의와 최대 주주 의장 모드가 들어왔어요.',body:[
     ['h','DKO 월드'],['ul',['월드 파티: 앱 파티와 따로, 월드 안에서 최대 4명이 모여요. 목표(디코아 · 테마 섬 · 레이드 · 자유) · 준비 · 체력 · 따라가기 · 방장의 [다 같이 출정].','조작 통일: 소셜 아일랜드 · 내 섬도 디코아처럼 왼쪽 아무 데나 누르면 생기는 유동 스틱이에요. 짧게 탭하면 그 자리로 걸어가요. PC는 WASD · 마우스.','오른쪽 메뉴는 지도 · 파티만 두고 의뢰 · 미션 · 랭킹 · 약탈 · 설정은 접었다 펴요. 가방은 그대로.','아래 바: 상점 · 모험 · 소셜/내 섬 · 편집 · 채팅. 모험 창에서 디코아와 테마 섬(추천 Lv · 오늘 보상 배율)을 바로 골라요.','편집 창 새 단장: 본부 · 벽돌 · 건축가 요약 + 짓기 · 꾸미기 큰 버튼 + 땅 · 꾸미기 · 내 섬 묶음.','소셜 아일랜드의 대륙 디코아 포털이 1.5배로 커지고 떠다니는 바위섬 · 도는 원소 고리가 생겼어요.','디코아 출정 준비 화면을 한 줄씩 정리했어요 (방식 · 역할 · 원소, 스킬 설명은 접기).','타격감: 맞힐 때 짧은 흔들림, 큰 한 방은 화면이 쿵 당겨지고, 연속 타격 HIT 콤보가 떠요. 사거리 고리가 늘 보이고 적이 들어오면 노랗게, 자동 조준 대상에는 빨간 표식, PC는 마우스 방향으로 공격 범위가 미리 보여요.','전리품 상자는 두드려서(3번) 열고, 보상 카드가 뒤집히며 나와요. D-ROP은 탭할수록 고리가 차오르고, 승급 충격파 · 마지막 한 방 긴장 · 카드 뒤집기가 더해졌어요.']],
@@ -16584,7 +16698,7 @@ function RoomBar({c}){
       <span><${Icon} n=${roomIcon(r.id)} s=${14} w=${2.1}/>${r.name}${n?html`<i className="rdot">${n>99?'99+':n}</i>`:null}</span></button>`; })}
   </div><button className="rb14-list tap" onClick=${()=>c.setSheet('rooms')} aria-label="채팅방 목록"><${Icon} n="menu" s=${18} w=${2.2}/>${tot?html`<i>${tot>99?'99+':tot}</i>`:null}</button></div>`;
 }
-const CHAT_CATS=[['all','전체'],['unread','안 읽음'],['main','메인'],['wo','월드'],['ev','내전'],['pt','파티'],['rm','내 방']];
+const CHAT_CATS=[['unread','안 읽음'],['wo','월드'],['ev','내전'],['pt','파티'],['rm','내 방']];
 const roomCat=id=>id==='all'?'main':id.slice(0,2);
 const MVP_WIN=2*3600000, ROOM_TTL=3*3600000, MVP_COIN=30;
 function mvpOf(ev){ const v=ev.mvpVotes||{}; const n={}; Object.values(v).forEach(t=>{ if(t) n[t]=(n[t]||0)+1; }); const at=ev.attendees||[];
@@ -16623,9 +16737,9 @@ function CrewStrip({c}){
   </div>`;
 }
 function ChatList({c}){
-  const [cat,setCat]=useState(()=>{ try{ return localStorage.getItem('dko-chatcat')||'all'; }catch(e){ return 'all'; } });
+  const [cat,setCat]=useState(()=>{ try{ const v=localStorage.getItem('dko-chatcat'); return CHAT_CATS.some(x=>x[0]===v)?v:'all'; }catch(e){ return 'all'; } });
   const [q,setQ]=useState(''); const [ed,setEd]=useState(false); const [crew,setCrew]=useState(false);
-  const pick=k=>{ setCat(k); try{ localStorage.setItem('dko-chatcat',k); }catch(e){} };
+  const pick=k=>{ k=cat===k?'all':k; haptic(5); setCat(k); try{ localStorage.setItem('dko-chatcat',k); }catch(e){} };
   const canDel=r=>!!(r.custom&&(r.custom.by===c.uid||c.isAdmin));
   const last=useMemo(()=>{ const o={}; c.messages.forEach(m=>{ if(m.deleted) return; const r=m.room||'all'; if(!o[r]||o[r].createdAt<m.createdAt) o[r]=m; }); return o; },[c.messages]);
   const rooms=c.myRooms.filter(r=>(cat==='all'||(cat==='unread'?(c.unread[r.id]||0)>0:roomCat(r.id)===cat))&&(!q||r.name.toLowerCase().includes(q.toLowerCase())))
@@ -16635,7 +16749,7 @@ function ChatList({c}){
   return html`<div className="cl15">
     <div className="cl15-h"><b>채팅</b><div className="row g6"><${CrewPill} c=${c} onOpen=${()=>setCrew(true)}/>${c.myRooms.some(canDel)?html`<button className=${'cl15-ib tap'+(ed?' on':'')} onClick=${()=>setEd(!ed)} aria-label="방 관리">${ed?html`<span className="cl15-done">완료</span>`:html`<${Icon} n="edit" s=${18} w=${2.2}/>`}</button>`:null}</div></div>
     <${Fab33} icon="plus" label="새 채팅 만들기" cls="chat" inline=${isPC()} onClick=${()=>c.setSheet('newchat')}/>
-    <div className="cl15-cats">${CHAT_CATS.map(([k,l])=>{ const n=cnt(k); return (k==='all'||n)?html`<button key=${k} className=${'cl15-cat tap'+(cat===k?' on':'')} onClick=${()=>pick(k)}><span>${l}</span>${k!=='all'?html`<i>${n}</i>`:null}</button>`:null; })}</div>
+    <div className="cl15-cats">${CHAT_CATS.map(([k,l])=>{ const n=cnt(k); return n||cat===k?html`<button key=${k} className=${'cl15-cat tap'+(cat===k?' on':'')} onClick=${()=>pick(k)} aria-pressed=${cat===k}><span>${l}</span><i>${n}</i>${cat===k?html`<${Icon} n="x" s=${11} w=${3}/>`:null}</button>`:null; })}</div>
     <${Sheet} open=${crew} onClose=${()=>setCrew(false)} title="크루원" tall=${true}>${crew?html`<${CrewSheet} c=${c} onDone=${()=>setCrew(false)}/>`:null}<//>
     <div className="cl15-list" key=${'cl-'+cat}>
       ${rooms.length?html`<div className="cl26-sec"><b>채팅방</b><em>${rooms.length}</em></div>`:null}
@@ -17319,10 +17433,8 @@ function ProfilePage({c,uid,onClose,tab0}){
       <button className="pf27-ib tap" onClick=${close} aria-label="뒤로"><${Icon} n="chevL" s=${22} w=${2.4}/></button>
       <b className="pf27-tt">${dispName(m)}</b>
       <div className="pf76-tr">${self?html`
-        <button className="pf27-ib tap" onClick=${()=>c.openCard(m.uid)} aria-label="내 리포트 카드"><${Icon} n="image" s=${18} w=${2.2}/></button>
-        <button className="pf27-ib tap" onClick=${()=>c.openLocker('card')} aria-label="프로필 꾸미기"><${Icon} n="edit" s=${18} w=${2.2}/></button>
         <button className="pf27-ib tap" onClick=${()=>c.setSheet('settings')} aria-label="설정"><${Icon} n="gear" s=${19} w=${2.2}/></button>`
-        :html`<button className="pf27-ib tap" onClick=${()=>c.openReport({kind:'member',uid:m.uid,nick:m.nick})} aria-label="신고"><${Icon} n="flag" s=${18} w=${2.2}/></button>`}<${ShareBtn} c=${c} it=${{k:'profile',lab:'프로필',t:dispName(m)+' 님의 프로필',s:[m.crewRank,m.pos,m.bio].filter(Boolean).join(' · ').slice(0,80),link:{uid:m.uid}}}/></div>
+        :html`<button className="pf27-ib tap" onClick=${()=>c.openReport({kind:'member',uid:m.uid,nick:m.nick})} aria-label="신고"><${Icon} n="flag" s=${18} w=${2.2}/></button>`}</div>
     </div>
     <div className="pf27-sc pp-scroll" onScroll=${e=>setSc(e.currentTarget.scrollTop>150)}>
       <div className="pf27-hb pf76-hb"><${ProfileBanner} m=${m} h=${176}/><i className="pf27-fade"></i>
@@ -17333,6 +17445,7 @@ function ProfilePage({c,uid,onClose,tab0}){
         ${m.title?html`<span className="pf78-tl"><${Icon} n="crown" s=${11} w=${2.6}/>${m.title}</span>`:null}
         <${PfBadges} c=${c} m=${m} self=${self} mini=${true}/>
         <p className="pf76-sub">${(m.handle||m.loginId)&&(m.handle||m.loginId)!==dispName(m)?html`<span>@${m.handle||m.loginId}</span><i></i>`:null}<span>${onl?html`<b className="on">접속 중${m.where&&WHERE_L[m.where]?' · '+WHERE_L[m.where]:''}</b>`:seen?ago(seen)+' 접속':'DKO 크루'}</span></p>
+        <div className="pf99-acts">${self?html`<button type="button" className="tap" onClick=${()=>c.openLocker('card')}><${Icon} n="edit" s=${16} w=${2.3}/><span>프로필 꾸미기</span></button><button type="button" className="tap" onClick=${()=>c.openCard(m.uid)}><${Icon} n="image" s=${16} w=${2.3}/><span>리포트 카드</span></button>`:null}<${ShareBtn} c=${c} it=${{k:'profile',lab:'프로필',t:dispName(m)+' 님의 프로필',s:[m.crewRank,m.pos,m.bio].filter(Boolean).join(' · ').slice(0,80),link:{uid:m.uid}}} cls="tap" label="공유"/></div>
         <div className="pf27-chips pf76-chips">
           ${specialOf(m)?html`<${SpecialTag} m=${m}/>`:html`<span className="pf27-chip">${m.crewRank&&!/운영진/.test(m.crewRank)?m.crewRank:'신입 DKO'}</span>`}
           ${mainP?html`<span className=${'pf27-chip r-'+POS[mainP].k}><${Icon} n=${POS[mainP].icon} s=${12} w=${2.4}/>${mainP}</span>`:null}
@@ -18646,7 +18759,7 @@ function Settings({c}){
     <div className="credit cut st30-cr">
       <img src=${STUDIO_LOGO} alt="THRE3RIC STUDIO"/>
       <p>DKO 앱은 THRE3RIC STUDIO가 만들었어요.</p>
-      <span>VERSION ${APP_VERSION}</span>
+      <${FinaleBadge}/>
     </div>
   </div>`;
 }
@@ -20564,13 +20677,14 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
     <${Sheet} open=${sheet==='poll-chat'} onClose=${close} title="채팅에 투표 올리기"><${PollForm} c=${c} target="chat"/><//>
     <${Sheet} open=${sheet==='poll-plaza'} onClose=${close} title="광장에 투표 올리기"><${PollForm} c=${c} target="plaza"/><//>
     <${Sheet} open=${sheet==='passbuy'} onClose=${close} title="프리미엄 패스"><${PassBuy} c=${c}/><//>
+    <${Sheet} open=${sheet==='evall'} onClose=${close} title="진행 중인 이벤트" tall=${true}>${sheet==='evall'?html`<${EventsAll} c=${c}/>`:null}<//>
     <${Sheet} open=${sheet==='studio'} onClose=${close} title="DKO 스튜디오" tall=${true}>${sheet==='studio'?html`<${StudioHub} c=${c} start=${window.__stStart||null}/>`:null}<//>
     <${Sheet} open=${sheet==='music'} onClose=${close} title="DKO 뮤직" tall=${true}>${sheet==='music'?html`<${MusicScreen} c=${c}/>`:null}<//>
     <${Sheet} open=${sheet==='fin'} onClose=${close} title="DKO Finance" tall=${true}>${sheet==='fin'?html`<${Finance} c=${c}/>`:null}<//>
     <${Sheet} open=${!!coinPack} onClose=${close} title="D-ot 충전">${coinPack?html`<${CoinBuy} c=${c} pack=${coinPack}/>`:null}<//>
     <${Sheet} open=${sheet==='consent'} onClose=${close} title="개인정보 제공 설정" tall=${true}>${sheet==='consent'?html`<${ConsentBody} c=${c} onDone=${close}/>`:null}<//>
     <${Sheet} open=${!!diaPack} onClose=${close} title="D-iamond 충전">${diaPack?html`<${DiaBuy} c=${c} pack=${diaPack}/>`:null}<//>
-    <${GiftClaimer} c=${c}/><${RaidApplier} c=${c}/><${PartyNotifier} c=${c}/><${FinDivClaimer} c=${c}/><${FinWatch} c=${c}/><${StudioDemoSeed} c=${c}/><${StudioLink} c=${c}/>
+    <${GiftClaimer} c=${c}/><${RaidApplier} c=${c}/><${PartyNotifier} c=${c}/><${FinDivClaimer} c=${c}/><${FinWatch} c=${c}/><${StudioLink} c=${c}/><${PartyEndorse} c=${c}/><${FinaleAuto} c=${c}/>
     ${(()=>{ const sp=sheet&&sheet.startsWith('stkpay-')?PX_PACKS.find(p=>'stkpay-'+p.id===sheet):null; return html`<${Sheet} open=${!!sp} onClose=${close} title="이모티콘 마켓">${sp?html`<div className="stm25-co"><div className="stm25-prev">${STICKERS.filter(s=>s.pack===sp.id).slice(0,8).map(s=>html`<span key=${s.id}><img src=${s.src} alt=""/></span>`)}</div><${Checkout} c=${c} item=${{kind:'stkpack',packId:sp.id,pack:{id:sp.id,n:sp.n,price:sp.won,coins:0,bonus:0},title:sp.n,sub:sp.desc+' · 영구 소장',price:sp.won}}/></div>`:null}<//>`; })()}
     <${Sheet} open=${sheet==='mega'} onClose=${close} title="확성기"><${MegaForm} c=${c}/><//>
     <${Sheet} open=${sheet==='chatmenu'} onClose=${close} title="채팅에 올리기">
@@ -21498,7 +21612,6 @@ const GAME_MODES=[
   {k:'world',t:'DKO 월드',e:'ISLAND BUILDER',d:'내 섬을 짓고 키워요',sec:'놀이터',c:['#3FA8EE','#13508F'],ic:'globe'},
   {k:'town',t:'DKO 타운',e:'LIVE TOWN',d:'실시간 광장 · 에임 챌린지',sec:'놀이터',c:['#7B5CFF','#3A1E9A'],ic:'cube'},
   {k:'studio',t:'DKO 스튜디오',e:'STUDIOS',d:'크루가 만든 게임 · 도구 · 사이트 실행',sec:'놀이터',c:['#5B8CFF','#2B3FB8'],ic:'code',act:1,tag:'NEW'},
-  {k:'rush',t:'파티 러쉬',e:'PARTY RUSH',d:'지금 바로 같이 할 사람 모으기',sec:'크루',c:['#29C27F','#0E7A4E'],ic:'bolt',act:1},
   {k:'music',t:'DKO 뮤직',e:'MUSIC',d:'크루 플레이리스트 · 섞어 듣기',sec:'라이프',c:['#FF4F8B','#7A5CFF'],ic:'music',act:1},
   {k:'fin',t:'DKO Finance',e:'FINANCE',d:'TRK 주식 · 코인 · 대출 · 주주총회',sec:'라이프',c:['#FF8A3D','#C93800'],ic:'chart',act:1},
   {k:'drop',t:'D-ROP',e:'LUCKY DROP',d:'모아 둔 드롭 열기',sec:'라이프',c:['#C29BFF','#6A3FD8'],ic:'gift',act:1},
@@ -21510,7 +21623,7 @@ const GAME_MODES=[
 const getMode=()=>{ try{ return localStorage.getItem('dko-mode')||'world'; }catch(e){ return 'world'; } };
 function launchMode(c,k){ haptic(12);
   if(k==='world'){ c.setWorld(true); c.campInc&&c.campInc('world'); } else if(k==='town') c.setTown(true); else if(k==='stairs') c.setStairs(true);
-  else if(k==='rush') c.setSheet('rush'); else if(k==='studio') c.setSheet('studio'); else if(k==='music') c.setSheet('music'); else if(k==='fin') c.setSheet('fin'); else if(k==='drop'){ c.openDrop&&c.openDrop(); } else if(k==='pass') c.setPassOpen&&c.setPassOpen(true); else if(k==='match'||k==='party'||k==='duel'){ c.go('plaza'); setTimeout(()=>setCrewZ(c,k,true),120); } else if(k==='party') c.go('play','party'); else if(k==='stats') c.go('play','stats'); else if(k==='esports') c.go('play','esports'); else if(k==='tools') c.go('play','tools'); }
+  else if(k==='rush') c.setSheet('rush'); else if(k==='studio') openStudioCh(c); else if(k==='music') c.setSheet('music'); else if(k==='fin') c.setSheet('fin'); else if(k==='drop'){ c.openDrop&&c.openDrop(); } else if(k==='pass') c.setPassOpen&&c.setPassOpen(true); else if(k==='match'||k==='party'||k==='duel'){ c.go('plaza'); setTimeout(()=>setCrewZ(c,k,true),120); } else if(k==='party') c.go('play','party'); else if(k==='stats') c.go('play','stats'); else if(k==='esports') c.go('play','esports'); else if(k==='tools') c.go('play','tools'); }
 function ModeArt({m,me}){
   if(m.k==='world') return html`<span className="gm20-art w"><${WorldThumb} me=${me}/></span>`;
   const heroes={stats:['pulse','sera'],esports:['owl','iron'],tools:['pulse','gear'],town:['pulse','nova'],stairs:['fang'],rush:['iron','sera','rook'],match:['iron','sera'],duel:['kage','fang'],party:['rook','nova','gear'],studio:['gear','pulse'],music:['nova'],fin:['owl'],drop:['pulse'],pass:['sera']}[m.k]||[];
@@ -21557,13 +21670,13 @@ function PlayHero({c}){
         <div className="ph25-tags">${me.tier?html`<${TierBadge} t=${me.tier} d=${me.div} mini=${true}/>`:null}<${PosBadge} p=${me.pos} mini=${true}/></div>
       </div>
       <div className="ph25-stage"><${VoxelStage} av=${avatarOf(me)} w=${sw} h=${Math.round(sw*1.12)} eq=${wLookEq(me)}/></div>
-      ${(()=>{ const L=typeof liveEvents==='function'?liveEvents(c):[]; if(!L.length) return null; const R=L.slice(0,L.length>4?3:4), more=L.length-R.length;
+      ${(()=>{ const L=typeof liveEvents==='function'?liveEvents(c):[]; if(!L.length) return null; const R=L.slice(0,3), more=L.length-R.length;
         const tl=t=>{ const l=Math.max(0,t-Date.now()), d=Math.floor(l/DAY_MS), h=Math.floor(l%DAY_MS/3600000), m=Math.floor(l%3600000/60000); return d?d+'일':h?h+'시간':m+'분'; };
         const btn=(e,i)=>{ const k=evClaimable(c.me,e); const T=evTheme(e); const soon=e.end-Date.now()<6*3600000; return html`<button key=${e.id} className=${'ev28-b tap'+(k?' cl':'')} style=${{'--e1':T.c1,'--e2':T.c2,'--d':i*70+'ms'}} onClick=${()=>c.openEvent(e.id)} aria-label=${e.title}>
           <span className="ev28-ic"><${Icon} n=${T.ic} s=${22} w=${2.3}/></span>
           ${e.mul?html`<em className="ev28-tag">×${e.mul}</em>`:e.disc?html`<em className="ev28-tag">-${e.disc}%</em>`:null}${k?html`<i className="ev28-dot">${k}</i>`:null}
           <b className=${'ev28-t'+(soon?' soon':'')}>${tl(e.end)}</b></button>`; };
-        return html`<div className="ev28">${R.map(btn)}${more?html`<button className="ev28-b more tap" style=${{'--d':R.length*70+'ms'}} onClick=${()=>window.scrollTo({top:(document.querySelector('.ph25')||{offsetHeight:600}).offsetHeight,behavior:'smooth'})} aria-label="이벤트 더 보기"><span className="ev28-ic"><b>+${more}</b></span><b className="ev28-t">더 보기</b></button>`:null}</div>`; })()}
+        return html`<div className="ev28">${R.map(btn)}${more?html`<button className="ev28-b more tap" style=${{'--d':R.length*70+'ms'}} onClick=${()=>c.setSheet('evall')} aria-label="이벤트 더 보기"><span className="ev28-ic"><b>+${more}</b></span><b className="ev28-t">더 보기</b></button>`:null}</div>`; })()}
     </div>
     ${pty?html`<div className="ph25-pty" onClick=${()=>c.setLobby(pty.id)} role="button">
       <div className="ph24-ptyh"><span className="ph25-ptyk"><i></i>PARTY ON</span><button className="ph24-end tap" onClick=${e=>{ e.stopPropagation(); c.endParty(pty); }}>${pty.uid===c.uid||c.isAdmin?'파티 끝내기':'나가기'}</button></div>
@@ -21595,6 +21708,7 @@ const CH_PRESET=[
   {id:'updates',n:'업데이트 로그',ic:'rocket',c:['#FF8A3D','#C93800'],d:'DKO의 모든 업데이트 기록',official:1,kind:'blog',seg:'updates'},
   {id:'news',n:'DKO 소식',ic:'megaphone',c:['#FF5A1A','#7A1A00'],d:'운영진 공지와 이야기',official:1,kind:'blog',seg:'news'},
   {id:'studio',n:'THRE3RIC STUDIO',ic:'sparkle',c:['#3A3F4A','#0E1016'],d:'스튜디오 신작과 소식',official:1,kind:'studio'},
+  {id:'studios',n:'DKO 스튜디오',ic:'code',c:['#5B8CFF','#3A22A8'],d:'크루 스튜디오가 만든 게임 · 도구 · 사이트를 바로 실행해요',official:1,kind:'studios'},
   {id:'yamun',n:'야문철',ic:'gavel',c:['#2B2F3A','#0B0D12'],d:'이거 누구 잘못? 리플레이 사건 분석실',kind:'yamun'},
   {id:'free',n:'자유 수다',ic:'chat',c:['#4AA8F2','#1D5FC0'],d:'오버워치 얘기든 아니든 편하게',flairs:['잡담','질문','후기']},
   {id:'clip',n:'하이라이트',ic:'play',c:['#FF5C6E','#A8172E'],d:'팟지 · 매드무비 · 리플레이 코드 자랑',flairs:['팟지','매드무비','리플레이'],fmt:'clip'},
@@ -21622,7 +21736,9 @@ const HOT_W={b:3,n:1,cm:2,sh:2,rp:1,v:1};
 const hotParts=p=>{ const V=Object.values(p.votes||{}); const b=V.filter(v=>v>0).length, n=V.filter(v=>v<0).length; const rp=Object.values(p.rps||{}).filter(Boolean).length+(p.qn||0);
   const cmu=p.cmu?Object.keys(p.cmu).length:Math.ceil((p.nc||0)*.6); const shu=p.shu?Object.keys(p.shu).length:0; const sh=shu>=2?shu:0;
   const pv=p.poll?Object.keys(p.poll.v||{}).length:0; return {b,n,cm:cmu,sh,rp,v:(p.views||0)/25+pv*.3}; };
-const cHot=p=>{ const P=hotParts(p); const s=P.b*HOT_W.b-P.n*HOT_W.n+P.cm*HOT_W.cm+P.sh*HOT_W.sh+P.rp*HOT_W.rp+P.v*HOT_W.v; const h=(Date.now()-(p.createdAt||0))/3600000; return (Math.max(0,s)+1)/Math.pow(h+2,1.35); };
+/* v29.9.5 인기 감쇠: 실시간으로 줄지 않고, 한국 날짜가 바뀔 때마다 하루 15%씩만 줄어요 */
+const hotDays=p=>{ const k=t=>Math.floor((t+9*3600000)/86400000); return Math.max(0,k(Date.now())-k(p.createdAt||Date.now())); };
+const cHot=p=>{ const P=hotParts(p); const s=P.b*HOT_W.b-P.n*HOT_W.n+P.cm*HOT_W.cm+P.sh*HOT_W.sh+P.rp*HOT_W.rp+P.v*HOT_W.v; return (Math.max(0,s)+1)*.39*Math.pow(.85,hotDays(p)); };
 function CPostCard({c,p,ch,i,onOpen,onCh,hideCh}){
   const sc=cScore(p), my=(p.votes||{})[c.uid]||0; const au=c.members.find(m=>m.uid===p.uid);
   return html`<article className=${'cp20 rv'+(p.pinned?' pin':'')} style=${{'--i':Math.min(i||0,6),'--c1':ch.c[0],'--c2':ch.c[1]}} onClick=${onOpen}>
@@ -21655,6 +21771,7 @@ function ChannelPage({c,ch,posts,allPosts,sort,setSort,onBack,onOpen,onWrite,onS
     ${ch.kind==='blog'?html`<${Blog} c=${c} embed=${ch.seg}/>`:null}
     ${ch.kind==='studio'?html`<${Blog} c=${c} embed="news"/>`:null}
     ${ch.kind==='yamun'?html`<${Yamun} c=${c}/>`:null}
+    ${ch.kind==='studios'?html`<div className="chp99-st"><${StudioHub} c=${c} start=${window.__stStart||null}/></div>`:null}
     ${ch.kind==='ideas'?html`<${Ideas} c=${c}/>`:null}
     ${!ch.kind?html`<div>
       <${ChMemBar} c=${c} ch=${ch}/>
@@ -22916,6 +23033,7 @@ function Community({c}){
   const posts=(c.cposts||[]).filter(p=>!p.deleted&&chMap[p.ch]&&cCanSee(c,p,chMap[p.ch]));
   const ch=view.ch&&chMap[view.ch];
   const go=id=>{ setView({ch:id}); window.scrollTo({top:0}); };
+  useEffect(()=>{ const f=()=>{ if(window.__cmCh){ const id=window.__cmCh; window.__cmCh=null; go(id); } }; f(); window.addEventListener('dko-cm-ch',f); return ()=>window.removeEventListener('dko-cm-ch',f); },[]);
   const open=(id,focus)=>setOpenPost({id,focus:!!focus});
   const post=openPost&&posts.find(p=>p.id===openPost.id);
   const quote=p=>setWrite({ch:p.ch&&chMap[p.ch]&&!chMap[p.ch].kind?p.ch:'free',quote:p.id});
@@ -22947,7 +23065,6 @@ function Community({c}){
         <span className="hh86-w"><${PillRow} cls="th24-sort" items=${[['new','최신'],['hot','인기']]} value=${sort} onPick=${setSort}/></span></div>
       ${scope==='follow'&&joined.length&&!tag?html`<${SubRow} c=${c} joined=${joined} posts=${posts} go=${go} onDir=${()=>setSeg('dir')}/>`:null}
       ${tag?html`<div className="tg31-hd"><span className="tg31-hi"><${Icon} n="hash" s=${18} w=${2.4}/></span><span><b>#${tag}</b><small>태그된 글 ${posts.filter(p=>tagsOf(p).includes(tag)).length}개</small></span><button className="tap" onClick=${()=>setTag(null)} aria-label="태그 닫기"><${Icon} n="x" s=${15} w=${2.6}/></button></div>`:null}
-      ${!tag&&scope!=='follow'?html`<${StudioEntry} c=${c}/>`:null}
       ${sort==='hot'&&!tag?html`<${HotTop3} c=${c} posts=${scope==='follow'?posts.filter(p=>joined.some(x=>x.id===p.ch)):posts} chMap=${chMap} onOpen=${open} onHelp=${()=>{ haptic(5); setHh(true); }}/>`:null}
       ${feed()}
       <${Fab33} icon="compose" label="글쓰기" onClick=${()=>setWrite({ch:(joined.find(x=>!x.kind)||{}).id||'free'})}/>
@@ -23748,7 +23865,7 @@ function DynamicBar({c}){
       if(a.kind==='ntf') c.setSheet('notifs'); else if(a.kind==='join'&&a.m) c.openProfile(a.m.uid); else if(a.kind==='coin') c.goShop('shop'); else if(a.kind==='ptyo') c.go('plaza'); else if(a.kind==='bp') c.setPassOpen(true);
       else if(a.kind==='chat') c.openRoom(a.room); else if(a.kind==='post') c.openCPost(a.id);
       else if(a.kind==='evend') c.openEvent(a.e.id); else if(a.kind==='build') c.setWorld(true); else if((a.kind==='cd'||a.kind==='go')&&a.cd){ if(a.cd.k.startsWith('pt:')) c.setLobby(a.cd.k.slice(3)); else c.go('play','events'); } return; }
-    if(mode==='menu') return; if(meTap.current){ meTap.current=false; haptic(8); c.openProfile(c.uid); return; } if(soon){ if(soon.k.startsWith('pt:')) c.setLobby(soon.k.slice(3)); else c.go('play','events'); return; } if(pty&&mode==='idle'){ c.setLobby(pty.id); return; } haptic(8); c.openProfile(c.uid); };
+    if(meTap.current){ meTap.current=false; haptic(8); if(mode==='menu') closeTo(); c.openProfile(c.uid); return; } if(mode==='menu') return; if(soon){ if(soon.k.startsWith('pt:')) c.setLobby(soon.k.slice(3)); else c.go('play','events'); return; } if(pty&&mode==='idle'){ c.setLobby(pty.id); return; } haptic(8); c.openProfile(c.uid); };
   const k=c.notifUnread+chatNotifN(c)+(c.isAdmin?(c.orders||[]).filter(o=>o.status==='pending').length:0);
   const A=act; const col=A?({chat:'#FF8A3D',post:'#B98CFF',coin:'#FFB020',bp:'#6CB6FF',join:'#34D399',duel:'#FF5C6E',cd:'#FF8A3D',go:'#FF8A3D',evend:'#B98CFF',build:'#3FA8EE',photo:'#4AA8F2'})[A.kind]||A.col:null;
   /* 너비: 내용에 맞춰 정해요 */
@@ -23756,7 +23873,7 @@ function DynamicBar({c}){
   /* v29 크기는 세 가지만: 짧음(S) · 중간(M) · 김(L) */
   const DB_S=172, DB_M=264, DB_L=356;
   const sz=mode==='menu'?'M':mode==='act'&&A?(A.kind==='coin'||A.kind==='bp'?'S':A.kind==='join'||(!A.body&&A.kind!=='duel'&&A.kind!=='chat'&&A.kind!=='post'&&!A.coinN&&!A.bpN)?'M':'L'):(soon||pty)?'S':musCur()?'M':'I';
-  const W0=sz==='I'?46:sz==='S'?DB_S:sz==='M'?DB_M:DB_L; const W=Math.min(W0,(window.innerWidth||390)-24-(mode==='act'||mode==='menu'?0:90));
+  const W0=mode==='menu'?Math.min(DB_M,136+cw*11):sz==='I'?46:sz==='S'?DB_S:sz==='M'?DB_M:DB_L; const W=Math.min(W0,(window.innerWidth||390)-24-(mode==='act'||mode==='menu'?0:90));
   return html`<div className=${'db31 db32 db29 z-'+sz+' m-'+mode+(out?' out':'')+(A?' k-'+A.kind:'')+(A&&(A.body||A.kind==='duel')?' two':'')+(A&&A.err?' err':'')+(pty?' party':'')+(soon&&mode==='idle'?' cdn':'')} style=${{'--w':W+'px',...(col?{'--ac':col}:{})}}>
     <div className="db31-pill" role="button" tabIndex="0" aria-label="내 프로필 · 꾸욱 누르면 알림과 D-ot"
       onPointerDown=${down} onPointerUp=${cancel} onPointerLeave=${cancel} onPointerCancel=${cancel} onClick=${click} onContextMenu=${e=>e.preventDefault()}>
@@ -23764,7 +23881,6 @@ function DynamicBar({c}){
       ${mode==='menu'?html`<div className="db31-menu db32-in" key="m">
         <button className="db31-mi tap" onClick=${e=>{ e.stopPropagation(); closeTo(); c.setSheet('notifs'); }} aria-label=${'알림 '+k}><${Icon} n="bell" s=${17} w=${2.3}/>${k?html`<em>${k>9?'9+':k}</em>`:null}</button>
         <button className="db31-mi mc tap" onClick=${e=>{ e.stopPropagation(); closeTo(); c.goShop('shop'); }}><${Coin} s=${18}/><b>${coins.toLocaleString()}</b></button>
-        <button className="db31-mi mp tap" onClick=${e=>{ e.stopPropagation(); closeTo(); c.openProfile(c.uid); }} aria-label="내 프로필"><${Icon} n="user" s=${16} w=${2.4}/><b>프로필</b></button>
       </div>`:null}
       ${mode==='act'&&A?html`<div className="db31-act db32-in" key=${A.k}>
         ${A.kind==='coin'?html`<${DbCoin} A=${A}/>`
@@ -25227,7 +25343,7 @@ const ed3Txt=ms=>{ const s=Math.ceil(ms/1000); return Math.floor(s/60)+':'+Strin
 function useTick(on){ const [,set]=useState(0); useEffect(()=>{ if(!on) return; const t=setInterval(()=>set(v=>v+1),1000); return ()=>clearInterval(t); },[on]); }
 /* 인기 지수: 점수 내역 · 시간 감쇠 */
 const hotIdx=p=>Math.round(cHot(p)*100);
-const hotDecay=p=>{ const h=(Date.now()-(p.createdAt||0))/3600000; return Math.pow(2/(h+2),1.35); };
+const hotDecay=p=>Math.pow(.85,hotDays(p));
 function HotIndex({p,mini}){ const [o,setO]=useState(false); const P=hotParts(p); const h=(Date.now()-(p.createdAt||0))/3600000; const dk=hotDecay(p);
   const rows=[['버프',P.b,HOT_W.b,'#29C27F'],['너프',-P.n,HOT_W.n,'#FF5A6A'],['답글 단 사람',P.cm,HOT_W.cm,'#5FA8FF'],['공유한 사람',P.sh,HOT_W.sh,'#C59BFF'],['리포스트 · 인용',P.rp,HOT_W.rp,'#FFB15C'],['조회 · 투표',Math.round(P.v*10)/10,HOT_W.v,'#9AA6BC']];
   const raw=Math.max(0,rows.reduce((a,r)=>a+r[1]*r[2],0)); const mx=Math.max(1,...rows.map(r=>Math.abs(r[1]*r[2])));
@@ -25251,7 +25367,7 @@ function HotHelp({onClose}){
   return html`<div className="hh86">
     <p className="hh86-lead">인기 탭은 크루가 많이 반응한 글을 위로 올려요. 아래 점수를 더한 뒤, 올린 지 오래될수록 조금씩 낮춰요.</p>
     <div className="hh86-g">${[['버프','× 3','#29C27F','누른 사람 1명당'],['너프','× −1','#FF5A6A','누른 사람 1명당'],['답글','× 2','#5FA8FF','답글 단 사람 수'],['공유','× 2','#C59BFF','2명부터 · 공유한 사람 수'],['리포스트 · 인용','× 1','#FFB15C','1번당'],['조회 · 투표','× 1','#9AA6BC','조회 25회 = 1 · 투표 1명 = 0.3']].map(([n,w,col,d])=>html`<div key=${n} className="hh86-c" style=${{'--c':col}}><b>${n}</b><em>${w}</em><small>${d}</small></div>`)}</div>
-    <div className="hh86-d"><b>시간 감쇠</b><p>점수 ÷ (지난 시간 + 2)<sup>1.35</sup> · 방금 올린 글 ×1.00 → 6시간 ×0.15 → 하루 ×0.04</p></div>
+    <div className="hh86-d"><b>시간 감쇠</b><p>날짜가 바뀔 때마다 하루 15%씩 천천히 줄어요 · 오늘 ×1.00 → 하루 뒤 ×0.85 → 이틀 ×0.72 → 일주일 ×0.32</p></div>
     <p className="hh86-t">맨 위 <b>지금 인기 TOP3</b>는 최근 3일 안의 글만 모아요. 글을 열면 아래에 <b>인기 지수</b> 카드가 있어서 점수가 어떻게 나왔는지 볼 수 있어요.</p>
     <button type="button" className="hh86-ok tap" onClick=${onClose}>알겠어요</button></div>`; }
 /* 3분 수정: 글 */
@@ -25614,7 +25730,7 @@ function PartyNotifier({c}){ const seen=useRef(null); const key=(c.parties||[]).
    D-iamond는 VIP 주주(수수료 면제 · 배지) 같은 편의 항목에만 써요.
    가격: 자동 가격(AMM, x·y=k) — 사면 오르고 팔면 내려가요. 주식은 여기에 '앱 활성도'를 곱해요.
    (지금은 다른 기능처럼 기기에서 계산하는 신뢰 모델이에요. v30에 서버 검증으로 옮겨요.) */
-const FIN={SH:10000,DEV0:6000,PS:4000,PR:40000,FEE:.01,COIN_FEE:300,DEP:[{d:7,r:.02,n:'7일 예금'},{d:30,r:.1,n:'30일 예금'}],DEP_MAX:3,DEP_MIN:50,
+const FIN={SH:10000,DEV0:1500,PS:8500,PR:85000,FEE:.01,COIN_FEE:300,DEP:[{d:7,r:.02,n:'7일 예금'},{d:30,r:.1,n:'30일 예금'}],DEP_MAX:3,DEP_MIN:50,
   PROP_MIN:.01,PROP_DAYS:3,QUORUM:.05,VIP_DIA:30,VIP_DAYS:30,DIV:2,DROP:.08,DEV_MINT:{s:.005,m:.01,l:.02},BIG:500};
 const FIN_TIER=[[.05,'사외이사','#FFD54A'],[.01,'주요 주주','#7CC8FF'],[0,'개미 주주','#9AA6BC']];
 const finIsDev=m=>!!m&&['thre3ric','threr3ic','트릭이'].includes(normKey(m.loginId||''));
@@ -25726,7 +25842,7 @@ function FinStock({c,S,A,px,chg}){ const [side,setSide]=useState('buy'); const [
   const pnl=F.sh?F.sh*px-F.cost:0; const dev=finDev(c); const devFr=S.devSh/S.issued, poolFr=S.pool.s/S.issued, holdFr=Math.max(0,1-devFr-poolFr);
   const run=async()=>{ if(busy||!n) return; setBusy(true); await c.finTrade(side,n,A.k); setBusy(false); };
   return html`<div className="fn98-st">
-    <section className="fn98-card hero"><div className="fn98-tk-h"><span className="fn98-logo">TRK</span><div><b>트릭 스튜디오</b><small>THRE3RIC STUDIO · 대주주 ${dev?dispName(dev):'트릭이'}</small></div></div>
+    <section className="fn98-card hero"><div className="fn98-tk-h"><span className="fn98-logo t3lg"><img src=${STUDIO_LOGO} alt="THRE3RIC"/></span><div><b>트릭 스튜디오</b><small>THRE3RIC STUDIO · 대주주 ${dev?dispName(dev):'트릭이'}</small></div></div>
       <div className="fn98-px"><b>${px.toFixed(2)}</b><em>D-ot</em><span className=${chg>=0?'up':'dn'}>${fpct(chg)}</span></div>
       <${FinSpark} h=${S.hist} w=${320} hgt=${70}/>
       <div className="fn98-act"><span title="최근 7일 앱 활성도">활성도 ×${A.k.toFixed(2)}</span><span>글 ${A.posts}</span><span>채팅 ${A.msgs}</span><span>접속 ${A.on}</span>${A.ub>0?html`<span className="hot">업데이트 +${Math.round(A.ub*100)}%</span>`:null}</div></section>
@@ -25838,7 +25954,7 @@ const ALL_SV=[
   {k:'frank',g:'금융',t:'포브스',d:'크루 자산 랭킹',ic:'crown',c:['#FFD54A','#C98A00'],go:c=>{ lsSet('dko-fin-tab','rank'); c.setSheet('fin'); }},
   {k:'shop',g:'크루',t:'상점',d:'꾸미기 · D-iamond · D-ot 환전',ic:'bag',c:['#FFB15C','#E8420A'],go:c=>c.go('shop')},
   {k:'pass',g:'크루',t:'DKO 패스',d:'시즌 보상 · 프리미엄',ic:'star',c:['#C29BFF','#6A3FD8'],go:c=>c.setPassOpen(true)},
-  {k:'studio',g:'크루',t:'DKO 스튜디오',d:'크루가 만든 게임 · 도구 · 사이트',ic:'code',c:['#5B8CFF','#2B3FB8'],go:c=>c.setSheet('studio')},
+  {k:'studio',g:'크루',t:'DKO 스튜디오',d:'크루가 만든 게임 · 도구 · 사이트',ic:'code',c:['#5B8CFF','#2B3FB8'],go:c=>openStudioCh(c)},
   {k:'ads',g:'크루',t:'THRE3RIC ADs',d:'크루 피드에 광고 걸기',ic:'mega',c:['#FF7AB8','#C2246F'],go:c=>c.setSheet('ads')},
   {k:'help',g:'크루',t:'도움말',d:'기능 안내 · 자주 묻는 질문',ic:'help',c:['#9AA6BC','#4A5468'],go:c=>c.setSheet('help')}];
 const ALL_DEF=['world','party','studio','fstock','tools','esports','shop','pass'];
@@ -25857,7 +25973,7 @@ function AllHub({c}){ const [q,setQ]=useState(''); const [rec,setRec]=useState((
     <div className="al98-chips"><button type="button" className="tap" onClick=${()=>c.go('shop')}><${Coin} s=${17}/>${coinsOf(c.me).toLocaleString()}</button><button type="button" className="tap" onClick=${()=>c.go('shop')}><${Dia} s=${16}/>${diaOf(c.me).toLocaleString()}</button><button type="button" className="tap" onClick=${()=>c.setWorld(true)}><${Icon} n="globe" s=${15} w=${2.3}/>DKO 월드</button><button type="button" className="tap" onClick=${()=>c.setPassOpen(true)}><${Icon} n="star" s=${15} w=${2.3}/>패스</button></div>
     <section className="al98-card"><div className="al98-ct">최근 서비스</div><div className="al98-g">${recent.map(s=>html`<button key=${s.k} type="button" className="al98-gi tap" onClick=${()=>open(s)}><span className="al98-gt" style=${{'--c1':s.c[0],'--c2':s.c[1]}}><${Icon} n=${s.ic} s=${24} w=${2.2}/>${badge[s.k]?html`<i className="al98-bd">${badge[s.k]}</i>`:null}</span><small>${s.t}</small></button>`)}</div></section>
     <section className="al98-card al98-rec"><div className="al98-ct">이런 건 어때요<small>DKO FINANCE</small></div>
-      <button type="button" className="al98-rc tap" onClick=${()=>open(ALL_SV.find(s=>s.k==='fstock'))}><span className="al98-rl">TRK</span><span className="al98-rt"><b>트릭 스튜디오 주식</b><small>${px.toFixed(2)} D-ot · <em className=${ch>=0?'up':'dn'}>${fpct(ch)}</em></small></span><${FinSpark} h=${S.hist} w=${70} hgt=${28}/><span className="al98-rb">보기</span></button></section>
+      <button type="button" className="al98-rc tap" onClick=${()=>open(ALL_SV.find(s=>s.k==='fstock'))}><span className="al98-rl t3lg"><img src=${STUDIO_LOGO} alt="THRE3RIC"/></span><span className="al98-rt"><b>트릭 스튜디오 주식</b><small>${px.toFixed(2)} D-ot · <em className=${ch>=0?'up':'dn'}>${fpct(ch)}</em></small></span><${FinSpark} h=${S.hist} w=${70} hgt=${28}/><span className="al98-rb">보기</span></button></section>
     ${['플레이','정보','금융','크루'].map(g=>html`<section key=${g} className="al98-card"><div className="al98-ct">${g==='금융'?'금융 서비스':g}${g==='금융'?html`<small>D-ot 가상 투자 · 현금과 무관</small>`:null}</div>${ALL_SV.filter(s=>s.g===g).map(Row)}</section>`)}
     <div className="al98-ct" style=${{padding:'4px 4px 0'}}>음악</div><${MusicCard} c=${c}/><//>`}
   </div>`; }
@@ -25938,12 +26054,21 @@ function finApi2({store,uid,data,mut,notify,isAdmin,meRef}){ const C=()=>({fin:d
     else if(P.kind==='buy'){ const x=Math.min(cash,+P.amt||0); if(x<10) return notify('회사 금고가 모자라요','err'); const n=ammFor(S.pool,x); if(n<1) return; const raw=ammBuy(S.pool,n); await store.inc('fin','trk',{'pool.s':-n,'pool.r':raw,cash:-raw,issued:-n}); }
     await store.update('finprop',P.id,{done:1}); store.add('finnews',{t:Date.now(),x:(P.kind==='div'?'💰 배당 결의 실행 · 주당 '+P.per+' D-ot':'📈 자사주 매입 · '+Math.round(+P.amt||0).toLocaleString()+' D-ot어치 소각'),kind:'gov',by:uid}).catch(()=>{}); },
   async finEconSet(patch){ if(!isAdmin&&!finChairOn({...C(),members:data.members})) return notify('운영진 또는 의장만 바꿀 수 있어요.','err'); await store.set('fin','econ',{...finEcon({fin:data.fin}),...patch,by:uid,at:Date.now()}); notify('경제 설정을 저장했어요','ok'); },
+  /* 주가가 10분마다 아주 조금씩 저절로 움직여요 (±0.7% 안팎 · 너무 멀어지면 천천히 돌아와요) */
+  async finDrift(){ const S=finStock(C()); if(S._new) return; const slot=Math.floor(Date.now()/600000); if(S.dslot===slot) return; const px=S.pool.r/S.pool.s; const an=+S.anchor||px;
+    const h=((Math.sin(slot*12.9898)*43758.5453)%1+1)%1; const f=1+(h-.5)*.014-(px/an-1)*.03; const nr=Math.max(S.pool.s*1,S.pool.r*f);
+    await store.update('fin','trk',{'pool.r':nr,dslot:slot,anchor:an*.96+px*.04}).catch(()=>{}); const d=(data.fin||[]).find(x=>x.id==='trk')||{}; const hh=(d.hist||[]).slice(-119); hh.push({t:Date.now(),p:nr/S.pool.s}); await store.update('fin','trk',{hist:hh}).catch(()=>{}); },
+  /* v29.9.5 대주주 지분 낮추기: 예전 60% → 15% (나머지는 거래 풀로 · 주가는 그대로) */
+  async finMigrate(){ const S=finStock(C()); if(S._new||S.v2995) return; const H=(data.members||[]).reduce((a,m)=>a+finMe(m).sh,0); const oldDev=Math.round(S.issued-S.pool.s-H); const diff=oldDev-FIN.DEV0; const px=S.pool.r/S.pool.s; const p={v2995:1,devSh:FIN.DEV0}; if(diff>10){ p['pool.s']=S.pool.s+diff; p['pool.r']=S.pool.r+diff*px; } await store.update('fin','trk',p).catch(()=>{}); },
   async finAdjust(pct){ if(!isAdmin) return; const S=finStock(C()); await store.inc('fin','trk',{'pool.r':S.pool.r*pct}); },
   }; }
 /* 거래 수수료는 회사 금고(cash)로 들어가요 · 경제 설정 반영 · 만기 지난 대출 회수 · 가결된 옵션 받기 */
 function FinWatch({c}){ const E=finEcon(c); const key=JSON.stringify([E.fee,E.dep7,E.dep30,E.coinFee,E.vip,E.halt]);
   useEffect(()=>{ FIN.FEE=E.fee; FIN.DEP[0].r=E.dep7; FIN.DEP[1].r=E.dep30; FIN.COIN_FEE=E.coinFee; FIN.VIP_DIA=E.vip; FIN.HALT=!!E.halt; },[key]);
   const F=finMe(c.me); const over=F.loans.some(l=>Date.now()>l.due+3600000);
+  const cr=useRef(c); cr.current=c;
+  useEffect(()=>{ let t=null; const go=()=>{ const x=cr.current; if(x&&x.finDrift) x.finDrift(); }; const run=()=>{ t=setTimeout(()=>{ go(); run(); },60000+Math.random()*40000); }; const t0=setTimeout(go,8000+Math.random()*20000); run(); return ()=>{ clearTimeout(t); clearTimeout(t0); }; },[]);
+  const hasTrk=!!(c.fin||[]).find(x=>x.id==='trk'); useEffect(()=>{ if((c.isAdmin||finIsDev(c.me))&&c.finMigrate&&isLoaded(c,'fin')&&hasTrk&&isLoaded(c,'members')){ const t=setTimeout(()=>cr.current.finMigrate(),1500); return ()=>clearTimeout(t); } },[isLoaded(c,'fin'),hasTrk,isLoaded(c,'members')]);
   useEffect(()=>{ if(!over||!c.finSeize) return; const t=setTimeout(()=>c.finSeize(),400); return ()=>clearTimeout(t); },[over]);
   const P=(c.finprop||[]).find(p=>p.kind==='opt'&&!p.optGot&&p.status==='open'&&p.end<Date.now()&&(()=>{ let y=0,n=0; Object.values(p.votes||{}).forEach(v=>{ if(v.v==='y') y+=+v.w||0; else n+=+v.w||0; }); return y>n&&y+n>=finStock(c).issued*FIN.QUORUM; })());
   useEffect(()=>{ if(!P||!finIsDev(c.me)||!c.finOptGrant) return; const t=setTimeout(()=>c.finOptGrant(P),500); return ()=>clearTimeout(t); },[P&&P.id]);
@@ -25976,7 +26101,7 @@ function FinCorp({c,S,px}){ const H=finChair(c); const me=finIsChair(c); const [
   const Row=({k,l,min,max,st,fmt})=>html`<div className="fn99-er"><span>${l}</span><input type="range" min=${min} max=${max} step=${st} value=${E2[k]} disabled=${!can} onInput=${e=>set(k,+e.target.value)}/><b>${fmt(E2[k])}</b></div>`;
   const pct=v=>Math.round(v*1000)/10+'%';
   return html`<div className="fn99-co">
-    <section className="fn99-hq"><div className="fn99-lg">T3</div><div><b>THRE3RIC STUDIO</b><small>CEO 트릭이 · 발행 ${S.issued.toLocaleString()}주 · 시총 ${fnum(S.issued*px)}</small></div>
+    <section className="fn99-hq"><div className="fn99-lg t3lg"><img src=${STUDIO_LOGO} alt="THRE3RIC"/></div><div><b>THRE3RIC STUDIO</b><small>CEO 트릭이 · 발행 ${S.issued.toLocaleString()}주 · 시총 ${fnum(S.issued*px)}</small></div>
       <div className="fn99-cash"><small>회사 금고</small><b>${Math.floor(S.cash||0).toLocaleString()}</b><em>거래 수수료가 쌓여요</em></div></section>
     <section className=${'fn98-card fn99-ch'+(me?' me':'')}><header><b>의장 · 최대 주주</b><small>CEO 지분을 포함해 가장 많이 가진 사람이 자동으로 의장이 돼요</small></header>
       ${H?html`<div className="fn99-cr"><span className="fn99-cav">${(dispName(H.m)||'?').slice(0,1)}</span><div><b>${dispName(H.m)}</b><small>${H.sh.toLocaleString()}주 · ${(H.fr*100).toFixed(1)}%</small></div>${me?html`<button type="button" className=${'tap fn99-sw'+(on?' on':'')} onClick=${flip} aria-pressed=${on}><i></i><span>${on?'의장 모드':'내 계정'}</span></button>`:null}</div>`:null}
@@ -26017,7 +26142,7 @@ ICONS.ext='M14 4h6v6 M20 4l-9 9 M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0
 const ST_CAT=[['all','전체'],['game','게임'],['tool','도구'],['art','아트'],['web','웹사이트'],['lab','실험']];
 const ST_COL=[['#FF8A3D','#C93800'],['#5B8CFF','#2B3FB8'],['#9B6BFF','#4A22B8'],['#29C27F','#0E7A4E'],['#FF5C8A','#A8174A'],['#FFC233','#B05A00'],['#22C3E6','#0A6A8A'],['#3A3F52','#141824']];
 const ST_EMO=['🎮','🕹️','🧩','🎨','🛠️','🚀','🌐','⚡','🎵','🧪','🏆','🐉','🌸','💎','🔥','🌙'];
-const ST_MAX=500*1024;
+const ST_MAX=15*1024*1024; const ST_CH=280000; /* 큰 코드는 28만 자씩 나눠 저장해요 (문서 하나 1MB 제한) */
 const stScore=w=>{ const L=Object.keys(w.likes||{}).length, P=+w.plays||0, S=Object.values(w.stars||{}); const sa=S.length?S.reduce((a,b)=>a+b,0)/S.length:0; const age=(Date.now()-(w.createdAt||0))/86400000; return (L*3+P*.5+sa*S.length*2+(w.pick?40:0))/Math.pow(age+2,.6); };
 const stAvg=w=>{ const S=Object.values(w.stars||{}); return S.length?S.reduce((a,b)=>a+b,0)/S.length:0; };
 const stCan=(c,S)=>!!S&&(S.by===c.uid||(S.members||[]).includes(c.uid)||c.isAdmin);
@@ -26029,11 +26154,14 @@ body{margin:0;height:100vh;display:grid;place-items:center;background:radial-gra
 #b:active{transform:translateY(8px);box-shadow:0 2px 0 #7A2200}p{opacity:.7;font-size:14px;text-align:center}.f{position:absolute;font-size:22px;animation:u .8s ease-out forwards;pointer-events:none}@keyframes u{to{transform:translateY(-90px);opacity:0}}
 </style></head><body><div style="text-align:center"><h2 id="s">0</h2><button id="b">DKO</button><p>10초 안에 몇 번 누를 수 있나요?</p></div>
 <script>let n=0,t=null;const s=document.getElementById('s'),b=document.getElementById('b');b.onclick=e=>{if(!t){t=setTimeout(()=>{b.disabled=true;s.textContent=n+'번! 다시 하려면 새로 고침';},10000)}if(b.disabled)return;n++;s.textContent=n;const f=document.createElement('div');f.className='f';f.textContent='+1';f.style.left=e.clientX+'px';f.style.top=e.clientY+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),800)}<\/script></body></html>`;
+async function stPut(store,id,by,code,oldN){ const n=Math.max(1,Math.ceil(code.length/ST_CH)); await store.set('workcode',id,{by,n,code:code.slice(0,ST_CH)});
+  for(let i=1;i<n;i++) await store.set('workcode',id+'_p'+i,{by,part:i,code:code.slice(i*ST_CH,(i+1)*ST_CH)});
+  for(let i=n;i<(oldN||0);i++) store.remove('workcode',id+'_p'+i).catch(()=>{}); }
 function stApi({store,uid,me,data,notify,isAdmin}){ const now=()=>Date.now();
   return {
   async stStudioSave(S,id){ const name=String(S.name||'').trim().slice(0,24); if(name.length<2) return notify('스튜디오 이름을 2자 이상 적어 주세요.','err'),null;
     if(!id&&(data.studios||[]).some(x=>x.name.toLowerCase()===name.toLowerCase())) return notify('같은 이름의 스튜디오가 있어요.','err'),null;
-    const o={name,emoji:S.emoji||'🎮',col:S.col||ST_COL[0],bio:String(S.bio||'').slice(0,300),members:[...new Set([uid,...(S.members||[])])].slice(0,12),site:String(S.site||'').slice(0,200),at:now()};
+    const o={name,emoji:S.emoji||'🎮',logo:S.logo||null,col:S.col||ST_COL[0],bio:String(S.bio||'').slice(0,300),members:[...new Set([uid,...(S.members||[])])].slice(0,12),site:String(S.site||'').slice(0,200),at:now()};
     if(id){ await store.update('studios',id,o); notify('스튜디오를 고쳤어요','ok'); return id; }
     const nid=await store.add('studios',{...o,by:uid,followers:{},createdAt:now(),verified:false}); notify('스튜디오를 열었어요!','ok'); return nid; },
   async stStudioDel(id){ await store.remove('studios',id); (data.works||[]).filter(w=>w.studio===id).forEach(w=>{ store.remove('works',w.id).catch(()=>{}); store.remove('workcode',w.id).catch(()=>{}); }); notify('스튜디오를 닫았어요','ok'); },
@@ -26041,13 +26169,13 @@ function stApi({store,uid,me,data,notify,isAdmin}){ const now=()=>Date.now();
   async stVerify(S){ if(!isAdmin) return; await store.update('studios',S.id,{verified:!S.verified}); },
   async stWorkSave(W,id){ const title=String(W.title||'').trim().slice(0,40); if(!title) return notify('작품 이름을 적어 주세요.','err'),null; if(!W.studio) return notify('올릴 스튜디오를 골라 주세요.','err'),null;
     let url=''; if(W.kind==='link'){ url=String(W.url||'').trim(); if(!/^https:\/\//i.test(url)) return notify('링크는 https:// 로 시작해야 해요.','err'),null; }
-    const code=W.kind==='code'?String(W.code||''):''; if(W.kind==='code'){ if(code.trim().length<20) return notify('코드를 붙여 넣어 주세요.','err'),null; if(stBytes(code)>ST_MAX) return notify('코드가 너무 커요 (최대 500KB).','err'),null; }
+    const code=W.kind==='code'?String(W.code||''):''; if(W.kind==='code'){ if(code.trim().length<20) return notify('코드를 붙여 넣어 주세요.','err'),null; if(stBytes(code)>ST_MAX) return notify('코드가 너무 커요 (최대 15MB).','err'),null; }
     const o={studio:W.studio,title,desc:String(W.desc||'').slice(0,2000),cat:W.cat||'game',tags:(W.tags||[]).slice(0,6),kind:W.kind,url,cover:W.cover||{e:'🎮',c:ST_COL[1]},remix:W.remix!==false,size:stBytes(code),updatedAt:now()};
-    if(id){ const old=(data.works||[]).find(x=>x.id===id)||{}; const ver=(+old.ver||1)+(W.note?1:0); await store.update('works',id,{...o,ver,notes:W.note?[{v:ver,t:String(W.note).slice(0,200),at:now()},...(old.notes||[])].slice(0,20):(old.notes||[])}); if(W.kind==='code') await store.set('workcode',id,{by:old.by||uid,code}); notify('작품을 업데이트했어요','ok'); return id; }
+    if(id){ const old=(data.works||[]).find(x=>x.id===id)||{}; const ver=(+old.ver||1)+(W.note?1:0); await store.update('works',id,{...o,ver,notes:W.note?[{v:ver,t:String(W.note).slice(0,200),at:now()},...(old.notes||[])].slice(0,20):(old.notes||[])}); if(W.kind==='code'&&W.code!=null) await stPut(store,id,old.by||uid,code,old.parts||1); await store.update('works',id,{parts:Math.max(1,Math.ceil(code.length/ST_CH))}).catch(()=>{}); notify('작품을 업데이트했어요','ok'); return id; }
     const nid=await store.add('works',{...o,by:uid,likes:{},stars:{},plays:0,ver:1,notes:[{v:1,t:'첫 공개',at:now()}],createdAt:now(),pick:false,from:W.from||null});
-    if(W.kind==='code') await store.set('workcode',nid,{by:uid,code}); notify('작품을 올렸어요! 크루가 바로 실행할 수 있어요','ok'); return nid; },
-  async stWorkDel(id){ await store.remove('works',id); store.remove('workcode',id).catch(()=>{}); (data.workcm||[]).filter(x=>x.w===id).forEach(x=>store.remove('workcm',x.id).catch(()=>{})); notify('작품을 내렸어요','ok'); },
-  async stCode(id){ try{ const d=await store.get('workcode',id); return d&&d.code||''; }catch(e){ return ''; } },
+    if(W.kind==='code'){ await stPut(store,nid,uid,code,0); await store.update('works',nid,{parts:Math.max(1,Math.ceil(code.length/ST_CH))}).catch(()=>{}); } notify('작품을 올렸어요! 크루가 바로 실행할 수 있어요','ok'); return nid; },
+  async stWorkDel(id){ const w=(data.works||[]).find(x=>x.id===id)||{}; await store.remove('works',id); store.remove('workcode',id).catch(()=>{}); for(let i=1;i<(w.parts||1);i++) store.remove('workcode',id+'_p'+i).catch(()=>{}); (data.workcm||[]).filter(x=>x.w===id).forEach(x=>store.remove('workcm',x.id).catch(()=>{})); notify('작품을 내렸어요','ok'); },
+  async stCode(id){ try{ const d=await store.get('workcode',id); if(!d) return ''; const n=+d.n||1; if(n<=1) return d.code||''; const P=await Promise.all(Array.from({length:n-1},(_,i)=>store.get('workcode',id+'_p'+(i+1)).catch(()=>null))); return (d.code||'')+P.map(x=>x&&x.code||'').join(''); }catch(e){ return ''; } },
   async stLike(W){ const L={...(W.likes||{})}; if(L[uid]) delete L[uid]; else L[uid]=now(); await store.update('works',W.id,{likes:L}); },
   async stStar(W,n){ await store.update('works',W.id,{stars:{...(W.stars||{}),[uid]:n}}); notify('별점 '+n+'점을 남겼어요','ok'); },
   async stPlay(W){ const k='dko-st-p-'+W.id; try{ if(sessionStorage.getItem(k)) return; sessionStorage.setItem(k,'1'); }catch(e){} await store.inc('works',W.id,{plays:1}).catch(()=>{}); },
@@ -26058,7 +26186,9 @@ function stApi({store,uid,me,data,notify,isAdmin}){ const now=()=>Date.now();
 
 /* ── 표지 ── */
 function StCover({w,big}){ const C=(w.cover&&w.cover.c)||ST_COL[1]; return html`<span className=${'st99-cv'+(big?' big':'')} style=${{'--c1':C[0],'--c2':C[1]}}><i className="g"></i><b>${(w.cover&&w.cover.e)||'🎮'}</b><em className=${'k '+w.kind}>${w.kind==='code'?html`<${Icon} n="code" s=${11} w=${2.6}/>CODE`:html`<${Icon} n="link" s=${11} w=${2.6}/>LINK`}</em>${w.pick?html`<em className="pk"><${Icon} n="crown" s=${11} w=${2.6}/>크루 픽</em>`:null}</span>`; }
-function StLogo({S,s=44}){ const C=S.col||ST_COL[0]; return html`<span className="st99-lg" style=${{'--c1':C[0],'--c2':C[1],width:s+'px',height:s+'px',fontSize:Math.round(s*.5)+'px'}}>${S.emoji||'🎮'}</span>`; }
+function StLogo({S,s=44}){ const C=S.col||ST_COL[0]; return html`<span className=${'st99-lg'+(S.logo?' img':'')} style=${{'--c1':C[0],'--c2':C[1],width:s+'px',height:s+'px',fontSize:Math.round(s*.5)+'px'}}>${S.logo?html`<img src=${S.logo} alt="" draggable="false"/>`:S.emoji||'🎮'}</span>`; }
+/* 로고 이미지: 정사각형으로 잘라 256px webp로 줄여요 (문서에 바로 저장) */
+function stLogoFile(F){ return new Promise((res,rej)=>{ if(!F||!/^image\//.test(F.type)) return rej(new Error('img')); const u=URL.createObjectURL(F); const im=new Image(); im.onload=()=>{ const n=256, cv=document.createElement('canvas'); cv.width=cv.height=n; const g=cv.getContext('2d'); const m=Math.min(im.width,im.height); g.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,n,n); URL.revokeObjectURL(u); let d=cv.toDataURL('image/webp',.86); if(!/^data:image\/webp/.test(d)) d=cv.toDataURL('image/png'); res(d); }; im.onerror=()=>{ URL.revokeObjectURL(u); rej(new Error('load')); }; im.src=u; }); }
 function StCard({c,w,S,onOpen,i}){ const L=Object.keys(w.likes||{}).length, a=stAvg(w); return html`<button type="button" className="st99-card tap" style=${{'--d':(i||0)*40+'ms'}} onClick=${()=>onOpen(w)}>
   <${StCover} w=${w}/><span className="st99-ct"><b>${w.title}</b><small>${S?html`<${StLogo} S=${S} s=${16}/>${S.name}${S.verified?html`<span className="vf"><${Icon} n="verified" s=${12} w=${2.4}/></span>`:null}`:'스튜디오'}</small>
   <span className="st99-mt"><span><${Icon} n="heart" s=${12} w=${2.4}/>${L}</span><span><${Icon} n="play" s=${11} w=${2.4}/>${fnum(w.plays||0)}</span>${a?html`<span><${Icon} n="star" s=${12} w=${2.4}/>${a.toFixed(1)}</span>`:null}</span></span></button>`; }
@@ -26101,7 +26231,7 @@ function StWork({c,w0,onClose,onEdit,onStudio,onRemix}){ const w=(c.works||[]).f
       ${(w.tags||[]).length?html`<div className="st99-tags">${w.tags.map(x=>html`<span key=${x}>#${x}</span>`)}</div>`:null}
       <section className="st99-sec"><h4>정보</h4><div className="st99-info"><span><small>종류</small><b>${w.kind==='code'?'코드 · '+stKB(w.size||0):'링크'}</b></span><span><small>분류</small><b>${(ST_CAT.find(x=>x[0]===w.cat)||ST_CAT[1])[1]}</b></span><span><small>올린 날</small><b>${new Date(w.createdAt||Date.now()).toLocaleDateString('ko-KR')}</b></span><span><small>리믹스</small><b>${w.kind==='code'&&w.remix?'허용':'안 함'}</b></span></div></section>
       ${(w.notes||[]).length?html`<section className="st99-sec"><h4>업데이트 기록</h4>${w.notes.slice(0,5).map(n=>html`<div key=${n.v+'-'+n.at} className="st99-nt"><em>v${n.v}</em><span>${n.t}</span><small>${ago(n.at)}</small></div>`)}</section>`:null}
-      <div className="st99-own">${mine?html`<button type="button" className="tap" onClick=${()=>onEdit(w)}><${Icon} n="edit" s=${15} w=${2.4}/>고치기 · 새 버전</button><button type="button" className="tap dn" onClick=${()=>{ if(confirm('이 작품을 내릴까요?')){ c.stWorkDel(w.id); onClose(); } }}><${Icon} n="trash" s=${15} w=${2.4}/>내리기</button>`:null}
+      <div className="st99-own">${mine?html`<button type="button" className="tap" onClick=${()=>onEdit(w)}><${Icon} n="edit" s=${15} w=${2.4}/>고치기 · 새 버전</button><button type="button" className="tap dn" onClick=${()=>{ dkoAsk('이 작품을 내릴까요? 댓글과 기록도 함께 사라져요.').then(ok=>{ if(ok){ c.stWorkDel(w.id); onClose(); } }); }}><${Icon} n="trash" s=${15} w=${2.4}/>내리기</button>`:null}
         ${w.kind==='code'&&w.remix&&!mine?html`<button type="button" className="tap" onClick=${()=>onRemix(w)}><${Icon} n="repost" s=${15} w=${2.4}/>리믹스해서 내 작품으로</button>`:null}
         ${c.isAdmin?html`<button type="button" className="tap" onClick=${()=>c.stPick(w)}><${Icon} n="crown" s=${15} w=${2.4}/>${w.pick?'크루 픽 해제':'크루 픽 지정'}</button>`:null}</div>
       <section className="st99-sec"><h4>댓글 ${cm.length}</h4>
@@ -26118,7 +26248,7 @@ function StWorkEdit({c,w,from,studios,onDone,onClose}){ const mineS=studios.filt
   const [tag,setTag]=useState(''); const [pv,setPv]=useState(false); const [busy,setBusy]=useState(false); const fi=useRef(null);
   useEffect(()=>{ if(w&&w.kind==='code') c.stCode(w.id).then(x=>setF(o=>({...o,code:x||''}))); if(from) c.stCode(from.id).then(x=>setF(o=>({...o,code:x||''}))); },[]);
   const set=(k,v)=>setF(o=>({...o,[k]:v})); const sz=stBytes(f.code);
-  const file=e=>{ const F=e.target.files&&e.target.files[0]; if(!F) return; if(F.size>ST_MAX) return c.notify('파일이 너무 커요 (최대 500KB).','err'); const r=new FileReader(); r.onload=()=>{ set('code',String(r.result||'')); if(!f.title) set('title',F.name.replace(/\.[a-z]+$/i,'').slice(0,40)); c.notify(F.name+' 을(를) 불러왔어요','ok'); }; r.readAsText(F); e.target.value=''; };
+  const file=e=>{ const F=e.target.files&&e.target.files[0]; if(!F) return; if(F.size>ST_MAX) return c.notify('파일이 너무 커요 (최대 15MB).','err'); const r=new FileReader(); r.onload=()=>{ set('code',String(r.result||'')); if(!f.title) set('title',F.name.replace(/\.[a-z]+$/i,'').slice(0,40)); c.notify(F.name+' 을(를) 불러왔어요','ok'); }; r.readAsText(F); e.target.value=''; };
   const addTag=()=>{ const t=tag.replace(/^#/,'').trim().slice(0,12); if(t&&!f.tags.includes(t)&&f.tags.length<6) set('tags',[...f.tags,t]); setTag(''); };
   const save=async()=>{ setBusy(true); const id=await c.stWorkSave(f,w&&w.id); setBusy(false); if(id) onDone(id); };
   if(!mineS.length) return html`<div className="st99-ed"><div className="st99-eh"><button type="button" className="tap" onClick=${onClose}><${Icon} n="chevL" s=${20} w=${2.6}/></button><b>작품 올리기</b></div><div className="st99-empty"><b>먼저 스튜디오가 필요해요</b><p>스튜디오를 열거나, 스튜디오 멤버로 초대받으면 작품을 올릴 수 있어요.</p></div></div>`;
@@ -26129,10 +26259,11 @@ function StWorkEdit({c,w,from,studios,onDone,onClose}){ const mineS=studios.filt
       <label className="st99-f"><span>스튜디오</span><div className="st99-chips">${mineS.map(S=>html`<button key=${S.id} type="button" className=${'tap'+(f.studio===S.id?' on':'')} onClick=${()=>set('studio',S.id)}><${StLogo} S=${S} s=${20}/>${S.name}</button>`)}</div></label>
       <label className="st99-f"><span>종류</span><div className="st99-seg">${[['code','코드 올리기','code'],['link','사이트 링크','link']].map(([k,l,ic])=>html`<button key=${k} type="button" className=${'tap'+(f.kind===k?' on':'')} onClick=${()=>set('kind',k)} disabled=${!!w&&w.kind!==k}><${Icon} n=${ic} s=${15} w=${2.4}/>${l}</button>`)}</div></label>
       <label className="st99-f"><span>작품 이름</span><input value=${f.title} maxLength=${40} placeholder="예: 에임 연습장" onInput=${e=>set('title',e.target.value)}/></label>
-      ${f.kind==='code'?html`<div className="st99-f"><span>코드 (HTML 한 파일)<em>${stKB(sz)} / 500KB</em></span>
+      ${f.kind==='code'?html`<div className="st99-f"><span>코드 (HTML 한 파일)<em>${stKB(sz)} / 15MB</em></span>
         <div className="st99-cb"><button type="button" className="tap" onClick=${()=>fi.current&&fi.current.click()}><${Icon} n="up" s=${15} w=${2.4}/>.html 파일 불러오기</button><button type="button" className="tap" onClick=${()=>{ set('code',ST_SAMPLE); c.notify('예시 코드를 넣었어요','ok'); }}><${Icon} n="sparkle" s=${15} w=${2.4}/>예시 코드</button><button type="button" className=${'tap'+(pv?' on':'')} onClick=${()=>setPv(!pv)} disabled=${f.code.length<20}><${Icon} n="eye" s=${15} w=${2.4}/>미리 실행</button></div>
         <input ref=${fi} type="file" accept=".html,.htm,.txt,text/html" hidden onChange=${file}/>
-        <textarea className="st99-code" spellcheck="false" value=${f.code} placeholder=${'<!doctype html>\n<html> … 바이브 코딩으로 만든 코드를 그대로 붙여 넣어요 …'} onInput=${e=>set('code',e.target.value)}></textarea>
+        ${f.code.length>200000?html`<div className="st99-big"><span className="st99-bigi"><${Icon} n="code" s=${22} w=${2.4}/></span><span><b>큰 코드 · ${stKB(sz)}</b><small>${f.code.split('\n').length.toLocaleString()}줄 · 너무 커서 여기선 고칠 수 없어요. 파일로 바꿔 올려요.</small></span><button type="button" className="tap" onClick=${()=>set('code','')}>비우기</button></div>`
+        :html`<textarea className="st99-code" spellcheck="false" value=${f.code} placeholder=${'<!doctype html>\n<html> … 바이브 코딩으로 만든 코드를 그대로 붙여 넣어요 …'} onInput=${e=>set('code',e.target.value)}></textarea>`}
         ${pv&&f.code.length>=20?html`<div className="st99-pvb"><iframe title="미리 실행" srcdoc=${stWrap(f.code,'pv')} sandbox="allow-scripts allow-pointer-lock" referrerpolicy="no-referrer"></iframe></div>`:null}
         <p className="st99-hint">코드는 앱과 분리된 상자에서 실행돼서 크루 계정 · 재화 · 대화에 접근할 수 없어요. 외부 라이브러리(CDN)는 써도 돼요.</p></div>`
       :html`<label className="st99-f"><span>사이트 주소</span><input value=${f.url} inputMode="url" placeholder="https://…" onInput=${e=>set('url',e.target.value)}/><p className="st99-hint">GitHub Pages · Vercel · Netlify 같은 주소를 걸어 두세요. 앱 안에서 안 열리는 사이트는 새 창으로 열려요.</p></label>`}
@@ -26149,21 +26280,22 @@ function StWorkEdit({c,w,from,studios,onDone,onClose}){ const mineS=studios.filt
 /* ── 스튜디오 만들기 · 고치기 ── */
 function StStudioEdit({c,S,onDone,onClose}){ const [f,setF]=useState(()=>S?{...S}:{name:'',emoji:'🎮',col:ST_COL[0],bio:'',members:[c.uid],site:''}); const [q,setQ]=useState(''); const set=(k,v)=>setF(o=>({...o,[k]:v}));
   const hits=q.trim()?(c.members||[]).filter(m=>!f.members.includes(m.uid)&&dispName(m).toLowerCase().includes(q.trim().toLowerCase())).slice(0,5):[];
-  const presets=[['THRE3RIC STUDIO','⚡',ST_COL[0]],['야건 스튜디오','🌙',ST_COL[1]]].filter(p=>!(c.studios||[]).some(x=>x.name===p[0]));
   return html`<div className="st99-ed">
     <div className="st99-eh"><button type="button" className="tap" onClick=${onClose}><${Icon} n="chevL" s=${20} w=${2.6}/></button><b>${S?'스튜디오 고치기':'스튜디오 열기'}</b><button type="button" className="st99-pub tap" onClick=${async()=>{ const id=await c.stStudioSave(f,S&&S.id); if(id) onDone(id); }}>${S?'저장':'열기'}</button></div>
     <div className="st99-eb">
       <div className="st99-sban" style=${{'--c1':f.col[0],'--c2':f.col[1]}}><${StLogo} S=${f} s=${64}/><b>${f.name||'스튜디오 이름'}</b><small>${f.bio||'한 줄 소개'}</small></div>
-      ${!S&&presets.length?html`<div className="st99-f"><span>빠른 시작</span><div className="st99-chips">${presets.map(([n,e,col])=>html`<button key=${n} type="button" className="tap" onClick=${()=>setF(o=>({...o,name:n,emoji:e,col}))}>${e} ${n}</button>`)}</div></div>`:null}
       <label className="st99-f"><span>이름</span><input value=${f.name} maxLength=${24} placeholder="예: THRE3RIC STUDIO" onInput=${e=>set('name',e.target.value)}/></label>
       <label className="st99-f"><span>소개</span><textarea className="st99-ta sm" value=${f.bio} maxLength=${300} placeholder="어떤 걸 만드는 스튜디오인가요?" onInput=${e=>set('bio',e.target.value)}></textarea></label>
       <label className="st99-f"><span>대표 사이트 (선택)</span><input value=${f.site||''} inputMode="url" placeholder="https://…" onInput=${e=>set('site',e.target.value)}/></label>
-      <div className="st99-f"><span>로고</span><div className="st99-emo">${ST_EMO.map(x=>html`<button key=${x} type="button" className=${'tap'+(f.emoji===x?' on':'')} onClick=${()=>set('emoji',x)}>${x}</button>`)}</div>
+      <div className="st99-f"><span>로고</span>
+        <div className="st99-lgup"><${StLogo} S=${f} s=${64}/><span><b>${f.logo?'로고 이미지 사용 중':'회사 로고를 올려 보세요'}</b><small>정사각형으로 맞춰서 저장돼요 · PNG · JPG · WEBP</small></span>
+          <label className="tap"><${Icon} n="up" s=${15} w=${2.4}/>올리기<input type="file" accept="image/*" hidden onChange=${async e=>{ const F=e.target.files&&e.target.files[0]; e.target.value=''; try{ const d=await stLogoFile(F); set('logo',d); c.notify('로고를 넣었어요','ok'); }catch(_){ c.notify('이미지를 읽지 못했어요.','err'); } }}/></label>${f.logo?html`<button type="button" className="tap" onClick=${()=>set('logo',null)}>빼기</button>`:null}</div>
+        ${f.logo?null:html`<div className="st99-emo">${ST_EMO.map(x=>html`<button key=${x} type="button" className=${'tap'+(f.emoji===x?' on':'')} onClick=${()=>set('emoji',x)}>${x}</button>`)}</div>`}
         <div className="st99-cols">${ST_COL.map((C,i)=>html`<button key=${i} type="button" className=${'tap'+(f.col[0]===C[0]?' on':'')} style=${{'--c1':C[0],'--c2':C[1]}} onClick=${()=>set('col',C)} aria-label=${'색 '+(i+1)}></button>`)}</div></div>
       <div className="st99-f"><span>멤버 (${f.members.length}/12)</span>
         <div className="st99-mem">${f.members.map(u=>{ const m=(c.members||[]).find(z=>z.uid===u); return html`<span key=${u}>${m?html`<${PfpView} m=${m} s=${26}/>`:null}<b>${m?dispName(m):'크루'}</b>${u!==(S?S.by:c.uid)?html`<button type="button" className="tap" onClick=${()=>set('members',f.members.filter(x=>x!==u))} aria-label="빼기"><${Icon} n="x" s=${12} w=${2.6}/></button>`:html`<em>대표</em>`}</span>`; })}</div>
         <input value=${q} placeholder="크루 이름으로 멤버 초대" onInput=${e=>setQ(e.target.value)}/>${hits.length?html`<div className="st99-hits">${hits.map(m=>html`<button key=${m.uid} type="button" className="tap" onClick=${()=>{ set('members',[...f.members,m.uid].slice(0,12)); setQ(''); }}><${PfpView} m=${m} s=${24}/>${dispName(m)}<${Icon} n="plus" s=${14} w=${2.6}/></button>`)}</div>`:null}</div>
-      ${S&&S.by===c.uid?html`<button type="button" className="st99-del tap" onClick=${()=>{ if(confirm('스튜디오와 작품을 모두 닫을까요?')){ c.stStudioDel(S.id); onClose(); } }}>스튜디오 닫기</button>`:null}
+      ${S&&S.by===c.uid?html`<button type="button" className="st99-del tap" onClick=${()=>{ dkoAsk('스튜디오와 작품을 모두 닫을까요?').then(ok=>{ if(ok){ c.stStudioDel(S.id); onClose(); } }); }}>스튜디오 닫기</button>`:null}
     </div></div>`; }
 
 /* ── 스튜디오 페이지 ── */
@@ -26186,7 +26318,7 @@ function StudioHub({c,start}){ const [view,setView]=useState(null); const [tab,s
   const studios=c.studios||[], works=c.works||[]; const SM=Object.fromEntries(studios.map(S=>[S.id,S]));
   useEffect(()=>{ if(start&&start.w){ const w=works.find(x=>x.id===start.w); if(w) setView({k:'work',w}); } },[]);
   if(!isLoaded(c,'works')||!isLoaded(c,'studios')) return html`<div className="st99"><${Skel} kind="card" n=${3}/></div>`;
-  const go=v=>{ haptic(6); setView(v); const b=document.querySelector('.st99')&&document.querySelector('.st99').closest('.sh14-body,.sheet-body'); if(b) b.scrollTop=0; };
+  const go=v=>{ haptic(6); setView(v); const b=document.querySelector('.st99')&&document.querySelector('.st99').closest('.sh14-body,.sheet-body'); if(b) b.scrollTop=0; else { const el=document.querySelector('.chp99-st'); if(el){ const y=el.getBoundingClientRect().top+window.scrollY-70; if(window.scrollY>y) window.scrollTo({top:y}); } } };
   if(view&&view.k==='work') return html`<div className="st99"><${StWork} c=${c} w0=${view.w} onClose=${()=>setView(view.back||null)} onEdit=${w=>go({k:'edit',w,back:view})} onRemix=${w=>go({k:'edit',from:w,back:view})} onStudio=${S=>go({k:'studio',S,back:view})}/></div>`;
   if(view&&view.k==='edit') return html`<div className="st99"><${StWorkEdit} c=${c} w=${view.w} from=${view.from} studios=${studios} onClose=${()=>setView(view.back||null)} onDone=${id=>{ const w=(c.works||[]).find(x=>x.id===id)||{id,...(view.w||{})}; setView({k:'work',w}); }}/></div>`;
   if(view&&view.k==='sedit') return html`<div className="st99"><${StStudioEdit} c=${c} S=${view.S} onClose=${()=>setView(view.back||null)} onDone=${id=>setView({k:'studio',S:(c.studios||[]).find(x=>x.id===id)||{id,...(view.S||{})}})}/></div>`;
@@ -26223,7 +26355,71 @@ function StudioDemoSeed({c}){ useEffect(()=>{ if(!c.store||c.store.mode!=='demo'
       const w=await s.add('works',{studio:a,title:'10초 연타 챌린지',desc:'10초 동안 DKO 버튼을 최대한 많이 눌러 보세요!\n크루 최고 기록은 댓글로 남겨 주세요.',cat:'game',tags:['미니게임','연타'],kind:'code',url:'',cover:{e:'🕹️',c:ST_COL[1]},remix:true,size:stBytes(ST_SAMPLE),by:c.uid,likes:{},stars:{},plays:12,ver:1,notes:[{v:1,t:'첫 공개',at:t}],createdAt:t,updatedAt:t,pick:true});
       await s.set('workcode',w,{by:c.uid,code:ST_SAMPLE}); })().catch(()=>{}); },[isLoaded(c,'studios')]); return null; }
 /* 공유 링크(#studio=작품id)로 들어오면 그 작품을 바로 열어요 */
-function StudioLink({c}){ useEffect(()=>{ if(!c.ready) return; const m=String(location.hash||'').match(/^#studio=([\w-]+)/); if(!m) return; window.__stStart={w:m[1]}; try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} setTimeout(()=>c.setSheet('studio'),300); },[c.ready]); return null; }
+function StudioLink({c}){ useEffect(()=>{ if(!c.ready) return; const m=String(location.hash||'').match(/^#studio=([\w-]+)/); if(!m) return; window.__stStart={w:m[1]}; try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} setTimeout(()=>openStudioCh(c),300); },[c.ready]); return null; }
+
+/* 스튜디오 채널(커뮤니티 > DKO 스튜디오)로 가요 */
+const openStudioCh=c=>{ window.__cmCh='studios'; c.setSheet&&c.setSheet(null); c.go('blog'); setTimeout(()=>window.dispatchEvent(new Event('dko-cm-ch')),80); };
+
+/* ═════════ v29.9.5 피날레 (앱) ═════════
+   이벤트 전체 보기 · 파티 끝나고 서로 추천 · 피날레 버전 화면 */
+
+/* ── 이벤트 전체 보기 ── */
+function EventsAll({c}){ const L=typeof liveEvents==='function'?liveEvents(c):[]; const now=Date.now();
+  const left=t=>{ const l=Math.max(0,t-now), d=Math.floor(l/DAY_MS), h=Math.floor(l%DAY_MS/3600000), m=Math.floor(l%3600000/60000); return d?d+'일 '+h+'시간':h?h+'시간 '+m+'분':m+'분'; };
+  if(!L.length) return html`<${Empty} stk="what" text="지금 열린 이벤트가 없어요."/>`;
+  return html`<div className="ea99">${L.map((e,i)=>{ const T=evTheme(e); const k=evClaimable(c.me,e); const dur=Math.max(1,e.end-(e.start||e.createdAt||now)); const pr=Math.min(1,Math.max(0,(now-(e.start||now))/dur)); const qs=(e.quests||[]).length;
+    return html`<button key=${e.id} type="button" className=${'ea99-c tap'+(k?' cl':'')} style=${{'--e1':T.c1,'--e2':T.c2,'--d':i*60+'ms'}} onClick=${()=>{ c.setSheet(null); setTimeout(()=>c.openEvent(e.id),180); }}>
+      <span className="ea99-ic"><${Icon} n=${T.ic} s=${26} w=${2.3}/></span>
+      <span className="ea99-t"><em>${T.k}</em><b>${e.title}</b>${e.sub?html`<small>${e.sub}</small>`:null}
+        <span className="ea99-m">${e.mul?html`<i>보상 ×${e.mul}</i>`:null}${e.disc?html`<i>할인 ${e.disc}%</i>`:null}${qs?html`<i>미션 ${qs}개</i>`:null}${k?html`<i className="k">받을 보상 ${k}</i>`:null}</span>
+        <span className="ea99-bar"><i style=${{width:(pr*100)+'%'}}></i></span><small className="ea99-l">${left(e.end)} 남음</small></span>
+      <${Icon} n="chev" s=${16} w=${2.6}/></button>`; })}</div>`; }
+
+/* ── 파티가 끝나면 같이 한 크루를 추천해요 (명성 +4) ── */
+function PartyEndorse({c}){ const [P,setP]=useState(null); const [sel,setSel]=useState([]);
+  const cand=(c.parties||[]).filter(p=>p.closed&&p.endedAt&&Date.now()-p.endedAt<6*3600000&&(p.participants||[]).some(x=>x.uid===c.uid)&&(p.participants||[]).filter(x=>x.uid!==c.uid).length).sort((a,b)=>b.endedAt-a.endedAt)[0];
+  useEffect(()=>{ if(!cand||P) return; try{ if(localStorage.getItem('dko-pe-'+cand.id)) return; }catch(e){ return; } const t=setTimeout(()=>{ setP(cand); setSel([]); },900); return ()=>clearTimeout(t); },[cand&&cand.id]);
+  if(!P) return null;
+  const others=(P.participants||[]).filter(x=>x.uid&&x.uid!==c.uid);
+  const done=send=>{ try{ localStorage.setItem('dko-pe-'+P.id,'1'); }catch(e){} if(send&&sel.length&&c.endorse) c.endorse({id:'p:'+P.id,A:others,B:[]},sel); setP(null); };
+  const tog=u=>{ haptic(6); setSel(s=>s.includes(u)?s.filter(x=>x!==u):s.length>=2?(c.notify('2명까지 고를 수 있어요.','err'),s):[...s,u]); };
+  return html`<${Sheet} open=${true} onClose=${()=>done(false)} title="파티 수고했어요!">
+    <div className="pe99"><p>같이 해서 좋았던 크루를 <b>2명까지</b> 추천해 주세요. 추천받은 사람은 명성 +4를 받아요.</p>
+      <div className="pe99-l">${others.map(x=>{ const m=(c.members||[]).find(z=>z.uid===x.uid)||x; const on=sel.includes(x.uid); return html`<button key=${x.uid} type="button" className=${'pe99-c tap'+(on?' on':'')} onClick=${()=>tog(x.uid)}>
+        <span className="pe99-av">${m.uid?html`<${PfpView} m=${m} s=${52}/>`:null}${on?html`<i><${Icon} n="heart" s=${14} w=${2.6} fill="currentColor"/></i>`:null}</span><b>${dispName(m)||x.nick}</b><small>${x.pos||m.pos||''}${x.tier?' · '+x.tier:''}</small></button>`; })}</div>
+      <div className="pe99-a"><button type="button" className="tap ghost" onClick=${()=>done(false)}>다음에</button><button type="button" className="tap" disabled=${!sel.length} onClick=${()=>done(true)}>${sel.length?sel.length+'명 추천하기':'추천할 사람을 골라요'}</button></div></div><//>`; }
+
+/* ── 피날레 버전 화면: 버전을 누르면 폭죽이 터지고 마지막 버전을 크게 보여 줘요 ── */
+function FinaleFX({onClose}){ const cv=useRef(null);
+  useEffect(()=>{ const el=cv.current; if(!el) return; const g=el.getContext('2d'); const dpr=Math.min(2,window.devicePixelRatio||1); let W=0,H=0; const size=()=>{ W=el.clientWidth; H=el.clientHeight; el.width=W*dpr; el.height=H*dpr; g.setTransform(dpr,0,0,dpr,0,0); }; size(); window.addEventListener('resize',size);
+    const P=[], R=[]; const COL=['#FF8A3D','#FFD23A','#FF5C8A','#7A5CFF','#5FB8FF','#29C27F','#FFFFFF'];
+    const shoot=(x,y)=>{ const c=COL[Math.floor(Math.random()*COL.length)], c2=COL[Math.floor(Math.random()*COL.length)]; const n=70+Math.floor(Math.random()*40); const sp=2.4+Math.random()*2.2;
+      for(let i=0;i<n;i++){ const a=i/n*Math.PI*2+Math.random()*.05, v=sp*(.55+Math.random()*.6); P.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1,c:i%3?c:c2,s:1.4+Math.random()*1.6,tw:Math.random()<.3}); }
+      try{ DKOSfx&&DKOSfx.fx&&DKOSfx.fx('pop',.5); }catch(e){} };
+    const rocket=()=>{ R.push({x:W*(.15+Math.random()*.7),y:H+10,vy:-(7+Math.random()*3.5),ty:H*(.15+Math.random()*.35),c:COL[Math.floor(Math.random()*COL.length)]}); };
+    let raf=0, last=performance.now(), t0=last, nx=0; const big=[[.3,.3],[.7,.26],[.5,.18]];
+    big.forEach(([x,y],i)=>setTimeout(()=>shoot(W*x,H*y),250+i*260));
+    const loop=now=>{ const dt=Math.min(2.5,(now-last)/16.7); last=now; g.globalCompositeOperation='destination-out'; g.fillStyle='rgba(0,0,0,.22)'; g.fillRect(0,0,W,H); g.globalCompositeOperation='lighter';
+      if(now>nx&&now-t0<14000){ rocket(); nx=now+420+Math.random()*520; }
+      for(let i=R.length-1;i>=0;i--){ const r=R[i]; r.y+=r.vy*dt; r.vy+=.06*dt; g.fillStyle=r.c; g.beginPath(); g.arc(r.x,r.y,2.2,0,7); g.fill(); g.fillStyle='rgba(255,220,170,.35)'; g.fillRect(r.x-1,r.y,2,14); if(r.y<=r.ty||r.vy>=-.5){ shoot(r.x,r.y); R.splice(i,1); } }
+      for(let i=P.length-1;i>=0;i--){ const p=P[i]; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vx*=Math.pow(.985,dt); p.vy=p.vy*Math.pow(.985,dt)+.035*dt; p.l-=.0105*dt; if(p.l<=0){ P.splice(i,1); continue; } const a=p.tw?p.l*(.5+.5*Math.sin(now/60+i)):p.l; g.globalAlpha=Math.max(0,a); g.fillStyle=p.c; g.beginPath(); g.arc(p.x,p.y,p.s*(.6+p.l*.6),0,7); g.fill(); }
+      g.globalAlpha=1; raf=requestAnimationFrame(loop); };
+    raf=requestAnimationFrame(loop); haptic([20,40,20,40,60]);
+    return ()=>{ cancelAnimationFrame(raf); window.removeEventListener('resize',size); }; },[]);
+  const U=BLOG.filter(b=>b.cat==='UPDATE'); const first=U[U.length-1]||{}; const n=U.length;
+  return ReactDOM.createPortal(html`<div className="fn995" role="dialog" aria-label="DKO 피날레" onClick=${onClose}>
+    <canvas ref=${cv} className="fn995-cv" aria-hidden="true"></canvas>
+    <div className="fn995-in" onClick=${e=>e.stopPropagation()}>
+      <span className="fn995-k">THE FINAL VERSION</span>
+      <div className="fn995-v"><i>v</i>${APP_VERSION}</div>
+      <b className="fn995-t">DKO 피날레</b>
+      <p>${first.date||'2026.11.12'} 첫 버전부터 ${n}번의 업데이트.<br/>함께 만들어 준 크루 모두 고마워요.</p>
+      <div className="fn995-s"><span><b>${n}</b>업데이트</span><span><b>${(c=>c)(Math.max(1,Math.round((Date.now()-new Date((first.date||'2026.11.12').replace(/\./g,'-')).getTime())/86400000)))}</b>일</span><span><b>∞</b>추억</span></div>
+      <span className="fn995-by">THRE3RIC STUDIO · CEO 트릭이 · 운영진 야건</span>
+      <button type="button" className="fn995-x tap" onClick=${onClose}>닫기</button></div></div>`,document.body); }
+function FinaleBadge(){ const [o,setO]=useState(false); return html`<${React.Fragment}><button type="button" className="fn995-b tap" onClick=${()=>{ haptic(14); setO(true); }}><i className="fn995-bs"></i><em>FINAL</em><b>v${APP_VERSION}</b><small>눌러서 피날레 보기</small></button>${o?html`<${FinaleFX} onClose=${()=>setO(false)}/>`:null}<//>`; }
+/* 이번 피날레 버전을 처음 열면 한 번 폭죽을 보여 줘요 */
+function FinaleAuto({c}){ const [o,setO]=useState(false); useEffect(()=>{ if(!c.ready) return; let seen=null; try{ seen=localStorage.getItem('dko-finale'); }catch(e){ return; } if(seen===APP_VERSION) return; const t=setTimeout(()=>{ try{ localStorage.setItem('dko-finale',APP_VERSION); }catch(e){} setO(true); },1200); return ()=>clearTimeout(t); },[c.ready]); return o?html`<${FinaleFX} onClose=${()=>setO(false)}/>`:null; }
 
 window.__DKO={BANNERS,BrickIc,C0,CB_TIPS,CH,CW,Coin,Dia,EQ_PRICE,EQ_SHIELD,EQ_T,EQ_TC,FX,GA,GA_SET,GChips,GE_DUST,GE_EL,GE_ELS,GE_EPIC,GE_FIX,GE_RK,GE_SELL,GE_SUB,GE_UP,GR_C,GR_N,GR_T,GW,GW_HIT,GoldIc,ICONS,Icon,PX_HEROES,PfpView,PixelChar,R,RAID,STICKER,StickerTray,TS,VX_ISO,VoxelStage,WCF,WP_GOALS,WP_MAX,W_BIG,W_CAT,W_CDECO,W_CK,W_CR,W_CROP,W_DECO_MAX,W_EXP_COST,W_GOLD_RATE,W_HUB,W_LAND_MAX,W_LAND_SS_FROM,W_LM,W_LMS,W_LONG,W_LV_ROOF,W_MINE_CAP,W_MINE_RATE,W_OB,W_OB_TIME,W_PROTECT,W_SC,W_START,W_START_BRICKS,W_SW,W_SZ,W_TABS,W_TILE,W_WALK,ago,avatarOf,coinsOf,consentOpt,dayKey,diaOf,dispName,dkoAsk,eqId,eqName,eqParse,gCap,gClone,gDef,gDrop,gDurMax,gElemOf,gEquipped,gFind,gIsW,gName,gNew,gSetOf,gSlotOf,gUpMul,gearOf,haptic,heroAv,hh,html,isOnline,isStealth,isSuperM,lmC,lmDoor,lsGet,lsSet,myLiveParty,ownsHero,partyLive,raidFmt,raidList,raidMineOf,raidShieldOf,rng,rpgEqLook,rpgNeed,rpgOf,rpgStats,rr,seed,useEffect,useMemo,useRef,useState,vxDraw,wBack,wBrick,wCells,wCropOf,wCube,wDrawChar,wEase,wFmtT,wGoldOf,wHash,wLandCost,wLandSS,wName,wPlotEnd,wPlotOf,wPlotWater,wRad,wShade,wShadow,wSpeedCost,wStealCost,wStr,wSz,wTag,wTopIsl,wWeek0,wWeekScore,wXmas,wpLive,wpMine};
 ReactDOM.createRoot(document.getElementById('root')).render(html`<${Root}/>`);

@@ -148,6 +148,8 @@ firebase deploy --only functions:dkoNpc
   - 완전히 막으려면 Cloud Functions(유료 요금제)가 필요해요.
 - v29.9 금융 · 의장 모드: 주식 · 대출 · 경제 설정(`fin/econ`)도 같은 클라이언트 신뢰 방식이에요. 그래서 '최대 주주 = 의장'에게는 **경제 결정 권한만** 열고, 신고 처리 · 계정 관리 같은 운영 권한은 서버 인증(v30) 전까지 운영진 계정에만 둬요.
 - v29.9 배포 때 `firebase/firestore.rules`를 다시 게시하세요 (새 컬렉션 `wparty` · `finloan`).
+- v29.9.5: 새 컬렉션 `studios` · `works` · `workcode` · `workcm` 규칙이 추가됐어요.
+- **Firebase 자동 배포(GitHub Actions)**: `.github/workflows/firebase-deploy.yml`. 저장소 Settings → Secrets and variables → Actions 에 `FIREBASE_TOKEN`(컴퓨터에서 `firebase login:ci` 실행 후 나온 토큰) 또는 `FIREBASE_SERVICE_ACCOUNT`(서비스 계정 JSON)를 넣으면, 규칙 · 함수가 바뀐 채로 main에 올라올 때 자동으로 배포돼요. 처음 한 번은 Actions 탭 → Firebase deploy → Run workflow 로 바로 돌려도 돼요.
 - 블로그 쓰기 권한:
   - 업데이트 글: 운영진 · 인증 배지
   - 소식 글: 명성 5레벨 이상도 가능

@@ -1,0 +1,21 @@
+rules_version = '2';
+// DKO 파일 저장소 (v29.3): 채팅 영상 · 크루 뮤직
+// 경로: dko-overwatch-crew/chat/{uid}/{파일}, dko-overwatch-crew/music/{uid}/{파일}
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{app}/chat/{uid}/{file} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == uid
+        && request.resource.size < 31 * 1024 * 1024
+        && request.resource.contentType.matches('video/.*');
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+    match /{app}/music/{uid}/{file} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == uid
+        && request.resource.size < 13 * 1024 * 1024
+        && request.resource.contentType.matches('audio/.*');
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+# DKO · Firebase 자동 배포
+# main에 firebase/ · functions/ · firebase.json 이 바뀌어 올라오면 규칙과 서버 함수를 Firebase에 배포해요.
+# 켜는 법(한 번만): GitHub 저장소 → Settings → Secrets and variables → Actions 에
+#   FIREBASE_TOKEN (firebase login:ci 로 받은 토큰)  또는  FIREBASE_SERVICE_ACCOUNT (서비스 계정 JSON 전체)
+# 둘 다 없으면 아무것도 하지 않고 넘어가요.
+name: Firebase deploy
+on:
+  push:
+    branches: [main]
+    paths: ['firebase/**', 'functions/**', 'firebase.json', '.firebaserc']
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      FIREBASE_SA: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: 비밀 값 확인
+        id: chk
+        run: |
+          if [ -z "$FIREBASE_TOKEN" ] && [ -z "$FIREBASE_SA" ]; then echo "on=0" >> $GITHUB_OUTPUT; echo "Firebase 비밀 값이 없어 배포를 건너뛰어요."; else echo "on=1" >> $GITHUB_OUTPUT; fi
+      - uses: actions/setup-node@v4
+        if: steps.chk.outputs.on == '1'
+        with: { node-version: '20' }
+      - name: 준비
+        if: steps.chk.outputs.on == '1'
+        run: |
+          npm i -g firebase-tools
+          if [ -n "$FIREBASE_SA" ]; then echo "$FIREBASE_SA" > "$RUNNER_TEMP/sa.json"; echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> $GITHUB_ENV; fi
+          cd functions && npm install --omit=dev
+      - name: 규칙 배포 (Firestore · Storage · Realtime DB)
+        if: steps.chk.outputs.on == '1'
+        run: |
+          ARGS="--project overwatche3-6508d --non-interactive"; [ -n "$FIREBASE_TOKEN" ] && ARGS="$ARGS --token $FIREBASE_TOKEN"
+          firebase deploy --only firestore:rules,storage,database $ARGS
+      - name: 서버 함수 배포 (Blaze 요금제 필요)
+        if: steps.chk.outputs.on == '1'
+        continue-on-error: true
+        run: |
+          ARGS="--project overwatche3-6508d --non-interactive --force"; [ -n "$FIREBASE_TOKEN" ] && ARGS="$ARGS --token $FIREBASE_TOKEN"
+          firebase deploy --only functions $ARGS

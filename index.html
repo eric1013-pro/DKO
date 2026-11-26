@@ -14093,24 +14093,13 @@ html:not(.pc) .al98-h{padding-left:0;padding-right:0}
 .dock99-l>.dock99-i{flex:0 0 calc((100% - 24px)/5);min-width:0}
 
 /* ── 앱 열기 확대 전환 ── */
-.zm99{position:fixed;inset:0;z-index:9000;display:grid;place-items:center;pointer-events:none;will-change:clip-path}
+.zm99{position:fixed;z-index:9000;display:grid;place-items:center;overflow:hidden;pointer-events:none;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.zm99-i.img img{width:56px;height:56px;border-radius:28%;object-fit:cover;display:block}
 .zm99-i{display:grid;place-items:center;color:#fff;font-size:30px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));will-change:transform}
 
 /* ── 당겨서 새로고침 · 위 머리 고정 ── */
 html:not(.lock):not(.pc){overscroll-behavior-y:none}
 html:not(.lock):not(.pc) body{overscroll-behavior-y:none}
-html.ptr-on main.main,html.ptr-on .main.in-l,html.ptr-on .main.in-r{transform:translate3d(0,var(--ptr,0px),0);transition:none}
-html.ptr-back main.main{transition:transform .42s var(--e-out)}
-.ptr99{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 64px);z-index:29;display:flex;flex-direction:column;align-items:center;gap:6px;transform:translate(-50%,calc(var(--ptr,0px)*.5 - 16px)) scale(calc(.6 + var(--ptrp,0)*.4));opacity:min(1,calc(var(--ptrp,0)*1.6));pointer-events:none}
-html:not(.ptr-on) .ptr99{opacity:0}
-html.ptr-back .ptr99{transition:transform .42s var(--e-out),opacity .3s}
-.ptr99-r{width:30px;height:30px;border-radius:50%;background:conic-gradient(#FF8A3D calc(var(--ptrp,0)*360deg),color-mix(in srgb,var(--text) 14%,transparent) 0);-webkit-mask:radial-gradient(circle,transparent 9px,#000 10px);mask:radial-gradient(circle,transparent 9px,#000 10px)}
-html.ptr-go .ptr99-r{background:conic-gradient(from 0deg,transparent 0 25%,#FF8A3D 100%);animation:ptr99 .7s linear infinite}
-html.ptr-done .ptr99-r{animation:none;background:#29C27F;-webkit-mask:none;mask:none;position:relative}
-html.ptr-done .ptr99-r::after{content:'';position:absolute;left:10px;top:7px;width:7px;height:12px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
-@keyframes ptr99{to{transform:rotate(360deg)}}
-.ptr99-t{font-size:11px;font-weight:800;color:var(--muted);white-space:nowrap;min-height:13px}
-
 /* ── 리퀴드 렌즈: 놓으면 탄성 있게 착 붙어요 ── */
 .tabs .gt:not(.drag) .gt-lens{transition:transform .55s var(--e-spring)}
 
@@ -14154,6 +14143,270 @@ html.myth99::after{content:'';position:fixed;inset:0;z-index:10050;pointer-event
 
 @media (prefers-reduced-motion:reduce){.zm99{display:none}}
 .fd97-more{display:flex;justify-content:center;gap:6px;padding:22px 0}.fd97-more i{width:7px;height:7px;border-radius:50%;background:var(--faint);animation:fd97 1s ease-in-out infinite}.fd97-more i:nth-child(2){animation-delay:.15s}.fd97-more i:nth-child(3){animation-delay:.3s}@keyframes fd97{50%{opacity:.25;transform:translateY(-3px)}}
+/* ── 새 글 알림 알약 ── */
+.nw97{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:29;display:flex;align-items:center;gap:6px;height:40px;padding:0 16px 0 6px;border:0;border-radius:14px;transform:translateX(-50%);color:#fff;font-weight:900;font-size:13px;background:linear-gradient(160deg,#FF9A4D,#E8420A);box-shadow:0 12px 26px -10px rgba(232,66,10,.8),inset 0 1px 0 rgba(255,255,255,.3);animation:nw97 .5s var(--e-spring) both}
+.nw97-av{display:flex}.nw97-av>*{margin-left:-6px;box-shadow:0 0 0 2px #E8580F;border-radius:8px}.nw97-av>*:first-child{margin-left:0}
+@keyframes nw97{from{opacity:0;transform:translate(-50%,-16px) scale(.85)}}
+html.pc .nw97{top:84px}
+
+/* ── DKO 스튜디오 독립 화면 ── */
+.sp97{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;background:var(--bg);animation:sp97in .42s var(--e-out) both}
+.sp97.out{animation:sp97out .3s var(--e-out) both}
+@keyframes sp97in{from{transform:translate3d(100%,0,0)}}
+@keyframes sp97out{to{transform:translate3d(100%,0,0)}}
+.sp97-top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:calc(env(safe-area-inset-top,0px) + 8px) var(--gut) 8px;background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid var(--line);position:relative;z-index:2}
+.sp97-ib{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;border:0;background:var(--panel);color:var(--text);box-shadow:inset 0 0 0 1px var(--line)}
+.sp97-ib.ghost{visibility:hidden}
+.sp97-tt{display:flex;align-items:baseline;gap:6px;font:italic 900 19px/1 var(--f-ow,var(--f-disp));letter-spacing:.01em}
+.sp97-tt em{font-style:inherit;background:linear-gradient(120deg,#FF9A4D,#E8420A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sp97-tt b{background:linear-gradient(120deg,#8BB0FF,#9B6BFF 55%,#FF7AA8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sp97-sc{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:14px var(--gut) 0}
+html.pc .sp97-sc>.st99{max-width:980px;margin:0 auto}
+html.sp97-on .tabs,html.sp97-on .fab33{visibility:hidden}
+/* 앱 아이콘 이미지 */
+.st97-ic{position:relative;width:46%;max-width:120px;aspect-ratio:1;border-radius:28%;object-fit:cover;box-shadow:0 10px 24px -10px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.18)}
+.st97-icu{display:flex;align-items:center;gap:12px;padding:12px;border-radius:18px;background:var(--panel-2);box-shadow:inset 0 0 0 1px var(--line)}
+.st97-icu>img,.st97-icph{flex:none;width:64px;height:64px;border-radius:28%;object-fit:cover;display:grid;place-items:center;font-size:30px;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.st97-icu>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.st97-icu b{font-size:14px;font-weight:900}.st97-icu small{font-size:12px;color:var(--muted);font-weight:700;line-height:1.4}
+.st97-icb{display:flex;gap:6px;margin-top:6px}
+.st97-icb label,.st97-icb button{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 12px;border-radius:12px;border:0;background:var(--text);color:var(--bg);font-weight:900;font-size:13px}
+.st97-icb button.g{background:var(--panel);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+.dock99-t.app img.dock99-im,.st98-ae img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
+.st98-ae:has(img){padding:0;overflow:hidden;background:none}
+/* 스튜디오 작품관 다듬기: 정렬선 · DKO 모서리 · 가로 줄 스냅 */
+.st99-fts,.st98-ul,.st99-srow{scroll-padding-inline:var(--gut)}
+.st99-fts>*:first-child{margin-left:0}
+.st99-cats{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:0 calc(var(--gut)*-1);padding:0 var(--gut);scroll-padding-inline:var(--gut)}
+.st99-cats::-webkit-scrollbar{display:none}
+.st99-cats button{flex:none;border-radius:var(--r-ctl)!important;height:34px;padding:0 14px}
+.st99-tabs,.st99-tabs button,.st99-q{border-radius:var(--r-ctl)!important}
+.st99-tabs button{border-radius:9px!important}
+.st99-srow{margin:0 calc(var(--gut)*-1);padding:2px var(--gut) 4px}
+.st99-hero{border-radius:var(--r-lg)!important}
+.st99-sec,.st99-info>span,.st99-nt{border-radius:var(--r-card)}
+.st99-act .st99-ib{border-radius:28%!important}
+.st99-go{border-radius:var(--r-ctl)!important}
+.st99-h4,.st99 h4{letter-spacing:-.01em}
+.rc97-sh{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;height:48px;margin-top:8px;border-radius:var(--r-ctl);border:0;background:var(--panel-2);color:var(--text);font-weight:900;font-size:14px;box-shadow:inset 0 0 0 1px var(--line)}
+.th30-ib.ghost{visibility:hidden}
+/* ═════════ v30.0 아이콘 탭 바 · 독 애니메이션 · 페이지 제목 통일 ═════════ */
+
+/* ── 페이지 제목: 채팅 · 커뮤니티 · 상점 · 플레이 · 전체 모두 같은 크기 ── */
+.pg97-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 12px}
+.pg97-h>b{font:italic 900 30px/1.05 var(--f-ow,inherit)!important;letter-spacing:-.02em;margin-right:auto}
+.cl15-h.pg97-h{padding:6px var(--gut) 10px;margin:0}
+.pg97-play{margin-bottom:12px}
+html.pc .pg97-play{display:none}
+.al98 .pg97-h{margin:2px 0 4px}
+.sr97-in,.al98-s.sr97-in{animation:pg97in .32s var(--e-out) both}
+@keyframes pg97in{from{opacity:0;transform:translateY(-6px) scale(.98)}}
+.cm33-sr.on{background:var(--text);color:var(--bg)}
+
+/* ── 상점 지갑: 제목 오른쪽에 작게 ── */
+.wl97{display:flex;align-items:center;gap:6px}
+.wl97-p{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 11px 0 8px;border-radius:var(--r-ctl);border:0;background:var(--panel);color:var(--text);box-shadow:inset 0 0 0 1px var(--line);font:900 15px/1 var(--f-disp)}
+.wl97-add{width:36px;height:36px;display:grid;place-items:center;border-radius:var(--r-ctl);border:0;color:#fff;background:linear-gradient(160deg,#FF9A4D,#E8420A);box-shadow:0 6px 14px -8px rgba(232,66,10,.9),inset 0 1px 0 rgba(255,255,255,.3)}
+
+/* ── 탭 바: 글자 없이 아이콘만 · 꾹 누르면 이름이 떠요 ── */
+html:not(.pc) .tabs .tab-lb{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) scale(.8)!important;padding:5px 9px;border-radius:9px;background:rgba(18,20,28,.92);color:#fff!important;font-size:11px!important;font-weight:900;white-space:nowrap;opacity:0!important;pointer-events:none;transition:opacity .2s,transform .3s var(--e-spring)!important;box-shadow:0 8px 18px -8px rgba(0,0,0,.6)}
+html:not(.pc) .tabs .gt-i{position:relative}
+html:not(.pc) .tabs .gt-i.pk .tab-lb{opacity:1!important;transform:translateX(-50%) scale(1)!important;transition-delay:.32s!important}
+html:not(.pc) .tabs .gt-lens .tab-lb{display:none}
+html:not(.pc) .tabs .tab-ic{transform:scale(1.14);transform-origin:50% 50%}
+html:not(.pc) .tabs .gt-i,html:not(.pc) .tabs .gt-lens .gt-i{justify-content:center}
+html.tour97:not(.pc) .tabs .gt-i:not(.gt-lens *) .tab-lb{opacity:1!important;transform:translateX(-50%) scale(1)!important;animation:tour97b 2.4s ease-in-out infinite}
+@keyframes tour97b{50%{transform:translateX(-50%) translateY(-3px) scale(1)}}
+
+/* ── 독: 이름 없이 아이콘만 (편집 · 안내 때만 이름) ── */
+.dock99:not(.ed) .dock99-l .dock99-i small,.dock99:not(.ed) .dock99-i.all small{display:none}
+html.tour97 .dock99 .dock99-i small{display:block!important;animation:sk98in .3s both}
+.dock99{padding-bottom:10px;transition:padding .35s var(--e-spring)}
+.dock99.ed{padding-bottom:8px}
+.dock99-sep{margin-bottom:6px!important}
+.dock99.ed .dock99-sep{margin-bottom:16px!important}
+/* 편집 들어갈 때: 살짝 작아지며 흔들려요 */
+.dock99-i .dock99-t{transition:transform .45s var(--e-spring),box-shadow .3s}
+.dock99.ed .dock99-l .dock99-i:not(.add) .dock99-t{transform:scale(.9)}
+.dock99.ed .dock99-i small{animation:sk98in .3s both}
+.dock99-i.dg .dock99-t{transform:scale(1.04)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.35),0 22px 34px -10px rgba(0,0,0,.8)!important}
+/* 빼기: 쏙 줄어들며 사라져요 */
+.dock99-i.rmv{animation:dock97rm .26s var(--e-out) forwards!important;pointer-events:none}
+@keyframes dock97rm{to{transform:scale(.2);opacity:0;filter:blur(4px)}}
+.dock99-i.add .dock99-t{animation:dock97add .5s var(--e-spring) both}
+@keyframes dock97add{from{transform:scale(.4);opacity:0}}
+.dock99-bar{animation:dock97bar .4s var(--e-spring) both!important}
+@keyframes dock97bar{from{opacity:0;transform:translateY(10px) scale(.96)}}
+.dock99-rm{animation:dock97rmb .4s var(--e-spring) both!important}
+@keyframes dock97rmb{from{transform:scale(0)}}
+
+/* ── 파티 찾기: 모집 중인 파티가 있을 때만 독 위에 살짝 ── */
+.ph97-nudge{display:flex;align-items:center;justify-content:center;gap:6px;width:max-content;margin:0 auto 10px!important;padding:0 14px 0 10px!important;height:32px;border-radius:var(--r-ctl)!important;color:#fff!important;background:rgba(14,16,26,.6)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);font-size:12px!important;font-weight:900!important;animation:ph97n .6s var(--e-spring) both}
+.ph97-dot{width:7px;height:7px;border-radius:50%;background:#2FD08A;box-shadow:0 0 0 3px rgba(47,208,138,.25);animation:on29 2s ease-out infinite}
+.ph97-nudge .pm77-m{opacity:.65}
+@keyframes ph97n{from{opacity:0;transform:translateY(8px) scale(.9)}}
+
+/* ── 바로가기 시트: 하나씩 떠오르는 등장 · 편집 모드 ── */
+.gm99 .gm20-sec,.gm99 .gm99-row,.gm99 .st98-apE{animation:gm97in .62s var(--e-spring) var(--d,0ms) both}
+@keyframes gm97in{from{opacity:0;transform:translateY(22px) scale(.95);filter:blur(5px)}60%{filter:blur(0)}}
+.gm99-row{animation-name:gm97in!important}
+.gm99.ed .gm99-row>.gm20-c{animation:gm99j .32s ease-in-out infinite alternate}
+.gm99 .gm20-c{transition:transform .45s var(--e-spring),box-shadow .3s,filter .3s}
+.gm99.ed .gm20-c{transform:scale(.965)}
+.gm20-c.indock{box-shadow:0 0 0 3px #FFC233,0 12px 26px -12px rgba(255,194,51,.55)!important}
+.gm97-db{position:absolute;left:10px;top:-8px;z-index:3;height:20px;padding:0 7px;border-radius:7px;font:900 11px/20px var(--f-body);font-style:normal;color:#3A2600;background:#FFC233;box-shadow:0 4px 10px -4px rgba(255,194,51,.8);animation:dock97rmb .4s var(--e-spring) both}
+.gm20-c{position:relative}
+.gm20-c.pop{animation:gm97pop .5s var(--e-spring) both!important}
+@keyframes gm97pop{0%{transform:scale(.965)}35%{transform:scale(.92)}70%{transform:scale(1.02)}100%{transform:scale(.965)}}
+.gm99-ctl{width:44px!important;animation:gm97ctl .45s var(--e-spring) both!important}
+.gm99-ctl.one{justify-content:center}
+.gm99-ctl.one button{flex:none;height:44px}
+@keyframes gm97ctl{from{opacity:0;transform:translateX(16px) scale(.8)}}
+.gm99-row.dg{z-index:5;position:relative}
+.gm99-row.dg>.gm20-c{animation:none!important;box-shadow:0 26px 40px -16px rgba(0,0,0,.8)!important}
+.gm99.dragging{-webkit-user-select:none;user-select:none}
+
+/* ── 채팅 검색 ── */
+.sr97{position:fixed;inset:0;z-index:62;display:flex;flex-direction:column;background:var(--bg);animation:sr97in .3s var(--e-out) both}
+.sr97.out{animation:sr97out .24s ease-in both}
+@keyframes sr97in{from{opacity:0;transform:translateY(14px)}}
+@keyframes sr97out{to{opacity:0;transform:translateY(10px)}}
+.sr97-top{display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top,0px) + 8px) var(--gut) 10px;border-bottom:1px solid var(--line)}
+.sr97-in{flex:1;display:flex;align-items:center;gap:8px;height:42px;padding:0 12px;border-radius:var(--r-ctl);background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);color:var(--faint)}
+.sr97-in input{flex:1;min-width:0;border:0;outline:0;background:none;color:var(--text);font-size:16px}
+.sr97-in button{border:0;background:none;color:var(--faint)}
+.sr97-sc{flex:1;overflow-y:auto;padding:6px var(--gut) 40px;overscroll-behavior:contain}
+.sr97-sc h5{margin:14px 2px 6px;font-size:12px;font-weight:900;color:var(--faint)}
+.sr97-r,.sr97-m{display:flex;align-items:center;gap:12px;width:100%;padding:10px 4px;border:0;background:none;color:var(--text);text-align:left;border-bottom:1px solid var(--line);animation:sk98in .3s calc(var(--i,0)*30ms) both}
+.sr97-r .cl15-av{width:40px;height:40px;flex:none;border-radius:28%}
+.sr97-m>.pfpv,.sr97-m>.av{flex:none}
+.sr97-r>span:nth-child(2),.sr97-m>span:last-child{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.sr97-r b{font-size:15px;font-weight:900}.sr97-r small{font-size:12px;color:var(--faint)}
+.sr97-m{align-items:flex-start}
+.sr97-mh{display:flex;align-items:baseline;gap:6px}.sr97-mh b{font-size:13px;font-weight:900}.sr97-mh em{font-style:normal;font-size:11px;color:#FF8A3D;font-weight:800}.sr97-mh small{margin-left:auto;font-size:11px;color:var(--faint)}
+.sr97-m p{margin:0;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sr97-m mark{background:color-mix(in srgb,#FF8A3D 30%,transparent);color:var(--text);border-radius:4px;padding:0 2px}
+.sr97-e{display:flex;flex-direction:column;align-items:center;gap:6px;padding:60px 0;color:var(--faint)}.sr97-e b{color:var(--muted)}
+.msg.hl .bubble{box-shadow:0 0 0 3px #FF8A3D!important;transition:box-shadow .3s}
+
+/* ── 전체 탭: 최근 서비스의 스튜디오 앱 ── */
+.al98-gt.img{padding:0;overflow:hidden;background:none!important}
+.al98-gt.img img{width:100%;height:100%;object-fit:cover;display:block}
+.al97-e{font-size:28px;line-height:1}
+
+/* ── 처음 안내 카드 ── */
+.tour97c{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 118px);z-index:9100;width:min(340px,calc(100% - 32px));padding:16px;border-radius:var(--r-lg);transform:translateX(-50%);color:#fff;background:rgba(18,20,30,.94);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 24px 50px -18px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,255,255,.1);animation:tour97 .55s var(--e-spring) both}
+@keyframes tour97{from{opacity:0;transform:translate(-50%,20px) scale(.94)}}
+.tour97c b{display:block;font-size:16px;font-weight:900;margin-bottom:4px}
+.tour97c p{margin:0 0 12px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.75)}
+.tour97c button{width:100%;height:44px;border-radius:var(--r-ctl);border:0;background:#fff;color:#141826;font-weight:900;font-size:14px}
+
+.ph25:has(.dock99.ed) .ph97-nudge{opacity:0;pointer-events:none;transition:opacity .2s}
+/* ═════════ v30.0 마무리: 투표 · 파티 · 글 도구 · 검색 태그 · 금융 탭 ═════════ */
+.pe30-d button{border-radius:10px!important;height:32px}
+.pe30 input,.pe30-o input{border-radius:12px}
+.pz26-ni,.cz77 .pz26-new .pz26-ni{border-radius:28%!important}
+.pz26-new,.cz77 .pz26-new{border-radius:18px!important}
+/* 글쓰기 도구 줄: 가로 스크롤 */
+.cpf31-tools{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin-left:calc(-1*var(--gut,16px));margin-right:calc(-1*var(--gut,16px));padding:2px var(--gut,16px);scroll-padding:0 var(--gut,16px);-webkit-mask:linear-gradient(90deg,transparent 0,#000 var(--gut,16px),#000 calc(100% - 24px),transparent)}
+.cpf31-tools::-webkit-scrollbar{display:none}
+.cpf31-tools button{flex:none;white-space:nowrap}
+/* 글 이모티콘 */
+.pe97-ed{position:relative;align-self:flex-start;width:92px;height:92px;margin:6px 0 2px;border-radius:20px;background:var(--panel-2);display:grid;place-items:center;animation:pe97in .42s cubic-bezier(.3,1.5,.5,1) both}
+.pe97-ed img{width:76px;height:76px;object-fit:contain}
+.pe97-ed button{position:absolute;top:-6px;right:-6px;width:24px;height:24px;border:0;border-radius:50%;display:grid;place-items:center;color:var(--bg);background:var(--text);box-shadow:0 4px 10px -4px rgba(0,0,0,.5)}
+.pe97-tray{margin:8px 0;border-radius:18px;overflow:hidden;animation:pe97up .32s cubic-bezier(.2,.9,.3,1) both}
+.pe97-stk{display:block;width:84px;height:84px;object-fit:contain;margin:8px 0 2px}
+.pe97-stk.big{width:128px;height:128px;margin:12px 0 4px}
+@keyframes pe97in{from{opacity:0;transform:scale(.6) rotate(-8deg)}to{opacity:1;transform:none}}
+@keyframes pe97up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* 커뮤니티 검색 추천 태그: 한 번에 또렷하게, 반쯤 보이는 줄 없음 */
+.cs33-tags{max-height:none;overflow:visible}
+.cs33-t{animation:none!important;opacity:1!important;transform:none}
+.cs33-tags{animation:cs97in .28s ease-out both}
+@keyframes cs97in{from{opacity:0}to{opacity:1}}
+/* 금융: 탭 줄이 시트 머리 바로 아래에 붙고, 겹침 · 잔상 없음 */
+.fn98-seg{top:var(--fnt,0px)!important;z-index:2!important;background:var(--panel-2)!important;transition:box-shadow .25s,border-radius .25s}
+.fn98-seg.stuck{box-shadow:0 0 0 10px var(--sheet),0 18px 18px -12px rgba(0,0,0,.55)}
+.fn98-seg.stuck button.on{transition:background .2s,color .2s}
+/* ═════════ v30.0 꾸미기 새 디자인: 중립 다크 · 큰 제목 · 미끄러지는 탭 · 방향 전환 ═════════ */
+.lk30{--lk-bg:#101014;--lk-bg2:#0A0A0D;--lp:rgba(255,255,255,.055);--lp2:rgba(255,255,255,.085);--ll:rgba(255,255,255,.08);--lmut:rgba(255,255,255,.56);
+  background:radial-gradient(110% 46% at 50% -8%,color-mix(in srgb,var(--lc1) 20%,transparent),transparent 62%),linear-gradient(180deg,var(--lk-bg),var(--lk-bg2))!important;
+  transition:background .5s ease;animation:lk30in .42s cubic-bezier(.2,.9,.25,1) both}
+@keyframes lk30in{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+.lk30.out{animation:lk30out .22s ease-in both!important}
+@keyframes lk30out{to{opacity:0;transform:translateY(14px) scale(.99)}}
+/* 머리 */
+.lk30 .lk25-top{position:relative;z-index:3;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 10px) var(--gut,16px) 10px}
+.lk30 .lk25-back{width:38px;height:38px;border-radius:12px;background:var(--lp)!important;box-shadow:inset 0 0 0 1px var(--ll)!important}
+.lk30 .lk25-tt{flex-direction:row;align-items:baseline;gap:8px}
+.lk30 .lk25-tt b{font:italic 900 30px/1.05 var(--f-ow,inherit)!important;letter-spacing:-.02em;text-shadow:none}
+.lk30 .lk25-tt small{font-size:13px;font-weight:800;color:var(--lmut);animation:lk30fade .32s ease both}
+@keyframes lk30fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.lk30 .lk25-coin{height:34px;gap:5px;padding:0 12px 0 8px;border-radius:12px;background:var(--lp)!important;box-shadow:inset 0 0 0 1px var(--ll)}
+.lk30 .lk25-coin b{font:800 15px/1 var(--f-body,inherit);font-style:normal;font-variant-numeric:tabular-nums}
+/* 탭: 한 줄 세그먼트 + 미끄러지는 표시 */
+.lk30 .lk25-tabs{position:relative;z-index:3;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:0;margin:0 var(--gut,16px) 4px;padding:4px;border-radius:18px;background:var(--lp)!important;box-shadow:inset 0 0 0 1px var(--ll)!important;transition:box-shadow .25s}
+.lk30 .lk30-ind{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/var(--n));border-radius:14px;transform:translateX(calc(var(--i)*100%));background:linear-gradient(160deg,color-mix(in srgb,var(--lc1) 30%,rgba(255,255,255,.1)),color-mix(in srgb,var(--lc2) 22%,rgba(255,255,255,.04)));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--lc1) 40%,rgba(255,255,255,.12)),0 8px 20px -10px color-mix(in srgb,var(--lc2) 80%,transparent);transition:transform .5s cubic-bezier(.3,1.3,.4,1),background .4s,box-shadow .4s;pointer-events:none}
+.lk30 .lk25-t{position:relative;z-index:1;gap:3px;padding:8px 0 7px!important;border-radius:14px!important;background:none!important;box-shadow:none!important;color:var(--lmut);transition:color .25s}
+.lk30 .lk25-t::after{display:none!important}
+.lk30 .lk25-ti{width:auto!important;height:22px!important;display:grid;place-items:center;border-radius:0!important;background:none!important;box-shadow:none!important;filter:none!important;opacity:1!important;color:inherit;transition:transform .45s cubic-bezier(.3,1.6,.45,1)}
+.lk30 .lk25-t small{font-size:11px;font-weight:800;letter-spacing:-.01em}
+.lk30 .lk25-t.on{color:#fff}
+.lk30 .lk25-t.on .lk25-ti{color:var(--c1);transform:translateY(-1px) scale(1.1)}
+.lk30 .lk25-t:active .lk25-ti{transform:scale(.86)}
+.lk30.lk30-sh .lk25-top{box-shadow:none}
+.lk30.lk30-sh .lk25-tabs{box-shadow:inset 0 0 0 1px var(--ll),0 12px 24px -14px rgba(0,0,0,.9)!important}
+/* 본문 전환: 누른 방향으로 */
+.lk30 .lk25-sc{padding:12px var(--gut,16px) calc(env(safe-area-inset-bottom,0px) + 28px);animation:lk30tab .42s cubic-bezier(.2,.9,.25,1) both}
+.lk30 .lk25-sc.fwd{--dx:26px}.lk30 .lk25-sc.bwd{--dx:-26px}
+@keyframes lk30tab{from{opacity:0;transform:translateX(var(--dx,0)) translateY(var(--dy,8px))}to{opacity:1;transform:none}}
+.lk30 .lk25-sc.fwd,.lk30 .lk25-sc.bwd{--dy:0px}
+/* 섹션 머리: 상자 없이 깔끔한 제목 */
+.lk30 .lk25-h,.lk30 .lk25-bar{margin:22px 2px 10px;padding:0;border-radius:0;background:none!important;box-shadow:none!important}
+.lk30 .lk25-h b,.lk30 .lk25-bar b{font-size:17px;font-weight:900;letter-spacing:-.02em;text-shadow:none}
+.lk30 .lk25-h small,.lk30 .lk25-bar small{color:var(--lmut)}
+.lk30 .lk25-bar em{color:var(--lc1)}
+.lk30 .lk25-sort{height:32px;padding:0 12px;border-radius:10px;font-size:12px;font-weight:800;color:#fff;background:var(--lp2)!important;box-shadow:inset 0 0 0 1px var(--ll)!important}
+.lk30 .lk25-sep{margin:24px 2px 10px;color:var(--lmut)}
+.lk30 .lk25-sep::before,.lk30 .lk25-sep::after{background:var(--ll)}
+.lk30 .lk25-fav{padding:14px;border-radius:20px;background:var(--lp)!important;box-shadow:inset 0 0 0 1px var(--ll)!important}
+.lk30 .lk25-favh b{font-size:15px}.lk30 .lk25-favh small{color:var(--lmut)!important}
+.lk30 .lk25-empty{color:var(--lmut);border-radius:14px;background:rgba(255,255,255,.03);box-shadow:inset 0 0 0 1px dashed var(--ll)}
+/* 이모티콘 타일: 하얀 판 대신 유리 타일 */
+.lk30 .lk25-g4{gap:8px}
+.lk30 .lk25-em{border-radius:18px;background:var(--lp2)!important;box-shadow:inset 0 0 0 1px var(--ll)!important;animation:lk30pop .38s cubic-bezier(.3,1.4,.5,1) var(--d,0ms) both;transition:transform .25s cubic-bezier(.3,1.6,.45,1),box-shadow .2s}
+.lk30 .lk25-em.sea{background:linear-gradient(150deg,rgba(150,220,255,.16),rgba(200,150,255,.14))!important}
+.lk30 .lk25-em.fav{box-shadow:inset 0 0 0 2px var(--lc1),0 0 18px -4px color-mix(in srgb,var(--lc1) 70%,transparent)!important}
+.lk30 .lk25-em.lock{background:rgba(255,255,255,.03)!important}
+.lk30 .lk25-em.lock img{filter:grayscale(1) brightness(.75);opacity:.45}
+.lk30 .lk25-lk{background:rgba(0,0,0,.55)!important;color:rgba(255,255,255,.8)!important;border-radius:7px!important}
+@keyframes lk30pop{from{opacity:0;transform:scale(.86)}to{opacity:1;transform:none}}
+/* 카드 · 버튼 · 미리보기 */
+.lk30 .lk25-prev{border-radius:24px;box-shadow:inset 0 0 0 1px var(--ll),0 18px 34px -18px rgba(0,0,0,.9)!important}
+.lk30 .lk25-bn{border-radius:18px;background:var(--lp)!important;box-shadow:inset 0 0 0 1px var(--ll)!important;transition:transform .25s cubic-bezier(.3,1.6,.45,1),box-shadow .2s}
+.lk30 .lk25-bn.on{box-shadow:inset 0 0 0 2px #FFC233,0 0 20px -6px rgba(255,194,51,.7)!important}
+.lk30 .lk25-fr,.lk30 .lk25-pt{border-radius:18px;background:var(--lp)!important;box-shadow:inset 0 0 0 1px var(--ll)!important;color:#fff}
+.lk30 .lk25-fr.on,.lk30 .lk25-pt.on{color:#3A2300;background:linear-gradient(170deg,#FFE27A,#F2A71B)!important;box-shadow:0 10px 22px -12px rgba(242,167,27,.9)!important}
+.lk30 .lk25-fr.lock,.lk30 .lk25-pt.lock{background:rgba(255,255,255,.03)!important}
+.lk30 .lk25-pb{border-radius:14px}
+.lk30 .lk25-pb:not(.gold):not(.ghost){background:var(--lp2)!important;box-shadow:inset 0 0 0 1px var(--ll)!important}
+.lk30 .lk25-stage{border-radius:24px;background:radial-gradient(70% 55% at 50% 82%,color-mix(in srgb,var(--lc1) 26%,transparent),transparent 70%),linear-gradient(180deg,#1C1D24,#121318)!important;box-shadow:inset 0 0 0 1px var(--ll)!important}
+.lk30 .lk25-save{background:linear-gradient(180deg,transparent,rgba(10,10,13,.94) 35%)!important}
+.lk30 .lk25-info{--panel:rgba(255,255,255,.05);--panel-2:rgba(255,255,255,.04);padding:0;background:none!important;box-shadow:none!important}
+.lk30 .lk25-info .fld{border-radius:18px}
+.lk30 .lk25-info .inp,.lk30 .lk25-info select,.lk30 .lk25-info .tsel,.lk30 .lk25-info .sel{background:rgba(255,255,255,.05)!important;border-color:rgba(255,255,255,.1)!important;border-radius:12px}
+.lk30 .lk25-info .inp::placeholder{color:rgba(255,255,255,.35)}
+.lk30 .lk25-info .posm-i,.lk30 .lk25-info .nm14-o{background:rgba(255,255,255,.05)}
+.lk30 .lk25-info .pe-save{background:linear-gradient(180deg,transparent,rgba(10,10,13,.94) 35%)}
+.lk30 .lk25-info .pe-save .btn{box-shadow:0 12px 24px -12px rgba(242,167,27,.9)!important}
+.lk30 .lk25-pop-bg{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.lk30 .lk25-pop{border-radius:26px;background:linear-gradient(180deg,#1E1F26,#15161B)!important;box-shadow:inset 0 0 0 1px var(--ll),0 30px 60px -20px rgba(0,0,0,.9)!important}
+.lk30 .lk25-sub .pr30-ind,.lk30 .lk25-cats .pr30-ind{--pi:linear-gradient(135deg,var(--lc1),var(--lc2))}
+html.pc .lk30{max-width:none}
+html.pc .lk30 .lk25-top,html.pc .lk30 .lk25-tabs,html.pc .lk30 .lk25-sc>*{max-width:720px;margin-left:auto;margin-right:auto;width:100%}
+html.pc .lk30 .lk25-tabs{width:calc(100% - 32px)}
+@media (prefers-reduced-motion:reduce){.lk30,.lk30 .lk25-sc,.lk30 .lk25-em,.lk30 .lk30-ind{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -14412,7 +14665,7 @@ const html = htm.bind(React.createElement);
 const CFG = window.DKO_CONFIG;
 const COLS = ['members','posts','messages','parties','events','replays','orders','rooms','blog','requests','endorse','matches','reports','trash','notifs','config','codes','duels','series','campaigns','skins','logs','islands','channels','cposts','ccomments','cheers','esmatches','memtx','adreq','raids','fin','fincoins','finnews','finprop','findiv','wparty','finloan','studios','works','workcm','workcode'];
 const ADMIN_COLS = ['reports','trash','codes'];
-const APP_VERSION='29.9.9';
+const APP_VERSION='30.0';
 const STUDIO_LOGO = 'data:image/webp;base64,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';
 
 /* ───────── 운영진 (처음 접속 시 초기 비밀번호 0000 → 재설정) ───────── */
@@ -15604,6 +15857,13 @@ const BLOG = [
     ['h','계속 판올림합니다'],
     ['p','큰 변화가 있을 때마다 버전의 앞자리를 올리고, 바뀐 내용은 이 블로그에 남깁니다. 의견은 광장 게시판에 편하게 적어 주세요.']
   ]},
+  {id:'v300',cat:'UPDATE',ver:'30.0',date:'2026.11.26',title:'DKO 30 · 아이콘 탭바 · 스튜디오 독립 · 새 꾸미기',sum:'아래 탭바가 아이콘만 남고 각 화면 위에 큰 제목이 생겼어요. 스튜디오는 바로가기에서 여는 독립 앱이 되었고, 작품 아이콘을 올리면 바로가기 · 독에 그대로 떠요. 꾸미기도 새로 그렸어요.',body:[
+    ['h','화면 머리 · 탭바'],['ul',['아래 탭바는 아이콘만 남겼어요. 처음 들어오면 한 번만 안내해 드려요.','채팅 · 플레이 · 상점 · 전체 위에 커뮤니티와 같은 큰 제목을 달았어요.','채팅 검색: 방 이름과 메시지를 함께 찾고, 누르면 그 메시지로 바로 가요.','전체: 위쪽 칩을 빼고 검색 · 최근 서비스로 바로 이어지게 정리했어요.','상점 지갑을 한 줄로 줄였어요 (D-ot · 다이아 · 충전). 인벤토리는 꾸미기로 모았어요.']],
+    ['h','바로가기 · 독'],['ul',['독 이름은 숨기고 편집할 때만 보여요.','편집: 독에 들어간 앱은 노란 테두리로 보이고, 누르면 넣고 빼요. 꾹 눌러 끌어서 순서를 바꿀 수 있어요.','들어가고 나올 때 · 빼고 넣을 때 움직임을 새로 다듬었어요.','독을 아래로 내리고, 파티 모집 중일 때만 위에 작은 알림이 떠요.']],
+    ['h','스튜디오'],['ul',['커뮤니티 채널에서 빠지고 바로가기의 독립 화면으로 열려요.','작품에 앱 아이콘 이미지를 올리면 바로가기 · 독 · 최근 서비스에 그대로 보여요.','지금 뜨는 작품 줄의 왼쪽 정렬을 맞췄어요.']],
+    ['h','커뮤니티 · 글쓰기'],['ul',['아래로 당겨도 화면이 흔들리지 않아요. 새 글이 올라오면 위에 "새 글" 알림만 떠요.','글쓰기 도구에 이모티콘 · 크루 부르기를 더했어요.','투표 설정 버튼 모서리를 맞추고 불필요한 안내 문구를 뺐어요.','글 안 오른쪽 위에 겹치던 공유 버튼을 뺐어요.','검색 추천 태그가 반쯤 보이며 움직이던 효과를 없앴어요.']],
+    ['h','꾸미기 새 디자인'],['ul',['차분한 다크 배경 · 큰 제목 · 미끄러지는 탭으로 바꾸고, 누른 방향으로 화면이 넘어가요.','이모티콘 · 배너 · 캐릭터 타일을 유리 카드로 통일했어요.']],
+    ['h','그 밖에'],['ul',['뒤로가기 버튼이 있는 화면은 왼쪽 끝을 밀어 뒤로 갈 수 있고, 잔상이 남지 않아요.','iPad에서 앱 열기 효과가 길게 늘어나던 문제를 고쳤어요.','금융 화면을 내리면 위 탭(주식 · 코인 · 은행…)이 제목에 겹치던 잔상을 고쳤어요.','프로필 공유는 리포트 카드 안으로 옮겼어요.']]]},
   {id:'v2999',cat:'UPDATE',ver:'29.9.9',date:'2026.11.26',title:'움직임 · 디자인 통일',sum:'앱이 아이콘 자리에서 커지며 열리고, 맨 위에서 당기면 새로고침돼요. 모서리 · 글자 크기 · 왼쪽 정렬선을 한 가지 규칙으로 맞췄어요.',body:[
     ['h','움직임'],['ul',['독 · 바로가기에서 앱을 누르면 그 아이콘 자리에서 화면이 커지며 열리고, 스튜디오 앱을 닫으면 독 아이콘으로 다시 들어가요.','커뮤니티 · 플레이 · 상점 · 전체 탭은 맨 위에서 아래로 당기면 DKO 고리가 차오르고, 놓으면 새로고침돼요. 위 DKO · 프로필은 출렁이지 않고 그대로 있어요.','탭 바 렌즈가 손가락 속도만큼 물방울처럼 늘어났다가 탄성 있게 붙어요.','배지 · D-ROP 카드가 기울기나 손가락을 따라 홀로그램처럼 반짝이고, 신화 등급은 화면 테두리까지 빛이 번져요.','보낸 말풍선이 입력칸에서 날아올라 자리 잡아요.','프로필을 내리면 배너가 천천히 밀려 올라가고, 사진은 작아지며 위 막대로 들어가요.','스튜디오 작품 카드를 꾹 누르면 뒤집혀서 별점 · 플레이 · 댓글 · 열린 피드백이 보여요.']],
     ['h','디자인 통일'],['ul',['모서리를 작은 표시 7 · 버튼 · 칩 12 · 카드 18 · 큰 카드 24 · 아이콘 · 프로필 둥근 사각형으로 맞췄어요.','글자 크기의 0.5 단위를 없애고 본문을 11 · 12 · 13 · 14 · 15 다섯 단계로 정리했어요.','채팅 · 전체 탭의 내용이 로고 · 탭 바와 같은 왼쪽 선에서 시작해요.','독에 앱을 5개보다 적게 놓으면 가운데로 모여요.']],
@@ -17301,7 +17561,7 @@ function ChatList({c}){
   const cnt=k=>k==='all'?c.myRooms.length:k==='unread'?c.myRooms.filter(r=>(c.unread[r.id]||0)>0).length:c.myRooms.filter(r=>roomCat(r.id)===k).length;
   const open=c.rooms.filter(r=>!(r.members||[]).includes(c.uid));
   return html`<div className="cl15">
-    <div className="cl15-h"><b>채팅</b><div className="row g6"><${CrewPill} c=${c} onOpen=${()=>setCrew(true)}/>${c.myRooms.some(canDel)?html`<button className=${'cl15-ib tap'+(ed?' on':'')} onClick=${()=>setEd(!ed)} aria-label="방 관리">${ed?html`<span className="cl15-done">완료</span>`:html`<${Icon} n="edit" s=${18} w=${2.2}/>`}</button>`:null}</div></div>
+    <div className="cl15-h pg97-h"><b>채팅</b><div className="row g6"><${CrewPill} c=${c} onOpen=${()=>setCrew(true)}/><button className="cm33-sr tap" onClick=${()=>{ haptic(6); window.dispatchEvent(new Event('dko-csearch')); }} aria-label="채팅 검색"><${Icon} n="search" s=${19} w=${2.3}/></button>${c.myRooms.some(canDel)?html`<button className=${'cl15-ib tap'+(ed?' on':'')} onClick=${()=>setEd(!ed)} aria-label="방 관리">${ed?html`<span className="cl15-done">완료</span>`:html`<${Icon} n="edit" s=${18} w=${2.2}/>`}</button>`:null}</div></div>
     <${Fab33} icon="plus" label="새 채팅 만들기" cls="chat" inline=${isPC()} onClick=${()=>c.setSheet('newchat')}/>
     <div className="cl15-cats cc97" role="tablist">${CHAT_CATS.map(([k,l])=>{ const n=cnt(k); return n||cat===k||k==='all'?html`<button key=${k} role="tab" className=${'cl15-cat tap'+(cat===k?' on':'')+(k==='unread'?' un':'')} onClick=${()=>pick(k)} aria-selected=${cat===k}><span>${l}</span>${k==='all'?null:html`<i>${n}</i>`}</button>`:null; })}</div>
     <${Sheet} open=${crew} onClose=${()=>setCrew(false)} title="크루원" tall=${true}>${crew?html`<${CrewSheet} c=${c} onDone=${()=>setCrew(false)}/>`:null}<//>
@@ -17988,8 +18248,8 @@ function ProfilePage({c,uid,onClose,tab0}){
       <b className="pf27-tt"><span className="pf97-mini"><${PfpView} m=${m} s=${26}/></span>${dispName(m)}</b>
       <div className="pf76-tr pf97-tr">${self?html`
         <button className="pf27-ib tap" onClick=${()=>c.openLocker('card')} aria-label="프로필 꾸미기" title="프로필 꾸미기"><${Icon} n="palette" s=${18} w=${2.2}/></button>
-        <button className="pf27-ib tap" onClick=${()=>c.openCard(m.uid)} aria-label="리포트 카드" title="리포트 카드"><${Icon} n="image" s=${18} w=${2.2}/></button>`:null}
-        <${ShareBtn} c=${c} it=${{k:'profile',lab:'프로필',t:dispName(m)+' 님의 프로필',s:[m.crewRank,m.pos,m.bio].filter(Boolean).join(' · ').slice(0,80),link:{uid:m.uid}}}/>
+        <button className="pf27-ib tap" onClick=${()=>c.openCard(m.uid)} aria-label="리포트 카드 · 공유" title="리포트 카드 · 공유"><${Icon} n="image" s=${18} w=${2.2}/></button>`:null}
+        ${self?null:html`<${ShareBtn} c=${c} it=${{k:'profile',lab:'프로필',t:dispName(m)+' 님의 프로필',s:[m.crewRank,m.pos,m.bio].filter(Boolean).join(' · ').slice(0,80),link:{uid:m.uid}}}/>`}
         ${self?html`<button className="pf27-ib tap" onClick=${()=>c.setSheet('settings')} aria-label="설정"><${Icon} n="gear" s=${19} w=${2.2}/></button>`
         :html`<button className="pf27-ib tap" onClick=${()=>c.openReport({kind:'member',uid:m.uid,nick:m.nick})} aria-label="신고"><${Icon} n="flag" s=${18} w=${2.2}/></button>`}</div>
     </div>
@@ -18163,6 +18423,7 @@ function HomeDuel({c}){
 function Home({c}){
   return html`<main className=${'main home8 '+c.dir}>
     <svg width="0" height="0" style=${{position:'absolute'}} aria-hidden="true"><defs><linearGradient id="ringg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#FFB067"/><stop offset="1" stopColor="#FF4D0D"/></linearGradient></defs></svg>
+    <section className="cm30-h pg97-h pg97-play"><b>플레이</b></section>
     <${PlayHero} c=${c}/>
     <${InstallHint} c=${c}/>
     ${isLiteEd(c.me)?null:html`<${CrewZone} c=${c}/>`}
@@ -18307,13 +18568,8 @@ function Store({c}){
   const itemCard=x=>html`<${ShopCard} key=${x.k} art=${x.art} name=${x.n} sub=${x.s} price=${x.p} onClick=${()=>buy(x.it)}/>`;
   const shopStk=STICKERS.filter(s=>s.kind==='shop');
   return html`<div className="store7">
-    <section className="wl13">
-      <span className="wl13-coin"><${Coin} s=${52}/></span>
-      <div className="wl13-b"><span>내 D-ot</span><b><${CountUp} to=${coinsOf(me)}/></b></div>
-      <button type="button" className="wl13-dia tap" onClick=${()=>{ setCat('coin'); c.setShopCat('coin'); }} aria-label="D-iamond"><${Dia} s=${18}/><b>${diaOf(me)}</b></button>
-      <button className="wl13-add tap" onClick=${()=>{ setCat('coin'); c.setShopCat('coin'); }}><${Icon} n="plus" s=${15} w=${2.8}/><span>충전</span></button>
-      <${InvButton} c=${c}/>
-    </section>
+    <section className="cm30-h pg97-h"><b>상점</b>
+      <div className="wl97"><button type="button" className="wl97-p tap" onClick=${()=>{ setCat('coin'); c.setShopCat('coin'); }} aria-label="내 D-ot"><${Coin} s=${18}/><b><${CountUp} to=${coinsOf(me)}/></b></button><button type="button" className="wl97-p tap" onClick=${()=>{ setCat('coin'); c.setShopCat('coin'); }} aria-label="내 D-iamond"><${Dia} s=${16}/><b>${diaOf(me)}</b></button><button type="button" className="wl97-add tap" onClick=${()=>{ haptic(6); setCat('coin'); c.setShopCat('coin'); }} aria-label="충전"><${Icon} n="plus" s=${17} w=${2.8}/></button></div></section>
     <${PillRow} cls="sc31-cats" items=${SHOP_CATS} value=${cat} onPick=${k=>{ setCat(k); c.setShopCat(k); }}/>
     <div className="sc-body" key=${cat}>
       ${cat==='rec'?html`<${React.Fragment}>
@@ -19604,6 +19860,7 @@ function ReportCard({c,uid}){
       </div>
     </div>
     <${Btn} block=${true} disabled=${busy} onClick=${save}><${Icon} n="image" s=${17}/>${busy?'만드는 중…':'이미지로 저장 · 공유'}<//>
+    ${(()=>{ const mm=c.members.find(x=>x.uid===uid)||(uid===c.uid?c.me:null); return mm?html`<button type="button" className="rc97-sh tap" onClick=${()=>{ c.setSheet(null); setTimeout(()=>c.share({k:'profile',lab:'프로필',t:dispName(mm)+' 님의 프로필',s:[mm.crewRank,mm.pos,mm.bio].filter(Boolean).join(' · ').slice(0,80),link:{uid:mm.uid}}),260); }}><${Icon} n="share" s=${17} w=${2.3}/>프로필 링크 공유 · 채팅 · 커뮤니티</button>`:null; })()}
     <p className="hint">인스타 스토리에 맞는 1080×1350 이미지로 저장돼요.</p>
   </div>`;
 }
@@ -21246,7 +21503,7 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
     <${Sheet} open=${!!coinPack} onClose=${close} title="D-ot 충전">${coinPack?html`<${CoinBuy} c=${c} pack=${coinPack}/>`:null}<//>
     <${Sheet} open=${sheet==='consent'} onClose=${close} title="개인정보 제공 설정" tall=${true}>${sheet==='consent'?html`<${ConsentBody} c=${c} onDone=${close}/>`:null}<//>
     <${Sheet} open=${!!diaPack} onClose=${close} title="D-iamond 충전">${diaPack?html`<${DiaBuy} c=${c} pack=${diaPack}/>`:null}<//>
-    <${GiftClaimer} c=${c}/><${RaidApplier} c=${c}/><${PartyNotifier} c=${c}/><${FinDivClaimer} c=${c}/><${FinWatch} c=${c}/><${StudioLink} c=${c}/><${PartyEndorse} c=${c}/><${FinaleAuto} c=${c}/><${V97Host} c=${c}/><${StAppHost} c=${c}/>
+    <${GiftClaimer} c=${c}/><${RaidApplier} c=${c}/><${PartyNotifier} c=${c}/><${FinDivClaimer} c=${c}/><${FinWatch} c=${c}/><${StudioLink} c=${c}/><${PartyEndorse} c=${c}/><${FinaleAuto} c=${c}/><${V97Host} c=${c}/><${StAppHost} c=${c}/><${StudioPageHost} c=${c}/><${ChatSearchHost} c=${c}/><${TourHost} c=${c}/>
     ${(()=>{ const sp=sheet&&sheet.startsWith('stkpay-')?PX_PACKS.find(p=>'stkpay-'+p.id===sheet):null; return html`<${Sheet} open=${!!sp} onClose=${close} title="이모티콘 마켓">${sp?html`<div className="stm25-co"><div className="stm25-prev">${STICKERS.filter(s=>s.pack===sp.id).slice(0,8).map(s=>html`<span key=${s.id}><img src=${s.src} alt=""/></span>`)}</div><${Checkout} c=${c} item=${{kind:'stkpack',packId:sp.id,pack:{id:sp.id,n:sp.n,price:sp.won,coins:0,bonus:0},title:sp.n,sub:sp.desc+' · 영구 소장',price:sp.won}}/></div>`:null}<//>`; })()}
     <${Sheet} open=${sheet==='mega'} onClose=${close} title="확성기"><${MegaForm} c=${c}/><//>
     <${Sheet} open=${sheet==='chatmenu'} onClose=${close} title="채팅에 올리기">
@@ -22245,11 +22502,12 @@ function PlayHero({c}){
       <b>${pty.title}</b>
       <div className="ph24-mem">${(pty.participants||[]).slice(0,5).map(x=>{ const mm=c.members.find(z=>z.uid===x.uid); return html`<span key=${x.uid} className=${'ph24-m'+((pty.checked||{})[x.uid]?' ok':'')}>${mm?html`<${PfpView} m=${mm} s=${26}/>`:html`<${Avatar} nick=${x.nick} pos=${x.pos} s=${26}/>`}</span>`; })}<small>참석 ${Object.keys(pty.checked||{}).length}/${(pty.participants||[]).length} · ${pty.mode}${pty.rush?' · 러쉬 진행 중':''}</small></div>
       <div className="ph25-ptyb"><button className="tap" onClick=${e=>{ e.stopPropagation(); c.setLobby(pty.id); }}><${Icon} n="bolt" s=${15} w=${2.4}/>로비 · 파티 러쉬</button><button className="tap" onClick=${e=>{ e.stopPropagation(); c.openRoom('pt:'+pty.id); }}><${Icon} n="chat" s=${15}/>파티 채팅</button></div></div>`:null}
+    ${(()=>{ if(isLiteEd(me)||pty) return null; const live=(c.parties||[]).filter(p=>partyLive(p)&&!(p.participants||[]).some(x=>x.uid===c.uid)); if(!live.length) return null;
+      return html`<button className="ph25-more ph97-nudge tap" onClick=${()=>{ haptic(6); const el=document.querySelector('.ph25'); window.scrollTo({top:(el?el.offsetTop+el.offsetHeight-60:600),behavior:'smooth'}); }}><i className="ph97-dot"></i><span className="pm77-p">파티 ${live.length}개 모집 중</span><span className="pm77-m">보러 가기</span><${Icon} n="down" s=${15} w=${2.4}/></button>`; })()}
       <div className="ph25-cta">
       ${pty?html`<button className=${'ph25-play tap'+(pty?'':' md')} style=${pty?null:{'--m1':M.c[0],'--m2':M.c[1]}} onClick=${()=>pty?c.setLobby(pty.id):launchMode(c,mode)}><i className="ph25-sh"></i><span className="ph25-pk">PLAY</span><b>${pty?'파티 로비':'플레이'}</b><small><${Icon} n=${pty?'users':M.ic} s=${13} w=${2.4}/>${pty?'로비 · 파티 러쉬 · 채팅':M.t}</small>${pty?html`<span className="ph25-arr"><${Icon} n="chev" s=${20} w=${2.8}/></span>`:html`<span className="ph25-gem" key=${'g'+mode}><${Icon} n=${M.ic} s=${24} w=${2.3}/></span>`}</button>`:null}
       ${pty?html`<button className="ph25-mode tap" onClick=${()=>c.setSheet('modes')} aria-label="바로가기" style=${{'--c1':M.c[0],'--c2':M.c[1]}}><span className="ph25-mi" key=${'m'+mode}><${Icon} n="menu" s=${22} w=${2.4}/></span></button>`:html`<${ModeDock} c=${c}/>`}
     </div>
-    ${isLiteEd(me)?null:html`<button className="ph25-more tap" onClick=${()=>{ const el=document.querySelector('.ph25'); window.scrollTo({top:(el?el.offsetTop+el.offsetHeight-60:600),behavior:'smooth'}); }}><span className="pm77-p">파티 ${(c.parties||[]).filter(partyLive).length?'· '+(c.parties||[]).filter(partyLive).length+'개 모집 중':'찾기'}</span><span className="pm77-m">내전 보기</span><${Icon} n="down" s=${16} w=${2.4}/></button>`}
   </section>`;
 }
 /* 패스 화면 (메인에서 열려요) */
@@ -22270,7 +22528,6 @@ const CH_PRESET=[
   {id:'updates',n:'업데이트 로그',ic:'rocket',c:['#FF8A3D','#C93800'],d:'DKO의 모든 업데이트 기록',official:1,kind:'blog',seg:'updates'},
   {id:'news',n:'DKO 소식',ic:'megaphone',c:['#FF5A1A','#7A1A00'],d:'운영진 공지와 이야기',official:1,kind:'blog',seg:'news'},
   {id:'studio',n:'THRE3RIC STUDIO',ic:'sparkle',c:['#3A3F4A','#0E1016'],d:'스튜디오 신작과 소식',official:1,kind:'studio'},
-  {id:'studios',n:'DKO 스튜디오',ic:'code',c:['#5B8CFF','#3A22A8'],d:'크루 스튜디오가 만든 게임 · 도구 · 사이트를 바로 실행해요',official:1,kind:'studios'},
   {id:'yamun',n:'야문철',ic:'gavel',c:['#2B2F3A','#0B0D12'],d:'이거 누구 잘못? 리플레이 사건 분석실',kind:'yamun'},
   {id:'free',n:'자유 수다',ic:'chat',c:['#4AA8F2','#1D5FC0'],d:'오버워치 얘기든 아니든 편하게',flairs:['잡담','질문','후기']},
   {id:'clip',n:'하이라이트',ic:'play',c:['#FF5C6E','#A8172E'],d:'팟지 · 매드무비 · 리플레이 코드 자랑',flairs:['팟지','매드무비','리플레이'],fmt:'clip'},
@@ -22359,15 +22616,15 @@ function CPostForm({c,chs:chs0,init,onDone}){
   const pollOk=!poll||poll.opts.filter(x=>x.trim()).length>=2;
   const [f,setF]=useState({title:init.title||'',body:init.body||'',flair:'',img:'',code:'',hero:'',tier:'',pos:''}); const set=(k,v)=>setF(o=>({...o,[k]:v})); const Q=init.quote&&(c.cposts||[]).find(x=>x.id===init.quote);
   /* v27.3.2 사진은 한 글에 3장까지 */
-  const [imgs,setImgs]=useState([]); const [ld,setLd]=useState(0); const [thr,setThr]=useState([]);
+  const [imgs,setImgs]=useState([]); const [ld,setLd]=useState(0); const [thr,setThr]=useState([]); const [emo,setEmo]=useState(null); const [emoT,setEmoT]=useState(false);
   const pick=()=>pickPostImgs(c,3-imgs.length,setLd).then(L=>{ if(L.length) setImgs(o=>[...o,...L].slice(0,3)); });
   const canVis=C&&!C.kind&&(C.owner===c.uid||(C.mods||[]).includes(c.uid)||c.isAdmin); const [vis,setVis]=useState('all');
-  const ok=pollOk&&(!!init.shr||!!news||f.title.trim().length>=2||f.body.trim().length>=2||!!imgs.length||(!!Q&&!!(f.title.trim()||f.body.trim())));
+  const ok=pollOk&&(!!emo||!!init.shr||!!news||f.title.trim().length>=2||f.body.trim().length>=2||!!imgs.length||(!!Q&&!!(f.title.trim()||f.body.trim())));
   const submit=()=>{ if(!ok) return; const meta={}; if(C.fmt==='clip'&&f.code.trim()) meta.code=f.code.trim().toUpperCase().slice(0,10); if((C.fmt==='tip'||C.fmt==='clip')&&f.hero.trim()) meta.hero=f.hero.trim().slice(0,12); if(C.fmt==='lfg'){ if(f.tier) meta.tier=f.tier; if(f.pos) meta.pos=f.pos; }
     const tg=[...new Set([...tags,...tagsOf({title:f.title,body:f.body})])].slice(0,8);
     const pl=poll?{opts:poll.opts.map(x=>x.trim()).filter(Boolean).slice(0,6),v:{},end:poll.dur?Date.now()+poll.dur*86400000:0,...(poll.multi?{multi:1}:{})}:null;
     const sk=isStk&&stk.code?{code:stk.code,s:stk.s||'',pnl:stk.pnl!==''&&isFinite(Number(stk.pnl))?Math.round(Number(stk.pnl)*10)/10:null}:null;
-    c.createCPost({ch:C.id,title:f.title.trim().slice(0,80),body:f.body.trim().slice(0,3000),flair:f.flair,img:imgs[0]||'',...(imgs.length>1?{imgs}:{}),meta,...(tg.length?{tags:tg}:{}),...(pl?{poll:pl}:{}),...(chk&&chk.some(x=>x.trim())?{chk:chk.map(x=>x.trim()).filter(Boolean).slice(0,12).map(t=>({t,d:0}))}:{}),...(sk?{stk:sk}:{}),...(news?{news}:{}),...(init.shr?{shr:init.shr}:{}),...(Q?{quote:Q.id}:{}),...(canVis&&(vis==='subs'||vis==='mem')?{vis}:{}),...(thr.some(x=>x.trim())?{thread:thr.map(x=>x.trim()).filter(Boolean).slice(0,9).map(b=>({b:b.slice(0,1000),at:Date.now()}))}:{})}).then(r=>{ if(r) onDone(); }); };
+    c.createCPost({ch:C.id,title:f.title.trim().slice(0,80),body:f.body.trim().slice(0,3000),flair:f.flair,img:imgs[0]||'',...(imgs.length>1?{imgs}:{}),meta,...(tg.length?{tags:tg}:{}),...(pl?{poll:pl}:{}),...(chk&&chk.some(x=>x.trim())?{chk:chk.map(x=>x.trim()).filter(Boolean).slice(0,12).map(t=>({t,d:0}))}:{}),...(sk?{stk:sk}:{}),...(news?{news}:{}),...(init.shr?{shr:init.shr}:{}),...(emo?{emo}:{}),...(Q?{quote:Q.id}:{}),...(canVis&&(vis==='subs'||vis==='mem')?{vis}:{}),...(thr.some(x=>x.trim())?{thread:thr.map(x=>x.trim()).filter(Boolean).slice(0,9).map(b=>({b:b.slice(0,1000),at:Date.now()}))}:{})}).then(r=>{ if(r) onDone(); }); };
   return html`<div className="cpf20">
     <div className="cpf20-chs">${chs.map(x=>html`<button key=${x.id} className=${'tap'+(ch===x.id?' on':'')} style=${{'--c1':x.c[0],'--c2':x.c[1]}} onClick=${()=>{ setCh(x.id); set('flair',''); }}><span><${Icon} n=${x.ic} s=${13} w=${2.4}/></span>${x.n}</button>`)}</div>
     ${canVis?html`<div className="vis30"><span className="vis30-l"><${Icon} n=${vis==='subs'?'lock':'globe'} s=${15} w=${2.3}/>누가 볼 수 있나요?</span>
@@ -22393,6 +22650,8 @@ function CPostForm({c,chs:chs0,init,onDone}){
     ${imgs.length||ld?html`<div className=${'pi33-ed n'+(imgs.length+ld)}>${imgs.map((s,i)=>html`<div key=${i} className="pi33-th"><img src=${s} alt=""/><button className="tap" onClick=${()=>setImgs(o=>o.filter((_,j)=>j!==i))} aria-label="사진 빼기"><${Icon} n="x" s=${14} w=${2.8}/></button>${i===0&&imgs.length>1?html`<em>대표</em>`:null}</div>`)}
       ${Array.from({length:ld}).map((_,i)=>html`<div key=${'l'+i} className="pi33-th ld"><i></i></div>`)}
       ${imgs.length+ld<3?html`<button className="pi33-add tap" onClick=${pick}><${Icon} n="plus" s=${20} w=${2.4}/><small>${imgs.length}/3</small></button>`:null}</div>`:null}
+    ${emo&&STICKER[emo]?html`<div className="pe97-ed"><img src=${STICKER[emo].src} alt=""/><button type="button" className="tap" onClick=${()=>setEmo(null)} aria-label="이모티콘 빼기"><${Icon} n="x" s=${13} w=${2.8}/></button></div>`:null}
+    ${emoT?html`<div className="pe97-tray"><${StickerTray} me=${c.me} ownedOnly=${true} onPick=${id=>{ setEmo(id); setEmoT(false); haptic(8); }} onClose=${()=>setEmoT(false)} onLocked=${()=>c.notify('상점에서 이모티콘을 사면 글에도 붙일 수 있어요.')}/></div>`:null}
     ${poll?html`<${PollEditor} v=${poll} set=${setPoll}/>`:null}
     ${chk?html`<${ChkEditor} v=${chk} set=${setChk}/>`:null}
     ${tagOn||tags.length?html`<${TagInput} tags=${tags} set=${setTags}/>`:null}
@@ -22401,7 +22660,8 @@ function CPostForm({c,chs:chs0,init,onDone}){
       <button type="button" className=${'tap'+(poll?' on':'')} onClick=${()=>setPoll(poll?null:{opts:['',''],dur:3})}><${Icon} n="poll" s=${18} w=${2}/><span>투표</span></button>
       <button type="button" className=${'tap'+(chk?' on':'')} onClick=${()=>setChk(chk?null:['',''])}><${Icon} n="check" s=${18} w=${2.2}/><span>공약</span></button>
       <button type="button" className=${'tap'+(tagOn||tags.length?' on':'')} onClick=${()=>setTagOn(!tagOn)}><${Icon} n="hash" s=${18} w=${2}/><span>태그</span></button>
-      ${poll&&!pollOk?html`<em className="cpf31-warn">선택지를 2개 이상 적어 주세요</em>`:null}
+      <button type="button" className=${'tap'+(emo?' on':'')} onClick=${()=>setEmoT(!emoT)}><${Icon} n="smile" s=${18} w=${2}/><span>이모티콘</span></button>
+      <button type="button" className="tap" onClick=${()=>{ set('body',(f.body&&!/\s$/.test(f.body)?f.body+' ':f.body)+'@'); setTimeout(()=>{ const t=document.querySelector('.cpf20-b'); if(t){ t.focus(); t.selectionStart=t.selectionEnd=t.value.length; } },30); }}><${Icon} n="at" s=${18} w=${2}/><span>크루 부르기</span></button>
     </div>
     <${Btn} block=${true} disabled=${!ok} onClick=${submit}><${Icon} n="send" s=${16}/>올리기<//>
   </div>`;
@@ -22975,17 +23235,18 @@ function LiteToggle(){ const [v,setV]=useState(()=>{ try{ return localStorage.ge
    위쪽 아이콘 탭: 이모티콘 · 프로필 카드 · 배지 · 캐릭터 · 내 정보 */
 const LK_TABS=[['emote','이모티콘','smile',['#FFC233','#D9840A']],['card','프로필 카드','image',['#FF7AB8','#C2246F']],['badge','배지','medal',['#A98BFF','#5A36C8']],['char','캐릭터','user',['#4AA8F2','#1D5FC0']],['info','내 정보','sliders',['#34D3B0','#0E8A73']]];
 function Locker({c,tab:t0,onClose}){
-  useCover(); const [tab,setTab]=useState(t0||'emote'); const [out,setOut]=useState(false);
+  useCover(); const [tab,setTab]=useState(t0||'emote'); const [out,setOut]=useState(false); const [dir,setDir]=useState(0); const scR=useRef(null); const [sh,setSh]=useState(false);
   const close=()=>{ setOut(true); setTimeout(onClose,240); };
   useEffect(()=>{ const k=e=>{ if(e.key==='Escape') close(); }; document.addEventListener('keydown',k); return ()=>document.removeEventListener('keydown',k); },[]);
-  const T=LK_TABS.find(x=>x[0]===tab)||LK_TABS[0];
-  return ReactDOM.createPortal(html`<div className=${'lk25'+(out?' out':'')}>
+  const T=LK_TABS.find(x=>x[0]===tab)||LK_TABS[0]; const ti=Math.max(0,LK_TABS.findIndex(x=>x[0]===tab));
+  const pick=k=>{ if(k===tab) { const s=scR.current; s&&s.scrollTo({top:0,behavior:'smooth'}); return; } haptic(6); setDir(LK_TABS.findIndex(x=>x[0]===k)>ti?1:-1); setTab(k); setSh(false); };
+  return ReactDOM.createPortal(html`<div className=${'lk25 lk30'+(out?' out':'')+(sh?' lk30-sh':'')} style=${{'--lc1':T[3][0],'--lc2':T[3][1]}}>
     <div className="lk25-top"><button className="lk25-back tap" onClick=${close} aria-label="닫기"><${Icon} n="chevL" s=${22} w=${2.6}/></button>
-      <div className="lk25-tt"><em>DKO CUSTOMIZE</em><b>꾸미기</b></div>
-      <span className="lk25-coin"><${Coin} s=${18}/><b>${coinsOf(c.me).toLocaleString()}</b></span></div>
-    <nav className="lk25-tabs" role="tablist">${LK_TABS.map(([k,l,ic,col])=>html`<button key=${k} role="tab" aria-selected=${tab===k} className=${'lk25-t tap'+(tab===k?' on':'')} onClick=${()=>{ if(k!==tab){ haptic(6); setTab(k); } }}>
-      <span className="gi30 lk25-ti" style=${{'--g1':col[0],'--g2':col[1]}}><${Icon} n=${ic} s=${20} w=${2.3}/></span><small>${l}</small></button>`)}</nav>
-    <div className="lk25-sc" key=${tab}>
+      <div className="lk25-tt"><b>꾸미기</b><small key=${tab}>${T[1]}</small></div>
+      <span className="lk25-coin"><${Coin} s=${16}/><b>${coinsOf(c.me).toLocaleString()}</b></span></div>
+    <nav className="lk25-tabs" role="tablist" style=${{'--i':ti,'--n':LK_TABS.length}}><i className="lk30-ind" aria-hidden="true"></i>${LK_TABS.map(([k,l,ic,col])=>html`<button key=${k} role="tab" aria-selected=${tab===k} aria-label=${l} className=${'lk25-t tap'+(tab===k?' on':'')} style=${{'--c1':col[0],'--c2':col[1]}} onClick=${()=>pick(k)}>
+      <span className="lk25-ti"><${Icon} n=${ic} s=${19} w=${2.3}/></span><small>${l}</small></button>`)}</nav>
+    <div className=${'lk25-sc'+(dir>0?' fwd':dir<0?' bwd':'')} key=${tab} ref=${scR} onScroll=${e=>{ const v=e.currentTarget.scrollTop>6; if(v!==sh) setSh(v); }}>
       ${tab==='emote'?html`<${LkEmote} c=${c}/>`:tab==='card'?html`<${LkCard} c=${c}/>`:tab==='badge'?html`<${LkBadge} c=${c}/>`:tab==='char'?html`<${LkChar} c=${c}/>`:html`<div className="lk25-info"><${ProfileEditor} c=${c} only="info"/></div>`}
     </div>
   </div>`,document.body);
@@ -23007,7 +23268,6 @@ function LkEmote({c}){
     <section className="lk25-fav"><div className="lk25-favh"><b>자주 쓰는 이모티콘</b><small>${fav.length}/8 · 이모티콘을 눌러 추가</small></div>
       <div className="lk25-g4">${fav.length?fav.map((id,i)=>tile(STICKER[id],i,false)):html`<p className="lk25-empty">아래에서 자주 쓰는 이모티콘을 골라 위에 모아 두세요.</p>`}</div></section>
     <div className="lk25-bar"><div><b>이모티콘 컬렉션</b><small>수집 완료 <em>${own.length}/${all.length}</em></small></div><button className="lk25-sort tap" onClick=${()=>setSort(s=>s==='kind'?'new':'kind')}>${sort==='kind'?'종류별':'최근 얻은 순'}</button></div>
-    <div className="lk25-div"><i></i><span><${Icon} n="heart" s=${14} w=${2.6}/></span><i></i></div>
     <div className="lk25-g4">${sorted.map((s,i)=>tile(s,i,false))}</div>
     ${lock.length?html`<div className="lk25-sep"><span>아직 없는 이모티콘 ${lock.length}</span></div><div className="lk25-g4">${lock.map((s,i)=>tile(s,i,true))}</div>`:null}
     ${S?html`<div className="lk25-pop-bg" onClick=${()=>setSel(null)}><div className="lk25-pop" onClick=${e=>e.stopPropagation()}>
@@ -23170,7 +23430,7 @@ function MatchWinFx({c,fx,onClose}){
 })();
 /* v25.8 왼쪽 끝에서 오른쪽으로 밀면 뒤로: 지금 화면 맨 위에 보이는 '뒤로' 버튼을 대신 눌러요 */
 /* v26.3 왼쪽 위에 '뒤로'가 있는 화면은 모두: 채팅방 · 채널 · 스레드 · 프로필 · 패스 · 꾸미기 · 로비 · 대회 방 · 도구 · 사건 */
-const SB_SEL='.cs33-back,.stp31-back,.cr15-back,.chp26-back,.pp20-back,.lk25-back,.pl16-back,.pl21x-back,.tl8-back,.th30-back,.pf27-ib[aria-label="뒤로"],.owr-top>.tw-exit,.bb14-top>.ico-btn,[data-swipe-back]';
+const SB_SEL='.cs33-back,.stp31-back,.cr15-back,.chp26-back,.pp20-back,.lk25-back,.pl16-back,.pl21x-back,.tl8-back,.th30-back,.pf27-ib[aria-label="뒤로"],.owr-top>.tw-exit,.bb14-top>.ico-btn,[data-swipe-back],button[aria-label="뒤로"]';
 (function(){
   if(!('ontouchstart' in window)) return;
   const on=()=>{ try{ return localStorage.getItem('dko-swipeback')!=='off'; }catch(e){ return true; } };
@@ -23196,10 +23456,10 @@ const SB_SEL='.cs33-back,.stp31-back,.cr15-back,.chp26-back,.pp20-back,.lk25-bac
     if(ind){ ind.classList.remove('on','go'); if(go) ind.classList.add('fire'); setTimeout(()=>ind&&ind.classList.remove('fire'),420); }
     if(go&&b&&document.contains(b)){ if(navigator.vibrate) try{ navigator.vibrate(10); }catch(_){}
       if(pg){ const ms=Math.round(Math.max(170,Math.min(300,(innerWidth-Math.max(0,parseFloat((pg.style.transform.match(/translate3d\(([\d.]+)px/)||[])[1]||0)))/Math.max(1.4,v)))); pg.style.transition='transform '+ms+'ms cubic-bezier(.2,.75,.3,1),box-shadow '+ms+'ms'; pg.style.setProperty('transform','translate3d(100%,0,0)','important'); pg.style.boxShadow='-22px 0 40px rgba(0,0,0,0)';
-        setTimeout(()=>{ if(isShell) pg.style.visibility='hidden'; b.click();
+        setTimeout(()=>{ /* v30.0 잔상 없애기: 밀려 나간 화면(배경 어둡게 깔린 층 포함)을 바로 숨긴 다음 뒤로 가요 */ pg.style.visibility='hidden'; const hostOv=pg.parentElement&&pg.parentElement!==document.body&&getComputedStyle(pg.parentElement).position==='fixed'?pg.parentElement:null; if(hostOv) hostOv.style.visibility='hidden'; b.click();
           /* v27.6 잔상 없애기: 뒤로 버튼이 있던 화면이 완전히 사라진 뒤에 원래 자리로 돌려놔요 */
-          const t0=performance.now(); const back=()=>{ pg.style.transition='none'; pg.style.removeProperty('transform'); pg.style.boxShadow=''; pg.style.willChange='';
-            if(isShell){ pg.style.opacity='0'; pg.style.visibility=''; requestAnimationFrame(()=>{ pg.style.transition='opacity .2s ease'; pg.style.opacity=''; setTimeout(()=>{ pg.style.transition=''; },220); }); } else setTimeout(()=>{ pg.style.transition=''; },40); };
+          const t0=performance.now(); const back=()=>{ pg.style.transition='none'; pg.style.removeProperty('transform'); pg.style.boxShadow=''; pg.style.willChange=''; if(hostOv) hostOv.style.visibility='';
+            if(isShell||document.contains(pg)){ pg.style.opacity='0'; pg.style.visibility=''; requestAnimationFrame(()=>{ pg.style.transition='opacity .2s ease'; pg.style.opacity=''; setTimeout(()=>{ pg.style.transition=''; },220); }); } else setTimeout(()=>{ pg.style.transition=''; },40); };
           const wait=()=>{ const gone=!document.contains(b)||!vis(b)&&!pg.contains(b); if((gone&&performance.now()-t0>(isShell?60:120))||performance.now()-t0>900){ back(); return; } requestAnimationFrame(wait); };
           requestAnimationFrame(wait); },ms-20); }
       else b.click(); return; }
@@ -23378,6 +23638,7 @@ function FeedPost({c,p,ch,i,rp,onOpen,onCh,onRepost,onShare,inCh,onTag,onStock})
         <${ChkView} c=${c} p=${p}/>
         ${p.stk?html`<${StockChip} p=${p} onOpen=${onStock}/>`:null}
         ${p.shr?html`<div className="shr97" onClick=${e=>e.stopPropagation()}><${ShareCard29} m=${{shr:p.shr}} c=${c}/></div>`:null}
+        ${p.emo&&STICKER[p.emo]?html`<img className="pe97-stk" src=${STICKER[p.emo].src} alt="" draggable="false"/>`:null}
         ${p.news?html`<${NewsCard} n=${p.news}/>`:null}
         ${p.meta&&p.meta.stairs?html`<div className="sg31-rec"><${Icon} n="stairs" s=${16} w=${2.4}/><b>${p.meta.stairs}</b>층 기록</div>`:null}
         ${p.poll&&p.poll.opts?html`<${PollView} c=${c} p=${p}/>`:null}
@@ -23515,7 +23776,7 @@ function CThread({c,p,ch,onClose,onCh,onRepost,onShare,onOpen,focus,onTag,onStoc
   return ReactDOM.createPortal(html`<div className=${'th30'+(out?' out':'')} style=${{'--c1':ch.c[0],'--c2':ch.c[1]}}>
     <header className="th30-top"><button className="th30-back tap" onClick=${close} aria-label="뒤로"><${Icon} n="chevL" s=${24} w=${2.4}/></button>
       <div className="th30-tt"><b>게시글</b><small>조회 ${((p.views||0)+(CVIEWED.has(p.id)&&!(p.views)?1:0)).toLocaleString()}회</small></div>
-      <button className="th30-ib tap" onClick=${()=>onShare(p)} aria-label="공유"><${Icon} n="send" s=${20} w=${2}/></button></header>
+      <span className="th30-ib ghost" aria-hidden="true"></span></header>
     <div className="th30-sc" ref=${sc}>
       <article className="th30-p">
         <div className="th30-ph"><button className="tap" onClick=${()=>au&&c.openProfile(au.uid,'cm')}>${au?html`<${PfpView} m=${au} s=${42}/>`:html`<${Avatar} nick=${p.nick} s=${42}/>`}</button>
@@ -23532,6 +23793,7 @@ function CThread({c,p,ch,onClose,onCh,onRepost,onShare,onOpen,focus,onTag,onStoc
         ${p.meta&&p.meta.code?html`<button className="th30-code tap" onClick=${()=>{ try{ navigator.clipboard.writeText(p.meta.code); }catch(e){} c.notify('리플레이 코드를 복사했어요.'); }}><${Icon} n="copy" s=${13} w=${2.4}/>${p.meta.code}<small>탭해서 복사</small></button>`:html`<${PostMeta} p=${p}/>`}
         ${p.stk?html`<${StockChip} p=${p} onOpen=${code=>{ close(); setTimeout(()=>onStock&&onStock(code),240); }}/>`:null}
         ${p.shr?html`<div className="shr97" onClick=${()=>close()}><${ShareCard29} m=${{shr:p.shr}} c=${c}/></div>`:null}
+        ${p.emo&&STICKER[p.emo]?html`<img className="pe97-stk big" src=${STICKER[p.emo].src} alt="" draggable="false"/>`:null}
         ${p.news?html`<${NewsCard} n=${p.news}/>`:null}
         <${LinkCard} p=${p}/>
         <${ChkView} c=${c} p=${p}/>
@@ -23614,11 +23876,14 @@ function Community({c}){
     </section><${PlazaBoard} c=${c}/></div>`:null;
   const ads0=adsOf(c);
   /* v29.9.9 피드는 20개씩 이어 그려요 (사진이 많은 글을 한꺼번에 그리면 아이폰에서 메모리가 넘쳐 앱이 튕길 수 있어요) */
+  /* v30.0 새 글 알림: 보고 있는 동안 올라온 다른 크루의 글은 바로 끼워 넣지 않고 '새 글 N개'로 알려 줘요 */
+  const [cut,setCut]=useState(()=>Date.now()); const isFresh=p=>(p.createdAt||0)>cut&&p.uid!==c.uid;
+  const freshL=seg==='feed'?posts.filter(isFresh):[];
   const [lim,setLim]=useState(20); const sen=useRef(null);
   useEffect(()=>{ setLim(20); },[seg,sort,scope,tag]);
   useEffect(()=>{ const el=sen.current; if(!el||typeof IntersectionObserver==='undefined') return; const io=new IntersectionObserver(E=>{ if(E.some(x=>x.isIntersecting)) setLim(n=>n+20); },{rootMargin:'900px 0px'}); io.observe(el); return ()=>io.disconnect(); });
   const more=n=>n>lim?html`<div ref=${sen} className="fd97-more" aria-hidden="true"><i></i><i></i><i></i></div>`:null;
-  const feed=()=>{ if(!isLoaded(c,'posts')) return html`<${Skel} kind="post" n=${3}/>`; const jid=new Set(joined.map(x=>x.id)); let base=scope==='follow'?posts.filter(p=>jid.has(p.ch)):posts;
+  const feed=()=>{ if(!isLoaded(c,'posts')) return html`<${Skel} kind="post" n=${3}/>`; const jid=new Set(joined.map(x=>x.id)); let base=(scope==='follow'?posts.filter(p=>jid.has(p.ch)):posts).filter(p=>!isFresh(p));
     if(tag){ base=base.filter(p=>tagsOf(p).includes(tag)); const S=sorted(base); return html`<div className="fd30">${S.slice(0,lim).map((p,i)=>FP(p,i))}${more(S.length)}${!base.length?html`<p className="fd30-empty">#${tag} 글이 아직 없어요.</p>`:null}</div>`; }
     if(scope==='follow'&&!joined.length) return html`<div className="th24-empty"><b>아직 구독한 채널이 없어요</b><small>채널을 구독하면 그 채널들의 새 글이 여기 모여요.</small><button className="tap" onClick=${()=>setSeg('dir')}>채널 둘러보기</button></div>`;
     let L=withAds(feedItems(c,base,{sort,scope}),ads0);
@@ -23636,6 +23901,7 @@ function Community({c}){
       ${scope==='follow'&&joined.length&&!tag?html`<${SubRow} c=${c} joined=${joined} posts=${posts} go=${go} onDir=${()=>setSeg('dir')}/>`:null}
       ${tag?html`<div className="tg31-hd"><span className="tg31-hi"><${Icon} n="hash" s=${18} w=${2.4}/></span><span><b>#${tag}</b><small>태그된 글 ${posts.filter(p=>tagsOf(p).includes(tag)).length}개</small></span><button className="tap" onClick=${()=>setTag(null)} aria-label="태그 닫기"><${Icon} n="x" s=${15} w=${2.6}/></button></div>`:null}
       ${sort==='hot'&&!tag?html`<${HotTop3} c=${c} posts=${scope==='follow'?posts.filter(p=>joined.some(x=>x.id===p.ch)):posts} chMap=${chMap} onOpen=${open} onHelp=${()=>{ haptic(5); setHh(true); }}/>`:null}
+      ${freshL.length?html`<button type="button" className="nw97 tap" onClick=${()=>{ haptic(10); setCut(Date.now()); window.scrollTo({top:0,behavior:'smooth'}); }}><span className="nw97-av">${[...new Set(freshL.map(p=>p.uid))].slice(0,3).map(u=>{ const m=c.members.find(x=>x.uid===u); return m?html`<${PfpView} key=${u} m=${m} s=${22}/>`:null; })}</span><${Icon} n="up" s=${14} w=${2.8}/>새 글 ${freshL.length}개</button>`:null}
       ${feed()}
       <${Fab33} icon="compose" label="글쓰기" onClick=${()=>setWrite({ch:(joined.find(x=>!x.kind)||{}).id||'free'})}/>
     </div>`:html`<${ChannelHub} c=${c} chs=${chs} joined=${joined} posts=${posts} go=${go} openPlaza=${()=>{ setView({plaza:1}); window.scrollTo({top:0}); }} onMake=${()=>setMk(true)} onWrite=${id=>setWrite({ch:id})}/>`}
@@ -26395,11 +26661,12 @@ function FinSpark({h,w=120,hgt=36,col}){ const L=(h||[]).slice(-48); if(L.length
   return html`<svg width=${w} height=${hgt} viewBox=${'0 0 '+w+' '+hgt} className="fn98-spark"><path d=${d+' L'+w+' '+hgt+' L0 '+hgt+' Z'} fill=${c0} opacity=".14"/><path d=${d} fill="none" stroke=${c0} stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx=${pts[pts.length-1][0]} cy=${pts[pts.length-1][1]} r="3" fill=${c0}/></svg>`; }
 function FinQty({v,set,max,step}){ const S=step||[1,10,100]; return html`<div className="fn98-qty"><button type="button" className="tap" onClick=${()=>set(Math.max(0,v-1))}>−</button><input inputMode="numeric" value=${v} onInput=${e=>set(Math.max(0,Math.floor(+e.target.value.replace(/[^0-9]/g,'')||0)))}/><button type="button" className="tap" onClick=${()=>set(v+1)}>+</button>
   <div className="fn98-qs">${S.map(s=>html`<button key=${s} type="button" className="tap" onClick=${()=>set(v+s)}>+${s}</button>`)}${max!=null?html`<button type="button" className="tap" onClick=${()=>set(Math.max(0,Math.floor(max)))}>최대</button>`:null}</div></div>`; }
-function Finance({c}){ const [tab,setTab]=useState(()=>lsGet('dko-fin-tab','stock')); const go=t=>{ setTab(t); lsSet('dko-fin-tab',t); haptic(6); };
+function Finance({c}){ const [tab,setTab]=useState(()=>lsGet('dko-fin-tab','stock')); const fR=useRef(null); const go=t=>{ setTab(t); lsSet('dko-fin-tab',t); haptic(6); };
+  useEffect(()=>{ const f=fR.current; if(!f) return; const s=f.closest('.sheet'), h=s&&s.querySelector(':scope>.sheet-drag'); if(!s||!h) return; const set=()=>f.style.setProperty('--fnt',(getComputedStyle(h).position==='sticky'?h.offsetHeight:0)+'px'); set(); const g=f.querySelector('.fn98-seg'); const on=()=>{ if(g) g.classList.toggle('stuck',g.getBoundingClientRect().top<=s.getBoundingClientRect().top+h.offsetHeight+1&&s.scrollTop>4); }; s.addEventListener('scroll',on,{passive:true}); window.addEventListener('resize',set); on(); return ()=>{ s.removeEventListener('scroll',on); window.removeEventListener('resize',set); }; },[isLoaded(c,'fin')&&isLoaded(c,'members')]);
   if(!isLoaded(c,'fin')||!isLoaded(c,'members')) return html`<div className="fn98"><${Skel} kind="card" n=${3}/></div>`;
   const S=finStock(c), A=finAct(c), px=finPx(c,S), chg=histChg(S.hist,Date.now()); const net=finNet(c,c.me); const F=finMe(c.me);
   const news=[...(c.finnews||[])].sort((a,b)=>b.t-a.t).slice(0,12); const tick=[...(A.ub>0?[{x:'⚡ 대형 업데이트 효과 · TRK 활성도 +'+Math.round(A.ub*100)+'%'}]:[]),...news];
-  return html`<div className="fn98">
+  return html`<div className="fn98" ref=${fR}>
     <div className="fn98-top"><div className="fn98-net"><small>내 총자산 · 가상 D-ot</small><b>${fnum(net)}<em>D-ot</em></b>
       <span className="fn98-mini"><span><${Coin} s=${13}/>${coinsOf(c.me).toLocaleString()}</span><span>TRK ${F.sh.toLocaleString()}주</span>${F.dep.length?html`<span>예금 ${F.dep.length}</span>`:null}${finVip(c.me)?html`<span className="vip">VIP</span>`:null}</span></div>
       ${tick.length?html`<div className="fn98-tick"><i>속보</i><div className="fn98-tk"><div className="fn98-tkr" style=${{animationDuration:Math.max(14,tick.length*6)+'s'}}>${[...tick,...tick].map((n,i)=>html`<span key=${i}>${n.x}</span>`)}</div></div></div>`:null}</div>
@@ -26526,22 +26793,24 @@ const ALL_SV=[
   {k:'pass',g:'크루',t:'DKO 패스',d:'시즌 보상 · 프리미엄',ic:'star',c:['#C29BFF','#6A3FD8'],go:c=>c.setPassOpen(true)},
   {k:'studio',g:'크루',t:'DKO 스튜디오',d:'크루가 만든 게임 · 도구 · 사이트',ic:'code',c:['#5B8CFF','#2B3FB8'],go:c=>openStudioCh(c)},
   {k:'ads',g:'크루',t:'THRE3RIC ADs',d:'크루 피드에 광고 걸기',ic:'mega',c:['#FF7AB8','#C2246F'],go:c=>c.setSheet('ads')},
-  {k:'help',g:'크루',t:'도움말',d:'기능 안내 · 자주 묻는 질문',ic:'help',c:['#9AA6BC','#4A5468'],go:c=>c.setSheet('help')}];
+  {k:'help',g:'크루',t:'도움말',d:'기능 안내 · 자주 묻는 질문',ic:'help',c:['#9AA6BC','#4A5468'],go:c=>c.setSheet('help')},
+  {k:'settings',g:'크루',t:'설정',d:'알림 · 화면 · 개인정보',ic:'gear',c:['#8E95A6','#3A4050'],go:c=>c.setSheet('settings')}];
 const ALL_DEF=['world','party','studio','fstock','tools','esports','shop','pass'];
-function AllHub({c}){ const [q,setQ]=useState(''); const [rec,setRec]=useState(()=>{ try{ return JSON.parse(lsGet('dko-all-recent','[]'))||[]; }catch(e){ return []; } });
+function AllHub({c}){ const [q,setQ]=useState(''); const [so,setSo]=useState(false); const [rec,setRec]=useState(()=>{ try{ return JSON.parse(lsGet('dko-all-recent','[]'))||[]; }catch(e){ return []; } });
   const open=s=>{ haptic(8); const L=[s.k,...rec.filter(k=>k!==s.k)].slice(0,8); setRec(L); lsSet('dko-all-recent',JSON.stringify(L)); s.go(c); };
-  const recent=[...rec,...ALL_DEF].filter((k,i,a)=>a.indexOf(k)===i).slice(0,8).map(k=>ALL_SV.find(s=>s.k===k)).filter(Boolean);
+  /* 최근 서비스: 스튜디오 앱('w:작품id')도 함께 보여요 */
+  const svOf=k=>{ if(String(k).startsWith('w:')){ const w=(c.works||[]).find(x=>x.id===k.slice(2)); return w?{k,t:w.title,ic:'code',c:(w.cover&&w.cover.c)||['#5B8CFF','#2B3FB8'],e:(w.cover&&w.cover.e)||'🎮',img:w.cover&&w.cover.img,go:c=>openStApp(c,w)}:null; } return ALL_SV.find(s=>s.k===k); };
+  const recent=[...rec,...ALL_DEF].filter((k,i,a)=>a.indexOf(k)===i).map(svOf).filter(Boolean).slice(0,8);
   const S=finStock(c), px=finPx(c,S), ch=histChg(S.hist,Date.now());
   const myCh=(c.duels||[]).filter(d=>(d.status==='open'&&d.b===c.uid)||(d.status==='pending'&&d.by!==c.uid&&(d.a===c.uid||d.b===c.uid))).length; const openP=(c.parties||[]).filter(p=>!p.closed&&(p.participants||[]).length<(p.maxMembers||p.max||5)).length;
   const badge={duel:myCh,party:openP}; const sub={fstock:'TRK '+px.toFixed(2)+' '+fpct(ch),party:openP?'모집 중 '+openP+'개':null,duel:myCh?'처리할 도전 '+myCh+'개':null};
   const ql=q.trim().toLowerCase(); const hits=ql?ALL_SV.filter(s=>(s.t+' '+s.d+' '+s.g).toLowerCase().includes(ql)):null;
   const Row=s=>html`<button key=${s.k} type="button" className="al98-r tap" onClick=${()=>open(s)}><span className="al98-ri" style=${{'--c1':s.c[0],'--c2':s.c[1]}}><${Icon} n=${s.ic} s=${19} w=${2.3}/></span><b>${s.t}</b><small className=${s.k==='fstock'?(ch>=0?'up':'dn'):''}>${sub[s.k]||s.d}</small>${badge[s.k]?html`<i className="al98-bd">${badge[s.k]}</i>`:null}</button>`;
   return html`<div className="al98">
-    <div className="al98-h"><button type="button" className="al98-me tap" onClick=${()=>c.openMember&&c.openMember(c.me)}><${PfpView} m=${c.me} s=${30}/><b>${dispName(c.me)}</b></button><span className="al98-hl"><button type="button" className="tap" onClick=${()=>c.setSheet('help')}>도움말</button><i></i><button type="button" className="tap" onClick=${()=>c.setSheet('settings')}>설정</button></span></div>
-    <label className="al98-s"><${Icon} n="search" s=${18} w=${2.3}/><input value=${q} placeholder="검색" onInput=${e=>setQ(e.target.value)}/>${q?html`<button type="button" className="tap" onClick=${()=>setQ('')} aria-label="지우기"><${Icon} n="x" s=${14} w=${2.6}/></button>`:null}</label>
+    <section className="cm30-h pg97-h"><b>전체</b><button className=${'cm33-sr tap'+(so||q?' on':'')} onClick=${()=>{ haptic(6); setSo(!(so||q)); if(so||q) setQ(''); }} aria-label="전체 검색"><${Icon} n=${so||q?'x':'search'} s=${19} w=${2.3}/></button></section>
+    ${so||q?html`<label className="al98-s sr97-in"><${Icon} n="search" s=${18} w=${2.3}/><input value=${q} autoFocus=${true} placeholder="서비스 검색" onInput=${e=>setQ(e.target.value)}/>${q?html`<button type="button" className="tap" onClick=${()=>setQ('')} aria-label="지우기"><${Icon} n="x" s=${14} w=${2.6}/></button>`:null}</label>`:null}
     ${hits?html`<section className="al98-card"><div className="al98-ct">검색 결과 ${hits.length}</div>${hits.length?hits.map(Row):html`<div className="al98-none">'${q}'에 맞는 서비스가 없어요</div>`}</section>`:html`<${React.Fragment}>
-    <div className="al98-chips"><button type="button" className="tap" onClick=${()=>c.go('shop')}><${Coin} s=${17}/>${coinsOf(c.me).toLocaleString()}</button><button type="button" className="tap" onClick=${()=>c.go('shop')}><${Dia} s=${16}/>${diaOf(c.me).toLocaleString()}</button><button type="button" className="tap" onClick=${()=>c.setWorld(true)}><${Icon} n="globe" s=${15} w=${2.3}/>DKO 월드</button><button type="button" className="tap" onClick=${()=>c.setPassOpen(true)}><${Icon} n="star" s=${15} w=${2.3}/>패스</button></div>
-    <section className="al98-card"><div className="al98-ct">최근 서비스</div><div className="al98-g">${recent.map(s=>html`<button key=${s.k} type="button" className="al98-gi tap" onClick=${()=>open(s)}><span className="al98-gt" style=${{'--c1':s.c[0],'--c2':s.c[1]}}><${Icon} n=${s.ic} s=${24} w=${2.2}/>${badge[s.k]?html`<i className="al98-bd">${badge[s.k]}</i>`:null}</span><small>${s.t}</small></button>`)}</div></section>
+    <section className="al98-card"><div className="al98-ct">최근 서비스</div><div className="al98-g">${recent.map(s=>html`<button key=${s.k} type="button" className="al98-gi tap" onClick=${()=>open(s)}><span className=${'al98-gt'+(s.img?' img':'')} style=${{'--c1':s.c[0],'--c2':s.c[1]}}>${s.img?html`<img src=${s.img} alt=""/>`:s.e?html`<b className="al97-e">${s.e}</b>`:html`<${Icon} n=${s.ic} s=${24} w=${2.2}/>`}${badge[s.k]?html`<i className="al98-bd">${badge[s.k]}</i>`:null}</span><small>${s.t}</small></button>`)}</div></section>
     <section className="al98-card al98-rec"><div className="al98-ct">이런 건 어때요<small>DKO FINANCE</small></div>
       <button type="button" className="al98-rc tap" onClick=${()=>open(ALL_SV.find(s=>s.k==='fstock'))}><span className="al98-rl t3lg"><img src=${STUDIO_LOGO} alt="THRE3RIC"/></span><span className="al98-rt"><b>트릭 스튜디오 주식</b><small>${px.toFixed(2)} D-ot · <em className=${ch>=0?'up':'dn'}>${fpct(ch)}</em></small></span><${FinSpark} h=${S.hist} w=${70} hgt=${28}/><span className="al98-rb">보기</span></button></section>
     ${['플레이','정보','금융','크루'].map(g=>html`<section key=${g} className="al98-card"><div className="al98-ct">${g==='금융'?'금융 서비스':g}${g==='금융'?html`<small>D-ot 가상 투자 · 현금과 무관</small>`:null}</div>${ALL_SV.filter(s=>s.g===g).map(Row)}</section>`)}
@@ -26755,7 +27024,7 @@ function stApi({store,uid,me,data,notify,isAdmin}){ const now=()=>Date.now();
   }; }
 
 /* ── 표지 ── */
-function StCover({w,big}){ const C=(w.cover&&w.cover.c)||ST_COL[1]; return html`<span className=${'st99-cv'+(big?' big':'')} style=${{'--c1':C[0],'--c2':C[1]}}><i className="g"></i><b>${(w.cover&&w.cover.e)||'🎮'}</b><em className=${'k '+w.kind}>${w.kind==='code'?html`<${Icon} n="code" s=${11} w=${2.6}/>CODE`:html`<${Icon} n="link" s=${11} w=${2.6}/>LINK`}</em>${w.pick?html`<em className="pk"><${Icon} n="crown" s=${11} w=${2.6}/>크루 픽</em>`:null}</span>`; }
+function StCover({w,big}){ const C=(w.cover&&w.cover.c)||ST_COL[1]; return html`<span className=${'st99-cv'+(big?' big':'')} style=${{'--c1':C[0],'--c2':C[1]}}><i className="g"></i>${w.cover&&w.cover.img?html`<img className="st97-ic" src=${w.cover.img} alt="" draggable="false"/>`:html`<b>${(w.cover&&w.cover.e)||'🎮'}</b>`}<em className=${'k '+w.kind}>${w.kind==='code'?html`<${Icon} n="code" s=${11} w=${2.6}/>CODE`:html`<${Icon} n="link" s=${11} w=${2.6}/>LINK`}</em>${w.pick?html`<em className="pk"><${Icon} n="crown" s=${11} w=${2.6}/>크루 픽</em>`:null}</span>`; }
 function StLogo({S,s=44}){ const C=S.col||ST_COL[0]; return html`<span className=${'st99-lg'+(S.logo?' img':'')} style=${{'--c1':C[0],'--c2':C[1],width:s+'px',height:s+'px',fontSize:Math.round(s*.5)+'px'}}>${S.logo?html`<img src=${S.logo} alt="" draggable="false"/>`:S.emoji||'🎮'}</span>`; }
 /* 로고 이미지: 정사각형으로 잘라 256px webp로 줄여요 (문서에 바로 저장) */
 function stLogoFile(F){ return new Promise((res,rej)=>{ if(!F||!/^image\//.test(F.type)) return rej(new Error('img')); const u=URL.createObjectURL(F); const im=new Image(); im.onload=()=>{ const n=256, cv=document.createElement('canvas'); cv.width=cv.height=n; const g=cv.getContext('2d'); const m=Math.min(im.width,im.height); g.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,n,n); URL.revokeObjectURL(u); let d=cv.toDataURL('image/webp',.86); if(!/^data:image\/webp/.test(d)) d=cv.toDataURL('image/png'); res(d); }; im.onerror=()=>{ URL.revokeObjectURL(u); rej(new Error('load')); }; im.src=u; }); }
@@ -26843,7 +27112,10 @@ function StWorkEdit({c,w,from,studios,onDone,onClose}){ const mineS=studios.filt
       ${w?html`<label className="st99-f"><span>업데이트 내용 (적으면 새 버전)</span><input value=${f.note} maxLength=${200} placeholder="예: 난이도 조절 추가" onInput=${e=>set('note',e.target.value)}/></label>`:null}
       <label className="st99-f"><span>분류</span><div className="st99-chips">${ST_CAT.slice(1).map(([k,l])=>html`<button key=${k} type="button" className=${'tap'+(f.cat===k?' on':'')} onClick=${()=>set('cat',k)}>${l}</button>`)}</div></label>
       <div className="st99-f"><span>태그</span><div className="st99-tg">${f.tags.map(x=>html`<button key=${x} type="button" className="tap" onClick=${()=>set('tags',f.tags.filter(y=>y!==x))}>#${x}<${Icon} n="x" s=${11} w=${2.6}/></button>`)}<input value=${tag} maxLength=${12} placeholder="태그 추가" onInput=${e=>setTag(e.target.value)} onKeyDown=${e=>{ if(e.key==='Enter'||e.key===','){ e.preventDefault(); addTag(); } }} onBlur=${addTag}/></div></div>
-      <div className="st99-f"><span>표지</span><div className="st99-emo">${ST_EMO.map(x=>html`<button key=${x} type="button" className=${'tap'+(f.cover.e===x?' on':'')} onClick=${()=>set('cover',{...f.cover,e:x})}>${x}</button>`)}</div>
+      <div className="st99-f"><span>앱 아이콘</span><div className="st97-icu">${f.cover.img?html`<img src=${f.cover.img} alt="앱 아이콘"/>`:html`<span className="st97-icph" style=${{'--c1':f.cover.c[0],'--c2':f.cover.c[1]}}>${f.cover.e}</span>`}
+        <div><b>이미지로 아이콘 만들기</b><small>바로가기 · 독 · 작품 카드에 이 이미지가 보여요 (정사각형으로 잘라요)</small>
+        <span className="st97-icb"><label className="tap"><${Icon} n="image" s=${15} w=${2.4}/>${f.cover.img?'바꾸기':'이미지 올리기'}<input type="file" accept="image/*" hidden onChange=${async e=>{ const F=e.target.files&&e.target.files[0]; e.target.value=''; try{ const d=await stLogoFile(F); set('cover',{...f.cover,img:d}); c.notify('아이콘 이미지를 넣었어요','ok'); }catch(_){ c.notify('이미지를 읽지 못했어요.','err'); } }}/></label>${f.cover.img?html`<button type="button" className="tap g" onClick=${()=>{ const {img,...rest}=f.cover; set('cover',rest); }}>빼기</button>`:null}</span></div></div></div>
+      <div className="st99-f"><span>이모지 표지</span><div className="st99-emo">${ST_EMO.map(x=>html`<button key=${x} type="button" className=${'tap'+(f.cover.e===x?' on':'')} onClick=${()=>set('cover',{...f.cover,e:x})}>${x}</button>`)}</div>
         <div className="st99-cols">${ST_COL.map((C,i)=>html`<button key=${i} type="button" className=${'tap'+(f.cover.c[0]===C[0]?' on':'')} style=${{'--c1':C[0],'--c2':C[1]}} onClick=${()=>set('cover',{...f.cover,c:C})} aria-label=${'색 '+(i+1)}></button>`)}</div></div>
       ${f.kind==='code'?html`<label className="st99-tgl"><span><b>리믹스 허용</b><small>다른 크루가 내 코드를 복사해 고쳐 볼 수 있어요</small></span><button type="button" className=${'tap'+(f.remix?' on':'')} onClick=${()=>set('remix',!f.remix)} aria-pressed=${f.remix}><i></i></button></label>`:null}
       <button type="button" className="st99-go wide tap" disabled=${busy} onClick=${save}>${busy?'올리는 중…':w?'업데이트하기':'크루에게 공개하기'}</button>
@@ -26889,9 +27161,9 @@ function StStudio({c,S0,onClose,onOpen,onEdit,onNew}){ const S=(c.studios||[]).f
 function StudioHub({c,start}){ const [view,setView]=useState(null); const [tab,setTab]=useState('hot'); const [cat,setCat]=useState('all'); const [q,setQ]=useState('');
   const studios=c.studios||[], works=c.works||[]; const SM=Object.fromEntries(studios.map(S=>[S.id,S]));
   const wl=isLoaded(c,'works')&&isLoaded(c,'studios');
-  useEffect(()=>{ const f=()=>{ const s=window.__stStart; if(!s||!wl) return; window.__stStart=null; if(s.w){ const w=(c.works||[]).find(x=>x.id===s.w); if(w) setView({k:'work',w}); else c.notify('작품을 찾지 못했어요. 내려간 작품일 수 있어요.'); } else if(s.s){ const S=(c.studios||[]).find(x=>x.id===s.s); if(S) setView({k:'studio',S}); } }; f(); window.addEventListener('dko-cm-ch',f); return ()=>window.removeEventListener('dko-cm-ch',f); },[wl]);
+  useEffect(()=>{ const f=()=>{ const s=window.__stStart; if(!s||!wl) return; window.__stStart=null; if(s.w){ const w=(c.works||[]).find(x=>x.id===s.w); if(w) setView({k:'work',w}); else c.notify('작품을 찾지 못했어요. 내려간 작품일 수 있어요.'); } else if(s.s){ const S=(c.studios||[]).find(x=>x.id===s.s); if(S) setView({k:'studio',S}); } }; f(); window.addEventListener('dko-studio-go',f); return ()=>window.removeEventListener('dko-studio-go',f); },[wl]);
   if(!isLoaded(c,'works')||!isLoaded(c,'studios')) return html`<div className="st99"><${Skel} kind="studio"/></div>`;
-  const go=v=>{ haptic(6); setView(v); const b=document.querySelector('.st99')&&document.querySelector('.st99').closest('.sh14-body,.sheet-body'); if(b) b.scrollTop=0; else { const el=document.querySelector('.chp99-st'); if(el){ const y=el.getBoundingClientRect().top+window.scrollY-70; if(window.scrollY>y) window.scrollTo({top:y}); } } };
+  const go=v=>{ haptic(6); setView(v); const b=document.querySelector('.st99')&&document.querySelector('.st99').closest('.sh14-body,.sheet-body,.sp97-sc'); if(b) b.scrollTop=0; else { const el=document.querySelector('.chp99-st'); if(el){ const y=el.getBoundingClientRect().top+window.scrollY-70; if(window.scrollY>y) window.scrollTo({top:y}); } } };
   if(view&&view.k==='work') return html`<div className="st99"><${StWork} c=${c} w0=${view.w} onClose=${()=>setView(view.back||null)} onEdit=${w=>go({k:'edit',w,back:view})} onRemix=${w=>go({k:'edit',from:w,back:view})} onStudio=${S=>go({k:'studio',S,back:view})}/></div>`;
   if(view&&view.k==='edit') return html`<div className="st99"><${StWorkEdit} c=${c} w=${view.w} from=${view.from} studios=${studios} onClose=${()=>setView(view.back||null)} onDone=${id=>{ const w=(c.works||[]).find(x=>x.id===id)||{id,...(view.w||{})}; setView({k:'work',w}); }}/></div>`;
   if(view&&view.k==='sedit') return html`<div className="st99"><${StStudioEdit} c=${c} S=${view.S} onClose=${()=>setView(view.back||null)} onDone=${id=>setView({k:'studio',S:(c.studios||[]).find(x=>x.id===id)||{id,...(view.S||{})}})}/></div>`;
@@ -26909,9 +27181,9 @@ function StudioHub({c,start}){ const [view,setView]=useState(null); const [tab,s
       <em>DKO STUDIOS</em><h2>크루가 만든 작품을<br/>바로 실행해요</h2><p>바이브 코딩으로 만든 게임 · 도구 · 사이트를 올리고, 서로 플레이하고 응원해요.</p>
       <div className="st99-hs"><span><b>${studios.length}</b>스튜디오</span><span><b>${works.length}</b>작품</span><span><b>${fnum(P)}</b>플레이</span></div>
       <div className="st99-hb"><button type="button" className="st99-go tap" onClick=${()=>go({k:myS.length?'edit':'sedit'})}><${Icon} n="up" s=${17} w=${2.6}/>${myS.length?'작품 올리기':'스튜디오 열기'}</button>${myS.length?html`<button type="button" className="st99-gh tap" onClick=${()=>go({k:'sedit'})}><${Icon} n="plus" s=${16} w=${2.6}/>스튜디오</button>`:null}</div></section>
+    ${feat.length?html`<section className="st99-ft"><h4><${Icon} n="crown" s=${15} w=${2.4}/>지금 뜨는 작품</h4><div className="st99-fts">${feat.map((w,i)=>{ const S=SM[w.studio]; return html`<button key=${w.id} type="button" className="st99-fc tap" style=${{'--d':i*60+'ms'}} onClick=${()=>go({k:'work',w})}><${StCover} w=${w} big=${true}/><span className="st99-fo"><b>${w.title}</b><small>${S?S.name:''} · ▶ ${fnum(w.plays||0)} · ♥ ${Object.keys(w.likes||{}).length}</small></span><span className="st99-fp"><${Icon} n="play" s=${16} w=${2.6}/></span></button>`; })}</div></section>`:null}
     <${StMine} c=${c} go=${go}/>
     <${StUpdates} c=${c} go=${go}/>
-    ${feat.length?html`<section className="st99-ft"><h4><${Icon} n="crown" s=${15} w=${2.4}/>지금 뜨는 작품</h4><div className="st99-fts">${feat.map((w,i)=>{ const S=SM[w.studio]; return html`<button key=${w.id} type="button" className="st99-fc tap" style=${{'--d':i*60+'ms'}} onClick=${()=>go({k:'work',w})}><${StCover} w=${w} big=${true}/><span className="st99-fo"><b>${w.title}</b><small>${S?S.name:''} · ▶ ${fnum(w.plays||0)} · ♥ ${Object.keys(w.likes||{}).length}</small></span><span className="st99-fp"><${Icon} n="play" s=${16} w=${2.6}/></span></button>`; })}</div></section>`:null}
     <section className="st99-ss"><h4>스튜디오</h4><div className="st99-srow">${SS.map(S=>html`<button key=${S.id} type="button" className="st99-sb tap" onClick=${()=>go({k:'studio',S})}><${StLogo} S=${S} s=${54}/><b>${S.name}</b><small>${S.verified?html`<span className="vf"><${Icon} n="verified" s=${11} w=${2.4}/></span>`:null}${works.filter(w=>w.studio===S.id).length}작품</small></button>`)}
       <button type="button" className="st99-sb add tap" onClick=${()=>go({k:'sedit'})}><span className="st99-lg add"><${Icon} n="plus" s=${22} w=${2.6}/></span><b>새 스튜디오</b><small>누구나 열 수 있어요</small></button></div></section>
     <div className="st99-bar"><div className="st99-tabs">${[['hot','인기'],['new','최신'],['fol','팔로잉']].map(([k,l])=>html`<button key=${k} type="button" className=${'tap'+(tab===k?' on':'')} onClick=${()=>{ setTab(k); haptic(5); }}>${l}</button>`)}</div>
@@ -26933,7 +27205,8 @@ function StudioDemoSeed({c}){ useEffect(()=>{ if(!c.store||c.store.mode!=='demo'
 function StudioLink({c}){ useEffect(()=>{ if(!c.ready) return; const m=String(location.hash||'').match(/^#studio=([\w-]+)/); if(!m) return; window.__stStart={w:m[1]}; try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){} setTimeout(()=>openStudioCh(c),300); },[c.ready]); return null; }
 
 /* 스튜디오 채널(커뮤니티 > DKO 스튜디오)로 가요 */
-const openStudioCh=c=>{ window.__cmCh='studios'; c.setSheet&&c.setSheet(null); c.go('blog'); setTimeout(()=>window.dispatchEvent(new Event('dko-cm-ch')),80); };
+/* v30.0 스튜디오는 커뮤니티에서 빠져 바로가기 · 독 · 전체 탭으로만 여는 독립 화면이에요 */
+const openStudioCh=c=>{ c&&c.setSheet&&c.setSheet(null); window.dispatchEvent(new Event('dko-studio')); };
 
 /* ═════════ v29.9.5 피날레 (앱) ═════════
    이벤트 전체 보기 · 파티 끝나고 서로 추천 · 피날레 버전 화면 */
@@ -27010,7 +27283,7 @@ const lsJset=(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){
 const modeOk=(c,m)=>!!m&&!(isLiteEd(c.me)&&LITE_HIDE_MODES.includes(m.k));
 const dockGet=c=>lsJ('dko-dock',DOCK_DEF).filter(k=>String(k).startsWith('w:')?(!isLoaded(c,'works')||(c.works||[]).some(w=>w.id===k.slice(2))):modeOk(c,GAME_MODES.find(m=>m.k===k))).slice(0,DOCK_MAX);
 /* 독 · 바로가기 한 칸의 모양: 앱(GAME_MODES) 또는 스튜디오 앱('w:작품id') */
-const dockMeta=(c,k)=>{ if(String(k).startsWith('w:')){ const w=(c.works||[]).find(x=>x.id===k.slice(2)); const C=(w&&w.cover&&w.cover.c)||['#3A3F52','#141824']; return {k,app:1,w,t:w?w.title:'스튜디오 앱',short:w?w.title.slice(0,6):'앱',c:C,e:(w&&w.cover&&w.cover.e)||'🎮'}; } const m=GAME_MODES.find(x=>x.k===k); return m?{k,m,t:m.t,short:shortName(m),c:m.c,ic:m.ic}:null; };
+const dockMeta=(c,k)=>{ if(String(k).startsWith('w:')){ const w=(c.works||[]).find(x=>x.id===k.slice(2)); const C=(w&&w.cover&&w.cover.c)||['#3A3F52','#141824']; return {k,app:1,w,t:w?w.title:'스튜디오 앱',short:w?w.title.slice(0,6):'앱',c:C,e:(w&&w.cover&&w.cover.e)||'🎮',img:w&&w.cover&&w.cover.img}; } const m=GAME_MODES.find(x=>x.k===k); return m?{k,m,t:m.t,short:shortName(m),c:m.c,ic:m.ic}:null; };
 const dockSet=L=>{ lsJset('dko-dock',L.slice(0,DOCK_MAX)); window.dispatchEvent(new Event('dko-dock')); };
 const modesOrdered=()=>{ const O=lsJ('dko-mode-order',[]); const ix=k=>{ const i=O.indexOf(k); return i<0?1e3+GAME_MODES.findIndex(m=>m.k===k):i; }; return [...GAME_MODES].sort((a,b)=>ix(a.k)-ix(b.k)); };
 const shortName=m=>({world:'월드',town:'타운',studio:'스튜디오',music:'뮤직',fin:'Finance',drop:'D-ROP',pass:'패스',stats:'통계',esports:'e스포츠',match:'내전',party:'파티',duel:'1대1',stairs:'계단'}[m.k]||m.t.replace(/^DKO\s*/,'').slice(0,5));
@@ -27024,65 +27297,94 @@ function useLongPress(on,ms=480){ const t=useRef(null), st=useRef(null), fired=u
     onPointerUp:clear, onPointerCancel:clear, onPointerLeave:clear,
     onContextMenu:e=>e.preventDefault() }; }
 
+/* ── 자리가 바뀌면 원래 자리에서 새 자리로 미끄러지고, 새로 들어온 칸은 톡 튀어나와요 (FLIP) ── */
+function useFlip(ref,sel,skip){ const prev=useRef(null);
+  React.useLayoutEffect(()=>{ const box=ref.current; if(!box) return; const P=prev.current, N={}; const rm=typeof reduceMo==='function'&&reduceMo();
+    box.querySelectorAll(sel).forEach(el=>{ const k=el.getAttribute('data-fk'); if(!k) return; let x=0,y=0,n=el; while(n&&n!==box){ x+=n.offsetLeft; y+=n.offsetTop; n=n.offsetParent; } N[k]={x,y};
+      if(!P||rm||!el.animate||(skip&&skip(k))) return; const p=P[k];
+      if(p){ const dx=p.x-x, dy=p.y-y; if(Math.abs(dx)>1||Math.abs(dy)>1) el.animate([{transform:'translate('+dx+'px,'+dy+'px)'},{transform:'translate(0,0)'}],{duration:460,easing:'cubic-bezier(.34,1.32,.55,1)'}); }
+      else el.animate([{transform:'scale(.2)',opacity:0,filter:'blur(6px)'},{transform:'scale(1.14)',opacity:1,filter:'blur(0)',offset:.6},{transform:'scale(.97)',offset:.82},{transform:'scale(1)',opacity:1}],{duration:560,easing:'cubic-bezier(.3,1.2,.5,1)'}); });
+    prev.current=N; }); }
+
 /* ── 메인 독 ── */
-function ModeDock({c}){ const [L,setL]=useState(()=>dockGet(c)); const [ed,setEd]=useState(false); const [drag,setDrag]=useState(null); const box=useRef(null);
+function ModeDock({c}){ const [L,setL]=useState(()=>dockGet(c)); const [ed,setEd]=useState(false); const [drag,setDrag]=useState(null); const [rmv,setRmv]=useState(null); const box=useRef(null); const lbox=useRef(null);
   useEffect(()=>{ const f=()=>setL(dockGet(c)); window.addEventListener('dko-dock',f); return ()=>window.removeEventListener('dko-dock',f); },[]);
   useEffect(()=>{ if(!ed) return; const f=e=>{ if(box.current&&!box.current.contains(e.target)&&!e.target.closest('.sheet,.sh30,.dock99-done')) setEd(false); }; document.addEventListener('pointerdown',f,true); return ()=>document.removeEventListener('pointerdown',f,true); },[ed]);
+  useFlip(lbox,'[data-fk]',k=>drag&&drag.k===k);
   const lp=useLongPress(()=>{ haptic([10,30,10]); setEd(true); });
   const save=n=>{ setL(n); dockSet(n); };
   const pick=()=>{ window.__dockPick=true; c.setSheet('modes'); };
+  const remove=k=>{ haptic(8); setRmv(k); setTimeout(()=>{ setRmv(null); save(L.filter(x=>x!==k)); },260); };
   /* 편집 중 끌어서 순서 바꾸기 */
-  const down=(e,i)=>{ if(!ed||e.target.closest('.dock99-rm')) return; e.preventDefault(); const r=box.current.querySelector('.dock99-i').getBoundingClientRect(); setDrag({i,k:L[i],x0:e.clientX,dx:0,w:r.width+(parseFloat(getComputedStyle(box.current.querySelector('.dock99-l')).columnGap)||8)}); try{ e.currentTarget.setPointerCapture(e.pointerId); }catch(_){} };
+  const down=(e,i)=>{ if(!ed||e.target.closest('.dock99-rm')) return; e.preventDefault(); const el=lbox.current.querySelector('.dock99-i'); const w=el.offsetWidth+(parseFloat(getComputedStyle(lbox.current).columnGap)||6); setDrag({i,k:L[i],x0:e.clientX,dx:0,w}); haptic(6); try{ e.currentTarget.setPointerCapture(e.pointerId); }catch(_){} };
   const move=e=>{ if(!drag) return; const dx=e.clientX-drag.x0; const ni=Math.max(0,Math.min(L.length-1,drag.i+Math.round(dx/drag.w))); if(ni!==drag.i){ const n=[...L]; n.splice(drag.i,1); n.splice(ni,0,drag.k); setL(n); haptic(4); setDrag({...drag,i:ni,x0:drag.x0+(ni-drag.i)*drag.w,dx:dx-(ni-drag.i)*drag.w}); } else setDrag({...drag,dx}); };
   const up=()=>{ if(!drag) return; dockSet(L); setDrag(null); };
   const slots=ed?Math.min(DOCK_MAX,L.length+1):L.length;
   return html`<div className=${'dock99'+(ed?' ed':'')} ref=${box}>
     ${ed?html`<div className="dock99-bar"><span>끌어서 순서를 바꾸고, − 로 빼요</span><button type="button" className="dock99-done tap" onClick=${()=>{ setEd(false); haptic(8); }}>완료</button></div>`:null}
-    <div className="dock99-l" ...${ed?{}:lp} onPointerMove=${e=>{ lp.onPointerMove(e); move(e); }} onPointerUp=${e=>{ lp.onPointerUp(e); up(); }} onPointerCancel=${e=>{ lp.onPointerCancel(e); up(); }}>
+    <div className="dock99-l" ref=${lbox} ...${ed?{}:lp} onPointerMove=${e=>{ lp.onPointerMove(e); move(e); }} onPointerUp=${e=>{ lp.onPointerUp(e); up(); }} onPointerCancel=${e=>{ lp.onPointerCancel(e); up(); }}>
       ${Array.from({length:slots}).map((_,i)=>{ const k=L[i]; const D=k&&dockMeta(c,k); const m=D&&(D.m||{t:D.t,c:D.c,z:0,k});
-        if(!m) return html`<button key=${'add'+i} type="button" className="dock99-i add tap" onClick=${pick} aria-label="앱 넣기"><span className="dock99-t"><${Icon} n="plus" s=${22} w=${2.6}/></span><small>넣기</small></button>`;
+        if(!m) return html`<button key="add" data-fk="__add" type="button" className="dock99-i add tap" onClick=${pick} aria-label="앱 넣기"><span className="dock99-t"><${Icon} n="plus" s=${22} w=${2.6}/></span><small>넣기</small></button>`;
         const lock=m.z&&crewLock(c,m.k); const dg=drag&&drag.k===k;
-        return html`<button key=${k} data-dk=${k} type="button" className=${'dock99-i tap'+(dg?' dg':'')+(lock?' lk':'')} style=${{'--c1':m.c[0],'--c2':m.c[1],'--j':(i%2?1:-1),'--dl':(i*.07)+'s',transform:dg?'translateX('+drag.dx+'px) scale(1.12)':null}}
-          onPointerDown=${e=>down(e,i)} onClick=${e=>{ if(lp.fired.current){ lp.fired.current=false; return; } if(ed) return; const T=e.currentTarget.querySelector('.dock99-t'); if(D.app) zoomOpen(T,D.c,D.e,()=>openStApp(c,D.w)); else if(ZOOM_SKIP.includes(k)) openMode(c,k); else zoomOpen(T,D.c,null,()=>openMode(c,k),D.ic); }} aria-label=${m.t+' 열기'}>
-          <span className=${'dock99-t'+(D.app?' app':'')}><i className="sh"></i>${D.app?html`<b className="dock99-e">${D.e}</b>`:html`<${Icon} n=${D.ic} s=${24} w=${2.3}/>`}${lock?html`<em className="lk"><${Icon} n="lock" s=${10} w=${2.8}/></em>`:null}</span><small>${D.short}</small>
-          ${ed?html`<span className="dock99-rm" role="button" aria-label=${m.t+' 빼기'} onPointerDown=${e=>e.stopPropagation()} onClick=${e=>{ e.stopPropagation(); haptic(8); save(L.filter(x=>x!==k)); }}><${Icon} n="minus" s=${12} w=${3.4}/></span>`:null}
+        return html`<button key=${k} data-dk=${k} data-fk=${k} type="button" className=${'dock99-i tap'+(dg?' dg':'')+(lock?' lk':'')+(rmv===k?' rmv':'')} style=${{'--c1':m.c[0],'--c2':m.c[1],'--j':(i%2?1:-1),'--dl':(i*.07)+'s',transform:dg?'translateX('+drag.dx+'px) scale(1.14)':null}}
+          onPointerDown=${e=>down(e,i)} onClick=${e=>{ if(lp.fired.current){ lp.fired.current=false; return; } if(ed) return; const T=e.currentTarget.querySelector('.dock99-t'); if(D.app) zoomOpen(T,D.c,D.e,()=>openStApp(c,D.w),null,null,D.img); else if(ZOOM_SKIP.includes(k)) openMode(c,k); else zoomOpen(T,D.c,null,()=>openMode(c,k),D.ic); }} aria-label=${m.t+' 열기'}>
+          <span className=${'dock99-t'+(D.app?' app':'')}><i className="sh"></i>${D.app?(D.img?html`<img className="dock99-im" src=${D.img} alt="" draggable="false"/>`:html`<b className="dock99-e">${D.e}</b>`):html`<${Icon} n=${D.ic} s=${24} w=${2.3}/>`}${lock?html`<em className="lk"><${Icon} n="lock" s=${10} w=${2.8}/></em>`:null}</span><small>${D.short}</small>
+          ${ed?html`<span className="dock99-rm" role="button" aria-label=${m.t+' 빼기'} onPointerDown=${e=>e.stopPropagation()} onClick=${e=>{ e.stopPropagation(); remove(k); }}><${Icon} n="minus" s=${12} w=${3.4}/></span>`:null}
         </button>`; })}
     </div>
     <i className="dock99-sep" aria-hidden="true"></i>
     <button type="button" className="dock99-i all tap" onClick=${()=>{ if(lp.fired.current){ lp.fired.current=false; return; } window.__dockPick=false; c.setSheet('modes'); }} ...${ed?{}:lp} aria-label="전체 앱 보기"><span className="dock99-t"><${Icon} n="apps" s=${22} w=${2.4}/></span><small>전체</small></button>
   </div>`; }
 
-/* ── 전체 앱(바로가기) 시트 ── */
+/* ── 전체 앱(바로가기) 시트 ──
+   평소: 한 번 누르면 고르고, 한 번 더 누르면 열려요 · 독에 있는 앱은 작은 점
+   꾹 누르면 편집: 독에 있는 앱은 노란 테두리 → 누르면 독에 넣기/빼기 · 화살표나 꾹 끌어서 순서 바꾸기 */
 function ModeSheet({c,cur,onPick}){ const secs=['놀이터','크루','라이프','정보','미니게임'];
   const [sel,setSel]=useState(null); const [ed,setEd]=useState(false); const [ord,setOrd]=useState(()=>modesOrdered().map(m=>m.k)); const [dock,setDock]=useState(()=>dockGet(c)); const pickMode=!!window.__dockPick;
+  const [dg,setDg]=useState(null); const [pop,setPop]=useState(null); const box=useRef(null);
   useEffect(()=>()=>{ window.__dockPick=false; },[]);
+  useFlip(box,'.gm99-row[data-fk]',k=>dg&&dg.k===k);
   const lp=useLongPress(()=>{ haptic([10,30,10]); setEd(true); setSel(null); });
   const ms=ord.map(k=>GAME_MODES.find(m=>m.k===k)).filter(m=>modeOk(c,m));
-  const mv=(k,d)=>{ const sec=GAME_MODES.find(m=>m.k===k).sec; const same=ord.filter(x=>(GAME_MODES.find(m=>m.k===x)||{}).sec===sec); const i=same.indexOf(k), j=i+d; if(j<0||j>=same.length) return; const a=ord.indexOf(k), b=ord.indexOf(same[j]); const n=[...ord]; [n[a],n[b]]=[n[b],n[a]]; setOrd(n); lsJset('dko-mode-order',n); haptic(5); };
-  const togDock=k=>{ let n=dock.includes(k)?dock.filter(x=>x!==k):[...dock,k]; if(n.length>DOCK_MAX){ c.notify('독에는 '+DOCK_MAX+'개까지 넣을 수 있어요.','err'); return; } setDock(n); dockSet(n); haptic(8); };
-  const tap=m=>{ if(lp.fired.current){ lp.fired.current=false; return; } if(ed) return;
-    if(pickMode){ if(dock.includes(m.k)){ c.notify('이미 독에 있어요.','ok'); return; } if(dock.length>=DOCK_MAX){ c.notify('독이 가득 찼어요. 하나를 빼고 넣어 주세요.','err'); return; } dockSet([...dock,m.k]); haptic(10); c.notify(m.t+'을(를) 독에 넣었어요','ok'); window.__dockPick=false; c.setSheet(null); return; }
+  const sameSec=k=>{ const sec=(GAME_MODES.find(m=>m.k===k)||{}).sec; return ord.filter(x=>(GAME_MODES.find(m=>m.k===x)||{}).sec===sec&&modeOk(c,GAME_MODES.find(m=>m.k===x))); };
+  const mv=(k,d)=>{ const same=sameSec(k); const i=same.indexOf(k), j=i+d; if(j<0||j>=same.length) return; const a=ord.indexOf(k), b=ord.indexOf(same[j]); const n=[...ord]; [n[a],n[b]]=[n[b],n[a]]; setOrd(n); lsJset('dko-mode-order',n); haptic(5); };
+  const togDock=k=>{ let n=dock.includes(k)?dock.filter(x=>x!==k):[...dock,k]; if(n.length>DOCK_MAX){ c.notify('독에는 '+DOCK_MAX+'개까지 넣을 수 있어요. 하나를 먼저 빼 주세요.','err'); haptic([6,30,6]); return; } setDock(n); dockSet(n); haptic(dock.includes(k)?6:[8,20,8]); setPop(k); setTimeout(()=>setPop(p=>p===k?null:p),520); };
+  /* 편집 중 꾹 눌렀다가 끌어서 순서 바꾸기 (같은 칸 안에서) — 그냥 끌면 시트가 스크롤돼요 */
+  const dgR=useRef(null); dgR.current=dg; const tmr=useRef(0);
+  useEffect(()=>{ const el=box.current; if(!el) return; const f=e=>{ if(dgR.current&&dgR.current.on&&e.cancelable) e.preventDefault(); }; el.addEventListener('touchmove',f,{passive:false}); return ()=>el.removeEventListener('touchmove',f); },[]);
+  const dDown=(e,k)=>{ if(!ed||e.button>0) return; const row=e.currentTarget.closest('.gm99-row'); const st={k,y0:e.clientY,dy:0,on:false,h:row.offsetHeight+8,id:e.pointerId}; setDg(st); clearTimeout(tmr.current);
+    tmr.current=setTimeout(()=>{ if(dgR.current&&dgR.current.k===k&&!dgR.current.on){ haptic([8,24,8]); setDg(d=>d&&{...d,on:true}); } },300); };
+  const dMove=e=>{ const d=dgR.current; if(!d) return; const dy=e.clientY-d.y0;
+    if(!d.on){ if(Math.abs(dy)>8){ clearTimeout(tmr.current); setDg(null); } return; }
+    try{ box.current.setPointerCapture(d.id); }catch(_){}
+    const same=sameSec(d.k); const i=same.indexOf(d.k); const ni=Math.max(0,Math.min(same.length-1,i+Math.round(dy/d.h)));
+    if(ni!==i){ const ns=same.filter(x=>x!==d.k); ns.splice(ni,0,d.k); const pos=ord.map((x,j)=>same.includes(x)?j:-1).filter(j=>j>=0); const n=[...ord]; pos.forEach((p,j)=>{ n[p]=ns[j]; }); setOrd(n); haptic(4); setDg({...d,y0:d.y0+(ni-i)*d.h,dy:dy-(ni-i)*d.h}); }
+    else setDg({...d,dy}); };
+  const dUp=()=>{ clearTimeout(tmr.current); const d=dgR.current; if(!d) return; setDg(null); if(d.on){ lsJset('dko-mode-order',ord); window.__gmNoTap=Date.now(); } };
+  const tap=m=>{ if(lp.fired.current){ lp.fired.current=false; return; } if(Date.now()-(window.__gmNoTap||0)<250) return; if(ed){ togDock(m.k); return; }
+    if(pickMode){ if(dock.includes(m.k)){ c.notify('이미 독에 있어요.','ok'); return; } if(dock.length>=DOCK_MAX){ c.notify('독이 가득 찼어요. 하나를 빼고 넣어 주세요.','err'); return; } dockSet([...dock,m.k]); haptic(10); window.__dockPick=false; c.setSheet(null); return; }
     if(sel===m.k){ const el=document.querySelector('.gm20-c[data-k="'+m.k+'"]'); if(ZOOM_SKIP.includes(m.k)||!el) onPick(m.k); else zoomOpen(el,m.c,null,()=>onPick(m.k),m.ic); return; } setSel(m.k); haptic(6); };
-  return html`<div className=${'gm20 gm99'+(ed?' ed':'')}>
-    <div className="gm99-hd">${pickMode?html`<span><b>독에 넣을 앱을 골라요</b><small>${dock.length}/${DOCK_MAX}</small></span>`:ed?html`<span><b>편집 중</b><small>화살표로 순서 · 독에 넣기/빼기</small></span><button type="button" className="tap" onClick=${()=>{ setEd(false); haptic(8); }}>완료</button>`:html`<span><small>한 번 누르면 고르고, 한 번 더 누르면 열려요 · 꾹 누르면 편집</small></span>`}</div>
+  let rowI=0; const D=()=>(rowI++*38)+'ms';
+  return html`<div className=${'gm20 gm99'+(ed?' ed':'')+(dg&&dg.on?' dragging':'')} ref=${box} onPointerMove=${dMove} onPointerUp=${dUp} onPointerCancel=${dUp}>
+    <div className="gm99-hd">${pickMode?html`<span><b>독에 넣을 앱을 골라요</b><small>${dock.length}/${DOCK_MAX}</small></span>`:ed?html`<span><b>편집 중</b><small>누르면 독에 넣기 · 빼기 (노란 테두리) · 꾹 끌거나 화살표로 순서</small></span><button type="button" className="tap" onClick=${()=>{ setEd(false); haptic(8); }}>완료</button>`:html`<span><small>한 번 누르면 고르고, 한 번 더 누르면 열려요 · 꾹 누르면 편집</small></span>`}</div>
     ${(()=>{ const apps=stAppsOf(c).map(id=>stWorkOf(c,id)).filter(Boolean); const SM=Object.fromEntries((c.studios||[]).map(S=>[S.id,S]));
-      const tapA=w=>{ const k='w:'+w.id; if(lp.fired.current){ lp.fired.current=false; return; } if(ed) return;
-        if(pickMode){ if(dock.includes(k)) return c.notify('이미 독에 있어요.','ok'); if(dock.length>=DOCK_MAX) return c.notify('독이 가득 찼어요. 하나를 빼고 넣어 주세요.','err'); dockSet([...dock,k]); haptic(10); c.notify(w.title+'을(를) 독에 넣었어요','ok'); window.__dockPick=false; c.setSheet(null); return; }
-        if(sel===k){ const el=document.querySelector('.gm20-c[data-k="'+k+'"]'); const go=()=>{ c.setSheet(null); setTimeout(()=>openStApp(c,w),60); }; if(el) zoomOpen(el,(w.cover&&w.cover.c)||['#3A3F52','#141824'],(w.cover&&w.cover.e)||'🎮',go); else go(); return; } setSel(k); haptic(6); };
-      return html`<div className="gm20-sec"><i></i>스튜디오 앱<i></i></div>
-      ${apps.length?apps.map((w,i)=>{ const k='w:'+w.id, on=sel===k, inD=dock.includes(k), C=(w.cover&&w.cover.c)||['#3A3F52','#141824'], S=SM[w.studio]; return html`<div key=${k} className=${'gm99-row'+(ed?' ed':'')} style=${{'--d':(i*50)+'ms'}}>
-        <button data-k=${k} className=${'gm20-c st98-app tap'+(on?' on sel':'')} style=${{'--c1':C[0],'--c2':C[1]}} onClick=${()=>tapA(w)} ...${ed?{}:lp}>
-          <span className="gm20-l"><span className="st98-ae">${(w.cover&&w.cover.e)||'🎮'}</span><span className="gm20-tx"><em>STUDIO APP</em><b>${w.title}</b><small>${on?'한 번 더 누르면 열려요':(S?S.name+' · ':'')+'▶ '+fnum(w.plays||0)}</small></span></span>
-          <span className="gm20-r"><span className="gm20-ic"><${Icon} n=${on?'chev':'play'} s=${on?26:26} w=${2.4}/></span>${inD&&!ed?html`<span className="gm99-dk" title="독에 있어요"></span>`:null}</span></button>
-        ${ed?html`<div className="gm99-ctl"><button type="button" className=${'tap dk'+(inD?' on':'')} onClick=${()=>togDock(k)}>${inD?'독 ✓':'독 +'}</button><button type="button" className="tap" onClick=${()=>c.stAppToggle(w.id)}>빼기</button></div>`:null}</div>`; })
-      :html`<button type="button" className="st98-apE tap" onClick=${()=>{ c.setSheet(null); setTimeout(()=>openStudioCh(c),200); }}><span><${Icon} n="code" s=${20} w=${2.3}/></span><span><b>스튜디오 앱을 여기에 놓아 보세요</b><small>작품 상세에서 [바로가기에 추가]를 누르면 휴대폰 앱처럼 바로 열려요</small></span><${Icon} n="chev" s=${15} w=${2.4}/></button>`}`; })()}
-    ${secs.filter(s=>ms.some(m=>m.sec===s)).map(s=>{ const L=ms.filter(m=>m.sec===s); return html`<${React.Fragment} key=${s}><div className="gm20-sec"><i></i>${s}<i></i></div>
-    ${L.map((m,i)=>{ const on=sel===m.k; const inD=dock.includes(m.k); return html`<div key=${m.k} className=${'gm99-row'+(ed?' ed':'')} style=${{'--d':(i*50)+'ms'}}>
-      <button data-k=${m.k} className=${'gm20-c tap'+(on?' on sel':'')+(cur===m.k&&!on?' cur':'')} style=${{'--c1':m.c[0],'--c2':m.c[1]}} onClick=${()=>tap(m)} ...${ed?{}:lp}>
-      <span className="gm20-l"><${ModeArt} m=${m} me=${c.me}/><span className="gm20-tx"><em>${m.e}</em><b>${m.t}${m.tag?html`<i className=${'gm20-tag '+m.tag.toLowerCase()}>${m.tag}</i>`:null}</b><small>${on?'한 번 더 누르면 열려요':m.d}</small></span></span>
+      const tapA=w=>{ const k='w:'+w.id; if(lp.fired.current){ lp.fired.current=false; return; } if(ed){ togDock(k); return; }
+        if(pickMode){ if(dock.includes(k)) return c.notify('이미 독에 있어요.','ok'); if(dock.length>=DOCK_MAX) return c.notify('독이 가득 찼어요. 하나를 빼고 넣어 주세요.','err'); dockSet([...dock,k]); haptic(10); window.__dockPick=false; c.setSheet(null); return; }
+        if(sel===k){ const el=document.querySelector('.gm20-c[data-k="'+k+'"]'); const go=()=>{ c.setSheet(null); setTimeout(()=>openStApp(c,w),60); }; if(el) zoomOpen(el,(w.cover&&w.cover.c)||['#3A3F52','#141824'],(w.cover&&w.cover.e)||'🎮',go,null,null,w.cover&&w.cover.img); else go(); return; } setSel(k); haptic(6); };
+      return html`<div className="gm20-sec" style=${{'--d':D()}}><i></i>스튜디오 앱<i></i></div>
+      ${apps.length?apps.map(w=>{ const k='w:'+w.id, on=sel===k, inD=dock.includes(k), C=(w.cover&&w.cover.c)||['#3A3F52','#141824'], S=SM[w.studio]; return html`<div key=${k} data-fk=${k} className=${'gm99-row'+(ed?' ed':'')} style=${{'--d':D()}}>
+        <button data-k=${k} className=${'gm20-c st98-app tap'+(on?' on sel':'')+(ed&&inD?' indock':'')+(pop===k?' pop':'')} style=${{'--c1':C[0],'--c2':C[1]}} onClick=${()=>tapA(w)} ...${ed?{}:lp}>
+          <span className="gm20-l"><span className="st98-ae">${w.cover&&w.cover.img?html`<img src=${w.cover.img} alt=""/>`:(w.cover&&w.cover.e)||'🎮'}</span><span className="gm20-tx"><em>STUDIO APP</em><b>${w.title}</b><small>${ed?(inD?'독에 있어요 · 누르면 빼요':'누르면 독에 넣어요'):on?'한 번 더 누르면 열려요':(S?S.name+' · ':'')+'▶ '+fnum(w.plays||0)}</small></span></span>
+          <span className="gm20-r"><span className="gm20-ic"><${Icon} n=${on?'chev':'play'} s=${26} w=${2.4}/></span>${inD&&!ed?html`<span className="gm99-dk" title="독에 있어요"></span>`:null}</span>${ed&&inD?html`<i className="gm97-db">독</i>`:null}</button>
+        ${ed?html`<div className="gm99-ctl one"><button type="button" className="tap" onClick=${()=>c.stAppToggle(w.id)} aria-label="바로가기에서 빼기"><${Icon} n="minus" s=${16} w=${3}/></button></div>`:null}</div>`; })
+      :html`<button type="button" className="st98-apE tap" style=${{'--d':D()}} onClick=${()=>{ c.setSheet(null); setTimeout(()=>openStudioCh(c),200); }}><span><${Icon} n="code" s=${20} w=${2.3}/></span><span><b>스튜디오 앱을 여기에 놓아 보세요</b><small>작품 상세에서 [바로가기에 추가]를 누르면 휴대폰 앱처럼 바로 열려요</small></span><${Icon} n="chev" s=${15} w=${2.4}/></button>`}`; })()}
+    ${secs.filter(s=>ms.some(m=>m.sec===s)).map(s=>{ const L=ms.filter(m=>m.sec===s); return html`<${React.Fragment} key=${s}><div className="gm20-sec" style=${{'--d':D()}}><i></i>${s}<i></i></div>
+    ${L.map((m,i)=>{ const on=sel===m.k; const inD=dock.includes(m.k); const isDg=dg&&dg.on&&dg.k===m.k; return html`<div key=${m.k} data-fk=${m.k} className=${'gm99-row'+(ed?' ed':'')+(isDg?' dg':'')} style=${{'--d':D(),transform:isDg?'translateY('+dg.dy+'px) scale(1.03)':null}}>
+      <button data-k=${m.k} className=${'gm20-c tap'+(on?' on sel':'')+(cur===m.k&&!on?' cur':'')+(ed&&inD?' indock':'')+(pop===m.k?' pop':'')} style=${{'--c1':m.c[0],'--c2':m.c[1]}} onClick=${()=>tap(m)} onPointerDown=${e=>dDown(e,m.k)} ...${ed?{}:lp}>
+      <span className="gm20-l"><${ModeArt} m=${m} me=${c.me}/><span className="gm20-tx"><em>${m.e}</em><b>${m.t}${m.tag?html`<i className=${'gm20-tag '+m.tag.toLowerCase()}>${m.tag}</i>`:null}</b><small>${ed?(inD?'독에 있어요 · 누르면 빼요':'누르면 독에 넣어요'):on?'한 번 더 누르면 열려요':m.d}</small></span></span>
       <span className="gm20-r"><span className="gm20-ic"><${Icon} n=${on?'chev':m.ic} s=${on?26:30} w=${2.4}/></span>${m.z&&crewLock(c,m.k)?html`<span className="gm20-lk"><${Icon} n="lock" s=${12} w=${2.6}/></span>`:inD&&!ed?html`<span className="gm99-dk" title="독에 있어요"></span>`:null}</span>
-      </button>
-      ${ed?html`<div className="gm99-ctl"><button type="button" className="tap" disabled=${i===0} onClick=${()=>mv(m.k,-1)} aria-label="위로"><span className="gm99-up"><${Icon} n="down" s=${15} w=${2.8}/></span></button><button type="button" className="tap" disabled=${i===L.length-1} onClick=${()=>mv(m.k,1)} aria-label="아래로"><${Icon} n="down" s=${15} w=${2.8}/></button><button type="button" className=${'tap dk'+(inD?' on':'')} onClick=${()=>togDock(m.k)} aria-label=${inD?'독에서 빼기':'독에 넣기'}>${inD?'독 ✓':'독 +'}</button></div>`:null}
+      ${ed&&inD?html`<i className="gm97-db">독</i>`:null}</button>
+      ${ed?html`<div className="gm99-ctl"><button type="button" className="tap" disabled=${i===0} onClick=${()=>mv(m.k,-1)} aria-label="위로"><span className="gm99-up"><${Icon} n="down" s=${16} w=${2.8}/></span></button><button type="button" className="tap" disabled=${i===L.length-1} onClick=${()=>mv(m.k,1)} aria-label="아래로"><${Icon} n="down" s=${16} w=${2.8}/></button></div>`:null}
     </div>`; })}<//>`; })}</div>`; }
 
 /* ═════════ v29.9.7 다듬기: 채팅 바운스 · 칭호 · 댓글 입력 통일 · 스튜디오 댓글 · 주식 · 프로필 ═════════ */
@@ -27252,10 +27554,10 @@ if(typeof window!=='undefined') window.__dkoSk=(el,kind,n)=>{ const r=ReactDOM.c
    독이나 바로가기에서 누르면 휴대폰 앱처럼 바로 전체 화면으로 실행돼요 */
 const stAppsOf=c=>Array.isArray(c.me&&c.me.stApps)?c.me.stApps:[];
 const stWorkOf=(c,id)=>(c.works||[]).find(w=>w.id===id)||null;
-const openStApp=(c,w)=>{ if(!w) return c.notify('앱을 찾지 못했어요. 내려간 작품일 수 있어요.','err'); haptic(10); window.__stApp=w; window.dispatchEvent(new Event('dko-stapp')); };
+const openStApp=(c,w)=>{ if(!w) return c.notify('앱을 찾지 못했어요. 내려간 작품일 수 있어요.','err'); haptic(10); try{ const R=JSON.parse(localStorage.getItem('dko-all-recent')||'[]')||[]; localStorage.setItem('dko-all-recent',JSON.stringify(['w:'+w.id,...R.filter(k=>k!=='w:'+w.id)].slice(0,8))); }catch(e){} window.__stApp=w; window.dispatchEvent(new Event('dko-stapp')); };
 function StAppHost({c}){ const [w,setW]=useState(null);
   useEffect(()=>{ const f=()=>{ setW(window.__stApp||null); window.__stApp=null; }; window.addEventListener('dko-stapp',f); return ()=>window.removeEventListener('dko-stapp',f); },[]);
-  const close=()=>{ const el=document.querySelector('[data-dk="w:'+w.id+'"] .dock99-t'); setW(null); if(el) requestAnimationFrame(()=>zoomClose(el,(w.cover&&w.cover.c),(w.cover&&w.cover.e)||'🎮')); };
+  const close=()=>{ const el=document.querySelector('[data-dk="w:'+w.id+'"] .dock99-t'); setW(null); if(el) requestAnimationFrame(()=>zoomClose(el,(w.cover&&w.cover.c),(w.cover&&w.cover.e)||'🎮',w.cover&&w.cover.img)); };
   return w?html`<${StPlayer} c=${c} w=${w} onClose=${close}/>`:null; }
 function StAppBar({c,w}){ const has=stAppsOf(c).includes(w.id); const inD=dockGet(c).includes('w:'+w.id);
   return html`<div className="st98-ab">
@@ -27329,61 +27631,46 @@ const ZOOM_SKIP=['party','match','duel'];
 
 /* ── 앱 열기 확대 전환 (iOS 홈 화면처럼) ──
    누른 아이콘 자리에서 앱 색 화면이 커지며 열리고, 그동안 뒤에서 실제 화면을 준비한 다음 부드럽게 걷혀요 */
-function zoomOpen(el,col,emoji,then,icon,hold){ const run=()=>{ try{ then&&then(); }catch(e){ console.error(e); } };
+function zoomBox(r,C){ const o=document.createElement('div'); o.className='zm99'; o.setAttribute('aria-hidden','true'); o.style.background='linear-gradient(160deg,'+C[0]+','+C[1]+')';
+  Object.assign(o.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',borderRadius:(Math.min(r.width,r.height)*.28)+'px'}); return o; }
+function zoomIcon(o,emoji,icon,img){ const ic=document.createElement('span'); ic.className='zm99-i';
+  if(img){ const im=document.createElement('img'); im.src=img; im.alt=''; ic.appendChild(im); ic.classList.add('img'); }
+  else if(emoji) ic.textContent=emoji; else if(icon&&ICONS[icon]) ic.innerHTML='<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="'+ICONS[icon]+'"/></svg>';
+  o.appendChild(ic); return ic; }
+/* 위치 · 크기 · 모서리를 직접 키워요 (clip-path는 아이패드 사파리에서 중간에 멈춘 듯 보이는 일이 있어 쓰지 않아요) */
+function zoomOpen(el,col,emoji,then,icon,hold,img){ const run=()=>{ try{ then&&then(); }catch(e){ console.error(e); } };
   if(!el||reduceMo()||!document.body.animate){ run(); return; }
-  const r=el.getBoundingClientRect(); if(!r.width){ run(); return; }
-  const W=innerWidth, H=innerHeight, C=col||['#FF8A3D','#C93800']; const rad=Math.min(r.width,r.height)*.28;
-  const o=document.createElement('div'); o.className='zm99'; o.setAttribute('aria-hidden','true'); o.style.background='linear-gradient(160deg,'+C[0]+','+C[1]+')';
-  const ic=document.createElement('span'); ic.className='zm99-i';
-  if(emoji) ic.textContent=emoji; else if(icon&&ICONS[icon]) ic.innerHTML='<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="'+ICONS[icon]+'"/></svg>';
-  o.appendChild(ic); document.body.appendChild(o);
-  const from='inset('+r.top+'px '+(W-r.right)+'px '+(H-r.bottom)+'px '+r.left+'px round '+rad+'px)';
-  const ease='cubic-bezier(.32,.72,0,1)';
-  o.animate([{clipPath:from,webkitClipPath:from},{clipPath:'inset(0px 0px 0px 0px round 34px)',webkitClipPath:'inset(0px 0px 0px 0px round 34px)'}],{duration:440,easing:ease,fill:'forwards'});
-  const cx=r.left+r.width/2-W/2, cy=r.top+r.height/2-H/2;
-  ic.animate([{transform:'translate('+cx+'px,'+cy+'px) scale(1)',opacity:1},{transform:'translate(0,0) scale(2.1)',opacity:1,offset:.7},{transform:'translate(0,0) scale(2.3)',opacity:.0}],{duration:520,easing:ease,fill:'forwards'});
-  haptic(8);
-  setTimeout(run,250);
+  const r=el.getBoundingClientRect(); if(!r.width||r.bottom<0||r.top>innerHeight){ run(); return; }
+  const W=innerWidth, H=innerHeight, C=col||['#FF8A3D','#C93800'];
+  const o=zoomBox(r,C); const ic=zoomIcon(o,emoji,icon,img); document.body.appendChild(o);
+  const ease='cubic-bezier(.32,.72,0,1)'; const rad=Math.min(r.width,r.height)*.28;
+  o.animate([{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',borderRadius:rad+'px'},{left:'0px',top:'0px',width:W+'px',height:H+'px',borderRadius:'28px'}],{duration:440,easing:ease,fill:'forwards'});
+  ic.animate([{transform:'scale(1)',opacity:1},{transform:'scale(2.1)',opacity:1,offset:.7},{transform:'scale(2.3)',opacity:0}],{duration:520,easing:ease,fill:'forwards'});
+  haptic(8); setTimeout(run,250);
   setTimeout(()=>{ const a=o.animate([{opacity:1},{opacity:0}],{duration:280,easing:'ease-out',fill:'forwards'}); a.onfinish=()=>o.remove(); },250+(hold||300));
-  setTimeout(()=>{ if(o.isConnected) o.remove(); },2400); }
+  setTimeout(()=>{ if(o.isConnected) o.remove(); },2200); }
 /* 닫을 때: 화면이 그 아이콘 자리로 빨려 들어가요 */
-function zoomClose(el,col,emoji){ if(!el||reduceMo()||!document.body.animate) return; const r=el.getBoundingClientRect(); if(!r.width||r.bottom<0||r.top>innerHeight) return;
+function zoomClose(el,col,emoji,img){ if(!el||reduceMo()||!document.body.animate) return; const r=el.getBoundingClientRect(); if(!r.width||r.bottom<0||r.top>innerHeight) return;
   const W=innerWidth, H=innerHeight, C=col||['#3A3F52','#141824'], rad=Math.min(r.width,r.height)*.28;
-  const o=document.createElement('div'); o.className='zm99'; o.style.background='linear-gradient(160deg,'+C[0]+','+C[1]+')'; const ic=document.createElement('span'); ic.className='zm99-i'; ic.textContent=emoji||''; o.appendChild(ic); document.body.appendChild(o);
-  const to='inset('+r.top+'px '+(W-r.right)+'px '+(H-r.bottom)+'px '+r.left+'px round '+rad+'px)';
-  const a=o.animate([{clipPath:'inset(0px 0px 0px 0px round 34px)',opacity:1},{clipPath:to,opacity:1,offset:.85},{clipPath:to,opacity:0}],{duration:420,easing:'cubic-bezier(.32,.72,0,1)',fill:'forwards'});
-  const cx=r.left+r.width/2-W/2, cy=r.top+r.height/2-H/2;
-  ic.animate([{transform:'translate(0,0) scale(2.2)',opacity:0},{transform:'translate('+cx+'px,'+cy+'px) scale(1)',opacity:1}],{duration:420,easing:'cubic-bezier(.32,.72,0,1)',fill:'forwards'});
-  a.onfinish=()=>o.remove(); el.animate&&el.animate([{transform:'scale(.86)'},{transform:'scale(1.06)',offset:.6},{transform:'scale(1)'}],{duration:420,delay:300,easing:'ease-out'}); }
+  const o=zoomBox({left:0,top:0,width:W,height:H},C); o.style.borderRadius='28px'; const ic=zoomIcon(o,emoji,null,img); document.body.appendChild(o);
+  const a=o.animate([{left:'0px',top:'0px',width:W+'px',height:H+'px',borderRadius:'28px',opacity:1},{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',borderRadius:rad+'px',opacity:1,offset:.86},{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px',borderRadius:rad+'px',opacity:0}],{duration:440,easing:'cubic-bezier(.32,.72,0,1)',fill:'forwards'});
+  ic.animate([{transform:'scale(2.2)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:420,easing:'cubic-bezier(.32,.72,0,1)',fill:'forwards'});
+  a.onfinish=()=>o.remove(); setTimeout(()=>{ if(o.isConnected) o.remove(); },1500);
+  el.animate&&el.animate([{transform:'scale(.86)'},{transform:'scale(1.06)',offset:.6},{transform:'scale(1)'}],{duration:420,delay:320,easing:'ease-out'}); }
 
-/* ── 당겨서 새로고침 · 위 머리 고정 ──
-   맨 위에서 아래로 끌면 화면 전체(위 DKO · 프로필 포함)가 출렁이지 않고, 머리는 그대로 둔 채 내용만 내려오며 DKO 고리가 차올라요.
-   충분히 당기면 화면을 새로 그려요(데이터는 실시간이라 늘 최신이에요). 채팅 탭은 원래처럼 고정 화면이에요. */
-const PTR_TABS=['blog','plaza','shop','play'];
-(function(){ if(typeof document==='undefined') return; const R=document.documentElement; let st=null, busy=false, ind=null;
-  const tab=()=>window.__dkoC&&window.__dkoC.tab;
-  const ok=()=>!R.classList.contains('lock')&&!R.classList.contains('pc')&&!R.classList.contains('kb')&&!R.classList.contains('sh-open')&&!document.querySelector('.ppage,.th30,.st99-pl,.lb24,.bc14,.fn995,[role=dialog]');
+/* ── 위 머리 고정: 맨 위에서 아래로 끌어도 화면(위 DKO · 프로필 포함)이 출렁이지 않아요 ──
+   새로고침 표시는 없어요. 새 커뮤니티 글은 '새 글' 알림으로 따로 알려 줘요. 채팅 탭은 원래처럼 고정 화면이에요. */
+(function(){ if(typeof document==='undefined') return; const R=document.documentElement; let st=null;
+  const ok=()=>!R.classList.contains('lock')&&!R.classList.contains('pc')&&!R.classList.contains('kb')&&!R.classList.contains('sh-open')&&!document.querySelector('.ppage,.th30,.st99-pl,.lb24,.bc14,.fn995,.sp97,[role=dialog]');
   const canY=n=>{ const s=getComputedStyle(n); return /(auto|scroll)/.test(s.overflowY)&&n.scrollHeight>n.clientHeight+1; };
   const inner=t=>{ for(let n=t;n&&n.nodeType===1&&n!==document.body&&n!==R;n=n.parentElement){ if(canY(n)) return n; } return null; };
-  const mk=()=>{ if(ind&&ind.isConnected) return ind; ind=document.createElement('div'); ind.className='ptr99'; ind.setAttribute('aria-hidden','true'); ind.innerHTML='<i class="ptr99-r"></i><b class="ptr99-t"></b>'; document.body.appendChild(ind); return ind; };
-  const set=(y,p,txt)=>{ R.style.setProperty('--ptr',y+'px'); R.style.setProperty('--ptrp',p); const I=mk(); I.querySelector('.ptr99-t').textContent=txt||''; };
-  const end=()=>{ R.classList.add('ptr-back'); set(0,0,''); setTimeout(()=>{ R.classList.remove('ptr-on','ptr-back','ptr-go','ptr-done'); },420); };
-  document.addEventListener('touchstart',e=>{ st=null; if(busy||e.touches.length!==1||!ok()) return; const t=e.target; if(!t||!t.closest||!t.closest('#root')||t.closest('input,textarea,select,[contenteditable],.dock99,.gt,.cz77-vp')) return; if(window.scrollY>0) return; const n=inner(t); if(n&&n.scrollTop>0) return;
-    st={x:e.touches[0].clientX,y:e.touches[0].clientY,d:0,pull:0,can:PTR_TABS.includes(tab())}; },{passive:true});
-  document.addEventListener('touchmove',e=>{ if(!st||busy||e.touches.length!==1) return; const dx=e.touches[0].clientX-st.x, dy=e.touches[0].clientY-st.y;
-    if(!st.d){ if(Math.abs(dx)<5&&Math.abs(dy)<5) return; st.d=Math.abs(dx)>Math.abs(dy)||dy<0?1:2; if(st.d===2){ R.classList.add('ptr-on'); R.classList.remove('ptr-back'); } }
-    if(st.d!==2) return; if(window.scrollY>0){ st=null; end(); return; }
-    if(e.cancelable) e.preventDefault();
-    const pull=Math.max(0,dy)*.48; const y=Math.min(st.can?118:46,pull); st.pull=y; const p=st.can?Math.min(1,y/76):0;
-    if(st.can&&p>=1&&!st.arm){ st.arm=1; haptic(10); } if(st.can&&p<1&&st.arm) st.arm=0;
-    set(y,p,st.can?(p>=1?'놓으면 새로고침':''):''); },{passive:false});
-  const up=()=>{ if(!st) return; const S=st; st=null; if(S.d!==2) return;
-    if(S.can&&S.pull>=76){ busy=true; R.classList.add('ptr-go'); R.classList.add('ptr-back'); set(58,1,'새로고치는 중'); haptic([8,40,8]);
-      setTimeout(()=>{ window.dispatchEvent(new Event('dko-refresh')); },260);
-      setTimeout(()=>{ R.classList.add('ptr-done'); set(58,1,'최신 상태예요'); },820);
-      setTimeout(()=>{ busy=false; end(); },1350); }
-    else end(); };
-  document.addEventListener('touchend',up,{passive:true}); document.addEventListener('touchcancel',up,{passive:true});
+  document.addEventListener('touchstart',e=>{ st=null; if(e.touches.length!==1||!ok()) return; const t=e.target; if(!t||!t.closest||!t.closest('#root')||t.closest('input,textarea,select,[contenteditable],.dock99,.gt,.cz77-vp')) return; if(window.scrollY>0) return; const n=inner(t); if(n&&n.scrollTop>0) return;
+    st={x:e.touches[0].clientX,y:e.touches[0].clientY,d:0}; },{passive:true});
+  document.addEventListener('touchmove',e=>{ if(!st||e.touches.length!==1) return; const dx=e.touches[0].clientX-st.x, dy=e.touches[0].clientY-st.y;
+    if(!st.d){ if(Math.abs(dx)<4&&Math.abs(dy)<4) return; st.d=Math.abs(dx)>Math.abs(dy)||dy<0?1:2; }
+    if(st.d!==2){ st=null; return; } if(window.scrollY>0){ st=null; return; }
+    if(e.cancelable) e.preventDefault(); },{passive:false});
+  const up=()=>{ st=null; }; document.addEventListener('touchend',up,{passive:true}); document.addEventListener('touchcancel',up,{passive:true});
 })();
 
 /* ── 홀로그램 카드: 배지 · D-ROP 카드가 기울기(또는 손가락)에 따라 반짝여요 · 신화는 화면 테두리까지 빛이 번져요 ── */
@@ -27422,6 +27709,44 @@ function LazyList({items,render,step=20,k}){ const [n,setN]=useState(step); cons
   useEffect(()=>{ setN(step); },[k]);
   useEffect(()=>{ const el=ref.current; if(!el||typeof IntersectionObserver==='undefined') return; const io=new IntersectionObserver(E=>{ if(E.some(x=>x.isIntersecting)) setN(v=>v+step); },{rootMargin:'900px 0px'}); io.observe(el); return ()=>io.disconnect(); });
   return html`<${React.Fragment}>${items.slice(0,n).map(render)}${items.length>n?html`<div ref=${ref} className="fd97-more" aria-hidden="true"><i></i><i></i><i></i></div>`:null}<//>`; }
+
+/* ── DKO 스튜디오 독립 화면 (바로가기 · 독 · 전체 탭 · 공유 링크로 열어요) ── */
+function StudioPageHost({c}){ const [o,setO]=useState(false); const [out,setOut]=useState(false);
+  useEffect(()=>{ const f=()=>{ setO(on=>{ if(on){ window.dispatchEvent(new Event('dko-studio-go')); return on; } return true; }); setOut(false); }; window.addEventListener('dko-studio',f); return ()=>window.removeEventListener('dko-studio',f); },[]);
+  useEffect(()=>{ if(!o) return; document.documentElement.classList.add('sp97-on'); return ()=>document.documentElement.classList.remove('sp97-on'); },[o]);
+  if(!o) return null;
+  const close=()=>{ setOut(true); setTimeout(()=>{ setO(false); setOut(false); },300); };
+  return ReactDOM.createPortal(html`<div className=${'sp97'+(out?' out':'')} role="dialog" aria-label="DKO 스튜디오">
+    <header className="sp97-top"><button type="button" className="sp97-ib tap" onClick=${close} aria-label="뒤로"><${Icon} n="chevL" s=${22} w=${2.4}/></button>
+      <span className="sp97-tt"><em>DKO</em><b>STUDIOS</b></span><span className="sp97-ib ghost"></span></header>
+    <div className="sp97-sc"><${StudioHub} c=${c} start=${null}/><div style=${{height:'calc(40px + env(safe-area-inset-bottom,0px))'}}></div></div></div>`,document.body); }
+
+/* ── 채팅 검색: 방 이름 · 메시지 내용으로 찾아요 ── */
+function ChatSearchHost({c}){ const [o,setO]=useState(false); const [q,setQ]=useState(''); const [out,setOut]=useState(false);
+  useEffect(()=>{ const f=()=>{ setO(true); setOut(false); setQ(''); }; window.addEventListener('dko-csearch',f); return ()=>window.removeEventListener('dko-csearch',f); },[]);
+  if(!o) return null;
+  const close=()=>{ setOut(true); setTimeout(()=>{ setO(false); setOut(false); },240); };
+  const ql=q.trim().toLowerCase(); const rooms=c.myRooms||[]; const RM=Object.fromEntries(rooms.map(r=>[r.id,r]));
+  const R=ql?rooms.filter(r=>String(r.name||'').toLowerCase().includes(ql)).slice(0,8):[];
+  const M=ql.length>=1?(c.messages||[]).filter(m=>RM[m.room||'all']&&typeof m.text==='string'&&m.text.toLowerCase().includes(ql)).sort((a,b)=>(b.createdAt||0)-(a.createdAt||0)).slice(0,40):[];
+  const go=(rid,mid)=>{ close(); setTimeout(()=>{ c.openRoom(rid); if(mid) setTimeout(()=>{ const el=document.querySelector('[data-mid="'+mid+'"]'); if(el){ el.scrollIntoView({behavior:'smooth',block:'center'}); el.classList.add('hl'); setTimeout(()=>el.classList.remove('hl'),1600); } },650); },200); };
+  const hi=t=>{ const s=String(t); const i=s.toLowerCase().indexOf(ql); if(i<0) return s.slice(0,80); const a=Math.max(0,i-18); return html`${a?'…':''}${s.slice(a,i)}<mark>${s.slice(i,i+ql.length)}</mark>${s.slice(i+ql.length,i+ql.length+50)}`; };
+  return ReactDOM.createPortal(html`<div className=${'sr97'+(out?' out':'')} role="dialog" aria-label="채팅 검색">
+    <header className="sr97-top"><button type="button" className="sp97-ib tap" onClick=${close} aria-label="뒤로"><${Icon} n="chevL" s=${22} w=${2.4}/></button>
+      <label className="sr97-in"><${Icon} n="search" s=${17} w=${2.3}/><input autoFocus=${true} value=${q} onInput=${e=>setQ(e.target.value)} placeholder="채팅방 · 메시지 찾기" enterKeyHint="search"/>${q?html`<button type="button" className="tap" onClick=${()=>setQ('')} aria-label="지우기"><${Icon} n="x" s=${14} w=${2.6}/></button>`:null}</label></header>
+    <div className="sr97-sc">
+      ${!ql?html`<div className="sr97-e"><${Icon} n="chat" s=${26} w=${1.8}/><b>채팅에서 찾기</b><small>방 이름이나 주고받은 메시지로 찾아요</small></div>`:null}
+      ${R.length?html`<h5>채팅방</h5>${R.map((r,i)=>html`<button key=${r.id} type="button" className="sr97-r tap" style=${{'--i':i}} onClick=${()=>go(r.id)}><span className=${'cl15-av k-'+roomCat(r.id)}>${r.id==='all'?html`<b className="cl15-dko">DKO</b>`:html`<${Icon} n=${roomIcon(r.id)} s=${18} w=${2}/>`}</span><span><b>${r.name}</b><small>${r.sub||''}</small></span><${Icon} n="chev" s=${14} w=${2.4}/></button>`)}`:null}
+      ${M.length?html`<h5>메시지 ${M.length}${M.length>=40?'+':''}</h5>${M.map((m,i)=>{ const mm=(c.members||[]).find(x=>x.uid===m.uid); return html`<button key=${m.id} type="button" className="sr97-m tap" style=${{'--i':Math.min(i,12)}} onClick=${()=>go(m.room||'all',m.id)}>${mm?html`<${PfpView} m=${mm} s=${34}/>`:html`<${Avatar} nick=${m.nick||'?'} s=${34}/>`}<span><span className="sr97-mh"><b>${mm?dispName(mm):m.nick}</b><em>${(RM[m.room||'all']||{}).name||''}</em><small>${ago(m.createdAt)}</small></span><p>${hi(m.text)}</p></span></button>`; })}`:null}
+      ${ql&&!R.length&&!M.length?html`<div className="sr97-e"><b>'${q}' 결과가 없어요</b><small>다른 말로 찾아보세요</small></div>`:null}
+    </div></div>`,document.body); }
+
+/* ── 처음 한 번: 아이콘만 남은 탭 바 · 독의 이름을 잠깐 보여 주고 사용법을 알려 줘요 ── */
+function TourHost({c}){ const [o,setO]=useState(false);
+  useEffect(()=>{ if(!c.ready) return; let done=null; try{ done=localStorage.getItem('dko-tour30'); }catch(e){ return; } if(done) return; const t=setTimeout(()=>{ setO(true); document.documentElement.classList.add('tour97'); haptic(8); },1600); return ()=>clearTimeout(t); },[c.ready]);
+  if(!o) return null;
+  const end=()=>{ try{ localStorage.setItem('dko-tour30','1'); }catch(e){} document.documentElement.classList.remove('tour97'); setO(false); haptic(6); };
+  return ReactDOM.createPortal(html`<div className="tour97c" role="dialog" aria-label="안내"><b>아이콘만 깔끔하게 남겼어요</b><p>탭 바 · 독 아이콘을 꾹 누르면 이름이 보여요. 독을 꾹 누르면 순서를 바꾸고, 앱을 넣거나 뺄 수 있어요.</p><button type="button" className="tap" onClick=${end}>알겠어요</button></div>`,document.body); }
 
 window.__DKO={BANNERS,BrickIc,C0,CB_TIPS,CH,CW,Coin,Dia,EQ_PRICE,EQ_SHIELD,EQ_T,EQ_TC,FX,GA,GA_SET,GChips,GE_DUST,GE_EL,GE_ELS,GE_EPIC,GE_FIX,GE_RK,GE_SELL,GE_SUB,GE_UP,GR_C,GR_N,GR_T,GW,GW_HIT,GoldIc,ICONS,Icon,PX_HEROES,PfpView,PixelChar,R,RAID,STICKER,StickerTray,TS,VX_ISO,VoxelStage,WCF,WP_GOALS,WP_MAX,W_BIG,W_CAT,W_CDECO,W_CK,W_CR,W_CROP,W_DECO_MAX,W_EXP_COST,W_GOLD_RATE,W_HUB,W_LAND_MAX,W_LAND_SS_FROM,W_LM,W_LMS,W_LONG,W_LV_ROOF,W_MINE_CAP,W_MINE_RATE,W_OB,W_OB_TIME,W_PROTECT,W_SC,W_START,W_START_BRICKS,W_SW,W_SZ,W_TABS,W_TILE,W_WALK,ago,avatarOf,coinsOf,consentOpt,dayKey,diaOf,dispName,dkoAsk,eqId,eqName,eqParse,gCap,gClone,gDef,gDrop,gDurMax,gElemOf,gEquipped,gFind,gIsW,gName,gNew,gSetOf,gSlotOf,gUpMul,gearOf,haptic,heroAv,hh,html,isOnline,isStealth,isSuperM,lmC,lmDoor,lsGet,lsSet,myLiveParty,ownsHero,partyLive,raidFmt,raidList,raidMineOf,raidShieldOf,rng,rpgEqLook,rpgNeed,rpgOf,rpgStats,rr,seed,useEffect,useMemo,useRef,useState,vxDraw,wBack,wBrick,wCells,wCropOf,wCube,wDrawChar,wEase,wFmtT,wGoldOf,wHash,wLandCost,wLandSS,wName,wPlotEnd,wPlotOf,wPlotWater,wRad,wShade,wShadow,wSpeedCost,wStealCost,wStr,wSz,wTag,wTopIsl,wWeek0,wWeekScore,wXmas,wpLive,wpMine};
 ReactDOM.createRoot(document.getElementById('root')).render(html`<${Root}/>`);

@@ -78,7 +78,10 @@ service cloud.firestore {
       match /studios/{id} { allow read, update: if signedIn(); allow create: if signedIn() && request.resource.data.by == request.auth.uid; allow delete: if signedIn() && (resource.data.by == request.auth.uid || staff()); }
       match /works/{id} { allow read, update: if signedIn(); allow create: if signedIn() && request.resource.data.by == request.auth.uid; allow delete: if signedIn() && (resource.data.by == request.auth.uid || staff()); }
       match /workcode/{id} { allow read: if signedIn(); allow create: if signedIn() && request.resource.data.by == request.auth.uid; allow update: if signedIn() && request.resource.data.by == resource.data.by; allow delete: if signedIn() && (resource.data.by == request.auth.uid || staff()); }
-      match /workcm/{id} { allow read: if signedIn(); allow create: if signedIn() && request.resource.data.uid == request.auth.uid; allow delete: if signedIn() && (resource.data.uid == request.auth.uid || staff()); }
+      match /workcm/{id} { allow read: if signedIn(); allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+        /* v29.9.8 피드백: 누구나 '나도 원해요'(ups)만, 작품 주인 · 운영진은 상태(st · ver · rep) */
+        allow update: if signedIn() && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ups']) || staff() || get(/databases/$(database)/documents/artifacts/$(appId)/public/data/works/$(resource.data.w)).data.by == request.auth.uid);
+        allow delete: if signedIn() && (resource.data.uid == request.auth.uid || staff()); }
       /* v29.9 대출 기록(예비 컬렉션) · 대출 자체는 내 멤버 문서 fin.loans에 있어요 */
       match /finloan/{id} { allow read: if signedIn(); allow create: if signedIn() && request.resource.data.uid == request.auth.uid; allow update, delete: if staff(); }
       match /channels/{id} { allow read: if signedIn();

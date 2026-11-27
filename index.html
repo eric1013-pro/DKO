@@ -13596,28 +13596,6 @@ html.st99-on .tabs,html.st99-on .db31{visibility:hidden}
 .pe99-a button.ghost{flex:.6;background:var(--panel-2);color:var(--text)}
 .pe99-a button:disabled{opacity:.45}
 /* ── 피날레 ── */
-.fn995{position:fixed;inset:0;z-index:99990;display:grid;place-items:center;background:radial-gradient(120% 80% at 50% 0%,#1B1440 0%,#07070D 60%);animation:fn995in .5s ease both}
-@keyframes fn995in{from{opacity:0}}
-.fn995-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.fn995-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:min(92vw,460px);padding:24px;text-align:center;color:#fff}
-.fn995-k{font:italic 400 13px var(--f-ow);letter-spacing:.34em;color:#FFD23A;animation:fn995up .7s .3s cubic-bezier(.2,1,.3,1) both}
-.fn995-v{display:flex;align-items:baseline;font:italic 400 clamp(64px,22vw,120px)/1 var(--f-ow);letter-spacing:-.02em;background:linear-gradient(180deg,#FFFFFF 10%,#FFD9A8 45%,#FF8A3D 80%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 30px rgba(255,138,61,.55));animation:fn995pop 1s .45s cubic-bezier(.2,1.5,.35,1) both}
-.fn995-v i{font-style:normal;font-size:.45em;margin-right:.08em;opacity:.8}
-.fn995-t{font-size:26px;font-weight:900;letter-spacing:-.03em;animation:fn995up .7s .75s cubic-bezier(.2,1,.3,1) both}
-.fn995-in p{margin:0;font-size:14px;line-height:1.6;color:rgba(255,255,255,.75);animation:fn995up .7s .9s cubic-bezier(.2,1,.3,1) both}
-.fn995-s{display:flex;gap:22px;margin:8px 0 4px;animation:fn995up .7s 1.05s cubic-bezier(.2,1,.3,1) both}
-.fn995-s span{display:flex;flex-direction:column;font-size:12px;color:rgba(255,255,255,.6);font-weight:700}
-.fn995-s b{font:italic 400 30px/1.1 var(--f-ow);color:#fff}
-.fn995-by{font-size:12px;color:rgba(255,255,255,.5);letter-spacing:.04em;animation:fn995up .7s 1.2s both}
-.fn995-x{margin-top:10px;height:48px;padding:0 34px;border-radius:99px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font-weight:900;font-size:15px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);animation:fn995up .7s 1.35s both}
-@keyframes fn995up{from{opacity:0;transform:translateY(18px)}}
-@keyframes fn995pop{0%{opacity:0;transform:scale(.4) rotate(-8deg);filter:blur(10px)}100%{opacity:1;transform:none}}
-.fn995-b{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;margin:14px auto 0;padding:14px 30px;border-radius:20px;border:1px solid rgba(255,210,58,.35);background:radial-gradient(120% 140% at 50% 0%,rgba(255,138,61,.25),rgba(255,138,61,.04));color:var(--text);overflow:hidden}
-.fn995-bs{position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,230,160,.35) 48%,transparent 62%);background-size:250% 100%;animation:pc99sh 3.5s ease-in-out infinite;pointer-events:none}
-.fn995-b em{font:italic 400 11px var(--f-ow);letter-spacing:.3em;color:#FF8A3D}
-.fn995-b b{font:italic 400 30px/1.1 var(--f-ow);background:linear-gradient(180deg,#FFE3B8,#FF8A3D);-webkit-background-clip:text;background-clip:text;color:transparent}
-.fn995-b small{font-size:11px;color:var(--faint);font-weight:700}
-@media (prefers-reduced-motion:reduce){.fn995 *{animation:none!important}}
 .st99-fc .st99-cv .k{display:none}
 /* ═════════ v29.9.6 플레이 독 · 바로가기 편집 ═════════ */
 .ph25-cta:has(>.dock99){display:block!important}
@@ -20913,7 +20891,6 @@ function Settings({c}){
     <div className="credit cut st30-cr">
       <img src=${STUDIO_LOGO} alt="THRE3RIC STUDIO"/>
       <p>DKO 앱은 THRE3RIC STUDIO가 만들었어요.</p>
-      <${FinaleBadge}/>
     </div>
   </div>`;
 }
@@ -22844,7 +22821,7 @@ function App({store,initial,onLogout,fellBack,prefs,setPref,fresh}){
     <${Sheet} open=${!!coinPack} onClose=${close} title="D-ot 충전">${coinPack?html`<${CoinBuy} c=${c} pack=${coinPack}/>`:null}<//>
     <${Sheet} open=${sheet==='consent'} onClose=${close} title="개인정보 제공 설정" tall=${true}>${sheet==='consent'?html`<${ConsentBody} c=${c} onDone=${close}/>`:null}<//>
     <${Sheet} open=${!!diaPack} onClose=${close} title="D-iamond 충전">${diaPack?html`<${DiaBuy} c=${c} pack=${diaPack}/>`:null}<//>
-    <${GiftClaimer} c=${c}/><${RaidApplier} c=${c}/><${PartyNotifier} c=${c}/><${FinDivClaimer} c=${c}/><${FinWatch} c=${c}/><${StudioLink} c=${c}/><${PartyEndorse} c=${c}/><${FinaleAuto} c=${c}/><${V97Host} c=${c}/><${StAppHost} c=${c}/><${StudioPageHost} c=${c}/><${StoreHost} c=${c}/><${ChatSearchHost} c=${c}/><${TourHost} c=${c}/>
+    <${GiftClaimer} c=${c}/><${RaidApplier} c=${c}/><${PartyNotifier} c=${c}/><${FinDivClaimer} c=${c}/><${FinWatch} c=${c}/><${StudioLink} c=${c}/><${PartyEndorse} c=${c}/><${V97Host} c=${c}/><${StAppHost} c=${c}/><${StudioPageHost} c=${c}/><${StoreHost} c=${c}/><${ChatSearchHost} c=${c}/><${TourHost} c=${c}/>
     ${(()=>{ const sp=sheet&&sheet.startsWith('stkpay-')?PX_PACKS.find(p=>'stkpay-'+p.id===sheet):null; return html`<${Sheet} open=${!!sp} onClose=${close} title="이모티콘 마켓">${sp?html`<div className="stm25-co"><div className="stm25-prev">${STICKERS.filter(s=>s.pack===sp.id).slice(0,8).map(s=>html`<span key=${s.id}><img src=${s.src} alt=""/></span>`)}</div><${Checkout} c=${c} item=${{kind:'stkpack',packId:sp.id,pack:{id:sp.id,n:sp.n,price:sp.won,coins:0,bonus:0},title:sp.n,sub:sp.desc+' · 영구 소장',price:sp.won}}/></div>`:null}<//>`; })()}
     <${Sheet} open=${sheet==='mega'} onClose=${close} title="확성기"><${MegaForm} c=${c}/><//>
     <${Sheet} open=${sheet==='chatmenu'} onClose=${close} title="채팅에 올리기">
@@ -28557,7 +28534,7 @@ function StudioLink({c}){ useEffect(()=>{ if(!c.ready) return; const m=String(lo
 const openStudioCh=c=>{ c&&c.setSheet&&c.setSheet(null); const s=window.__stStart; window.dispatchEvent(new Event(s&&(s.w||s.s)?'dko-store':'dko-studio')); };
 const openStore=c=>{ c&&c.setSheet&&c.setSheet(null); window.dispatchEvent(new Event('dko-store')); };
 
-/* ═════════ v29.9.5 피날레 (앱) ═════════
+/* ═════════ v29.9.5 (앱) ═════════
    이벤트 전체 보기 · 파티 끝나고 서로 추천 · 피날레 버전 화면 */
 
 /* ── 이벤트 전체 보기 ── */
@@ -28586,37 +28563,6 @@ function PartyEndorse({c}){ const [P,setP]=useState(null); const [sel,setSel]=us
         <span className="pe99-av">${m.uid?html`<${PfpView} m=${m} s=${52}/>`:null}${on?html`<i><${Icon} n="heart" s=${14} w=${2.6} fill="currentColor"/></i>`:null}</span><b>${dispName(m)||x.nick}</b><small>${x.pos||m.pos||''}${x.tier?' · '+x.tier:''}</small></button>`; })}</div>
       <div className="pe99-a"><button type="button" className="tap ghost" onClick=${()=>done(false)}>다음에</button><button type="button" className="tap" disabled=${!sel.length} onClick=${()=>done(true)}>${sel.length?sel.length+'명 추천하기':'추천할 사람을 골라요'}</button></div></div><//>`; }
 
-/* ── 피날레 버전 화면: 버전을 누르면 폭죽이 터지고 마지막 버전을 크게 보여 줘요 ── */
-function FinaleFX({onClose}){ const cv=useRef(null);
-  useEffect(()=>{ const el=cv.current; if(!el) return; const g=el.getContext('2d'); const dpr=Math.min(2,window.devicePixelRatio||1); let W=0,H=0; const size=()=>{ W=el.clientWidth; H=el.clientHeight; el.width=W*dpr; el.height=H*dpr; g.setTransform(dpr,0,0,dpr,0,0); }; size(); window.addEventListener('resize',size);
-    const P=[], R=[]; const COL=['#FF8A3D','#FFD23A','#FF5C8A','#7A5CFF','#5FB8FF','#29C27F','#FFFFFF'];
-    const shoot=(x,y)=>{ const c=COL[Math.floor(Math.random()*COL.length)], c2=COL[Math.floor(Math.random()*COL.length)]; const n=70+Math.floor(Math.random()*40); const sp=2.4+Math.random()*2.2;
-      for(let i=0;i<n;i++){ const a=i/n*Math.PI*2+Math.random()*.05, v=sp*(.55+Math.random()*.6); P.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,l:1,c:i%3?c:c2,s:1.4+Math.random()*1.6,tw:Math.random()<.3}); }
-      try{ DKOSfx&&DKOSfx.fx&&DKOSfx.fx('pop',.5); }catch(e){} };
-    const rocket=()=>{ R.push({x:W*(.15+Math.random()*.7),y:H+10,vy:-(7+Math.random()*3.5),ty:H*(.15+Math.random()*.35),c:COL[Math.floor(Math.random()*COL.length)]}); };
-    let raf=0, last=performance.now(), t0=last, nx=0; const big=[[.3,.3],[.7,.26],[.5,.18]];
-    big.forEach(([x,y],i)=>setTimeout(()=>shoot(W*x,H*y),250+i*260));
-    const loop=now=>{ const dt=Math.min(2.5,(now-last)/16.7); last=now; g.globalCompositeOperation='destination-out'; g.fillStyle='rgba(0,0,0,.22)'; g.fillRect(0,0,W,H); g.globalCompositeOperation='lighter';
-      if(now>nx&&now-t0<14000){ rocket(); nx=now+420+Math.random()*520; }
-      for(let i=R.length-1;i>=0;i--){ const r=R[i]; r.y+=r.vy*dt; r.vy+=.06*dt; g.fillStyle=r.c; g.beginPath(); g.arc(r.x,r.y,2.2,0,7); g.fill(); g.fillStyle='rgba(255,220,170,.35)'; g.fillRect(r.x-1,r.y,2,14); if(r.y<=r.ty||r.vy>=-.5){ shoot(r.x,r.y); R.splice(i,1); } }
-      for(let i=P.length-1;i>=0;i--){ const p=P[i]; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vx*=Math.pow(.985,dt); p.vy=p.vy*Math.pow(.985,dt)+.035*dt; p.l-=.0105*dt; if(p.l<=0){ P.splice(i,1); continue; } const a=p.tw?p.l*(.5+.5*Math.sin(now/60+i)):p.l; g.globalAlpha=Math.max(0,a); g.fillStyle=p.c; g.beginPath(); g.arc(p.x,p.y,p.s*(.6+p.l*.6),0,7); g.fill(); }
-      g.globalAlpha=1; raf=requestAnimationFrame(loop); };
-    raf=requestAnimationFrame(loop); haptic([20,40,20,40,60]);
-    return ()=>{ cancelAnimationFrame(raf); window.removeEventListener('resize',size); }; },[]);
-  const U=BLOG.filter(b=>b.cat==='UPDATE'); const first=U[U.length-1]||{}; const n=U.length;
-  return ReactDOM.createPortal(html`<div className="fn995" role="dialog" aria-label="DKO 피날레" onClick=${onClose}>
-    <canvas ref=${cv} className="fn995-cv" aria-hidden="true"></canvas>
-    <div className="fn995-in" onClick=${e=>e.stopPropagation()}>
-      <span className="fn995-k">THE FINAL VERSION</span>
-      <div className="fn995-v"><i>v</i>${APP_VERSION}</div>
-      <b className="fn995-t">DKO 피날레</b>
-      <p>${first.date||'2026.11.12'} 첫 버전부터 ${n}번의 업데이트.<br/>함께 만들어 준 크루 모두 고마워요.</p>
-      <div className="fn995-s"><span><b>${n}</b>업데이트</span><span><b>${(c=>c)(Math.max(1,Math.round((Date.now()-new Date((first.date||'2026.11.12').replace(/\./g,'-')).getTime())/86400000)))}</b>일</span><span><b>∞</b>추억</span></div>
-      <span className="fn995-by">THRE3RIC STUDIO · CEO 트릭이 · 운영진 야건</span>
-      <button type="button" className="fn995-x tap" onClick=${onClose}>닫기</button></div></div>`,document.body); }
-function FinaleBadge(){ const [o,setO]=useState(false); return html`<${React.Fragment}><button type="button" className="fn995-b tap" onClick=${()=>{ haptic(14); setO(true); }}><i className="fn995-bs"></i><em>FINAL</em><b>v${APP_VERSION}</b><small>눌러서 피날레 보기</small></button>${o?html`<${FinaleFX} onClose=${()=>setO(false)}/>`:null}<//>`; }
-/* 이번 피날레 버전을 처음 열면 한 번 폭죽을 보여 줘요 */
-function FinaleAuto({c}){ const [o,setO]=useState(false); useEffect(()=>{ if(!c.ready) return; let seen=null; try{ seen=localStorage.getItem('dko-finale'); }catch(e){ return; } if(seen&&seen.slice(0,4)===APP_VERSION.slice(0,4)) return; const t=setTimeout(()=>{ try{ localStorage.setItem('dko-finale',APP_VERSION); }catch(e){} setO(true); },1200); return ()=>clearTimeout(t); },[c.ready]); return o?html`<${FinaleFX} onClose=${()=>setO(false)}/>`:null; }
 
 /* ═════════ v29.9.6 플레이 독 · 바로가기 편집 ═════════
    · 메인 아래쪽을 휴대폰 독처럼: 고른 앱 최대 5개 + 맨 오른쪽 '전체 앱'
